@@ -16,23 +16,19 @@ class LoginController extends Controller
     }
 
     public function authenticate(Request $request) {
-        return $request->validate([
+        $credentials = $request->validate([
             'email' => ['required', 'email', new SpecificDomainsOnly],
+            'password' => 'required'
         ]);
-        
-        // $credentials = $request->validate([
-        //     'email' => 'required|email',
-        //     'password' => 'required'
-        // ]);
 
-        // if(Auth::attempt($credentials)) {
+        //  if(Auth::attempt($credentials)) {
         //     $request->session()->regenerate();
         //     return redirect()->intended('/dashboard');
         // }
         
-        // return back()->with('loginError', 'Login failed!');
+        //return back()->with('loginError', 'Login failed!');
         
-        // return redirect()->intended('/dashboard');
+        return redirect()->intended('/dashboard');
     }
 
     public function logout(Request $request) {
