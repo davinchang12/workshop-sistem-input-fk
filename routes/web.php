@@ -18,5 +18,7 @@ Route::get('/', [LoginController::class, 'index']);
 Route::post('/', [LoginController::class, 'authenticate']);
 
 Route::get('/dashboard', function() {
-    return view('dashboard');
-});
+    return view('dashboard.index', [
+        'title' => 'Dashboard'
+    ]);
+})->middleware('auth');

@@ -47,6 +47,6 @@ class SpecificDomainsOnly implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'Email harus dengan email unika !';
     }
 }
