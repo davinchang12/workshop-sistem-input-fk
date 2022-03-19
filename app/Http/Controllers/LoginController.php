@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rules\SpecificDomainsOnly;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -14,10 +16,14 @@ class LoginController extends Controller
     }
 
     public function authenticate(Request $request) {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+        return $request->validate([
+            'email' => ['required', 'email', new SpecificDomainsOnly],
         ]);
+        
+        // $credentials = $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required'
+        // ]);
 
         // if(Auth::attempt($credentials)) {
         //     $request->session()->regenerate();
@@ -26,7 +32,7 @@ class LoginController extends Controller
         
         // return back()->with('loginError', 'Login failed!');
         
-        return redirect()->intended('/dashboard');
+        // return redirect()->intended('/dashboard');
     }
 
     public function logout(Request $request) {
