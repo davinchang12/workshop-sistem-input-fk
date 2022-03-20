@@ -32,5 +32,11 @@ class DatabaseSeeder extends Seeder
             'email' => '19k10017@student.unika.ac.id',
             'password' => bcrypt('123')
         ]);
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@unika.ac.id',
+            'password' => bcrypt('admin')
+        ]);
     }
 }
