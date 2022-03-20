@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [LoginController::class, 'index']);
+Route::get('/', [LoginController::class, 'index'])->middleware('guest')->name('login');
 Route::post('/', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboard', function() {
-    return view('dashboard');
-});
+    return view('dashboard.index', [
+        'title' => 'Dashboard'
+    ]);
+})->middleware('auth');
