@@ -15,17 +15,14 @@
                 </a>
             </li>
             
-            <div class="nav-item text-nowrap">
-                <li class="nav-item">
-                    <form action="/logout" method="post">
-                        @csrf
-        
-                        <button type="submit" class="nav-link">Logout <span
-                                data-feather="log-out"></span></button>
-                    </form>
-                </li>
-            </div>
-            
+            <li class="nav-item">
+                <form action="/logout" method="post">
+                    @csrf
+    
+                    <button type="submit" class="btn btn-link shadow-none nav-link">Logout <span
+                            data-feather="log-out"></span></button>
+                </form>
+            </li>    
         </ul>
     </div>
 </nav>
