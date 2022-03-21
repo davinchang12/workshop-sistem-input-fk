@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feedback;
-use App\Http\Requests\StoreFeedbackRequest;
-use App\Http\Requests\UpdateFeedbackRequest;
+use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
@@ -31,10 +30,10 @@ class FeedbackController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFeedbackRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreFeedbackRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -64,11 +63,11 @@ class FeedbackController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFeedbackRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Feedback  $feedback
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFeedbackRequest $request, Feedback $feedback)
+    public function update(Request $request, Feedback $feedback)
     {
         //
     }
