@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,5 @@ Route::get('/dashboard', function() {
         'title' => 'Dashboard'
     ]);
 })->middleware('auth');
+
+Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');

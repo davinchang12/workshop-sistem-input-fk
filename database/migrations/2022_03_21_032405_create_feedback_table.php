@@ -16,6 +16,7 @@ class CreateFeedbackTable extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->foreignId('nilai_id');
             $table->text('feedback')->nullable();
+            $table->timestamps();
         });
     }
 
