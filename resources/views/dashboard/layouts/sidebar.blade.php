@@ -9,9 +9,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/posts*') ? 'active' : '' }}" href="/dashboard/posts">
+                <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
                     <span data-feather="file-text"></span>
-                    My Posts
+                    Nilai
                 </a>
             </li>
             

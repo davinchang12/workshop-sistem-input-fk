@@ -17,8 +17,9 @@ class CreateNilaisTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             // $table->foreignId('matkul_id');
-            $table->text('keterangan');
+            $table->string('keterangan');
             $table->integer('nilai_mhs');
+            $table->timestamps();
         });
     }
 
