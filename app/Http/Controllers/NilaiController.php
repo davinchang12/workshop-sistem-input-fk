@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Http\Requests\StoreNilaiRequest;
-use App\Http\Requests\UpdateNilaiRequest;
+use Illuminate\Http\Request;
 
 class NilaiController extends Controller
 {
@@ -31,10 +30,10 @@ class NilaiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreNilaiRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNilaiRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -64,11 +63,11 @@ class NilaiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateNilaiRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNilaiRequest $request, Nilai $nilai)
+    public function update(Request $request, Nilai $nilai)
     {
         //
     }

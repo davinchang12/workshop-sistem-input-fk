@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelompok;
-use App\Http\Requests\StoreKelompokRequest;
-use App\Http\Requests\UpdateKelompokRequest;
+use Illuminate\Http\Request;
 
 class KelompokController extends Controller
 {
@@ -31,10 +30,10 @@ class KelompokController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreKelompokRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKelompokRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -64,11 +63,11 @@ class KelompokController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateKelompokRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Kelompok  $kelompok
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKelompokRequest $request, Kelompok $kelompok)
+    public function update(Request $request, Kelompok $kelompok)
     {
         //
     }
