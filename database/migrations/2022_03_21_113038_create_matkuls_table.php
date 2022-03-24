@@ -17,6 +17,7 @@ class CreateMatkulsTable extends Migration
             $table->id();
             $table->string('namamatkul');
             $table->text('keterangan');
+            $table->string('tahun_ajaran');
             $table->timestamps();
         });
     }
