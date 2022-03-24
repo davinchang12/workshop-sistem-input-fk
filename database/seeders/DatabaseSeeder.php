@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Jadwal;
 use App\Models\Kelompok;
 use App\Models\Matkul;
 use App\Models\Nilai;
@@ -22,6 +23,8 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
         Nilai::factory(50)->create();
         Matkul::factory(50)->create();
+
+        Jadwal::factory(50)->create();
 
         User::create([
             'name' => 'Admin',
