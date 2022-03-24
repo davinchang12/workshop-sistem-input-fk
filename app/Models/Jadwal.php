@@ -25,6 +25,6 @@ class Jadwal extends Model
         return $this->belongsTo(User::class);
     }
     public function matkul() {
-        return $this->belongsTo(Matakuliah::class);
+        return $this->belongsTo(Matkul::class);
     }
 }
