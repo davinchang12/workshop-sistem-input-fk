@@ -50,11 +50,11 @@ class User extends Authenticatable
         return $this->hasMany(Kelompok::class);
     }
 
-    // public function jadwal() {
-    //     return $this->hasMany(Jadwal::class);
-    // }
+    public function jadwal() {
+        return $this->hasMany(Jadwal::class);
+    }
     
-    // public function kritikSaran() {
-    //     return $this->hasMany(KritikSaran::class);
-    // }
+    public function kritikSaran() {
+        return $this->hasMany(KritikSaran::class);
+    }
 }

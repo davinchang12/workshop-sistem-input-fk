@@ -28,14 +28,14 @@
             </thead>
             <tbody>
                 
-                @foreach ($matkuls as $matkul)
+                @foreach ($jadwals as $jadwal)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $matkul->namamatkul }}</td>
-                        <td>{{ $matkul->keterangan }}</td>
-                        <td>{{ $matkul->tahun_ajaran }}</td>
+                        <td>{{ $jadwal->matkul->namamatkul }}</td>
+                        <td>{{ $jadwal->matkul->keterangan }}</td>
+                        <td>{{ $jadwal->matkul->tahun_ajaran }}</td>
                         <td>
-                            <a href="/dashboard/nilai/{{ $matkul->namamatkul }}" class="badge bg-info">Pilih</a>
+                            <a href="/dashboard/nilai/{{ $jadwal->matkul->namamatkul }}" class="badge bg-info">Pilih</a>
                             </form>
                         </td>
                     </tr>
