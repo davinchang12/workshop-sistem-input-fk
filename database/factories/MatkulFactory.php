@@ -15,7 +15,8 @@ class MatkulFactory extends Factory
     {
         return [
             'namamatkul' => 'matkul ' . $this->faker->numberBetween(1,8),
-            'keterangan' => 'matkul ke-' . $this->faker->numberBetween(1,8)
+            'keterangan' => 'matkul ke-' . $this->faker->numberBetween(1,8),
+            'tahun_ajaran' => $this->faker->randomElement(['2021/2022', '2020/2021', '2019/2020'])
         ];
     }
 }

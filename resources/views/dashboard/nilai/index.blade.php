@@ -22,6 +22,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nama Matkul</th>
                     <th scope="col">Keterangan</th>
+                    <th scope="col">Tahun Ajaran</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $matkul->namamatkul }}</td>
                         <td>{{ $matkul->keterangan }}</td>
+                        <td>{{ $matkul->tahun_ajaran }}</td>
                         <td>
                             <a href="/dashboard/nilai/{{ $matkul->namamatkul }}" class="badge bg-info">Pilih</a>
                             </form>

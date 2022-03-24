@@ -11,7 +11,8 @@ class Matkul extends Model
 
     protected $fillable = [
         'name',
-        'keterangan'
+        'keterangan',
+        'tahun_ajaran'
     ];
 
     public function nilaiMhs() {
