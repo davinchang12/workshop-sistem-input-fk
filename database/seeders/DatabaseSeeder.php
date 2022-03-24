@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Kelompok;
+use App\Models\Matkul;
 use App\Models\Nilai;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -20,6 +21,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
         Nilai::factory(50)->create();
+        Matkul::factory(50)->create();
+
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@unika.ac.id',
+            'password' =>  bcrypt('admin')
+        ]);
 
     }
 }

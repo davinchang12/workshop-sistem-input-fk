@@ -16,6 +16,7 @@ class NilaiFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(1, 10),
             'keterangan' => 'tugas ' . $this->faker->numberBetween(1,8),
+            'matkul_id' => $this->faker->numberBetween(1,8),
             'nilai_mhs' => $this->faker->numberBetween(60, 90)
         ];
     }

@@ -15,7 +15,7 @@ class CreateKelompoksTable extends Migration
     {
         Schema::create('kelompoks', function (Blueprint $table) {
             $table->foreignId('user_id');
-            // $table->foreignId('matkul_id');
+            $table->foreignId('matkul_id');
             $table->string('kodekelompok');
             $table->timestamps();
         });

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Matakuliah;
+use App\Models\Matkul;
 use Illuminate\Http\Request;
 
-class MataKuliahController extends Controller
+class MatkulController extends Controller
 {
      /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class MataKuliahController extends Controller
      */
     public function index()
     {
-        //
+        $matkuls = Matkul::all();
     }
 
     /**

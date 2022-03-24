@@ -15,7 +15,7 @@ class CreateKritikSaransTable extends Migration
     {
         Schema::create('kritik_sarans', function (Blueprint $table) {
             $table->foreignId('user_id');
-            $table->foreignId('matakuliah_id');
+            $table->foreignId('matkul_id');
             $table->text('kritik')->nullable();
             $table->text('saran')->nullable();
         });

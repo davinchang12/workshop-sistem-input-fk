@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
+use App\Models\Matkul;
 use Illuminate\Http\Request;
 
 class NilaiController extends Controller
@@ -14,8 +15,10 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        return view('dashboard.nilai.index');
+        $matkuls = Matkul::all();
+        return view('dashboard.nilai.index', compact('matkuls'));;
     }
+        
 
     /**
      * Show the form for creating a new resource.

@@ -24,6 +24,6 @@ class KritikSaran extends Model
     }
 
     public function matkul() {
-        return $this->belongsTo(Matakuliah::class);
+        return $this->belongsTo(Matkul::class);
     }
 }
