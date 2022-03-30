@@ -41,3 +41,6 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 
 // Admin
 // Route::get('/dashboard/aksesedit', []);
+
+// Superadmin
+// Route::get('/dashboard/role', []);
