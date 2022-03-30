@@ -33,3 +33,9 @@ Route::resource('/dashboard/nilai', [NilaiController::class, 'index'])->middlewa
 // Mahasiswa
 Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
 Route::get('/dashboard/kritiksaran', [KritikSaranController::class, 'index']);
+
+// Dosen
+Route::get('/dashboard/jadwal', [JadwalController::class, 'index']);
+// Route::get('/dashboard/jadwal/kinerja', []);
+Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen']);
+
