@@ -39,3 +39,5 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index']);
 // Route::get('/dashboard/jadwal/kinerja', []);
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen']);
 
+// Admin
+// Route::get('/dashboard/aksesedit', []);
