@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +28,8 @@ Route::get('/dashboard', function() {
     ]);
 })->middleware('auth');
 
-Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');
+Route::resource('/dashboard/nilai', [NilaiController::class, 'index'])->middleware('auth');
+
+// Mahasiswa
+Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
+Route::get('/dashboard/kritiksaran', [KritikSaranController::class, 'index']);
