@@ -14,7 +14,11 @@ class KritikSaranController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.kritiksaran.index');
+    }
+
+    public function dosen() {
+        return view('dashboard.kritiksaran.dosen');
     }
 
     /**

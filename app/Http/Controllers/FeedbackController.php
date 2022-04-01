@@ -14,7 +14,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.feedback.index');
     }
 
     /**
