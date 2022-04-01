@@ -14,7 +14,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.jadwal.index');
     }
 
     /**

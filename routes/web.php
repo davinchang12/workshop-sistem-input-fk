@@ -30,14 +30,14 @@ Route::get('/dashboard', function() {
 
 Route::resource('/dashboard/nilai', [NilaiController::class, 'index'])->middleware('auth');
 
-// Mahasiswa
-Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
-Route::get('/dashboard/kritiksaran', [KritikSaranController::class, 'index']);
+// // Mahasiswa
+// Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
+// Route::get('/dashboard/kritiksaran', [KritikSaranController::class, 'index']);
 
-// Dosen
-Route::get('/dashboard/jadwal', [JadwalController::class, 'index']);
-// Route::get('/dashboard/jadwal/kinerja', []);
-Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen']);
+// // Dosen
+// Route::get('/dashboard/jadwal', [JadwalController::class, 'index']);
+// // Route::get('/dashboard/jadwal/kinerja', []);
+// Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen']);
 
 // Admin
 // Route::get('/dashboard/aksesedit', []);
