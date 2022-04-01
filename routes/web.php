@@ -40,7 +40,7 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
-// Route::get('/dashboard/aksesedit', [])->middleware('admin');
+// Route::get('/dashboard/akses', [])->middleware('admin');
 
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');

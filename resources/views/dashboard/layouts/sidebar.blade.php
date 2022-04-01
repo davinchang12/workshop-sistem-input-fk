@@ -19,13 +19,13 @@
             
             {{-- Mahasiswa --}}
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/kritiksaran*') ? 'active' : '' }}" href="/dashboard/nilai">
+                <a class="nav-link {{ Request::is('dashboard/kritiksaran*') ? 'active' : '' }}" href="/dashboard/kritiksaran">
                     <span data-feather="file-text"></span>
                     Kritik dan Saran
                 </a>
             </li>
 
-            {{-- Dosen  --}}
+            @can('dosen')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
                     <span data-feather="file-text"></span>
@@ -33,13 +33,31 @@
                 </a>
             </li>
 
-            {{-- Dosen --}}
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/nilai">
+                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/feedback">
                     <span data-feather="file-text"></span>
                     Feedback
                 </a>
             </li>
+            @endcan
+
+            @can('admin')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/akses">
+                    <span data-feather="file-text"></span>
+                    Beri Akses ke Dosen
+                </a>
+            </li>
+            @endcan
+            
+            @can('superadmin')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/role">
+                    <span data-feather="file-text"></span>
+                    Set Role User
+                </a>
+            </li>
+            @endcan
 
             <li class="nav-item">
                 <form action="/logout" method="post">
