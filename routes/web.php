@@ -35,12 +35,12 @@ Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
 Route::get('/dashboard/kritiksaran', [KritikSaranController::class, 'index']);
 
 // Dosen
-Route::get('/dashboard/jadwal', [JadwalController::class, 'index']);
+Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware('dosen');
 // Route::get('/dashboard/jadwal/kinerja', []);
-Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen']);
+Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
-// Route::get('/dashboard/aksesedit', []);
+// Route::get('/dashboard/aksesedit', [])->middleware('admin');
 
 // Superadmin
-// Route::get('/dashboard/role', []);
+// Route::get('/dashboard/role', [])->middleware('superadmin');
