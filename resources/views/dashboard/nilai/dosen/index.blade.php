@@ -2,10 +2,10 @@
 <script src="https://unpkg.com/feather-icons"></script>
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Nilai</h1>
+        <h1 class="h2">Input / Edit Nilai</h1>
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h5">Pilih Matkul</h3>
+        <h3 class="h5">Pilih Mahasiswa</h3>
     </div>
 
     @if (session()->has('success'))
@@ -20,9 +20,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nama Matkul</th>
-                    <th scope="col">Keterangan</th>
+                    <th scope="col">Nama Mahasiswa</th>
                     <th scope="col">Tahun Ajaran</th>
+                    <th scope="col">Nilai</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -35,21 +35,10 @@
                         <td>{{ $jadwal->matkul->keterangan }}</td>
                         <td>{{ $jadwal->matkul->tahun_ajaran }}</td>
                         <td>
-                            {{-- <a href="/dashboard/nilai/input{{ $jadwal->matkul->namamatkul }}" class="badge bg-info">Input</a>
-                            </form> --}}
-                            <a href="/dashboard/nilai/lihat{{ $jadwal->matkul->namamatkul }}" class="badge bg-info"><span data-feather="eye"></span></a>
+                            <a href="/dashboard/nilai/input" class="badge bg-info"><span data-feather="pen-tool"></span></a>
                             </form>
-                            @can('dosen')
-                                <a href="/dashboard/dosen/nilai" class="badge bg-info"><span data-feather="settings"></span></a>
+                            <a href="/dashboard/nilai/edit" class="badge bg-info"><span data-feather="edit"></span></a>
                             </form>
-                            @endcan
-                            @can('admin')
-                                <a href="/dashboard/admin/nilai/edit" class="badge bg-info"><span data-feather="key"></span></a>
-                            </form>
-                            @endcan
-
-                                
-
                         </td>
                     </tr>
                 @endforeach

@@ -14,7 +14,8 @@ class KritikSaranController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('mahasiswa');
+        return view('dashboard.nilai.kritiksaran.index');
     }
 
     /**

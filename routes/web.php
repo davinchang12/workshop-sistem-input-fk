@@ -1,8 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\EditNilaiController;
+use App\Http\Controllers\DosenNilaiController;
+use App\Http\Controllers\InputNilaiController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\KritikSaranController;
+use App\Http\Controllers\AdminEditNilaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +32,11 @@ Route::get('/dashboard', function() {
     ]);
 })->middleware('auth');
 
+Route::resource('/dashboard/superadmin', SuperAdminController::class)->except('show');
+Route::resource('/dashboard/jadwalkinerja', JadwalController::class)->except('show');
+Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)->except('show');
+Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
+Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
+Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');
+Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');

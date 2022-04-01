@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nilai;
+use App\Models\Matkul;
+use App\Models\User;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 
-class JadwalController extends Controller
+class DosenNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +17,11 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
-        return view('dashboard.jadwal.index');
+        //
+        $this->authorize('dosen');
+        return view('dashboard.nilai.dosen.index', [
+            'jadwals' => Nilai::where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
     /**
@@ -42,10 +48,10 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Jadwal  $jadwal
+     * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function show(Jadwal $jadwal)
+    public function show(Nilai $nilai)
     {
         //
     }
@@ -53,10 +59,10 @@ class JadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Jadwal  $jadwal
+     * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jadwal $jadwal)
+    public function edit(Nilai $nilai)
     {
         //
     }
@@ -65,10 +71,10 @@ class JadwalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Jadwal  $jadwal
+     * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jadwal $jadwal)
+    public function update(Request $request, Nilai $nilai)
     {
         //
     }
@@ -76,10 +82,10 @@ class JadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Jadwal  $jadwal
+     * @param  \App\Models\Nilai  $nilai
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy(Nilai $nilai)
     {
         //
     }
