@@ -8,13 +8,39 @@
                     Dashboard
                 </a>
             </li>
+
+            {{-- Mahasiswa --}}
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
+                    <span data-feather="file-text"></span>
+                    Lihat Nilai
+                </a>
+            </li>
+            
+            {{-- Mahasiswa --}}
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/kritiksaran*') ? 'active' : '' }}" href="/dashboard/nilai">
+                    <span data-feather="file-text"></span>
+                    Kritik dan Saran
+                </a>
+            </li>
+
+            {{-- Dosen  --}}
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
                     <span data-feather="file-text"></span>
                     Nilai
                 </a>
             </li>
-            
+
+            {{-- Dosen --}}
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/nilai">
+                    <span data-feather="file-text"></span>
+                    Feedback
+                </a>
+            </li>
+
             <li class="nav-item">
                 <form action="/logout" method="post">
                     @csrf
