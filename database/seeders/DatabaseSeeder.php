@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Admin',
+            'role' => 'admin',
             'email' => 'admin@unika.ac.id',
             'password' =>  bcrypt('admin')
         ]);

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class isDosen
+class isMahasiswa
 {
     /**
      * Handle an incoming request.
@@ -16,15 +16,9 @@ class isDosen
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (!auth()->check() || auth()->user()->role !== 'dosen' && auth()->user()->role !== 'admin' && auth()->user()->role !== 'superadmin' ){
-        //     abort(403);
-        // }
-
-        $checkUser = !auth()->check() || auth()->user()->role;
-        if($checkUser !== 'dosen' || $checkUser !== 'admin' || $checkUser !== 'superadmin') {
+        if (!auth()->check() || auth()->user()->role !== 'mahasiswa' ){
             abort(403);
         }
-      
         return $next($request);
     }
 }

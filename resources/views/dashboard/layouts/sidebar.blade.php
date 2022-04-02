@@ -1,3 +1,6 @@
+
+<script src="https://unpkg.com/feather-icons"></script>
+{{-- <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"> --}}
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse top-0">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
@@ -9,23 +12,24 @@
                 </a>
             </li>
 
-            {{-- Mahasiswa --}}
+            @can('admin')
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
-                    <span data-feather="file-text"></span>
-                    Lihat Nilai
+                <a class="nav-link {{ Request::is('dashboard/rancangjadwalkinerja*') ? 'active' : '' }}" href="/dashboard/rancangjadwalkinerja">
+                    <span data-feather="file-plus"></span>
+                    Rancang Jadwal/Kinerja
                 </a>
             </li>
-            
-            {{-- Mahasiswa --}}
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/kritiksaran*') ? 'active' : '' }}" href="/dashboard/kritiksaran">
-                    <span data-feather="file-text"></span>
-                    Kritik dan Saran
-                </a>
-            </li>
+            @endcan 
 
             @can('dosen')
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/jadwalkinerja*') ? 'active' : '' }}" href="/dashboard/jadwalkinerja">
+                    <span data-feather="calendar"></span>
+                    Jadwal/Kinerja
+                </a>
+            </li>
+            @endcan 
+            
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
                     <span data-feather="file-text"></span>
@@ -33,32 +37,24 @@
                 </a>
             </li>
 
+            @can('mahasiswa')
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/feedback">
-                    <span data-feather="file-text"></span>
-                    Feedback
+                <a class="nav-link {{ Request::is('dashboard/kritikdansaran*') ? 'active' : '' }}" href="/dashboard/kritikdansaran">
+                    <span data-feather="thumbs-up"></span><span data-feather="thumbs-down"></span>
+                    Beri Kritik/Saran
                 </a>
             </li>
-            @endcan
+            @endcan     
 
-            @can('admin')
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/akses">
-                    <span data-feather="file-text"></span>
-                    Beri Akses ke Dosen
-                </a>
-            </li>
-            @endcan
-            
             @can('superadmin')
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/feedback*') ? 'active' : '' }}" href="/dashboard/role">
-                    <span data-feather="file-text"></span>
-                    Set Role User
+                <a class="nav-link {{ Request::is('dashboard/superadmin/*') ? 'active' : '' }}" href="/dashboard/superadmin/">
+                    <span data-feather="users"></span>
+                    Edit Role User
                 </a>
             </li>
-            @endcan
-
+            @endcan 
+            
             <li class="nav-item">
                 <form action="/logout" method="post">
                     @csrf
@@ -70,3 +66,6 @@
         </ul>
     </div>
 </nav>
+<script>
+    feather.replace()
+  </script>
