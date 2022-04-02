@@ -10,9 +10,11 @@ class Matkul extends Model
     use HasFactory;
 
     protected $fillable = [
+        'kodematkul',
         'name',
         'keterangan',
-        'tahun_ajaran'
+        'tahun_ajaran',
+        'bobot_sks'
     ];
 
     public function nilaiMhs() {

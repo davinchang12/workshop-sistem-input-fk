@@ -13,7 +13,8 @@ class Kelompok extends Model
 
     protected $with = [
         'users', 
-        'matkul'
+        'matkul',
+        'kodekelompok'
     ];
 
     public function users() {
