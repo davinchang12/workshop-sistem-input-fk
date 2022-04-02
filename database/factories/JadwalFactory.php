@@ -21,8 +21,8 @@ class JadwalFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => $this->faker->numberBetween(1, 10),
-            'matkul_id' => $this->faker->numberBetween(1, 20),
+            'user_id' => $this->faker->numberBetween(1, 50),
+            'matkul_id' => $this->faker->numberBetween(1, 53),
             'tanggal' => $this->faker->dateTimeBetween('-1 week', '+1 week'),
             'jammasuk' => $this->faker->time(),
             'jamselesai' => $this->faker->time(),
