@@ -20,10 +20,9 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory(10)->create();
+        User::factory(50)->create();
         Nilai::factory(50)->create();
 
-        // Matkul::factory(50)->create();
         Matkul::create([
             'kodematkul' => 'FKS011B11',
             'namamatkul' => 'Pendidikan Kedokteran dan Humaniora',
@@ -449,6 +448,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Jadwal::factory(100)->create();
+        Kelompok::factory(50)->create();
 
         User::create([
             'name' => 'Admin',

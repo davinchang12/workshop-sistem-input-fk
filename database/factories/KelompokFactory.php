@@ -14,7 +14,9 @@ class KelompokFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id' => $this->faker->numberBetween(1, 50),
+            'matkul_id' => $this->faker->numberBetween(1, 53),
+            'kodekelompok' => 'KKFK' . $this->faker->numberBetween(1, 5)
         ];
     }
 }
