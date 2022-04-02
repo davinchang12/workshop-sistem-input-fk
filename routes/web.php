@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\JadwalController;
-use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\JadwalController;
