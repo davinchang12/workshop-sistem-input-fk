@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\JadwalController;
@@ -39,4 +42,20 @@ Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('
 Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');
+
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
+
+// Mahasiswa
+Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
+
+// Dosen
+Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware('dosen');
+// Route::get('/dashboard/jadwal/kinerja', []);
+Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
+
+// Admin
+// Route::get('/dashboard/akses', [])->middleware('admin');
+
+// Superadmin
+// Route::get('/dashboard/role', [])->middleware('superadmin');
+

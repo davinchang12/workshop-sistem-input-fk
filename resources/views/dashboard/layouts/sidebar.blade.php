@@ -1,5 +1,7 @@
+
 <script src="https://unpkg.com/feather-icons"></script>
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+{{-- <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"> --}}
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse top-0">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <li class="nav-item">
@@ -27,7 +29,7 @@
                 </a>
             </li>
             @endcan 
-
+            
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
                     <span data-feather="file-text"></span>
@@ -44,7 +46,7 @@
             </li>
             @endcan     
 
-            @can('dosen')
+            @can('superadmin')
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('dashboard/superadmin/*') ? 'active' : '' }}" href="/dashboard/superadmin/">
                     <span data-feather="users"></span>
@@ -52,7 +54,7 @@
                 </a>
             </li>
             @endcan 
-
+            
             <li class="nav-item">
                 <form action="/logout" method="post">
                     @csrf

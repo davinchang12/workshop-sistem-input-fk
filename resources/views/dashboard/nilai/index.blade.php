@@ -15,20 +15,10 @@
     @endif
 
     <div class="table-responsive col-lg-8">
-        {{-- <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Create New Post</a> --}}
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Matkul</th>
-                    <th scope="col">Keterangan</th>
-                    <th scope="col">Tahun Ajaran</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                
+        <div class="container">
+            <div class="row">
                 @foreach ($jadwals as $jadwal)
+
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $jadwal->matkul->namamatkul }}</td>
@@ -52,9 +42,21 @@
 
                         </td>
                     </tr>
+  
+                {{-- <div class="col-md-4 mb-3">
+                        <a href="/dashboard/nilai/{{ $jadwal->matkul->namamatkul }}" class="text-decoration-none text-dark">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $jadwal->matkul->namamatkul }}</h5>
+                                <small>Tahun Ajaran : {{ $jadwal->matkul->tahun_ajaran }}</small>
+                            </div>
+                        </div>
+                    </a>
+                    </div> --}}
+
                 @endforeach
-            </tbody>
-        </table>
+            </div>
+        </div>
     </div>
     <script>
         feather.replace()

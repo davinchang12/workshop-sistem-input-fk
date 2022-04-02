@@ -14,7 +14,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $this->authorize('admin');
+        // $this->authorize('admin');
         return view('dashboard.jadwal.index');
     }
 
