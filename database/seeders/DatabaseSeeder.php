@@ -183,8 +183,270 @@ class DatabaseSeeder extends Seeder
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 2
         ]);
-        
 
+        Matkul::create([
+            'kodematkul' => 'FKS131B51',
+            'namamatkul' => 'Gangguan Sistem Saraf dan Psikiatri',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+        
+        Matkul::create([
+            'kodematkul' => 'FKS141B52',
+            'namamatkul' => 'Gangguan Sistem Gastrointestinal dan Bilier',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS151B53',
+            'namamatkul' => 'Gangguan Sistem Indera',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKSL051B05',
+            'namamatkul' => 'Keterampilan Klinik V',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FK102',
+            'namamatkul' => 'Metodologi Penelitian dan Etika Peneltian',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FK104',
+            'namamatkul' => 'Bahasa Indonesia',
+            'keterangan' => 'Semester 5',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS162B61',
+            'namamatkul' => 'Gangguan Sistem Ginjal dan Saluran Kemih',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS172B62',
+            'namamatkul' => 'Gangguan Sistem Reproduksi',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS182B63',
+            'namamatkul' => 'Ilmu Kedokteran Keluarga dan Komunitas',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKSL062B06',
+            'namamatkul' => 'Keterampilan Klinik VI',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FK103',
+            'namamatkul' => 'Statistika',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FK105',
+            'namamatkul' => 'Skripsi',
+            'keterangan' => 'Semester 6',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 4
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS191B71',
+            'namamatkul' => 'Kedokteran DTPK',
+            'keterangan' => 'Semester 7',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS201B72',
+            'namamatkul' => 'Kegawatdaruratan dan Medikolegal',
+            'keterangan' => 'Semester 7',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKS211B73',
+            'namamatkul' => 'Elektif',
+            'keterangan' => 'Semester 7',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKSL071B01',
+            'namamatkul' => 'Keterampilan Klinik VII',
+            'keterangan' => 'Semester 7',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'UKS410',
+            'namamatkul' => 'KKN',
+            'keterangan' => 'Semester 7',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKD501',
+            'namamatkul' => 'Ilmu Penyakit Dalam',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKB502',
+            'namamatkul' => 'Ilmu Bedah',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKA503',
+            'namamatkul' => 'Ilmu Kesehatan Anak',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKOG505',
+            'namamatkul' => 'Ilmu Kebidanan dan Penyakit Kandungan',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKS301',
+            'namamatkul' => 'Ilmu Penyakit Saraf',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKJ302',
+            'namamatkul' => 'Ilmu Kesehatan Jiwa',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKDV303',
+            'namamatkul' => 'Ilmu Kesehatan Kulit dan Kelamin',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKM304',
+            'namamatkul' => 'Ilmu Kesehatan Mata',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKT305',
+            'namamatkul' => 'Ilmu Kesehatan THT-KL',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKSA201',
+            'namamatkul' => 'Anestesiologi dan Terapi Intensif',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKF306',
+            'namamatkul' => 'Ilmu Kedokteran Forensik dan Medikolegal',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKR202',
+            'namamatkul' => 'Ilmu Radiologi',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 2
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKRM203',
+            'namamatkul' => 'Ilmu Kedokteran Fisik dan Rehabilitasi',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 5
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKGK101',
+            'namamatkul' => 'Ilmu Gizi Klinik',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 1
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKPK102',
+            'namamatkul' => 'Ilmu Patologi Klinik',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 1
+        ]);
+
+        Matkul::create([
+            'kodematkul' => 'FKKKKM307',
+            'namamatkul' => 'Ilmu Kesehatan Masyarakat',
+            'keterangan' => 'Tahap Profesi',
+            'tahun_ajaran' => '2021/2022',
+            'bobot_sks' => 3
+        ]);
 
         Jadwal::factory(100)->create();
 
