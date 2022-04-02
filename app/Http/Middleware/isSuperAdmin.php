@@ -16,7 +16,9 @@ class isSuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || auth()->user()->user_type !== 'SuperAdmin') {
+        //if (!auth()->check() || auth()->user()->role !== 'superadmin' ){
+        
+        if(!auth()->check() || auth()->user()->role !== 'superadmin') {
             abort(403);
         }
         return $next($request);
