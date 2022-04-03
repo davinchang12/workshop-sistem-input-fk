@@ -5,7 +5,7 @@
         <h1 class="h2">Nilai</h1>
     </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h5">Lihat</h3>
+        <h3 class="h5">Pilih Mata Kuliah</h3>
     </div>
 
     @if (session()->has('success'))
@@ -23,17 +23,18 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title">{{ $jadwal->matkul->namamatkul }}</h5>
+                                    <small>{{ $jadwal->matkul->kodematkul }}</small><br>
                                     <small>{{ $jadwal->matkul->keterangan }}</small><br>
                                     <small>Tahun Ajaran {{ $jadwal->matkul->tahun_ajaran }}</small>
                                 </div>
                                 <div class="col-md-auto p-auto">
                                     <div class="col pt-2">
-                                        <a href="/dashboard/nilai/{{ $jadwal->matkul->kodematkul }}"
+                                        <a href="/dashboard/matkul/lihat/{{ $jadwal->matkul->kodematkul }}"
                                             class="badge bg-info w-100"><span data-feather="eye"></span></a>
                                     </div>
                                     <div class="col pt-2">
                                         @can('dosen')
-                                            <a href="/dashboard/dosen/nilai/{{ $jadwal->matkul->kodematkul }}" class="badge bg-info w-100"><span
+                                            <a href="/dashboard/matkul/{{ $jadwal->matkul->kodematkul }}" class="badge bg-info w-100"><span
                                                     data-feather="settings"></span></a>
                                         @endcan
                                     </div>

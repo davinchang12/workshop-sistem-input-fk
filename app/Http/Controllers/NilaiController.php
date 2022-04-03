@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nilai;
 use App\Models\Matkul;
 use App\Models\Jadwal;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 
 class NilaiController extends Controller
@@ -19,9 +20,10 @@ class NilaiController extends Controller
         // $matkuls = Matkul::all();
         // return view('dashboard.nilai.index', compact('matkuls'));
 
-        return view('dashboard.nilai.index', [
-            'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get()
-        ]);
+        // return view('dashboard.nilai.index', [
+        //     'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get(),
+        //     'kelompoks' => Kelompok::where('user_id', auth()->user()->id)->get()
+        // ]);
     }
         
 
@@ -89,5 +91,5 @@ class NilaiController extends Controller
     public function destroy(Nilai $nilai)
     {
         //
-    }
+    }    
 }
