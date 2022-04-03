@@ -29,13 +29,18 @@
                                 </div>
                                 <div class="col-md-auto p-auto">
                                     <div class="col pt-2">
-                                        <a href="/dashboard/matkul/lihat/{{ $jadwal->matkul->kodematkul }}"
-                                            class="badge bg-info w-100"><span data-feather="eye"></span></a>
+                                        {{-- <a href="/dashboard/matkul/nilai" class="badge bg-info w-100"><span
+                                                data-feather="eye"></span></a> --}}
+                                        <form action="/dashboard/matkul/nilai" method="get">
+                                            @csrf
+                                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $jadwal->matkul->id }}">
+                                            <button class="btn btn-primary w-100 shadow-none"><span data-feather="eye"></span></button>
+                                        </form>
                                     </div>
                                     <div class="col pt-2">
                                         @can('dosen')
-                                            <a href="/dashboard/matkul/{{ $jadwal->matkul->kodematkul }}" class="badge bg-info w-100"><span
-                                                    data-feather="settings"></span></a>
+                                            <a href="/dashboard/matkul/{{ $jadwal->matkul->kodematkul }}"
+                                                class="btn btn-primary w-100"><span data-feather="settings"></span></a>
                                         @endcan
                                     </div>
                                     <div class="col pt-2">
