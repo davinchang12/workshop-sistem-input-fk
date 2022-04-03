@@ -17,13 +17,21 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        // $matkuls = Matkul::all();
+        // $matkul = Matkul::all();
         // return view('dashboard.nilai.index', compact('matkuls'));
 
-        // return view('dashboard.nilai.index', [
-        //     'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get(),
-        //     'kelompoks' => Kelompok::where('user_id', auth()->user()->id)->get()
-        // ]);
+        $request = request();
+        
+        $checkUser = [
+            'user_id' => auth()->user()->id,
+            'matkul_id' => $request->matkul_dipilih,
+        ];
+        
+        return view('dashboard.nilai.index', [
+            'nilais' => Nilai::where($checkUser)->get(),
+            'kelompoks' => Kelompok::where($checkUser)->get(),
+            // 'matkul_dipilih' => $request->matkul_dipilih,
+        ]);
     }
         
 
