@@ -32,7 +32,7 @@
             @endcan
 
             <li class="nav-item">
-                <a class="nav-link {{ Request::is('dashboard/nilai*') ? 'active' : '' }}" href="/dashboard/nilai">
+                <a class="nav-link {{ Request::is('dashboard/matkul*') ? 'active' : '' }}" href="/dashboard/matkul">
                     <span data-feather="file-text"></span>
                     Nilai
                 </a>

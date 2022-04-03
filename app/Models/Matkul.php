@@ -32,4 +32,9 @@ class Matkul extends Model
      public function kritikSaran() {
          return $this->hasMany(KritikSaran::class);
      }
+
+     public function getRouteKeyName()
+     {
+         return 'kodematkul';
+     }
 }
