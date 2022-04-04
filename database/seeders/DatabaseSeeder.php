@@ -190,10 +190,58 @@ class DatabaseSeeder extends Seeder
             'nilai_mhs' => 85
         ]);
 
+        Kelompok::create([
+            'user_id' => 1,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+        
+        Kelompok::create([
+            'user_id' => 2,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 3,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 4,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 5,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 6,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 7,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 8,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
         Matkul::create([
             'kodematkul' => 'FKS011B11',
             'namamatkul' => 'Pendidikan Kedokteran dan Humaniora',
-            'keterangan' => 'Semester 1',
+        'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 5
         ]);
