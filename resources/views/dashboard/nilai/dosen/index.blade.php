@@ -34,6 +34,7 @@
             <p>Tugas tab content ...</p>
         </div>
         <div class="tab-pane fade" id="pbl">
+            <a href="/dashboard/matkul/nilai/export">Download Template</a>
             <div class="container">
                 <div class="row">
                     @foreach ($kelompoks as $kelompok)
