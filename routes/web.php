@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\NilaiTugasExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
@@ -38,6 +39,7 @@ Route::get('/dashboard', function() {
 Route::resource('/dashboard/superadmin', SuperAdminController::class)->except('show');
 Route::resource('/dashboard/jadwalkinerja', JadwalController::class)->except('show');
 Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)->except('show');
+
 // Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
@@ -51,7 +53,6 @@ Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('
 Route::resource('/dashboard/matkul', MatkulController::class)->only([
     'index', 'show'
 ])->middleware('auth');
-
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
 
@@ -69,3 +70,8 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 
+
+//template
+Route::get('/dashboard/dosen/nilai/template/tugas', function () {
+    return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');    
+});
