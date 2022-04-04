@@ -17,16 +17,19 @@ class Nilai extends Model
         'users',
         'matkul'
     ];
-    
-    public function users() {
+
+    public function users()
+    {
         return $this->belongsTo(User::class);
     }
 
-     public function matkul() {
+    public function matkul()
+    {
         return $this->belongsTo(Matkul::class);
     }
 
-    public function feedbacks() {
+    public function feedbacks()
+    {
         return $this->hasMany(Feedback::class);
     }
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\AdminEditNilaiController;
+use App\Http\Controllers\MatkulController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,10 +38,16 @@ Route::get('/dashboard', function() {
 Route::resource('/dashboard/superadmin', SuperAdminController::class)->except('show');
 Route::resource('/dashboard/jadwalkinerja', JadwalController::class)->except('show');
 Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)->except('show');
-Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
-Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show');
-Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show');
-Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');
+
+// Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
+// Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
+// Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
+
+Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
+
+Route::resource('/dashboard/matkul', MatkulController::class)->only([
+    'index', 'show'
+])->middleware('auth');
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
 

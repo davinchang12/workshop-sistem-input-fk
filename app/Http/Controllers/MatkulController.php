@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matkul;
+use App\Models\Jadwal;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 
 class MatkulController extends Controller
@@ -14,7 +16,9 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $matkuls = Matkul::all();
+        return view('dashboard.matkul.index', [
+            'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get(),
+        ]);
     }
 
     /**
@@ -41,21 +45,29 @@ class MatkulController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Matakuliah $matkul
+     * @param  \App\Models\Matkul $matkul
      * @return \Illuminate\Http\Response
      */
-    public function show(Matakuliah $matkul)
+    public function show(Matkul $matkul)
     {
-        //
+        $checkUserAndMatkul = [
+            'user_id' => auth()->user()->id,
+            'matkul_id' => $matkul->id 
+        ];
+
+        return view('dashboard.nilai.dosen.index', [
+            'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
+            
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Matakuliah $matkul
+     * @param  \App\Models\Matkul $matkul
      * @return \Illuminate\Http\Response
      */
-    public function edit(Matakuliah $matkul)
+    public function edit(Matkul $matkul)
     {
         //
     }
@@ -64,10 +76,10 @@ class MatkulController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Matakuliah $matkul
+     * @param  \App\Models\Matkul $matkul
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Matakuliah $matkul)
+    public function update(Request $request, Matkul $matkul)
     {
         //
     }
@@ -75,10 +87,10 @@ class MatkulController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Matakuliah $matkul
+     * @param  \App\Models\Matkul $matkul
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matakuliah $matkul)
+    public function destroy(Matkul $matkul)
     {
         //
     }
