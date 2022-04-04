@@ -191,12 +191,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Kelompok::create([
-            'user_id' => 1,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
-        
-        Kelompok::create([
             'user_id' => 2,
             'matkul_id' => 1,
             'kodekelompok' => 'KKFK1'
@@ -229,13 +223,106 @@ class DatabaseSeeder extends Seeder
         Kelompok::create([
             'user_id' => 7,
             'matkul_id' => 2,
-            'kodekelompok' => 'KKFK1'
+            'kodekelompok' => 'KKFK2'
         ]);
 
         Kelompok::create([
             'user_id' => 8,
             'matkul_id' => 2,
+            'kodekelompok' => 'KKFK2'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 9,
+            'matkul_id' => 1,
             'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 10,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 2,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 3,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+        
+        Jadwal::create([
+            'user_id' => 4,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 5,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 6,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 7,
+            'matkul_id' => 2,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 8,
+            'matkul_id' => 2,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 9,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 2,
+            'matkul_id' => 9,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
         ]);
 
         Matkul::create([
