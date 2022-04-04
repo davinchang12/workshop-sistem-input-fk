@@ -20,8 +20,65 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory(50)->create();
-        Nilai::factory(50)->create();
+        // User::factory(50)->create();
+        User::create([
+            'name' => 'Admin',
+            'role' => 'superadmin',
+            'email' => 'admin@unika.ac.id',
+            'password' =>  bcrypt('admin')
+        ]);
+
+        User::create([
+            'name' => 'Gabriella Valleria Takimai',
+            'role' => 'mahasiswa',
+            'email' => '21p10001@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Marita Sofia Temkon',
+            'role' => 'mahasiswa',
+            'email' => '21p10002@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Cornelia Nandita Setyoningrum',
+            'role' => 'mahasiswa',
+            'email' => '21p10003@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Khamas Purbo Putro Purnomo',
+            'role' => 'mahasiswa',
+            'email' => '21p10010@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Benedictus Adi Utomo Pandelaki',
+            'role' => 'mahasiswa',
+            'email' => '21p10011@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Maura Sonia Larasati',
+            'role' => 'mahasiswa',
+            'email' => '19p10001@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'Emmanuela Anandita Anughrayasa',
+            'role' => 'mahasiswa',
+            'email' => '19p10002@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        // Nilai::factory(50)->create();
+        
 
         Matkul::create([
             'kodematkul' => 'FKS011B11',
@@ -447,15 +504,7 @@ class DatabaseSeeder extends Seeder
             'bobot_sks' => 3
         ]);
 
-        Jadwal::factory(100)->create();
-        Kelompok::factory(50)->create();
-
-        User::create([
-            'name' => 'Admin',
-            'role' => 'admin',
-            'email' => 'admin@unika.ac.id',
-            'password' =>  bcrypt('admin')
-        ]);
-
+        // Jadwal::factory(100)->create();
+        // Kelompok::factory(50)->create();
     }
 }
