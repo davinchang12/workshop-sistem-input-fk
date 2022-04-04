@@ -17,7 +17,10 @@ class InputNilaiController extends Controller
      */
     public function index()
     {
-        return view('dashboard.nilai.dosen.input');
+        $this->authorize('dosen');
+        return view('dashboard.nilai.dosen.input',[
+            'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get()
+        ]);
     }
         
 
