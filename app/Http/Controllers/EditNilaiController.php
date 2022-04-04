@@ -17,7 +17,7 @@ class EditNilaiController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('dosen');
         return view('dashboard.nilai.dosen.edit');
     }
 

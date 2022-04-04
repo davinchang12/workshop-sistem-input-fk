@@ -37,8 +37,8 @@ Route::resource('/dashboard/superadmin', SuperAdminController::class)->except('s
 Route::resource('/dashboard/jadwalkinerja', JadwalController::class)->except('show');
 Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)->except('show');
 Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
-Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
-Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
+Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show');
+Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show');
 Route::resource('/dashboard/nilai', NilaiController::class)->middleware('auth');
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
