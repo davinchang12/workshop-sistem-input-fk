@@ -20,13 +20,315 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        User::factory(50)->create();
-        Nilai::factory(50)->create();
+        // User::factory(50)->create();
+        User::create([
+            'name' => 'Admin',
+            'role' => 'superadmin',
+            'email' => 'admin@unika.ac.id',
+            'password' =>  bcrypt('admin')
+        ]);
+
+        User::create([
+            'name' => 'A',
+            'role' => 'mahasiswa',
+            'email' => '21p10001@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'B',
+            'role' => 'mahasiswa',
+            'email' => '21p10002@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'C',
+            'role' => 'mahasiswa',
+            'email' => '21p10003@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'D',
+            'role' => 'mahasiswa',
+            'email' => '21p10010@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'E',
+            'role' => 'mahasiswa',
+            'email' => '21p10011@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'F',
+            'role' => 'mahasiswa',
+            'email' => '19p10001@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'G',
+            'role' => 'mahasiswa',
+            'email' => '19p10002@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'dr. A',
+            'role' => 'dosen',
+            'email' => 'dosen1@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        User::create([
+            'name' => 'dr. B',
+            'role' => 'dosen',
+            'email' => 'dosen2@unika.ac.id',
+            'password' =>  bcrypt('password')
+        ]);
+
+        // Nilai::factory(50)->create();
+        Nilai::create([
+            'user_id' => 2,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 1,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 2,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 1,
+            'nilai_mhs' => 90
+        ]);
+
+        Nilai::create([
+            'user_id' => 3,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 1,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 3,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 1,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 4,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 1,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 4,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 1,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 5,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 5,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 6,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 6,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 7,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 7,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 8,
+            'keterangan' => 'Tugas 1',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Nilai::create([
+            'user_id' => 8,
+            'keterangan' => 'Tugas 2',
+            'matkul_id' => 2,
+            'nilai_mhs' => 85
+        ]);
+
+        Kelompok::create([
+            'user_id' => 2,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 3,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 4,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 5,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 6,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 7,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK2'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 8,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK2'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 9,
+            'matkul_id' => 1,
+            'kodekelompok' => 'KKFK1'
+        ]);
+
+        Kelompok::create([
+            'user_id' => 10,
+            'matkul_id' => 2,
+            'kodekelompok' => 'KKFK2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 2,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 3,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+        
+        Jadwal::create([
+            'user_id' => 4,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 5,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 6,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 7,
+            'matkul_id' => 2,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 8,
+            'matkul_id' => 2,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 9,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+
+        Jadwal::create([
+            'user_id' => 2,
+            'matkul_id' => 9,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
 
         Matkul::create([
             'kodematkul' => 'FKS011B11',
             'namamatkul' => 'Pendidikan Kedokteran dan Humaniora',
-            'keterangan' => 'Semester 1',
+        'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 5
         ]);
@@ -447,15 +749,7 @@ class DatabaseSeeder extends Seeder
             'bobot_sks' => 3
         ]);
 
-        Jadwal::factory(100)->create();
-        Kelompok::factory(50)->create();
-
-        User::create([
-            'name' => 'Admin',
-            'role' => 'admin',
-            'email' => 'admin@unika.ac.id',
-            'password' =>  bcrypt('admin')
-        ]);
-
+        // Jadwal::factory(100)->create();
+        // Kelompok::factory(50)->create();
     }
 }

@@ -71,7 +71,7 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 
 
-//template
-Route::get('/dashboard/dosen/nilai/template/tugas', function () {
-    return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');    
-});
+// //template
+// Route::get('/dashboard/dosen/nilai/template/tugas', function () {
+//     return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');    
+// });
