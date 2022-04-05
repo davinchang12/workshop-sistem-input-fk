@@ -23,9 +23,8 @@ class NilasPBLExport implements FromView, ShouldAutoSize, WithEvents
         $checkUser = [
             'matkul_id' => $request->matkul_dipilih,
         ];
-        
+
         return view('dashboard.nilai.dosen.export.pbl', [
-            'nilais' => Nilai::where($checkUser)->get(),
             'kelompoks' => Kelompok::where($checkUser)->get(),
         ]);
     }
@@ -34,9 +33,9 @@ class NilasPBLExport implements FromView, ShouldAutoSize, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getStyle('A1:O1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $event->sheet->getStyle('A2:O2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $event->sheet->getStyle('A3:O3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A1:P1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A2:P2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A3:P3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             }
         ];
     }
