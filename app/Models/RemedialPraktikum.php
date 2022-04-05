@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class RemedialPraktikum extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = [
+        'id'
+    ];
     protected $with =[
         'nilai_praktikum'
     ];

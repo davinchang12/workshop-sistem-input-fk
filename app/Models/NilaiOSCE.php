@@ -12,7 +12,14 @@ class NilaiOSCE extends Model
     protected $guarded = [
         'id'
     ];
+    protected $with =[
+        'nilai',
+        'jenis'
+    ];
     
+    public function nilai() {
+        return $this->belongTo(Nilai::class);
+    }
     public function jenis() {
         return $this->hasMany(NilaiJenisOSCE::class);
     }

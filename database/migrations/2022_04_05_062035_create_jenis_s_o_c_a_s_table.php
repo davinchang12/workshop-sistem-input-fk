@@ -16,7 +16,7 @@ class CreateJenisSOCASTable extends Migration
         Schema::create('jenis_s_o_c_a_s', function (Blueprint $table) {
             $table->id();
             $table->string('keterangan');
-            $table->int('nilai_soca');
+            $table->integer('nilai_soca');
             $table->timestamps();
         });
     }
