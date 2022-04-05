@@ -92,103 +92,103 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Nilai::factory(50)->create();
-        Nilai::create([
-            'user_id' => 2,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 1,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 2,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 2,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 1,
-            'nilai_mhs' => 90
-        ]);
+        // Nilai::create([
+        //     'user_id' => 2,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 90
+        // ]);
 
-        Nilai::create([
-            'user_id' => 3,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 1,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 3,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 3,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 1,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 3,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 4,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 1,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 4,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 4,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 1,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 4,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 1,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 5,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 5,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 5,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 5,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 6,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 6,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 6,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 6,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 7,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 7,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 7,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 7,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 8,
-            'keterangan' => 'Tugas 1',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 8,
+        //     'keterangan' => 'Tugas 1',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
-        Nilai::create([
-            'user_id' => 8,
-            'keterangan' => 'Tugas 2',
-            'matkul_id' => 2,
-            'nilai_mhs' => 85
-        ]);
+        // Nilai::create([
+        //     'user_id' => 8,
+        //     'keterangan' => 'Tugas 2',
+        //     'matkul_id' => 2,
+        //     'nilai_mhs' => 85
+        // ]);
 
         Kelompok::create([
             'user_id' => 2,
