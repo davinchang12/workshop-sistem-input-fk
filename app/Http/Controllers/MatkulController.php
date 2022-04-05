@@ -57,7 +57,7 @@ class MatkulController extends Controller
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
-            
+            'matkul_id' => $matkul->id
         ]);
     }
 

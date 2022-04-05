@@ -34,7 +34,11 @@
             <p>Tugas tab content ...</p>
         </div>
         <div class="tab-pane fade" id="pbl">
-            <a href="/dashboard/matkul/nilai/export">Download Template</a>
+            <form action="/dashboard/matkul/nilai/export" method="get">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+            </form>
             <div class="container">
                 <div class="row">
                     @foreach ($kelompoks as $kelompok)
