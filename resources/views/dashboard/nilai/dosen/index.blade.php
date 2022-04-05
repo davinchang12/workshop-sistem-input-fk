@@ -31,7 +31,72 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
-            <p>Tugas tab content ...</p>
+            <form action="/dashboard/matkul/nilai/export/tugas" method="get">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+            </form>
+            <div class="container">
+                <div class="row">
+                    <table class="talbe table-bordered">
+                        <tr>
+                            <td colspan=19 align="center" ><b>Daftar Nilai Tugas</b></td>
+                            </tr>
+                        <tr>
+                            <td rowspan=3  align="center" ><b>No</b></td>
+                            <td rowspan=3  align="center" ><b>Nama</b></td>
+                            <td rowspan=3  align="center" ><b>NIM</b></td>
+                            <td  colspan=16 align="center" ><b>Penilaian</b></td>
+                            </tr>
+                        <tr>
+                            <td colspan=14 align="center" ><b>TUGAS</b></td>
+                            <td rowspan=2  align="center" ><b>Total</b></td>
+                            <td rowspan=2  align="center" ><b>Rata-Rata</b></td>
+                        </tr>
+                        <tr>
+                            <td align="center"  ><b>1</b></td>
+                            <td align="center"  ><b>2</b></td>
+                            <td align="center"  ><b>3</b></td>
+                            <td align="center"  ><b>4</b></td>
+                            <td align="center"  ><b>5</b></td>
+                            <td align="center"  ><b>6</b></td>
+                            <td align="center"  ><b>7</b></td>
+                            <td align="center"  ><b>8</b></td>
+                            <td align="center"  ><b>9</b></td>
+                            <td align="center"  ><b>10</b></td>
+                            <td align="center"  ><b>11</b></td>
+                            <td align="center"  ><b>12</b></td>
+                            <td align="center"  ><b>13</b></td>
+                            <td align="center"  ><b>14</b></td>
+                            </tr>
+                            @foreach ($siswas as $kelompok)
+                                @if ($kelompok->users->role == 'mahasiswa')
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $kelompok->users->name }}</td>
+                                        <td>{{ $kelompok->users->email }}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total</td>
+                                        <td>Rata-rata</td>
+                                    </tr>
+                                @endif
+                                @endforeach
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="pbl">
             <form action="/dashboard/matkul/nilai/export" method="get">

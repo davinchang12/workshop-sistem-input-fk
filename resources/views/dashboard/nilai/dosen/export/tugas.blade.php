@@ -3,15 +3,15 @@
 		<td style="border: 1px solid blank;" colspan=19 align="center" ><b>Daftar Nilai Tugas</b></td>
 		</tr>
 	<tr>
-		<td style="border: 1px solid blank;" rowspan=3 align="center" ><b>No</b></td>
-		<td style="border: 1px solid blank;" rowspan=3 align="center" ><b>Nama</b></td>
-		<td style="border: 1px solid blank;" rowspan=3 align="center" ><b>NIM</b></td>
-		<td style="border: 1px solid blank;"colspan=16 align="center" ><b>Penilaian</b></td>
+		<td style="border: 1px solid blank;" rowspan=3 bgcolor="lightgray" align="center" ><b>No</b></td>
+		<td style="border: 1px solid blank;" rowspan=3 bgcolor="yellow" align="center" ><b>Nama</b></td>
+		<td style="border: 1px solid blank;" rowspan=3 bgcolor="yellow" align="center" ><b>NIM</b></td>
+		<td style="border: 1px solid blank;" bgcolor="yellow" colspan=16 align="center" ><b>Penilaian</b></td>
 		</tr>
 	<tr>
-		<td style="border: 1px solid blank;" colspan=14 align="center" ><b>TUGAS</b></td>
-		<td style="border: 1px solid blank;" rowspan=2 align="center" ><b>Total</b></td>
-		<td style="border: 1px solid blank;" rowspan=2 align="center" ><b>Rata-Rata</b></td>
+		<td style="border: 1px solid blank;" colspan=14 bgcolor="green" align="center" ><b>TUGAS</b></td>
+		<td style="border: 1px solid blank;" rowspan=2 bgcolor="yellow" align="center" ><b>Total</b></td>
+		<td style="border: 1px solid blank;" rowspan=2 bgcolor="yellow" align="center" ><b>Rata-Rata</b></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid blank;" align="center"  ><b>1</b></td>
@@ -29,15 +29,30 @@
 		<td style="border: 1px solid blank;" align="center"  ><b>13</b></td>
 		<td style="border: 1px solid blank;" align="center"  ><b>14</b></td>
 		</tr>
-    <tr style="border: 1px solid blank;">
-        @foreach ($list_tugas as $tugas)
-			<td>{{ $loop->iteration }}</td>
-			<td>{{ $tugas->users->name }}</td>
-			<td>{{ $tugas->users->email }}</td>
-			@foreach ($tugas as $nilai_tugas)
-				<td>{{ $tugas->nilai_mhs }}</td>			
-			@endforeach
+		@foreach ($kelompoks as $kelompok)
+		@if ($kelompok->users->role == 'mahasiswa')
+			<tr>
+				<td style="border: 1px solid blank;">{{ $loop->iteration }}</td>
+				<td style="border: 1px solid blank;">{{ $kelompok->users->name }}</td>
+				<td style="border: 1px solid blank;">{{ $kelompok->users->email }}</td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;">Total</td>
+				<td style="border: 1px solid blank;">Rata-rata</td>
+			</tr>
+		@endif
 		@endforeach
-    </tr>
 </table>
 

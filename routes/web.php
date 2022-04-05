@@ -12,8 +12,9 @@ use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
-use App\Http\Controllers\NilaiPBLExportController;
 use App\Http\Controllers\AdminEditNilaiController;
+use App\Http\Controllers\NilaiPBLExportController;
+use App\Http\Controllers\NilaiTugasExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +45,11 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 Route::get('/dashboard/matkul/nilai/export', [NilaiPBLExportController::class, 'export']);
+Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 // Route::get('/dashboard/matkul/nilai/export', function() {
 //     return view('dashboard.nilai.dosen.export.pbl');
 // });
+
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 
@@ -72,6 +75,4 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 
 
 // //template
-// Route::get('/dashboard/dosen/nilai/template/tugas', function () {
-//     return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');    
-// });
+// 
