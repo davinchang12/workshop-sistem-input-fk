@@ -13,7 +13,15 @@ class NilaiSOCA extends Model
         'id'
     ];
 
+    protected $with = [
+        'nilai'
+    ];
+
     public function jenis() {
         return $this->hasMany(NilaiJenisSOCA::class);
+    }
+
+    public function nilai() {
+        return $this->belongsTo(Nilai::class);
     }
 }

@@ -13,6 +13,10 @@ class JenisSOCA extends Model
         'id'
     ];
 
+    protected $with = [
+        'jenis'
+    ];
+
     public function jenis() {
         return $this->belongsTo(NilaiJenisSOCA::class);
     }

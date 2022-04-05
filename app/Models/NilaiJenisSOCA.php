@@ -12,6 +12,10 @@ class NilaiJenisSOCA extends Model
     protected $guarded = [
         'id'
     ];
+    
+    protected $with = [
+        'soca'
+    ];
 
     public function nilai() {
         return $this->hasMany(JenisSOCA::class);
