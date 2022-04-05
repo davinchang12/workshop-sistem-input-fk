@@ -13,6 +13,10 @@ class NilaiPBLSkenarioDiskusiNilai extends Model
         'id'
     ];
 
+    protected $with = [
+        'diskusi'
+    ];
+
     public function diskusi() {
         return $this->belongsTo(NilaiPBLSkenarioDiskusi::class);
     }

@@ -13,6 +13,10 @@ class NilaiPBLSkenarioDiskusi extends Model
         'id'
     ];
 
+    protected $with = [
+        'skenario'
+    ];
+
     public function skenario() {
         return $this->belongsTo(NilaiPBLSkenario::class);
     }

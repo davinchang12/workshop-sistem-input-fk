@@ -14,6 +14,10 @@ class NilaiPBLSkenario extends Model
         'skenario'
     ];
 
+    protected $with = [
+        'pbl'
+    ];
+
     public function pbl() {
         return $this->belongsTo(NilaiPBL::class);
     }
