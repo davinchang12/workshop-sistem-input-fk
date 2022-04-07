@@ -6,6 +6,7 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -25,9 +26,14 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         $checkUser = [
             'matkul_id' => $request->matkul_dipilih,
         ];
-
+        $nilaitugas= $shares = DB::table('nilai_tugas')
+        ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->where('matkul_id', '=', $checkUser)
+        ->get();
         return view('dashboard.nilai.dosen.export.tugas', [
-            'kelompoks' => Kelompok::where($checkUser)->get(),
+            'nilaitugas' => $nilaitugas,
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiTugas;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreNilaiTugasRequest;
 use App\Http\Requests\UpdateNilaiTugasRequest;
 
@@ -36,7 +37,12 @@ class NilaiTugasController extends Controller
      */
     public function store(StoreNilaiTugasRequest $request)
     {
-        //
+        
+    }
+    public function import(Request $request){
+        Excel::import(new NilaiTugasImport(), $request->file(key: 'file'));
+
+        return 'Success';
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MatkulController extends Controller
 {
@@ -57,11 +58,18 @@ class MatkulController extends Controller
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
         ];
+        $nilaitugas=  DB::table('nilai_tugas')
+        ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->where('matkul_id', '=', $matkul->id )
+        ->get();
+        $nilai = Nilai::where('matkul_id', $matkul->id)->pluck('id');
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'matkul_id' => $matkul->id,
             'siswas' => Kelompok::where('matkul_id', $matkul->id)-> get(),
-            'nilaitugas' => NilaiTugas::all()-get()
+            'nilaitugas' => $nilaitugas
         ]);
     }
 

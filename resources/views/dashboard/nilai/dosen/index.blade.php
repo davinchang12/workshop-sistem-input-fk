@@ -36,6 +36,27 @@
                 <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
                 <button class="btn btn-primary w-100 shadow-none">Download Template</button>
             </form>
+            <form method="post" action="/dashboard/matkul/nilai/import/tugas" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                    </div>
+                    <div class="modal-body">
+             
+                        {{ csrf_field() }}
+             
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+             
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
             <div class="container">
                 <div class="row">
                     <table class="talbe table-bordered">
@@ -69,33 +90,32 @@
                             <td align="center"  ><b>13</b></td>
                             <td align="center"  ><b>14</b></td>
                             </tr>
-                            @foreach ($siswas as $kelompok)
-                                @if ($kelompok->users->role == 'mahasiswa')
+                            @foreach ($nilaitugas as $kelompok)
+                                @if ($kelompok->role == 'mahasiswa')
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $kelompok->users->name }}</td>
-                                        <td>{{ $kelompok->users->email }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $kelompok->name }}</td>
+                                        <td>{{ $kelompok->email }}</td>
+                                        <td>{{ $kelompok->tugas_1 }}</td>
+                                        <td>{{ $kelompok->tugas_2 }}</td>
+                                        <td>{{ $kelompok->tugas_3 }}</td>
+                                        <td>{{ $kelompok->tugas_4 }}</td>
+                                        <td>{{ $kelompok->tugas_5 }}</td>
+                                        <td>{{ $kelompok->tugas_6 }}</td>
+                                        <td>{{ $kelompok->tugas_7 }}</td>
+                                        <td>{{ $kelompok->tugas_8 }}</td>
+                                        <td>{{ $kelompok->tugas_9 }}</td>
+                                        <td>{{ $kelompok->tugas_10 }}</td>
+                                        <td>{{ $kelompok->tugas_11 }}</td>
+                                        <td>{{ $kelompok->tugas_12 }}</td>
+                                        <td>{{ $kelompok->tugas_13 }}</td>
+                                        <td>{{ $kelompok->tugas_14 }}</td>
                                         <td>Total</td>
                                         <td>Rata-rata</td>
                                     </tr>
                                 @endif
                                 @endforeach
-                    </table>
-                </div>
+                    </table>       
             </div>
         </div>
         <div class="tab-pane fade" id="pbl">

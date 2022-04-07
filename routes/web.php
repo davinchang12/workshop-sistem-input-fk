@@ -10,6 +10,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\EditNilaiController;
 use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
+use App\Http\Controllers\NilaiTugasController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\AdminEditNilaiController;
@@ -46,6 +47,7 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 Route::get('/dashboard/matkul/nilai/export', [NilaiPBLExportController::class, 'export']);
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 // Route::get('/dashboard/matkul/nilai/export', function() {
 //     return view('dashboard.nilai.dosen.export.pbl');
 // });
