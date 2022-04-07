@@ -2,10 +2,16 @@
 
 namespace App\Imports;
 
+use App\Models\User;
+use App\Models\Nilai;
+use App\Models\Matkul;
 use App\Models\NilaiTugas;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection; 
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class NilaiTugasImport implements ToModel, WithHeadingRow
+
+class NilaiTugasImport implements ToCollection, WithStartRow
 {
     /**
     * @param array $row
@@ -28,17 +34,17 @@ class NilaiTugasImport implements ToModel, WithHeadingRow
         }
 
         /**
-         * return int
+         * @return int
          */
-        // public function startRow(): int
-        // {
-        //     return 4;
-        // }
+        public function startRow(): int
+        {
+            return 4;
+        }
 
         public function collection(Collection $rows)
         {
             
-            $matkul = $this->matkul->where('namamatkul', $rows[19])->first();
+            $matkul = $this->matkul->where('namamatkul', $rows[0][19])->first();
             foreach ($rows as $row) 
             {
                 $user = $this->users->where('name', $row[1])->first();
