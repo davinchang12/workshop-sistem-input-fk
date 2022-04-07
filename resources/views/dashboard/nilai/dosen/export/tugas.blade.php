@@ -1,17 +1,18 @@
 <table>
 	<tr>
-		<td style="border: 1px solid blank;" colspan=19 align="center" ><b>Daftar Nilai Tugas</b></td>
+		<td style="border: 1px solid blank;" colspan=20 align="center" ><b>Daftar Nilai Tugas</b></td>
 		</tr>
 	<tr>
 		<td style="border: 1px solid blank;" rowspan=3 bgcolor="lightgray" align="center" ><b>No</b></td>
 		<td style="border: 1px solid blank;" rowspan=3 bgcolor="yellow" align="center" ><b>Nama</b></td>
 		<td style="border: 1px solid blank;" rowspan=3 bgcolor="yellow" align="center" ><b>NIM</b></td>
-		<td style="border: 1px solid blank;" bgcolor="yellow" colspan=16 align="center" ><b>Penilaian</b></td>
+		<td style="border: 1px solid blank;" bgcolor="yellow" colspan=17 align="center" ><b>Penilaian</b></td>
 		</tr>
 	<tr>
 		<td style="border: 1px solid blank;" colspan=14 bgcolor="green" align="center" ><b>TUGAS</b></td>
 		<td style="border: 1px solid blank;" rowspan=2 bgcolor="yellow" align="center" ><b>Total</b></td>
 		<td style="border: 1px solid blank;" rowspan=2 bgcolor="yellow" align="center" ><b>Rata-Rata</b></td>
+		<td style="border: 1px solid blank;" rowspan=2 bgcolor="yellow" align="center" ><b>Matkul<br>(Mohon untuk tidak diganti)</b></td>
 	</tr>
 	<tr>
 		<td style="border: 1px solid blank;" align="center"  ><b>1</b></td>
@@ -51,6 +52,7 @@
 				<td style="border: 1px solid blank;">{{ $tugas->tugas_14 }}</td>
 				<td style="border: 1px solid blank;"></td>
 				<td style="border: 1px solid blank;"></td>
+				<td style="border: 1px solid blank;" bgcolor="lightgray">{{ $tugas->namamatkul }}</td>
 			</tr>
 		@endif
 		@endforeach

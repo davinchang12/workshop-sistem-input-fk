@@ -60,19 +60,19 @@
             <div class="container">
                 <div class="row">
                     <table class="talbe table-bordered">
-                        <tr>
-                            <td colspan=19 align="center" ><b>Daftar Nilai Tugas</b></td>
+                            <tr>
+                                <td colspan=19 align="center" ><b>Daftar Nilai Tugas </b></td>
                             </tr>
                         <tr>
-                            <td rowspan=3  align="center" ><b>No</b></td>
-                            <td rowspan=3  align="center" ><b>Nama</b></td>
-                            <td rowspan=3  align="center" ><b>NIM</b></td>
-                            <td  colspan=16 align="center" ><b>Penilaian</b></td>
+                            <td rowspan=3  align="center" bgcolor="lightgray"><b>No</b></td>
+                            <td rowspan=3  align="center" bgcolor="yellow"><b>Nama</b></td>
+                            <td rowspan=3  align="center" bgcolor="yellow"><b>NIM</b></td>
+                            <td  colspan=16 align="center" bgcolor="yellow"><b>Penilaian</b></td>
                             </tr>
                         <tr>
-                            <td colspan=14 align="center" ><b>TUGAS</b></td>
-                            <td rowspan=2  align="center" ><b>Total</b></td>
-                            <td rowspan=2  align="center" ><b>Rata-Rata</b></td>
+                            <td colspan=14 align="center" bgcolor="lightblue"><b>TUGAS</b></td>
+                            <td rowspan=2  align="center" bgcolor="lightblue"><b>Total</b></td>
+                            <td rowspan=2  align="center" bgcolor="lightblue"><b>Rata-Rata</b></td>
                         </tr>
                         <tr>
                             <td align="center"  ><b>1</b></td>
@@ -90,32 +90,33 @@
                             <td align="center"  ><b>13</b></td>
                             <td align="center"  ><b>14</b></td>
                             </tr>
-                            @foreach ($nilaitugas as $kelompok)
-                                @if ($kelompok->role == 'mahasiswa')
+                            @foreach ($nilaitugas as $tugas)
+                                @if ($tugas->role == 'mahasiswa')
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $kelompok->name }}</td>
-                                        <td>{{ $kelompok->email }}</td>
-                                        <td>{{ $kelompok->tugas_1 }}</td>
-                                        <td>{{ $kelompok->tugas_2 }}</td>
-                                        <td>{{ $kelompok->tugas_3 }}</td>
-                                        <td>{{ $kelompok->tugas_4 }}</td>
-                                        <td>{{ $kelompok->tugas_5 }}</td>
-                                        <td>{{ $kelompok->tugas_6 }}</td>
-                                        <td>{{ $kelompok->tugas_7 }}</td>
-                                        <td>{{ $kelompok->tugas_8 }}</td>
-                                        <td>{{ $kelompok->tugas_9 }}</td>
-                                        <td>{{ $kelompok->tugas_10 }}</td>
-                                        <td>{{ $kelompok->tugas_11 }}</td>
-                                        <td>{{ $kelompok->tugas_12 }}</td>
-                                        <td>{{ $kelompok->tugas_13 }}</td>
-                                        <td>{{ $kelompok->tugas_14 }}</td>
+                                        <td>{{ $tugas->name }}</td>
+                                        <td>{{ $tugas->email }}</td>
+                                        <td>{{ $tugas->tugas_1 }}</td>
+                                        <td>{{ $tugas->tugas_2 }}</td>
+                                        <td>{{ $tugas->tugas_3 }}</td>
+                                        <td>{{ $tugas->tugas_4 }}</td>
+                                        <td>{{ $tugas->tugas_5 }}</td>
+                                        <td>{{ $tugas->tugas_6 }}</td>
+                                        <td>{{ $tugas->tugas_7 }}</td>
+                                        <td>{{ $tugas->tugas_8 }}</td>
+                                        <td>{{ $tugas->tugas_9 }}</td>
+                                        <td>{{ $tugas->tugas_10 }}</td>
+                                        <td>{{ $tugas->tugas_11 }}</td>
+                                        <td>{{ $tugas->tugas_12 }}</td>
+                                        <td>{{ $tugas->tugas_13 }}</td>
+                                        <td>{{ $tugas->tugas_14 }}</td>
                                         <td>Total</td>
                                         <td>Rata-rata</td>
                                     </tr>
                                 @endif
                                 @endforeach
                     </table>       
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="pbl">

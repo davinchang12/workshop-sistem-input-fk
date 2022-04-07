@@ -34,6 +34,7 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         ->get();
         return view('dashboard.nilai.dosen.export.tugas', [
             'nilaitugas' => $nilaitugas,
+            'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul')
         ]);
     }
 

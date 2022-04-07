@@ -15,7 +15,6 @@ class NilaiTugasFactory extends Factory
     {
         return [
             'nilai_id' => $this->faker->unique()->numberBetween(1, 10),
-            'tugas_1' => $this->faker->numberBetween(60,99),  
         ];
     }
 }

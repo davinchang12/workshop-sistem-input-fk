@@ -69,7 +69,8 @@ class MatkulController extends Controller
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'matkul_id' => $matkul->id,
             'siswas' => Kelompok::where('matkul_id', $matkul->id)-> get(),
-            'nilaitugas' => $nilaitugas
+            'nilaitugas' => $nilaitugas,
+            'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul')
         ]);
     }
 

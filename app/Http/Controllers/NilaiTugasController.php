@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiTugas;
+use App\Exports\NilaiTugasExport;
+use App\Http\Controllers\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreNilaiTugasRequest;
 use App\Http\Requests\UpdateNilaiTugasRequest;
@@ -38,11 +40,6 @@ class NilaiTugasController extends Controller
     public function store(StoreNilaiTugasRequest $request)
     {
         
-    }
-    public function import(Request $request){
-        Excel::import(new NilaiTugasImport(), $request->file(key: 'file'));
-
-        return 'Success';
     }
 
     /**
@@ -89,4 +86,28 @@ class NilaiTugasController extends Controller
     {
         //
     }
+    // public function export() {
+    //     return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');
+    // }
+    public function import(Request $request) {
+        
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		$file = $request->file('file');
+ 
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		$file->move('nilai_tugas',$nama_file);
+ 
+		Excel::import(new NilaiTugasImport, public_path('/nilai_tugas/'.$nama_file));
+ 
+		Session::flash('sukses','Nilai Tugas Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_tugas/'.$nama_file));
+ 
+		return redirect('/dashboard/matkul/nilai/');
+    }
+
 }
