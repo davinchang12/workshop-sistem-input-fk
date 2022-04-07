@@ -18,7 +18,7 @@ class NilaiTugasImport implements ToModel, WithHeadingRow
         
     // }
 
-        private $matkul, $user, $nilai, $pbl, $skenario, $diskusi;
+        private $matkul, $user, $nilai, $tugas;
         public function __construct()
         {
             $this->matkul = Matkul::select('id', 'namamatkul')->get();
