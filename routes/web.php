@@ -14,6 +14,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiPBLExportController;
 use App\Http\Controllers\AdminEditNilaiController;
+use App\Http\Controllers\NilaiPBLController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +44,9 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
-Route::get('/dashboard/matkul/nilai/export', [NilaiPBLExportController::class, 'export']);
-// Route::get('/dashboard/matkul/nilai/export', function() {
-//     return view('dashboard.nilai.dosen.export.pbl');
-// });
+
+Route::post('/dashboard/matkul/nilai/export', [NilaiPBLController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/import', [NilaiPBLController::class, 'import']);
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 
