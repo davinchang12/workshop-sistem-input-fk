@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiTugas;
+use Illuminate\Http\Request;
 use App\Exports\NilaiTugasExport;
-use App\Http\Controllers\Request;
+use App\Imports\NilaiTugasImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreNilaiTugasRequest;
 use App\Http\Requests\UpdateNilaiTugasRequest;
