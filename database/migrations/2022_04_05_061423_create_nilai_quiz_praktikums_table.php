@@ -16,7 +16,7 @@ class CreateNilaiQuizPraktikumsTable extends Migration
         Schema::create('nilai_quiz_praktikums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilai_jenis_praktikum_id');
-            $table->integer('nilai_laporan');
+            $table->integer('nilai_quiz')->nullable();
             $table->timestamps();
         });
     }

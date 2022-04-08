@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiPraktikum;
+
+use Illuminate\Http\Request;
+use App\Exports\NilaiPraktikumTugasExport;
+use App\Imports\NilaiPraktikumTugasImport;
+use App\Exports\NilaiPraktikumResponsiRemedialExport;
+use App\Imports\NilaiPraktikumResponsiRemedialImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
+
 use App\Http\Requests\StoreNilaiPraktikumRequest;
 use App\Http\Requests\UpdateNilaiPraktikumRequest;
 
@@ -82,5 +92,55 @@ class NilaiPraktikumController extends Controller
     public function destroy(NilaiPraktikum $nilaiPraktikum)
     {
         //
+    }
+
+    public function exportTugas() {
+        return Excel::download(new NilaiPraktikumTugasExport, 'nilai-praktikum-tugas.xlsx');
+    }
+
+    public function importTugas(Request $request) {
+        
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		$file = $request->file('file');
+ 
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		$file->move('nilai_praktikum_tugas',$nama_file);
+ 
+		Excel::import(new NilaiPraktikumTugasImport, public_path('/nilai_praktikum_tugas/'.$nama_file));
+ 
+		Session::flash('sukses','Nilai Praktikum Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_praktikum_tugas/'.$nama_file));
+ 
+		return redirect('/dashboard/matkul/nilai/');
+    }
+
+    public function exportResponsiRemedial() {
+        return Excel::download(new NilaiPraktikumResponsiRemedialExport, 'nilai-praktikum-responsi-remedial.xlsx');
+    }
+
+    public function importResponsiRemedial(Request $request) {
+        
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		$file = $request->file('file');
+ 
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		$file->move('nilai_praktikum_responsi_remedial',$nama_file);
+ 
+		Excel::import(new NilaiPraktikumResponsiRemedialImport, public_path('/nilai_praktikum_responsi_remedial/'.$nama_file));
+ 
+		Session::flash('sukses','Nilai Praktikum Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_praktikum_responsi_remedial/'.$nama_file));
+ 
+		return redirect('/dashboard/matkul/nilai/');
     }
 }

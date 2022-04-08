@@ -19,8 +19,9 @@ class CreateNilaiPBLSkenarioDiskusiNilaisTable extends Migration
             $table->integer('kehadiran');
             $table->integer('aktivitas_diskusi_relevansi_pembicaraan');
             $table->integer('keterampilan_berkomunikasi');
-            $table->integer('laporan_sementara');
-            $table->integer('laporan_resmi');
+            $table->integer('laporan_sementara')->nullable();
+            $table->integer('laporan_resmi')->nullable();
+            $table->text('catatan_kesan_kegiatan_diskusi_tutorial')->nullable();
             $table->timestamps();
         });
     }

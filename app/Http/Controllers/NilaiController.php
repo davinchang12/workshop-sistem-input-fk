@@ -28,6 +28,7 @@ class NilaiController extends Controller
         ];
         
         return view('dashboard.nilai.index', [
+            'nilais' => Nilai::where($checkUser)->get(),
             'kelompoks' => Kelompok::where($checkUser)->get(),
         ]);
     }
