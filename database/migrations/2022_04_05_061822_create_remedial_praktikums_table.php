@@ -16,7 +16,7 @@ class CreateRemedialPraktikumsTable extends Migration
         Schema::create('remedial_praktikums', function (Blueprint $table) {
             // $table->id();
             $table->foreignId('nilai_praktikum_id');
-            $table->integer('remedial');
+            $table->integer('remedial')->nullable();
             $table->timestamps();
         });
     }

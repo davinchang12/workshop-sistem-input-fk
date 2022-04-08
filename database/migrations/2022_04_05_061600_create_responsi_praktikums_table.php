@@ -16,7 +16,7 @@ class CreateResponsiPraktikumsTable extends Migration
         Schema::create('responsi_praktikums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilai_praktikum_id');
-            $table->integer('responsi');
+            $table->integer('responsi')->nullable();
             $table->timestamps();
         });
     }

@@ -16,8 +16,6 @@ class NilaiJenisPraktikum extends Model
     ];
     protected $with =[
         'nilai_praktikum',
-        'laporan',
-        'quiz'
     ];
     public function nilai_praktikum()
     {
