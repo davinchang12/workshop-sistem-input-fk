@@ -14,10 +14,11 @@ class NilaiTugas extends Model
     ];
 
     protected $with = [
-        'nilai'
+        'nilais'
     ];
 
-    public function nilai() {
+    public function nilais() {
         return $this->belongsTo(Nilai::class);
     }
+    
 }

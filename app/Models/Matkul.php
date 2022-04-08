@@ -17,10 +17,15 @@ class Matkul extends Model
         'bobot_sks'
     ];
 
-    public function nilaiMhs() {
+    public function nilais() {
         return $this->hasMany(Nilai::class);
     }
-
+    /**
+     * Get all of the comments for the Matkul
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    
     public function kelompok() {
         return $this->hasMany(Kelompok::class);
     }

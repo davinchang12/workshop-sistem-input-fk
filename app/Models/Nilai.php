@@ -15,7 +15,8 @@ class Nilai extends Model
     ];
     protected $with = [
         'users',
-        'matkul'
+        'matkul',
+        'nilaitugas'
     ];
 
     public function users()
@@ -27,6 +28,11 @@ class Nilai extends Model
     {
         return $this->belongsTo(Matkul::class);
     }
+    public function nilaitugas()
+    {
+        return $this->hasOne(NilaiTugas::class);
+    }
+
 
     public function feedbacks()
     {

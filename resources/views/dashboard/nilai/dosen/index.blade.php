@@ -31,7 +31,93 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
-            <p>Tugas tab content ...</p>
+            <form action="/dashboard/matkul/nilai/export/tugas" method="get">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+            </form>
+            <form method="post" action="/dashboard/matkul/nilai/import/tugas" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                    </div>
+                    <div class="modal-body">
+             
+                        {{ csrf_field() }}
+             
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+             
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+            <div class="container">
+                <div class="row">
+                    <table class="talbe table-bordered">
+                            <tr>
+                                <td colspan=19 align="center" ><b>Daftar Nilai Tugas </b></td>
+                            </tr>
+                        <tr>
+                            <td rowspan=3  align="center" bgcolor="lightgray"><b>No</b></td>
+                            <td rowspan=3  align="center" bgcolor="yellow"><b>Nama</b></td>
+                            <td rowspan=3  align="center" bgcolor="yellow"><b>NIM</b></td>
+                            <td  colspan=16 align="center" bgcolor="yellow"><b>Penilaian</b></td>
+                            </tr>
+                        <tr>
+                            <td colspan=14 align="center" bgcolor="lightblue"><b>TUGAS</b></td>
+                            <td rowspan=2  align="center" bgcolor="lightblue"><b>Total</b></td>
+                            <td rowspan=2  align="center" bgcolor="lightblue"><b>Rata-Rata</b></td>
+                        </tr>
+                        <tr>
+                            <td align="center"  ><b>1</b></td>
+                            <td align="center"  ><b>2</b></td>
+                            <td align="center"  ><b>3</b></td>
+                            <td align="center"  ><b>4</b></td>
+                            <td align="center"  ><b>5</b></td>
+                            <td align="center"  ><b>6</b></td>
+                            <td align="center"  ><b>7</b></td>
+                            <td align="center"  ><b>8</b></td>
+                            <td align="center"  ><b>9</b></td>
+                            <td align="center"  ><b>10</b></td>
+                            <td align="center"  ><b>11</b></td>
+                            <td align="center"  ><b>12</b></td>
+                            <td align="center"  ><b>13</b></td>
+                            <td align="center"  ><b>14</b></td>
+                            </tr>
+                            @foreach ($nilaitugas as $tugas)
+                                @if ($tugas->role == 'mahasiswa')
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $tugas->name }}</td>
+                                        <td>{{ $tugas->email }}</td>
+                                        <td>{{ $tugas->tugas_1 }}</td>
+                                        <td>{{ $tugas->tugas_2 }}</td>
+                                        <td>{{ $tugas->tugas_3 }}</td>
+                                        <td>{{ $tugas->tugas_4 }}</td>
+                                        <td>{{ $tugas->tugas_5 }}</td>
+                                        <td>{{ $tugas->tugas_6 }}</td>
+                                        <td>{{ $tugas->tugas_7 }}</td>
+                                        <td>{{ $tugas->tugas_8 }}</td>
+                                        <td>{{ $tugas->tugas_9 }}</td>
+                                        <td>{{ $tugas->tugas_10 }}</td>
+                                        <td>{{ $tugas->tugas_11 }}</td>
+                                        <td>{{ $tugas->tugas_12 }}</td>
+                                        <td>{{ $tugas->tugas_13 }}</td>
+                                        <td>{{ $tugas->tugas_14 }}</td>
+                                        <td>Total</td>
+                                        <td>Rata-rata</td>
+                                    </tr>
+                                @endif
+                                @endforeach
+                    </table>       
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="pbl">
             <form action="/dashboard/matkul/nilai/export-pbl" method="post" enctype="multipart/form-data">

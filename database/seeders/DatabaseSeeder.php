@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Jadwal;
-use App\Models\Kelompok;
-use App\Models\Matkul;
-use App\Models\Nilai;
 use App\Models\User;
+use App\Models\Nilai;
+use App\Models\Jadwal;
+use App\Models\Matkul;
+use App\Models\Kelompok;
+use App\Models\NilaiTugas;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -90,14 +91,40 @@ class DatabaseSeeder extends Seeder
             'email' => 'dosen2@unika.ac.id',
             'password' =>  bcrypt('password')
         ]);
+        $max = 10;
+        for($i=1;$i<=$max;$i++){
+            NilaiTugas::factory()->create();
+        }
 
-        // Nilai::factory(50)->create();
-        // Nilai::create([
-        //     'user_id' => 2,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 85
-        // ]);
+        
+        Nilai::create([
+            'user_id' => 8,
+            'matkul_id' => 1,
+        ]);
+        Nilai::create([
+            'user_id' => 2,
+            'matkul_id' => 2,
+        ]);
+        Nilai::create([
+            'user_id' => 3,
+            'matkul_id' => 1,
+        ]);
+        Nilai::create([
+            'user_id' => 4,
+            'matkul_id' => 1,
+        ]);
+        Nilai::create([
+            'user_id' => 5,
+            'matkul_id' => 1,
+        ]);
+        Nilai::create([
+            'user_id' => 6,
+            'matkul_id' => 1,
+        ]);
+        Nilai::create([
+            'user_id' => 7,
+            'matkul_id' => 2,
+        ]);
 
         // Nilai::create([
         //     'user_id' => 2,

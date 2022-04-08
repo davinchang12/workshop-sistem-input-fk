@@ -14,7 +14,7 @@ class NilaiTugasFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nilai_id' => $this->faker->unique()->numberBetween(1, 10),
         ];
     }
 }
