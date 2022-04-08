@@ -53,30 +53,30 @@ class NilaiPraktikumTugasImport implements ToCollection, WithStartRow
             $praktikum = $this->praktikum->where('nilai_id', $nilai->id)->first() ?? 
                 NilaiPraktikum::firstOrCreate([
                 'nilai_id' => $nilai->id,
-                'namapraktikum' => $row[3]
+                'namapraktikum' => $row[4]
                 ]);
 
             $jenispraktikum = $this->praktikum->where('nilai_praktikum_id', $praktikum->id)->where('jenispraktikum', $row[5])->first() ?? 
                 NilaiJenisPraktikum::firstOrCreate([
                     'nilai_praktikum_id' => $praktikum->id,
-                    'jenispraktikum' => $row[4]
+                    'jenispraktikum' => $row[5]
                 ]);
 
             
             $laporan = NilaiLaporanPraktikum::firstOrCreate(
                 ['nilai_jenis_praktikum_id' => $jenispraktikum->id],
-                ['nilai_laporan' => $row[5] ?? null]
+                ['nilai_laporan' => $row[6] ?? null]
             );
 
-            $laporan->where('nilai_jenis_praktikum_id', $jenispraktikum->id)->where('nilai_laporan', null)->update(['nilai_laporan' => $row[5] ?? null]);
+            $laporan->where('nilai_jenis_praktikum_id', $jenispraktikum->id)->where('nilai_laporan', null)->update(['nilai_laporan' => $row[6] ?? null]);
 
 
             $quiz = NilaiQuizPraktikum::firstOrCreate(
                 ['nilai_jenis_praktikum_id' => $jenispraktikum->id],
-                ['nilai_quiz' => $row[6] ?? null]
+                ['nilai_quiz' => $row[7] ?? null]
             );
 
-            $quiz->where('nilai_jenis_praktikum_id', $jenispraktikum->id)->where('nilai_quiz', null)->update(['nilai_quiz' => $row[6] ?? null]);
+            $quiz->where('nilai_jenis_praktikum_id', $jenispraktikum->id)->where('nilai_quiz', null)->update(['nilai_quiz' => $row[7] ?? null]);
         }
     }
 }
