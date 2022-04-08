@@ -12,6 +12,7 @@
 		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Nama</font></td>
 		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Mata Kuliah</font></td>
 		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Praktikum</font></td>
+		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Jenis Praktikum</font></td>
 		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Nilai Quiz</font></td>
 		<td align="center" valign=middle bgcolor="#FFFF00"><font color="#000000">Laporan Praktikum</font></td>
 	</tr>
@@ -21,11 +22,13 @@
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Wajib</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Wajib</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Wajib</font></td>
+		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Wajib</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Opsional</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Opsional</font></td>
 	</tr>
 	<tr>
 		<td height="107" align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Mohon untuk tidak diubah</font></td>
+		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Mohon untuk tidak diubah</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Mohon untuk tidak diubah</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Mohon untuk tidak diubah</font></td>
 		<td align="center" valign=middle bgcolor="#EEECE1"><font color="#000000">Mohon untuk tidak diubah</font></td>
