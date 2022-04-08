@@ -127,7 +127,7 @@
                 </div>
             </form>
 
-            <form action="/dashboard/matkul/nilai/export-praktikum-responsi-remidial" method="post" enctype="multipart/form-data">
+            <form action="/dashboard/matkul/nilai/export-praktikum-responsi-remedial" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
                 <button class="btn btn-primary w-100 shadow-none">Download Template Responsi dan Remedial</button>
