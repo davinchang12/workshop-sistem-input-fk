@@ -14,7 +14,7 @@ class CreateNilaiTugasTable extends Migration
     public function up()
     {
         Schema::create('nilai_tugas', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->foreignId('nilai_id');
             $table->integer('tugas_1')->nullable();
             $table->integer('tugas_2')->nullable();

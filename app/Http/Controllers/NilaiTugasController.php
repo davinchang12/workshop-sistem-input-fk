@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Exports\NilaiTugasExport;
 use App\Imports\NilaiTugasImport;
 use Illuminate\Support\Collection; 
+use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreNilaiTugasRequest;
 use App\Http\Requests\UpdateNilaiTugasRequest;
 
@@ -111,7 +113,7 @@ class NilaiTugasController extends Controller
 
         File::delete(public_path('/nilai_tugas/'.$nama_file));
  
-		return redirect('/dashboard/matkul/nilai/');
+		return redirect('/dashboard/matkul');
     }
 
 }
