@@ -14,8 +14,7 @@ class NilaiPraktikum extends Model
         'id'
     ];
     protected $with =[
-        'nilai',
-        'nilai_jenis_praktikum'
+        'nilai'
     ];
     public function nilai()
     {

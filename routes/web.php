@@ -12,9 +12,9 @@ use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
-use App\Http\Controllers\NilaiPBLExportController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPBLController;
+use App\Http\Controllers\NilaiPraktikumController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +45,14 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 
-Route::post('/dashboard/matkul/nilai/export', [NilaiPBLController::class, 'export']);
-Route::post('/dashboard/matkul/nilai/import', [NilaiPBLController::class, 'import']);
+Route::post('/dashboard/matkul/nilai/export-pbl', [NilaiPBLController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/import-pbl', [NilaiPBLController::class, 'import']);
+
+Route::post('/dashboard/matkul/nilai/export-praktikum-tugas', [NilaiPraktikumController::class, 'exportTugas']);
+Route::post('/dashboard/matkul/nilai/import-praktikum-tugas', [NilaiPraktikumController::class, 'importTugas']);
+
+Route::post('/dashboard/matkul/nilai/export-praktikum-responsi-remedial', [NilaiPraktikumController::class, 'exportResponsiRemedial']);
+Route::post('/dashboard/matkul/nilai/import-praktikum-responsi-remedial', [NilaiPraktikumController::class, 'importResponsiRemedial']);
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 

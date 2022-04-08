@@ -16,7 +16,7 @@ class CreateNilaiJenisPraktikumsTable extends Migration
         Schema::create('nilai_jenis_praktikums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilai_praktikum_id');
-            $table->string('namapraktikum');
+            $table->string('jenispraktikum');
             $table->timestamps();
         });
     }

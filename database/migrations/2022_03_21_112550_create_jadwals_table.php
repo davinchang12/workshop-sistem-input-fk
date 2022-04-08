@@ -14,6 +14,7 @@ class CreateJadwalsTable extends Migration
     public function up()
     {
         Schema::create('jadwals', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id');
             $table->foreignId('matkul_id');
             $table->dateTime('tanggal');

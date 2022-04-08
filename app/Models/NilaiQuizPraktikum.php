@@ -15,6 +15,7 @@ class NilaiQuizPraktikum extends Model
     protected $with =[
         'nilai_jenis_praktikum'
     ];
+    
     public function nilai_jenis_praktikum()
     {
         return $this->belongsTo(NilaiJenisPraktikum::class);
