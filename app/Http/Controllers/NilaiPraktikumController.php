@@ -133,7 +133,7 @@ class NilaiPraktikumController extends Controller
  
 		$nama_file = rand().$file->getClientOriginalName();
  
-		$file->move('nilai_praktikum_tugas',$nama_file);
+		$file->move('nilai_praktikum_responsi_remedial',$nama_file);
  
 		Excel::import(new NilaiPraktikumResponsiRemedialImport, public_path('/nilai_praktikum_responsi_remedial/'.$nama_file));
  
