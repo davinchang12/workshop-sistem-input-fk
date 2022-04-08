@@ -126,34 +126,34 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <form action="/dashboard/matkul/nilai/export-praktikum-responsi-remidial" method="post" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
-            <button class="btn btn-primary w-100 shadow-none">Download Template Responsi dan Remedial</button>
-        </form>
-        <form method="post" action="/dashboard/matkul/nilai/import-praktikum-responsi-remedial" enctype="multipart/form-data">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Import Template Responsi dan Remedial</h5>
-                </div>
-                <div class="modal-body">
-         
-                    {{ csrf_field() }}
-         
-                    <label>Pilih file excel</label>
-                    <div class="form-group">
-                        <input type="file" name="file" required="required">
+
+            <form action="/dashboard/matkul/nilai/export-praktikum-responsi-remidial" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul_id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template Responsi dan Remedial</button>
+            </form>
+            <form method="post" action="/dashboard/matkul/nilai/import-praktikum-responsi-remedial" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Template Responsi dan Remedial</h5>
                     </div>
-         
+                    <div class="modal-body">
+             
+                        {{ csrf_field() }}
+             
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+             
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Import</button>
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
         <div class="tab-pane fade" id="Ujian">
             <p>Ujian tab content ...</p>
         </div>
