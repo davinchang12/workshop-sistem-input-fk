@@ -49,8 +49,9 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 
-Route::post('/dashboard/matkul/nilai/export-pbl', [NilaiPBLController::class, 'export']);
-Route::post('/dashboard/matkul/nilai/import-pbl', [NilaiPBLController::class, 'import']);
+
+Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
+Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
 
 Route::post('/dashboard/matkul/nilai/export-praktikum-tugas', [NilaiPraktikumController::class, 'exportTugas']);
 Route::post('/dashboard/matkul/nilai/import-praktikum-tugas', [NilaiPraktikumController::class, 'importTugas']);
