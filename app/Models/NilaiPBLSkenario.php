@@ -11,7 +11,8 @@ class NilaiPBLSkenario extends Model
 
     protected $fillable = [
         'nilaipbl_id',
-        'skenario'
+        'skenario',
+        'kelompok'
     ];
 
     protected $with = [
@@ -19,10 +20,10 @@ class NilaiPBLSkenario extends Model
     ];
 
     public function pbl() {
-        return $this->belongsTo(NilaiPBL::class);
+        return $this->belongsTo(NilaiPBL::class, 'nilaipbl_id');
     }
 
-    public function diskusi() {
-        return $this->hasMany(NilaiPBLSkenarioDiskusi::class);
+    public function skenariodiskusi() {
+        return $this->hasMany(NilaiPBLSkenarioDiskusi::class, 'nilaipblskenario_id');
     }
 }
