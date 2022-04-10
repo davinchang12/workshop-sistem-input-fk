@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NilaiPBL;
 use Illuminate\Http\Request;
-use App\Exports\NilasPBLExport;
-use App\Imports\NilaiPBLImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\File;
 
-use App\Http\Requests\StoreNilaiPBLRequest;
-use App\Http\Requests\UpdateNilaiPBLRequest;
+use App\Models\NilaiPBL;
+use App\Models\NilaiPBLSkenario;
+use App\Models\NilaiPBLSkenarioDiskusi;
+use App\Models\NilaiPBLSkenarioDiskusiNilai;
 
 class NilaiPBLController extends Controller
 {
@@ -41,9 +37,32 @@ class NilaiPBLController extends Controller
      * @param  \App\Http\Requests\StoreNilaiPBLRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNilaiPBLRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        for ($i = 1; $i <= (int)$request['loop']; $i++) {
+            $getNilaiPBLSkenarioID = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id')
+                ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+                ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+                ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('users.name', $request['nama' . $i])
+                ->where('nilai_p_b_l_skenario_diskusis.diskusi', $request['diskusi'])
+                ->first()->id;
+
+            NilaiPBLSkenarioDiskusiNilai::firstOrCreate(
+                ['nilaipblskenariodiskusi_id' => $getNilaiPBLSkenarioID],
+                [
+                    'kehadiran' => $request['kehadiran' . $i],
+                    'aktivitas_diskusi' => $request['aktivitas_saat_diskusi' . $i],
+                    'relevansi_pembicaraan' => $request['relevansi_pembicaraan' . $i],
+                    'keterampilan_berkomunikasi' => $request['keterampilan_berkomunikasi' . $i],
+                    'laporan_sementara' => $request['laporan_sementara' . $i] ?? 0
+                ],
+            );
+        }
+
+        return redirect('/dashboard/matkul/nilai/');
     }
 
     /**
@@ -75,7 +94,7 @@ class NilaiPBLController extends Controller
      * @param  \App\Models\NilaiPBL  $nilaiPBL
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNilaiPBLRequest $request, NilaiPBL $nilaiPBL)
+    public function update(Request $request, NilaiPBL $nilaiPBL)
     {
         //
     }
@@ -91,28 +110,34 @@ class NilaiPBLController extends Controller
         //
     }
 
-    public function export() {
-        return Excel::download(new NilasPBLExport, 'nilai.xlsx');
-    }
+    public function input(Request $request)
+    {
+        $kodematkul = $request->kodematkul;
+        $skenario = $request->skenario;
+        $diskusi = $request->diskusi;
+        $diskusi_id = $request->diskusi_id;
+        $kelompok = $request->kelompok;
+        $dosen_tutor = auth()->user()->name;
 
-    public function import(Request $request) {
-        
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-		]);
- 
-		$file = $request->file('file');
- 
-		$nama_file = rand().$file->getClientOriginalName();
- 
-		$file->move('nilai_pbl',$nama_file);
- 
-		Excel::import(new NilaiPBLImport, public_path('/nilai_pbl/'.$nama_file));
- 
-		Session::flash('sukses','Nilai PBL Berhasil Diimport!');
+        $kelompoks = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id as diskusi_id', 'nilai_p_b_l_skenario_diskusis.diskusi as diskusi', 'users.role as role', 'users.name as name', 'users.nim as nim')
+                ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+                ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+                ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('nilai_p_b_l_skenarios.kelompok', $kelompok)
+                ->where('nilai_p_b_l_skenarios.skenario', $skenario)
+                ->where('nilai_p_b_l_skenario_diskusis.diskusi', $diskusi)
+                ->get();
 
-        File::delete(public_path('/nilai_pbl/'.$nama_file));
- 
-		return redirect('/dashboard/matkul/nilai/');
+        return view('dashboard.nilai.dosen.input.pbl', [
+            'kelompoks' => $kelompoks,
+            'skenarios' => NilaiPBLSkenario::where('kelompok', $kelompok)->get(),
+            'tutor' => $dosen_tutor,
+            'kodematkul' => $kodematkul,
+            'kelompok_id' => $kelompok,
+            'skenario' => $skenario,
+            'diskusi' => $diskusi,
+            'diskusi_id' => $diskusi_id
+        ]);
     }
 }
