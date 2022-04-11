@@ -178,7 +178,7 @@
                 <form action="/dashboard/matkul/nilai/input-praktikum-submit" method="post" enctype="multipart/form-data">
                     @csrf
                     <table cellspacing="0" border="0">
-                        <colgroup width="87"></colgroup>
+                        <colgroup width="200"></colgroup>
                         <colgroup width="87"></colgroup>
                         <colgroup width="87"></colgroup>
                         <colgroup width="87"></colgroup>
