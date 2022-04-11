@@ -7,10 +7,11 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
-use App\Models\NilaiPBLSkenarioDiskusi;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
+use App\Models\ResponsiPraktikum;
 use Illuminate\Support\Facades\DB;
+use App\Models\NilaiPBLSkenarioDiskusi;
 
 class MatkulController extends Controller
 {
@@ -66,13 +67,21 @@ class MatkulController extends Controller
         ->where('matkul_id', '=', $matkul->id )
         ->get();
 
+        $praktikums = Jadwal::select('users.name', 'users.nim')
+            ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $matkul->id)
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenario = $nilai->pbl->pblskenario ?? null;
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
-            'matkul' => $matkul,
             'nilaitugas' => $nilaitugas,
+            'praktikums' => $praktikums,
+            'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);
 
