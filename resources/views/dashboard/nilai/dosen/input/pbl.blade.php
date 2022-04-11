@@ -308,8 +308,8 @@
             <input type="hidden" name="skenario" id="skenario" value="{{ $skenario }}">
             <input type="hidden" name="kelompok_id" id="kelompok_id" value="{{ $kelompok_id }}">
             <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $kodematkul }}">
-            <a href="/dashboard/matkul/{{ $kodematkul }}" class="btn btn-success">Kembali</a>
-            <button type="submit" class="btn btn-primary">Submit Nilai</button>
+            <a href="/dashboard/matkul/{{ $kodematkul }}" class="btn btn-success mt-3">Kembali</a>
+            <button type="submit" class="btn btn-primary mt-3 ml-2">Submit Nilai</button>
         </form>
     </div>
     <!-- ************************************************************************** -->
