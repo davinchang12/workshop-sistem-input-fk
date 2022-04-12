@@ -67,11 +67,14 @@ class MatkulController extends Controller
         ->where('matkul_id', '=', $matkul->id )
         ->get();
 
-        $praktikums = Jadwal::select('users.name', 'users.nim')
+        $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->where('matkuls.id', $matkul->id)
+            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+            ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul->id)
             ->get();
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
@@ -79,8 +82,8 @@ class MatkulController extends Controller
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
-            'nilaitugas' => $nilaitugas,
             'praktikums' => $praktikums,
+            'nilaitugas' => $nilaitugas,
             'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);
