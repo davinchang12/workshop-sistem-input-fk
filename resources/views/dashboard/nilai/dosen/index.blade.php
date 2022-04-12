@@ -174,9 +174,35 @@
             </div>
         </div>
         <div class="tab-pane fade" id="praktikum">
-            <div class="mt-3">
-                <form action="/dashboard/matkul/nilai/input-praktikum-submit" method="post" enctype="multipart/form-data">
-                    @csrf
+            <form action="/dashboard/matkul/nilai/export/praktikum" method="post">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+            </form>
+            <form method="post" action="/dashboard/matkul/nilai/import/praktikum" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        {{ csrf_field() }}
+
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
+            @if (count($praktikums) > 0)
+                <div class="mt-3 mb-3">
                     <table cellspacing="0" border="0">
                         <colgroup width="200"></colgroup>
                         <colgroup width="87"></colgroup>
@@ -264,77 +290,51 @@
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=middle>
                                     <font color="#000000">{{ $praktikum->nim }}</font>
-                                    <input type="hidden" name="nim{{ $loop->iteration }}" id="nim{{ $loop->iteration }}" value="{{ $praktikum->nim }}">
                                 </td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=middle>
-                                    <input type="number" name="rata-rata-quiz{{ $loop->iteration }}"
-                                        id="rata-rata-quiz{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;"
-                                        onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                                    <font color="#000000">{{ $praktikum->rata_rata_quiz }}</font>
                                 </td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=middle>
-                                    <input type="number" name="rata-rata-nilai-laporan{{ $loop->iteration }}"
-                                        id="rata-rata-nilai-laporan{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;"
-                                        onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                                    <font color="#000000">{{ $praktikum->rata_rata_laporan }}</font>
                                 </td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=middle>
-                                    <input type="number" name="nilai-responsi{{ $loop->iteration }}"
-                                        id="nilai-responsi{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;"
-                                        onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                                    <font color="#000000">{{ $praktikum->nilai_responsi }}</font>
                                 </td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=middle>
-                                    <input type="number" name="nilai-akhir{{ $loop->iteration }}"
-                                        id="nilai-akhir{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;">
-                                    
+                                    <font color="#000000">{{ $praktikum->nilai_akhir }}</font>
+                                </td>
+
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                                    align="center" valign=bottom>
+                                    <font color="#000000">{{ $praktikum->keterangan_nilai_akhir }}</font>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                                    align="center" valign=middle>
+                                    <font color="#000000">{{ $praktikum->remedi }}</font>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                                    align="center" valign=middle>
+                                    <font color="#000000">{{ $praktikum->remedi_konversi }}</font>
+                                </td>
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                                    align="center" valign=middle>
+                                    <font color="#000000">{{ $praktikum->nilai_setelah_remedi }}</font>
                                 </td>
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                                     align="center" valign=bottom>
-                                    <input type="text" name="keterangan-nilai-akhir{{ $loop->iteration }}"
-                                        id="keterangan-nilai-akhir{{ $loop->iteration }}"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;">
-                                </td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
-                                    align="center" valign=middle>
-                                    <input type="number" name="remedi{{ $loop->iteration }}"
-                                        id="remedi{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;"
-                                        onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})">
-                                </td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
-                                    align="center" valign=middle>
-                                    <input type="number" name="remedi-konversi{{ $loop->iteration }}"
-                                        id="remedi-konversi{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;"
-                                        onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})">
-                                </td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
-                                    align="center" valign=middle>
-                                    <input type="number" name="nilai-setelah-remedi{{ $loop->iteration }}"
-                                        id="nilai-setelah-remedi{{ $loop->iteration }}" max="100" min="0"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;">
-                                </td>
-                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
-                                    align="center" valign=bottom>
-                                    <input type="text" name="keterangan-nilai-setelah-remedi{{ $loop->iteration }}"
-                                        id="keterangan-nilai-setelah-remedi{{ $loop->iteration }}"
-                                        style="border: none; font-size:18px; width:100%; text-align: center;">
+                                    <font color="#000000">{{ $praktikum->keterangan_nilai_setelah_remedi }}</font>
                                 </td>
                             </tr>
                             <input type="hidden" name="loop" id="loop" value="{{ $loop->iteration }}">
+                            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $praktikum->kodematkul }}">
                         @endforeach
                     </table>
-                    <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
-                    <input type="hidden" name="namapraktikum" id="namapraktikum" value="Histiologi">
-                    <button type="submit" class="btn btn-primary mt-3">Submit Nilai</button>
-                </form>
-            </div>
+                </div>
+            @endif
         </div>
         <div class="tab-pane fade" id="Ujian">
             <p>Ujian tab content ...</p>
@@ -374,50 +374,6 @@
         </table>
     </div> --}}
     <script type="text/javascript">
-        feather.replace()
-
-        function calculateNilaiAkhir(id) {
-            var rata_rata_quiz = document.getElementById('rata-rata-quiz' + id).value;
-            var rata_rata_laporan = document.getElementById('rata-rata-nilai-laporan' + id).value;
-            var nilai_responsi = document.getElementById('nilai-responsi' + id).value;
-            var nilaiAkhirResult = document.querySelector('#nilai-akhir' + id);
-
-            var total = ((Number(rata_rata_quiz)*0.2) + (Number(rata_rata_laporan)*0.1) + (Number(nilai_responsi)*0.7));
-
-            nilaiAkhirResult.value = total;
-
-            getNilaiAkhirKeterangan(total, id);
-        }
-
-        function getNilaiAkhirKeterangan(num, id) {
-            var keterangan = document.querySelector('#keterangan-nilai-akhir' + id);
-            if (Number(num) >= 70) {
-                keterangan.value = 'LULUS';
-            } else {
-                keterangan.value = 'TIDAK LULUS';
-            }
-        }
-
-        function calculateNilaiAkhirSetelahRemedi(id) {
-            var rata_rata_quiz = document.getElementById('rata-rata-quiz' + id).value;
-            var rata_rata_laporan = document.getElementById('rata-rata-nilai-laporan' + id).value;
-            var remedi_konversi = document.getElementById('remedi-konversi' + id).value;
-            var nilaiAkhirSetelahRemeditotal = document.querySelector('#nilai-setelah-remedi' + id);
-            
-            var total = ((Number(rata_rata_quiz)*0.2) + (Number(rata_rata_laporan)*0.1) + (Number(remedi_konversi)*0.7)).toFixed(3);
-
-            nilaiAkhirSetelahRemeditotal.value = total;
-
-            getNilaiAkhirSetelahRemediKeterangan(total, id);
-        }
-
-        function getNilaiAkhirSetelahRemediKeterangan(num, id) {
-            var keterangan = document.querySelector('#keterangan-nilai-setelah-remedi' + id);
-            if (Number(num) >= 70) {
-                keterangan.value = 'LULUS';
-            } else {
-                keterangan.value = 'TIDAK LULUS';
-            }
-        }
+        feather.replace();
     </script>
 @endsection
