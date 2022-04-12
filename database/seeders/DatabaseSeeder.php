@@ -33,63 +33,70 @@ class DatabaseSeeder extends Seeder
             'name' => 'A',
             'role' => 'mahasiswa',
             'email' => '21p10001@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '21.P1.0001',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'B',
             'role' => 'mahasiswa',
             'email' => '21p10002@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '21.P1.0002',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'C',
             'role' => 'mahasiswa',
             'email' => '21p10003@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '21.P1.0003',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'D',
             'role' => 'mahasiswa',
             'email' => '21p10010@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '21.P1.0010',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'E',
             'role' => 'mahasiswa',
             'email' => '21p10011@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '21.P1.0011',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'F',
             'role' => 'mahasiswa',
             'email' => '19p10001@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '19.P1.0001',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'G',
             'role' => 'mahasiswa',
             'email' => '19p10002@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'nim' => '19.P1.0002',
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'dr. A',
             'role' => 'dosen',
             'email' => 'dosen1@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'password' =>  bcrypt('admin')
         ]);
 
         User::create([
             'name' => 'dr. B',
             'role' => 'dosen',
             'email' => 'dosen2@unika.ac.id',
-            'password' =>  bcrypt('password')
+            'password' =>  bcrypt('admin')
         ]);
         $max = 10;
         for($i=1;$i<=$max;$i++){

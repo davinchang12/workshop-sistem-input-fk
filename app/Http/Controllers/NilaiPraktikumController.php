@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NilaiPraktikum;
+use App\Models\Nilai;
 
+use App\Models\Jadwal;
 use Illuminate\Http\Request;
-use App\Exports\NilaiPraktikumTugasExport;
-use App\Imports\NilaiPraktikumTugasImport;
-use App\Exports\NilaiPraktikumResponsiRemedialExport;
-use App\Imports\NilaiPraktikumResponsiRemedialImport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Session;
+use App\Models\NilaiPraktikum;
+use App\Models\NilaiJenisPraktikum;
 use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NilaiPraktikumExport;
 
-use App\Http\Requests\StoreNilaiPraktikumRequest;
-use App\Http\Requests\UpdateNilaiPraktikumRequest;
+use App\Imports\NilaiPraktikumImport;
+use Illuminate\Support\Facades\Session;
 
 class NilaiPraktikumController extends Controller
 {
@@ -44,9 +43,41 @@ class NilaiPraktikumController extends Controller
      * @param  \App\Http\Requests\StoreNilaiPraktikumRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNilaiPraktikumRequest $request)
+    public function store(Request $request)
     {
-        //
+        for ($i = 1; $i <= (int)$request['loop']; $i++) {
+
+            $nilai = Jadwal::select('users.name', 'users.nim', 'nilais.id', 'matkuls.kodematkul')
+                ->join('users', 'jadwals.user_id', '=', 'users.id')
+                ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+                ->join('nilais', 'nilais.user_id', '=', 'users.id')
+                ->where('matkuls.kodematkul', $request['kodematkul'])
+                ->where('users.nim', $request['nim' . $i])
+                ->where('users.role', 'mahasiswa')
+                ->first();
+
+            $praktikum = NilaiPraktikum::firstOrCreate(
+                ['nilai_id' => $nilai->id],
+                ['namapraktikum' => $request['namapraktikum']]
+            );
+
+            NilaiJenisPraktikum::updateOrCreate(
+                ['nilai_praktikum_id' => $praktikum->id],
+                [
+                    'rata_rata_quiz' => $request['rata-rata-quiz' . $i],
+                    'rata_rata_laporan' => $request['rata-rata-nilai-laporan' . $i],
+                    'nilai_responsi' => $request['nilai-responsi' . $i],
+                    'nilai_akhir' => $request['nilai-akhir' . $i],
+                    'keterangan_nilai_akhir' => $request['keterangan-nilai-akhir' . $i],
+                    'remedi' => $request['remedi' . $i],
+                    'remedi_konversi' => $request['remedi-konversi' . $i],
+                    'nilai_setelah_remedi' => $request['nilai-setelah-remedi' . $i],
+                    'keterangan_nilai_setelah_remedi' => $request['keterangan-nilai-setelah-remedi' . $i]
+                ]
+            );
+        }
+
+        return redirect('/dashboard/matkul/' . $nilai->kodematkul);
     }
 
     /**
@@ -78,7 +109,7 @@ class NilaiPraktikumController extends Controller
      * @param  \App\Models\NilaiPraktikum  $nilaiPraktikum
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNilaiPraktikumRequest $request, NilaiPraktikum $nilaiPraktikum)
+    public function update(Request $request, NilaiPraktikum $nilaiPraktikum)
     {
         //
     }
@@ -94,53 +125,49 @@ class NilaiPraktikumController extends Controller
         //
     }
 
-    public function exportTugas() {
-        return Excel::download(new NilaiPraktikumTugasExport, 'nilai-praktikum-tugas.xlsx');
+    public function export()
+    {
+        return Excel::download(new NilaiPraktikumExport, 'nilaipraktikum.xlsx');
     }
 
-    public function importTugas(Request $request) {
-        
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-		]);
- 
-		$file = $request->file('file');
- 
-		$nama_file = rand().$file->getClientOriginalName();
- 
-		$file->move('nilai_praktikum_tugas',$nama_file);
- 
-		Excel::import(new NilaiPraktikumTugasImport, public_path('/nilai_praktikum_tugas/'.$nama_file));
- 
-		Session::flash('sukses','Nilai Praktikum Berhasil Diimport!');
+    public function import(Request $request)
+    {
 
-        File::delete(public_path('/nilai_praktikum_tugas/'.$nama_file));
- 
-		return redirect('/dashboard/matkul/nilai/');
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        $file = $request->file('file');
+
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        $file->move('nilai_praktikum', $nama_file);
+
+        Excel::import(new NilaiPraktikumImport, public_path('/nilai_praktikum/' . $nama_file));
+
+        Session::flash('sukses', 'Nilai Tugas Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_praktikum/' . $nama_file));
+
+        return redirect()
+            ->action([NilaiPraktikumController::class, 'importView'], ["kodematkul" => $request['kodematkul']]);
     }
 
-    public function exportResponsiRemedial() {
-        return Excel::download(new NilaiPraktikumResponsiRemedialExport, 'nilai-praktikum-responsi-remedial.xlsx');
-    }
+    public function importView(Request $request)
+    {
+        $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
+            ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+            ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.kodematkul', $request['kodematkul'])
+            ->get();
 
-    public function importResponsiRemedial(Request $request) {
-        
-		$this->validate($request, [
-			'file' => 'required|mimes:csv,xls,xlsx'
-		]);
- 
-		$file = $request->file('file');
- 
-		$nama_file = rand().$file->getClientOriginalName();
- 
-		$file->move('nilai_praktikum_responsi_remedial',$nama_file);
- 
-		Excel::import(new NilaiPraktikumResponsiRemedialImport, public_path('/nilai_praktikum_responsi_remedial/'.$nama_file));
- 
-		Session::flash('sukses','Nilai Praktikum Berhasil Diimport!');
-
-        File::delete(public_path('/nilai_praktikum_responsi_remedial/'.$nama_file));
- 
-		return redirect('/dashboard/matkul/nilai/');
+        return view('dashboard.nilai.dosen.input.praktikum', [
+            'praktikums' => $praktikums,
+            
+        ]);
     }
 }

@@ -17,6 +17,7 @@ class CreateNilaiPBLSkenariosTable extends Migration
             $table->id();
             $table->foreignId('nilaipbl_id'); 
             $table->string('skenario');
+            $table->string('kelompok');
             $table->timestamps();
         });
     }

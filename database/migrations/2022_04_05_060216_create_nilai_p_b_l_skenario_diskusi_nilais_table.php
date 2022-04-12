@@ -17,7 +17,8 @@ class CreateNilaiPBLSkenarioDiskusiNilaisTable extends Migration
             $table->id();
             $table->foreignId('nilaipblskenariodiskusi_id');
             $table->integer('kehadiran');
-            $table->integer('aktivitas_diskusi_relevansi_pembicaraan');
+            $table->integer('aktivitas_diskusi');
+            $table->integer('relevansi_pembicaraan');
             $table->integer('keterampilan_berkomunikasi');
             $table->integer('laporan_sementara')->nullable();
             $table->integer('laporan_resmi')->nullable();

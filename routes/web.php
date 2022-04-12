@@ -53,14 +53,14 @@ Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 
-Route::post('/dashboard/matkul/nilai/export-pbl', [NilaiPBLController::class, 'export']);
-Route::post('/dashboard/matkul/nilai/import-pbl', [NilaiPBLController::class, 'import']);
 
-Route::post('/dashboard/matkul/nilai/export-praktikum-tugas', [NilaiPraktikumController::class, 'exportTugas']);
-Route::post('/dashboard/matkul/nilai/import-praktikum-tugas', [NilaiPraktikumController::class, 'importTugas']);
+Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
+Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
 
-Route::post('/dashboard/matkul/nilai/export-praktikum-responsi-remedial', [NilaiPraktikumController::class, 'exportResponsiRemedial']);
-Route::post('/dashboard/matkul/nilai/import-praktikum-responsi-remedial', [NilaiPraktikumController::class, 'importResponsiRemedial']);
+Route::post('/dashboard/matkul/nilai/import/praktikum-submit', [NilaiPraktikumController::class, 'store']);
+Route::get('/dashboard/matkul/nilai/import/praktikum-view', [NilaiPraktikumController::class, 'importView']);
+Route::post('/dashboard/matkul/nilai/import/praktikum', [NilaiPraktikumController::class, 'import']);
+Route::post('/dashboard/matkul/nilai/export/praktikum', [NilaiPraktikumController::class, 'export']);
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 
