@@ -53,7 +53,10 @@ Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class
 Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
 
-Route::post('/dashboard/matkul/nilai/input-praktikum-submit', [NilaiPraktikumController::class, 'store']);
+Route::post('/dashboard/matkul/nilai/import/praktikum-submit', [NilaiPraktikumController::class, 'store']);
+Route::get('/dashboard/matkul/nilai/import/praktikum-view', [NilaiPraktikumController::class, 'importView']);
+Route::post('/dashboard/matkul/nilai/import/praktikum', [NilaiPraktikumController::class, 'import']);
+Route::post('/dashboard/matkul/nilai/export/praktikum', [NilaiPraktikumController::class, 'export']);
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 
