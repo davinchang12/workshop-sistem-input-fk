@@ -22,6 +22,6 @@ class NilaiSOCA extends Model
     }
 
     public function nilai() {
-        return $this->belongsTo(Nilai::class);
+        return $this->belongsTo(Nilai::class, 'nilai_id');
     }
 }
