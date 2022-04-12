@@ -7,6 +7,7 @@ use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\NilaiPBLController;
 use App\Http\Controllers\EditNilaiController;
 use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
@@ -14,9 +15,9 @@ use App\Http\Controllers\NilaiTugasController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\AdminEditNilaiController;
-use App\Http\Controllers\NilaiTugasExportController;
-use App\Http\Controllers\NilaiPBLController;
 use App\Http\Controllers\NilaiPraktikumController;
+use App\Http\Controllers\NilaiSOCAController;
+use App\Http\Controllers\NilaiTugasExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,9 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
+
+Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 'export']);
+
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 

@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Jadwal;
+use App\Models\JenisSOCA;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
-use App\Models\ResponsiPraktikum;
+use App\Models\NilaiJenisSOCA;
 use Illuminate\Support\Facades\DB;
 use App\Models\NilaiPBLSkenarioDiskusi;
 
@@ -60,12 +61,22 @@ class MatkulController extends Controller
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
         ];
+        
         $nilaitugas=  DB::table('nilai_tugas')
         ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
         ->join('users', 'users.id', '=', 'nilais.user_id')
         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
         ->where('matkul_id', '=', $matkul->id )
         ->get();
+
+        $socas = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $matkul->id)
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
+            ->get();
 
         $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
@@ -79,11 +90,12 @@ class MatkulController extends Controller
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenario = $nilai->pbl->pblskenario ?? null;
-
+      
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
             'nilaitugas' => $nilaitugas,
+            'socas' => $socas
             'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);
