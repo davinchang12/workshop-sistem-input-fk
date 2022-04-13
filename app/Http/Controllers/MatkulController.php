@@ -61,12 +61,23 @@ class MatkulController extends Controller
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
         ];
-        
-        $nilaitugas=  DB::table('nilai_tugas')
-        ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
-        ->join('users', 'users.id', '=', 'nilais.user_id')
-        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-        ->where('matkul_id', '=', $matkul->id )
+
+        // $nilaitugas=  DB::table('nilai_tugas')
+        // ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
+        // ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
+        // ->join('users', 'users.id', '=', 'nilais.user_id')
+        // ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        // ->where('matkul_id', '=', $matkul->id )
+        // ->get();
+
+        $nilaitugas = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
         ->get();
 
         $socas = DB::table('jenis_s_o_c_a_s')
@@ -90,11 +101,13 @@ class MatkulController extends Controller
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenario = $nilai->pbl->pblskenario ?? null;
-      
+
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
             'nilaitugas' => $nilaitugas,
+            'dosen' => auth()->user()->id,
+            'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul')
             'socas' => $socas
             'matkul' => $matkul,
             'skenarios' => $skenario,
