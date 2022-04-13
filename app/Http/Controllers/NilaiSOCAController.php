@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiSOCA;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreNilaiSOCARequest;
 use App\Http\Requests\UpdateNilaiSOCARequest;
+use App\Models\Jadwal;
 
 class NilaiSOCAController extends Controller
 {
@@ -82,5 +85,21 @@ class NilaiSOCAController extends Controller
     public function destroy(NilaiSOCA $nilaiSOCA)
     {
         //
+    }
+
+    public function input(Request $request) {
+        return view('dashboard.nilai.dosen.input.soca');
+    }
+
+    public function export() {
+        $request = request();
+        
+        $checkUser = [
+            'matkul_id' => $request->matkul_dipilih,
+        ];
+
+        return view('dashboard.nilai.dosen.export.soca', [
+            'jadwals' => Jadwal::where($checkUser)->get(),
+        ]);
     }
 }

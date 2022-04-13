@@ -33,22 +33,24 @@
                                                 data-feather="eye"></span></a> --}}
                                         <form action="/dashboard/matkul/nilai" method="get">
                                             @csrf
-                                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $jadwal->matkul->id }}">
-                                            <button class="btn btn-primary w-100 shadow-none"><span data-feather="eye"></span></button>
+                                            <input type="hidden" name="matkul_dipilih" id=""
+                                                value="{{ $jadwal->matkul->id }}">
+                                            <button class="btn btn-primary w-100 shadow-none"><span
+                                                    data-feather="eye"></span></button>
                                         </form>
                                     </div>
-                                    <div class="col pt-2">
-                                        @can('dosen')
+                                    @can('dosen')
+                                        <div class="col pt-2">
                                             <a href="/dashboard/matkul/{{ $jadwal->matkul->kodematkul }}"
                                                 class="btn btn-primary w-100"><span data-feather="settings"></span></a>
-                                        @endcan
-                                    </div>
-                                    <div class="col pt-2">
-                                        @can('admin')
+                                        </div>
+                                    @endcan
+                                    @can('admin')
+                                        <div class="col pt-2">
                                             <a href="/dashboard/admin/nilai/edit" class="badge bg-info w-100"><span
                                                     data-feather="key"></span></a>
-                                        @endcan
-                                    </div>
+                                        </div>
+                                    @endcan
                                 </div>
                             </div>
                         </div>

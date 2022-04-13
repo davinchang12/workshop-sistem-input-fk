@@ -17,11 +17,11 @@ class NilaiJenisSOCA extends Model
         'soca'
     ];
 
-    public function nilai() {
+    public function nilaisoca() {
         return $this->hasMany(JenisSOCA::class);
     }
 
     public function soca() {
-        return $this->belongsTo(NilaiSOCA::class);
+        return $this->belongsTo(NilaiSOCA::class, 'nilaisoca_id');
     }
 }

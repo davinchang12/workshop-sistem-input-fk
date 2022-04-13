@@ -18,6 +18,6 @@ class JenisSOCA extends Model
     ];
 
     public function jenis() {
-        return $this->belongsTo(NilaiJenisSOCA::class);
+        return $this->belongsTo(NilaiJenisSOCA::class, 'nilaijenissoca_id');
     }
 }

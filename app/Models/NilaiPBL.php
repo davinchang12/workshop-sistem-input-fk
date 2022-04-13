@@ -17,7 +17,7 @@ class NilaiPBL extends Model
         return $this->belongsTo(Nilai::class);
     }
 
-    public function skenario() {
-        return $this->hasMany(NilaiPBLSkenario::class);
+    public function pblskenario() {
+        return $this->hasMany(NilaiPBLSkenario::class, 'nilaipbl_id');
     }
 }
