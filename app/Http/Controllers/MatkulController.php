@@ -58,13 +58,24 @@ class MatkulController extends Controller
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
         ];
-        $nilaitugas=  DB::table('nilai_tugas')
-        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
-        ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
-        ->join('users', 'users.id', '=', 'nilais.user_id')
-        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-        ->where('matkul_id', '=', $matkul->id )
+        // $nilaitugas=  DB::table('nilai_tugas')
+        // ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
+        // ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
+        // ->join('users', 'users.id', '=', 'nilais.user_id')
+        // ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        // ->where('matkul_id', '=', $matkul->id )
+        // ->get();
+
+        $nilaitugas = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
         ->get();
+
         $nilai = Nilai::where('matkul_id', $matkul->id)->pluck('id');
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
