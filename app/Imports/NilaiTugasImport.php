@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Matkul;
 use App\Models\NilaiTugas;
+use App\Models\RincianNilaiTugas;
 use Illuminate\Support\Collection; 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -13,14 +14,16 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class NilaiTugasImport implements ToCollection, WithStartRow
 {
-    private $matkul, $user, $nilai, $nilaitugas;
+    private $matkul, $user, $nilai, $rinciantugas, $nilaitugas, $dosen;
     public function __construct()
     {
         $this->matkul = Matkul::select('id', 'namamatkul')->get();
         $this->users = User::select('id', 'name')->get();
         $this->nilai = Nilai::select('id')->get();
-        $this->nilaitugas = NilaiTugas::select('nilai_id')->get();
-
+        $this->nilaitugas = NilaiTugas::all();
+        $this->rinciantugas = RincianNilaiTugas::all();
+        $this->dosen = auth()->user()->id;
+        
     }
     
     public function startRow(): int
@@ -30,8 +33,8 @@ class NilaiTugasImport implements ToCollection, WithStartRow
     
     public function collection(Collection $rows)
     {
-        $matkul = $this->matkul->where('namamatkul', $rows[0][19])->first();
-        
+        $matkul = $this->matkul->where('namamatkul', $rows[0][5])->first();
+        // dd($rows[0][5]);
         foreach($rows as $row) {
             $user = $this->users->where('name', $row[1])->first();
             
@@ -42,56 +45,176 @@ class NilaiTugasImport implements ToCollection, WithStartRow
                 'user_id' => $user->id
             ]);
             
-            $nilaitugas = $this->nilaitugas->where('nilai_id', $nilai->id)->first() ?? 
-              dd($nilaitugas);
-                NilaiTugas::firstOrCreate(
-                    ['nilai_id' => $nilaitugas->nilai_id],
-                    [
-                        'tugas_1' => $row[3] ?? null,
-                        'tugas_2'=> $row[4] ?? null,
-                        'tugas_3'=> $row[5] ?? null,
-                        'tugas_4'=> $row[6] ?? null,
-                        'tugas_5'=> $row[7] ?? null,
-                        'tugas_6'=> $row[8] ?? null,
-                        'tugas_7'=> $row[9] ?? null,
-                        'tugas_8'=> $row[10] ?? null,
-                        'tugas_9'=> $row[11] ?? null,
-                        'tugas_10'=> $row[12] ?? null,
-                        'tugas_11'=> $row[13] ?? null,
-                        'tugas_12'=> $row[14] ?? null,
-                        'tugas_13'=> $row[15] ?? null,
-                        'tugas_14'=> $row[16] ?? null
-                    ]
-                );
+            $dosen =  $this->dosen;
+            $rinciantugas = $this->rinciantugas->where('nilai_id', $nilai->id)->first() ?? 
+            RincianNilaiTugas::firstOrCreate([
+                ['nilai_id' => $nilai->id],
+                ['user_id' => $dosen]
+            ]);
+            $sql = "INSERT INTO nilai_tugas (rincian_nilai_tugas_id, nilaitugas, keterangantugas) VALUES ($nilaitugas->rincian_nilai_tugas_id , $row[3],
+            $row[6])";
                 
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_1', null)->update(['tugas_1' => $row[3] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_2', null)->update(['tugas_2' => $row[4] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_3', null)->update(['tugas_3' => $row[5] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_4', null)->update(['tugas_4' => $row[6] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_5', null)->update(['tugas_5' => $row[7] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_6', null)->update(['tugas_6' => $row[8] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_7', null)->update(['tugas_7' => $row[9] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_8', null)->update(['tugas_8' => $row[10] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_9', null)->update(['tugas_9' => $row[11] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_10', null)->update(['tugas_10' => $row[12] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_11', null)->update(['tugas_11' => $row[13] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_12', null)->update(['tugas_12' => $row[14] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_13', null)->update(['tugas_13' => $row[15] ?? null]);
-                $nilaitugas->where('nilai_id', $nilai->id)
-                ->where('tugas_14', null)->update(['tugas_14' => $row[16] ?? null]);
+                    $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+                    NilaiTugas::firstOrCreate(
+                        ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id ],
+                        [
+                            'nilaitugas' => $row[3],
+                            'keterangantugas' => $row[6]
+                            ]
+                        );
+                        $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+                        ->where('keterangantugas', null)->update(['keterangantugas' => $row[6] ?? null]);
+                        $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+                        ->where('nilaitugas', null)->update(['nilaitugas' => $row[3] ?? null]);
+                    
+                    dd($nilaitugas);
+                
+            // if ($row[4] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[4]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[4] ?? null]);
+            //     }
+            // if ($row[5] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[5]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[5] ?? null]);
+            //     }
+            // if ($row[6] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[6]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[6] ?? null]);
+            //     }
+            // if ($row[7] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[7]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[7] ?? null]);
+            //     }
+            // if ($row[8] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[8]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[8] ?? null]);
+            //     }
+            // if ($row[9] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[9]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[9] ?? null]);
+            //     }
+            // if ($row[10] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[10]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[10] ?? null]);
+            //     }
+            // if ($row[11] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[11]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[11] ?? null]);
+            //     }
+            // if ($row[12] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[12]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[12] ?? null]);
+            //     }
+            // if ($row[13] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[13]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[13] ?? null]);
+            //     }
+            // if ($row[14] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[14]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[14] ?? null]);
+            //     }
+            // if ($row[15] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[15]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[15] ?? null]);
+            //     }
+            // if ($row[16] != null) {
+            //         $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first() ?? 
+            //         NilaiTugas::firstOrCreate(
+            //             ['rincian_nilai_tugas_id' => $nilaitugas->rincian_nilai_tugas_id],
+            //             [
+            //                 'nilaitugas' => $row[16]
+            //                 ]
+            //         );
+            //         $nilaitugas->where('rincian_nilai_tugas_id', $nilaitugas->rincian_nilai_tugas_id)
+            //         ->where('nilaitugas', null)->update(['nilaitugas' => $row[16] ?? null]);
+            //     }
+           
             }
     }
 }
+
+

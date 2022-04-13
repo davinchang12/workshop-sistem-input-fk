@@ -59,7 +59,8 @@ class MatkulController extends Controller
             'matkul_id' => $matkul->id 
         ];
         $nilaitugas=  DB::table('nilai_tugas')
-        ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
+        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
+        ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
         ->join('users', 'users.id', '=', 'nilais.user_id')
         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
         ->where('matkul_id', '=', $matkul->id )
@@ -70,6 +71,7 @@ class MatkulController extends Controller
             'matkul_id' => $matkul->id,
             'siswas' => Kelompok::where('matkul_id', $matkul->id)-> get(),
             'nilaitugas' => $nilaitugas,
+            'dosen' => auth()->user()->id,
             'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul')
         ]);
     }

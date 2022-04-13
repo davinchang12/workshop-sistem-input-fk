@@ -9,6 +9,7 @@ use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
 use Illuminate\Database\Seeder;
+use App\Models\RincianNilaiTugas;
 
 class DatabaseSeeder extends Seeder
 {
@@ -96,7 +97,27 @@ class DatabaseSeeder extends Seeder
             NilaiTugas::factory()->create();
         }
 
-        
+        RincianNilaiTugas::create([
+            'nilai_id' => 1,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 2,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 3,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 4,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 5,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 6,
+        ]);
+        RincianNilaiTugas::create([
+            'nilai_id' => 7,
+        ]);
         Nilai::create([
             'user_id' => 8,
             'matkul_id' => 1,

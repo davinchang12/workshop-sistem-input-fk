@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class NilaiTugasFactory extends Factory
+class RincianNilaiTugasFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class NilaiTugasFactory extends Factory
     public function definition()
     {
         return [
-            'rincian_nilai_tugas_id' => $this->faker->unique()->numberBetween(1, 10),
+            'nilai_id' => $this->faker->unique()->numberBetween(1, 10),
         ];
     }
 }

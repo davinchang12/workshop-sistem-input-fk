@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
@@ -23,18 +24,19 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
     {
         $request = request();
         
-        $checkUser = [
-            'matkul_id' => $request->matkul_dipilih,
-        ];
-        $nilaitugas= $shares = DB::table('nilai_tugas')
-        ->join('nilais', 'nilais.id', '=', 'nilai_tugas.nilai_id')
+        $dosen = User::where('id', '=', auth()->user()->id)->value('name');
+        $nilaitugas= DB::table('nilai_tugas')
+        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'nilai_tugas.rincian_nilai_tugas_id')
+        ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
         ->join('users', 'users.id', '=', 'nilais.user_id')
         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-        ->where('matkul_id', '=', $checkUser)
+        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
         ->get();
+        // dd($nilaitugas);
         return view('dashboard.nilai.dosen.export.tugas', [
             'nilaitugas' => $nilaitugas,
-            'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul')
+            'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
+            'dosen' => $dosen
         ]);
     }
 
