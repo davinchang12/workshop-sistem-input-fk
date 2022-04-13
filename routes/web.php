@@ -48,6 +48,9 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 
+
+Route::post('/dashboard/matkul/nilai/input-soca-submit', [NilaiSOCAController::class, 'store']);
+Route::post('/dashboard/matkul/nilai/input-soca', [NilaiSOCAController::class, 'input']);
 Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 'export']);
 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);

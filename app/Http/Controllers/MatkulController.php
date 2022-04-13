@@ -69,13 +69,13 @@ class MatkulController extends Controller
         ->where('matkul_id', '=', $matkul->id )
         ->get();
 
-        $socas = DB::table('jenis_s_o_c_a_s')
-            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
-            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+        $socas = DB::table('nilai_s_o_c_a_s')
             ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('matkuls.id', $matkul->id)
-            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
+            ->where('users.role', 'mahasiswa')
+            ->select('name', 'nim')
             ->get();
 
         $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
@@ -95,7 +95,7 @@ class MatkulController extends Controller
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
             'nilaitugas' => $nilaitugas,
-            'socas' => $socas
+            'socas' => $socas,
             'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);

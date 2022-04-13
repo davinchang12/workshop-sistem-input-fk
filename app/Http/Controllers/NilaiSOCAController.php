@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\NilaiSOCA;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use App\Http\Requests\StoreNilaiSOCARequest;
 use App\Http\Requests\UpdateNilaiSOCARequest;
-use App\Models\Jadwal;
 
 class NilaiSOCAController extends Controller
 {
@@ -88,7 +89,23 @@ class NilaiSOCAController extends Controller
     }
 
     public function input(Request $request) {
-        return view('dashboard.nilai.dosen.input.soca');
+
+        $socas = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $request->matkul_id)
+            ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
+            ->get();
+        
+            dd($socas);
+
+        return view('dashboard.nilai.dosen.input.soca', [
+            'socas' => $socas
+        ]);
     }
 
     public function export() {
