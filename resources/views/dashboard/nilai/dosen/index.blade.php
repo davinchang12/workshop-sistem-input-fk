@@ -349,7 +349,7 @@
                             <option>{{ $soca->name }}</option>
                         @endforeach
                     </select>
-
+                    <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
                     <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
