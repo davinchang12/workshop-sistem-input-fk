@@ -17,6 +17,7 @@ class CreateNilaiSOCASTable extends Migration
             $table->id();
             $table->foreignId('nilai_id');
             $table->string('namasoca');
+            $table->string('nama_penguji');
             $table->timestamps();
         });
     }

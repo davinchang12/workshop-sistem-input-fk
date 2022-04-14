@@ -7,7 +7,10 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
+use App\Models\JenisSOCA;
+use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
+use App\Models\NilaiJenisSOCA;
 use Illuminate\Database\Seeder;
 use App\Models\RincianNilaiTugas;
 
@@ -153,97 +156,6 @@ class DatabaseSeeder extends Seeder
             'user_id' => 7,
             'matkul_id' => 2,
         ]);
-
-        // Nilai::create([
-        //     'user_id' => 2,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 90
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 3,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 3,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 4,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 4,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 1,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 5,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 5,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 6,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 6,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 7,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 7,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 8,
-        //     'keterangan' => 'Tugas 1',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
-
-        // Nilai::create([
-        //     'user_id' => 8,
-        //     'keterangan' => 'Tugas 2',
-        //     'matkul_id' => 2,
-        //     'nilai_mhs' => 85
-        // ]);
 
         Kelompok::create([
             'user_id' => 2,
@@ -802,6 +714,96 @@ class DatabaseSeeder extends Seeder
             'keterangan' => 'Tahap Profesi',
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 3
+        ]);
+
+        NilaiSOCA::create([
+            'nilai_id' => 1,
+            'namasoca' => "SKA",
+            'nama_penguji' => "dr. A"
+        ]);
+
+        NilaiSOCA::create([
+            'nilai_id' => 3,
+            'namasoca' => "SKA",
+            'nama_penguji' => "dr. A"
+        ]);
+
+        NilaiJenisSOCA::create([
+            'nilaisoca_id' => 1,
+            'namaanalisis' => "Kemampuan analisa masalah"
+        ]);
+        NilaiJenisSOCA::create([
+            'nilaisoca_id' => 1,
+            'namaanalisis' => "Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)"
+        ]);
+        NilaiJenisSOCA::create([
+            'nilaisoca_id' => 1,
+            'namaanalisis' => "Keterampilan saat presentasi"
+        ]);
+        NilaiJenisSOCA::create([
+            'nilaisoca_id' => 1,
+            'namaanalisis' => "Hasil Penilaian Keterampilan presentasi & sikap"
+        ]);
+
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 1,
+            "keterangan_soca" => "Overview Masalah",
+            "bobot" => 2,
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 1,
+            "keterangan_soca" => "Analisis Masalah",
+            "bobot" => 4,
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 2,
+            "keterangan_soca" => "Fisiologi",
+            "bobot" => 2,
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 2,
+            "keterangan_soca" => "Patofisiologi SKA",
+            "bobot" => 2,
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 2,
+            "keterangan_soca" => "Gejala klinis dan pemeriksaan fisik",
+            "bobot" => 2,
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 3,
+            "keterangan_soca" => "Sikap",
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 3,
+            "keterangan_soca" => "Kemampuan berkomunikasi",
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 3,
+            "keterangan_soca" => "Sistematika penyajian",
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
+        ]);
+        JenisSOCA::create([
+            'nilaijenissoca_id' => 4,
+            "keterangan_soca" => "Hasil Penilaian Keterampilan presentasi & sikap",
+            "skor_soca" => 0,
+            "kepuasan_presentasi" => ""
         ]);
 
         // Jadwal::factory(100)->create();
