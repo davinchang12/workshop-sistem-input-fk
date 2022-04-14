@@ -6,8 +6,6 @@ use App\Models\Jadwal;
 use App\Models\NilaiSOCA;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
-use App\Http\Requests\StoreNilaiSOCARequest;
 use App\Http\Requests\UpdateNilaiSOCARequest;
 
 class NilaiSOCAController extends Controller
@@ -38,9 +36,108 @@ class NilaiSOCAController extends Controller
      * @param  \App\Http\Requests\StoreNilaiSOCARequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNilaiSOCARequest $request)
+    public function store(Request $request)
     {
-        //
+        $socas = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Overview Masalah')
+            ->limit(1)
+            ->update(['skor_soca' => (int)$request->overview_masalah]);
+        
+        DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Analisis Masalah')
+            ->limit(1)
+            ->update(['skor_soca' => (int)$request->analisis_masalah]);
+
+        DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sikap')
+            ->limit(1)
+            ->update([
+                'kepuasan_presentasi' => $request->sikap_keterangan, 
+                'komentar' => $request->sikap_komentar
+            ]);
+        
+        DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Kemampuan berkomunikasi')
+            ->limit(1)
+            ->update([
+                'kepuasan_presentasi' => $request->kemampuan_berkomunikasi_keterangan, 
+                'komentar' => $request->kemampuan_berkomunikasi_komentar
+            ]);
+
+        DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sistematika penyajian')
+            ->limit(1)
+            ->update([
+                'kepuasan_presentasi' => $request->sistematika_penyajian_keterangan, 
+                'komentar' => $request->sistematika_penyajian_komentar
+            ]);
+        
+        DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('jenis_s_o_c_a_s.keterangan_soca', 'Hasil Penilaian Keterampilan presentasi & sikap')
+            ->limit(1)
+            ->update([
+                'komentar' => $request->hasil_penilaian_keterampilan_presentasi_dan_sikap
+            ]);
+        
+        for($i = 0; $i < (int)$request->jumlah_ke_2; $i++) {
+            $get_key = collect($request->all())->keys()[8+$i];
+
+            DB::table('jenis_s_o_c_a_s')
+                ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+                ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+                ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('users.name', $request->nama)
+                ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+                ->where('jenis_s_o_c_a_s.keterangan_soca', 'like', '%'.$get_key.'%')
+                ->limit(1)
+                ->update(['skor_soca' => (int)$request->$get_key]);
+        }
+        
+        return redirect('/dashboard/matkul/' . $request->kodematkul);
     }
 
     /**
@@ -96,15 +193,27 @@ class NilaiSOCAController extends Controller
             ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->where('matkuls.id', $request->matkul_id)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
+            ->get();
+
+        $socas_2 = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilais', 'nilai_s_o_c_a_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $request->matkul_dipilih)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
             ->get();
-        
-            dd($socas);
 
         return view('dashboard.nilai.dosen.input.soca', [
-            'socas' => $socas
+            'socas' => $socas,
+            'socas_2' => $socas_2,
+            'penguji' => auth()->user()->name,
+            'kodematkul' => $request->kodematkul
         ]);
     }
 
