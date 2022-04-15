@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Nilai;
-use App\Models\JenisFieldlab;
+use App\Models\NilaiSemesterFieldLab;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,14 +15,13 @@ class NilaiFieldlab extends Model
     ];
     protected $with =[
         'nilai',
-        'jenisfieldlab'
     ];
     public function nilai()
     {
         return $this->belongsTo(Nilai::class);
     }
-    public function jenisfieldlab()
+    public function nilaisemester()
     {
-        return $this->hasMany(JenisFieldlab::class);
+        return $this->hasMany(NilaiSemesterFieldLab::class);
     }
 }
