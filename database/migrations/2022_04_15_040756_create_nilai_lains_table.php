@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJenisFieldlabsTable extends Migration
+class CreateNilaiLainsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateJenisFieldlabsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jenis_fieldlabs', function (Blueprint $table) {
+        Schema::create('nilai_lains', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_fieldlab_id');
-            $table->string('jenisfieldlab');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateJenisFieldlabsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jenis_fieldlabs');
+        Schema::dropIfExists('nilai_lains');
     }
 }

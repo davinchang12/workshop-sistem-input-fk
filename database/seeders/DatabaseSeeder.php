@@ -8,9 +8,11 @@ use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\JenisSOCA;
+use App\Models\NilaiFieldlab;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
 use App\Models\NilaiJenisSOCA;
+use App\Models\NilaiLain;
 use Illuminate\Database\Seeder;
 use App\Models\RincianNilaiTugas;
 
@@ -804,6 +806,43 @@ class DatabaseSeeder extends Seeder
             "keterangan_soca" => "Hasil Penilaian Keterampilan presentasi & sikap",
             "skor_soca" => 0,
             "kepuasan_presentasi" => ""
+        ]);
+
+        NilaiLain::create([
+            'user_id' => 1
+        ]);
+        NilaiLain::create([
+            'user_id' => 2
+        ]);
+        NilaiLain::create([
+            'user_id' => 3
+        ]);
+        NilaiLain::create([
+            'user_id' => 4
+        ]);
+        NilaiLain::create([
+            'user_id' => 5
+        ]);
+
+        NilaiFieldlab::create([
+            'nilai_lain_id' => 1,
+            'semester' => "Semester 2"
+        ]);
+        NilaiFieldlab::create([
+            'nilai_lain_id' => 2,
+            'semester' => "Semester 2"
+        ]);
+        NilaiFieldlab::create([
+            'nilai_lain_id' => 3,
+            'semester' => "Semester 2"
+        ]);
+        NilaiFieldlab::create([
+            'nilai_lain_id' => 4,
+            'semester' => "Semester 2"
+        ]);
+        NilaiFieldlab::create([
+            'nilai_lain_id' => 5,
+            'semester' => "Semester 2"
         ]);
 
         // Jadwal::factory(100)->create();

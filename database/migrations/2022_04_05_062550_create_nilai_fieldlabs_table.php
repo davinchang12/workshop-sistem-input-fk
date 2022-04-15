@@ -15,7 +15,8 @@ class CreateNilaiFieldlabsTable extends Migration
     {
         Schema::create('nilai_fieldlabs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_id');
+            $table->foreignId('nilai_lain_id');
+            $table->string('semester');
             $table->timestamps();
         });
     }

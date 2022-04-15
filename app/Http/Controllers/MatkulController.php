@@ -99,6 +99,13 @@ class MatkulController extends Controller
             ->where('matkuls.id', $matkul->id)
             ->get();
 
+        $fieldlabs = DB::table('nilai_semester_field_labs')
+            ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+            ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenario = $nilai->pbl->pblskenario ?? null;
 
@@ -109,6 +116,7 @@ class MatkulController extends Controller
             'dosen' => auth()->user()->id,
             'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul'),
             'socas' => $socas,
+            'fieldlabs' => $fieldlabs,
             'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);
