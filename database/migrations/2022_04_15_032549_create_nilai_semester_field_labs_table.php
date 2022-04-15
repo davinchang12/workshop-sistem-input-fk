@@ -18,7 +18,7 @@ class CreateNilaiSemesterFieldLabsTable extends Migration
             $table->foreignId('nilai_field_lab_id');
             $table->integer('total_nilai_dosbing');
             $table->integer('total_nilai_penguji');
-            $table->integer('total_nilai_penguji_2');
+            $table->integer('total_nilai_penguji_2')->nullable();
             $table->integer('nilai_akhir');
             $table->integer('keterangan');
             $table->timestamps();
