@@ -20,7 +20,7 @@ class CreateNilaiSemesterFieldLabsTable extends Migration
             $table->integer('total_nilai_penguji');
             $table->integer('total_nilai_penguji_2')->nullable();
             $table->integer('nilai_akhir');
-            $table->integer('keterangan');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }
