@@ -29,6 +29,9 @@
             <a href="#soca" class="nav-link" data-bs-toggle="tab">SOCA</a>
         </li>
         <li class="nav-item">
+            <a href="#field-lab" class="nav-link" data-bs-toggle="tab">Field Lab</a>
+        </li>
+        <li class="nav-item">
             <a href="#ujian" class="nav-link" data-bs-toggle="tab">Ujian</a>
         </li>
     </ul>
@@ -354,6 +357,34 @@
                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                 </form>
             </div>
+        </div>
+        <div class="tab-pane fade" id="field-lab">
+            <form action="/dashboard/matkul/nilai/export/field-lab" method="get">
+                @csrf
+                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+            </form>
+            <form method="post" action="/dashboard/matkul/nilai/import/field-lab" enctype="multipart/form-data">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                    </div>
+                    <div class="modal-body">
+
+                        {{ csrf_field() }}
+
+                        <label>Pilih file excel</label>
+                        <div class="form-group">
+                            <input type="file" name="file" required="required">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="tab-pane fade" id="Ujian">
             <p>Ujian tab content ...</p>
