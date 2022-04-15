@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\NilaiFieldlab;
+use App\Exports\NilaiFieldLabExport;
+use Illuminate\Support\Facades\File;
+
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreNilaiFieldlabRequest;
 use App\Http\Requests\UpdateNilaiFieldlabRequest;
 
@@ -82,5 +87,9 @@ class NilaiFieldlabController extends Controller
     public function destroy(NilaiFieldlab $nilaiFieldlab)
     {
         //
+    }
+
+    public function export() {
+        return Excel::download(new NilaiFieldLabExport, 'nilaifieldlab.xlsx');
     }
 }
