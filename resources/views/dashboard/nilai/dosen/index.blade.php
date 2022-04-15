@@ -2,11 +2,11 @@
 <script src="https://unpkg.com/feather-icons"></script>
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Nilai</h1>
+        <h1 class="h2">Nilai {{ $matkul->namamatkul }}</h1>
     </div>
     <a href="/dashboard/matkul" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h5">{{ $matkul->namamatkul }} <br> Input / Edit </h3>
+        <h3 class="h5">Input / Edit </h3>
     </div>
 
     @if (session()->has('success'))
