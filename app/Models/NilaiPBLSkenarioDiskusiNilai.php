@@ -18,6 +18,6 @@ class NilaiPBLSkenarioDiskusiNilai extends Model
     ];
 
     public function diskusi() {
-        return $this->belongsTo(NilaiPBLSkenarioDiskusi::class);
+        return $this->belongsTo(NilaiPBLSkenarioDiskusi::class, 'nilaipblskenariodiskusi_id');
     }
 }

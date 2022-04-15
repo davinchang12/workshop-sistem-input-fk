@@ -22,6 +22,8 @@ class CreateNilaiPBLSkenarioDiskusiNilaisTable extends Migration
             $table->integer('keterampilan_berkomunikasi');
             $table->integer('laporan_sementara')->nullable();
             $table->integer('laporan_resmi')->nullable();
+            $table->double('total', 8, 2);
+            $table->double('rata_rata', 8, 2);
             $table->text('catatan_kesan_kegiatan_diskusi_tutorial')->nullable();
             $table->timestamps();
         });

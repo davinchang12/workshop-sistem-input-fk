@@ -124,7 +124,7 @@
                         </b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=3 align="center" valign=middle><b>
-                            <font color="#000000">{{ $skenarios->first()->skenariodiskusi->first()->created_at }}
+                            <font color="#000000">{{ date_format($skenarios->first()->skenariodiskusi->first()->created_at, 'd-m-Y') }}
                             </font>
                         </b></td>
                 </tr>
@@ -219,7 +219,8 @@
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
                                 <font face="Calibri" color="#000000">{{ $kelompok->name }}</font>
-                                <input type="hidden" name="nama{{ $loop->iteration }}" id="nama{{ $loop->iteration }}" value="{{ $kelompok->name }}">
+                                <input type="hidden" name="nama{{ $loop->iteration }}"
+                                    id="nama{{ $loop->iteration }}" value="{{ $kelompok->name }}">
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
@@ -227,7 +228,8 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <select name="kehadiran{{ $loop->iteration }}" id="kehadiran{{ $loop->iteration }}"
+                                <select name="kehadiran{{ $loop->iteration }}"
+                                    id="kehadiran{{ $loop->iteration }}"
                                     style="border:none; width:100%; font-size:18px; text-align:center;"
                                     onchange="calculateTotal({{ $loop->iteration }})" required>
                                     <option disabled selected value></option>
@@ -283,10 +285,23 @@
                                     style="border: none; font-size:18px; width:100%; text-align: center;"
                                     onchange="calculateMean({{ $loop->iteration }})">
                             </td>
-                            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                                align="left" valign=bottom bgcolor="#000000">
 
-                            </td>
+                            @if ($kelompok->diskusi == 1)
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="left" valign=bottom bgcolor="#000000">
+                                    <input type="hidden" name="laporan_resmi{{ $loop->iteration }}" id="laporan_resmi{{ $loop->iteration }}" value="diskusi_1">
+                                </td>
+                            @else
+                                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                                    align="center" valign="middle" sdval="0" sdnum="1033;">
+                                    <input type="number" name="laporan_resmi{{ $loop->iteration }}"
+                                    id="laporan_resmi{{ $loop->iteration }}" max="100" min="0"
+                                    style="border: none; font-size:18px; width:100%; text-align: center;"
+                                    onchange="calculateMean({{ $loop->iteration }})">
+                                </td>
+                            @endif
+
+                            
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle" sdval="0" sdnum="1033;">
                                 <font face="Calibri" color="#000000">
@@ -304,6 +319,74 @@
                     @endif
                 @endforeach
             </table>
+
+            <div class="d-flex justify-content-between">
+                <table class="table table-bordered border-primary m-3 w-50">
+                    <thead>
+                        <tr>
+                            <th colspan="8" style="text-align: center">Dasar Penilaian</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align: center">Kehadiran</th>
+                            <th scope="col" colspan="2" style="text-align: center">Aktivitas Saat Diskusi</th>
+                            <th scope="col" colspan="2" style="text-align: center">Relevansi Pembicaraan</th>
+                            <th scope="col" colspan="2" style="text-align: center">Keterampilan Komunikasi</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" colspan="2" style="text-align: center">Nilai</th>
+                            <th scope="col" colspan="2" style="text-align: center">Nilai</th>
+                            <th scope="col" colspan="2" style="text-align: center">Nilai</th>
+                            <th scope="col" colspan="2" style="text-align: center">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align: center">
+                            <td>4</td>
+                            <td>Tepat Waktu</td>
+                            <td>4</td>
+                            <td>Sangat Aktif</td>
+                            <td>4</td>
+                            <td>Selalu Relevan</td>
+                            <td>4</td>
+                            <td>Sangat Baik</td>
+                        </tr>
+                        <tr style="text-align: center">
+                            <td>3</td>
+                            <td>Terlambat 10 Menit</td>
+                            <td>3</td>
+                            <td>Cukup Aktif</td>
+                            <td>3</td>
+                            <td>Cukup Relevan</td>
+                            <td>3</td>
+                            <td>Baik</td>
+                        </tr>
+                        <tr style="text-align: center">
+                            <td>2</td>
+                            <td>Terlambat 15 Menit</td>
+                            <td>2</td>
+                            <td>Kurang Aktif</td>
+                            <td>2</td>
+                            <td>Kadang Tidak Relevan</td>
+                            <td>2</td>
+                            <td>Cukup</td>
+                        </tr>
+                        <tr style="text-align: center">
+                            <td>0</td>
+                            <td>Tidak Hadir</td>
+                            <td>1</td>
+                            <td>Pasif</td>
+                            <td>1</td>
+                            <td>Sering Tidak Relevan</td>
+                            <td>1</td>
+                            <td>Kurang</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class=" mt-3 w-50">
+                    <p><b>Catatan / Kesan Kegiatan Diskusi Tutorial</b></p>
+                    <textarea class="w-100 h-75" name="catatan" id="catatan"></textarea>
+                </div>
+            </div>
             <input type="hidden" name="diskusi" id="diskusi" value="{{ $diskusi }}">
             <input type="hidden" name="skenario" id="skenario" value="{{ $skenario }}">
             <input type="hidden" name="kelompok_id" id="kelompok_id" value="{{ $kelompok_id }}">
@@ -330,12 +413,16 @@
 
         function calculateMean(id) {
             var laporan_sementara = document.getElementById('laporan_sementara' + id).value;
+            var laporan_resmi = document.getElementById('laporan_resmi' + id).value;
             var total = document.getElementById('total' + id).innerHTML;
 
-            console.log(total);
-
             var meanResult = document.querySelector('#mean' + id);
-            var mean = (Number(laporan_sementara) + Number(total)) / 2;
+
+            if(laporan_resmi == 'diskusi_1') {
+                var mean = (Number(laporan_sementara) + Number(total)) / 2;
+            } else {
+                var mean = (Number(laporan_sementara) + Number(total) + Number(laporan_resmi)) / 3;
+            }
 
             return meanResult.innerHTML = mean;
         }

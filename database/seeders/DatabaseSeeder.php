@@ -139,7 +139,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Nilai::create([
             'user_id' => 2,
-            'matkul_id' => 2,
+            'matkul_id' => 1,
         ]);
         Nilai::create([
             'user_id' => 3,
@@ -799,6 +799,31 @@ class DatabaseSeeder extends Seeder
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
             'diskusi' => 1
+        ]);
+
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 1,
+            'diskusi' => 2
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 2,
+            'diskusi' => 2
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 3,
+            'diskusi' => 2
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 4,
+            'diskusi' => 2
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 5,
+            'diskusi' => 2
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 6,
+            'diskusi' => 2
         ]);
 
         NilaiSOCA::create([

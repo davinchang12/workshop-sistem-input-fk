@@ -42,6 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRole($roleName) {
+        return $this->role == $roleName;
+    }
+
     public function nilaiMhs() {
         return $this->hasMany(Nilai::class);
     }
