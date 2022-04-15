@@ -425,6 +425,7 @@
 
     <script type="text/javascript">
         var jumlahTotal = 0;
+        var jenis_2 = ['overview_masalah', 'analisis_masalah'];
 
         function calculateOverviewMasalah() {
             var skor = document.getElementById('overview_masalah').value;
@@ -434,8 +435,6 @@
             var total = Number(skor) * Number(bobot);
 
             totalResult.innerHTML = total;
-
-            jumlahTotal += total;
 
             calculateTotalJumlah();
         }
@@ -448,14 +447,11 @@
             var total = Number(skor) * Number(bobot);
 
             totalResult.innerHTML = total;
-            jumlahTotal += total;
 
             calculateTotalJumlah();
         }
 
         function calculateKemampuanPengaplikasian(jenis) {
-
-            console.log(jenis.id);
             var skor = document.getElementById(jenis.id).value;
             var bobot = document.getElementById(jenis.id + "_bobot").textContent;
             var totalResult = document.querySelector("#" + jenis.id + "_total");
@@ -463,15 +459,21 @@
             var total = Number(skor) * Number(bobot);
 
             totalResult.innerHTML = total;
-            jumlahTotal += total;
+
+            if(!jenis_2.includes(jenis.id)) {
+                jenis_2.push(jenis.id)
+            }
 
             calculateTotalJumlah();
         }
 
         function calculateTotalJumlah() {
+            var tempTotal = 0;
+            jenis_2.forEach(element => {
+                tempTotal += Number(document.querySelector('#' + element + '_total').innerHTML);
+            });
             var totalResult = document.querySelector("#total_jumlah");
-
-            totalResult.innerHTML = jumlahTotal;
+            totalResult.innerHTML = tempTotal;
         }
     </script>
 </body>
