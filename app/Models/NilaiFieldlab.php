@@ -16,9 +16,9 @@ class NilaiFieldlab extends Model
     protected $with =[
         'nilai',
     ];
-    public function nilai()
+    public function nilailain()
     {
-        return $this->belongsTo(Nilai::class);
+        return $this->belongsTo(NilaiLain::class, 'nilai_lain_id');
     }
     public function nilaisemester()
     {
