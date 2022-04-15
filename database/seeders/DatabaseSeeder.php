@@ -7,14 +7,17 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
+use App\Models\NilaiPBL;
 use App\Models\JenisSOCA;
-use App\Models\NilaiFieldlab;
+use App\Models\NilaiLain;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
+use App\Models\NilaiFieldlab;
 use App\Models\NilaiJenisSOCA;
-use App\Models\NilaiLain;
 use Illuminate\Database\Seeder;
+use App\Models\NilaiPBLSkenario;
 use App\Models\RincianNilaiTugas;
+use App\Models\NilaiPBLSkenarioDiskusi;
 
 class DatabaseSeeder extends Seeder
 {
@@ -716,6 +719,86 @@ class DatabaseSeeder extends Seeder
             'keterangan' => 'Tahap Profesi',
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 3
+        ]);
+
+        Nilai::create([
+            'user_id' => 9,
+            'matkul_id' => 1
+        ]);
+
+        NilaiPBL::create([
+            'nilai_id' => 1,
+        ]);
+        NilaiPBL::create([
+            'nilai_id' => 2,
+        ]);
+        NilaiPBL::create([
+            'nilai_id' => 3,
+        ]);
+        NilaiPBL::create([
+            'nilai_id' => 4,
+        ]);
+        NilaiPBL::create([
+            'nilai_id' => 5,
+        ]);
+        NilaiPBL::create([
+            'nilai_id' => 8,
+        ]);
+
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 1,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 2,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 3,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 4,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 5,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+        NilaiPBLSkenario::create([
+            'nilaipbl_id' => 6,
+            'skenario' => 1,
+            'kelompok' => 1
+        ]);
+
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 1,
+            'diskusi' => 1
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 2,
+            'diskusi' => 1
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 3,
+            'diskusi' => 1
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 4,
+            'diskusi' => 1
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 5,
+            'diskusi' => 1
+        ]);
+        NilaiPBLSkenarioDiskusi::create([
+            'nilaipblskenario_id' => 6,
+            'diskusi' => 1
         ]);
 
         NilaiSOCA::create([
