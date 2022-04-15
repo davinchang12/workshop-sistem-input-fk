@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NilaiFieldlab;
 use App\Exports\NilaiFieldLabExport;
-use Illuminate\Support\Facades\File;
+use App\Imports\NilaiFieldLabImport;
 
+use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
+
 use App\Http\Requests\StoreNilaiFieldlabRequest;
 use App\Http\Requests\UpdateNilaiFieldlabRequest;
 
@@ -91,5 +94,27 @@ class NilaiFieldlabController extends Controller
 
     public function export() {
         return Excel::download(new NilaiFieldLabExport, 'nilaifieldlab.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        $file = $request->file('file');
+
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        $file->move('nilai_field_lab', $nama_file);
+
+        Excel::import(new NilaiFieldLabImport, public_path('/nilai_field_lab/' . $nama_file));
+
+        Session::flash('sukses', 'Nilai Tugas Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_field_lab/' . $nama_file));
+
+        return redirect('/dashboard/matkul');
     }
 }
