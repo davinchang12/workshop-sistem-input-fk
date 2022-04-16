@@ -7,9 +7,12 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
+use App\Models\JenisOSCE;
 use App\Models\JenisSOCA;
+use App\Models\NilaiOSCE;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
+use App\Models\NilaiJenisOSCE;
 use App\Models\NilaiJenisSOCA;
 use Illuminate\Database\Seeder;
 use App\Models\RincianNilaiTugas;
@@ -805,6 +808,289 @@ class DatabaseSeeder extends Seeder
             "skor_soca" => 0,
             "kepuasan_presentasi" => ""
         ]);
+        NilaiOSCE::create([
+            'nilai_id' => 1,
+            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+            'nama_penguji' => "dr. A"
+        ]);
+        NilaiOSCE::create([
+            'nilai_id' => 4,
+            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+            'nama_penguji' => "dr. A",
+            'nilaiosce' => 0
+        ]);
+
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Edukasi untuk sadari",
+            
+        ]);
+        
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Edukasi untuk sadari",
+            
+        ]);
+
+
+        
+
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 1,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 2,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 3,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 4,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 5,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 6,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 7,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 8,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 9,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 10,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 11,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 12,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 13,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 14,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 15,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 16,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 17,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 18,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 19,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 20,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 21,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 22,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 23,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+        JenisOSCE::create([
+            'nilaijenisosce_id' => 24,
+            "skor_OSCE" => 0,
+            "total_osce" => 0,
+        ]);
+
 
         // Jadwal::factory(100)->create();
         // Kelompok::factory(50)->create();

@@ -9,6 +9,8 @@ use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NilaiPBLController;
 use App\Http\Controllers\EditNilaiController;
+use App\Http\Controllers\NilaiOSCEController;
+use App\Http\Controllers\NilaiSOCAController;
 use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\NilaiTugasController;
@@ -16,7 +18,6 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
-use App\Http\Controllers\NilaiSOCAController;
 use App\Http\Controllers\NilaiTugasExportController;
 
 /*
@@ -52,6 +53,10 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 Route::post('/dashboard/matkul/nilai/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-soca', [NilaiSOCAController::class, 'input']);
 Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 'export']);
+
+Route::post('/dashboard/matkul/nilai/input-osce-submit', [NilaiOSCEController::class, 'store']);
+Route::post('/dashboard/matkul/nilai/input-osce', [NilaiOSCEController::class, 'input']);
+Route::post('/dashboard/matkul/nilai/export-osce', [NilaiOSCEController::class, 'export']);
 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);

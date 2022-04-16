@@ -29,6 +29,9 @@
             <a href="#soca" class="nav-link" data-bs-toggle="tab">SOCA</a>
         </li>
         <li class="nav-item">
+            <a href="#osce" class="nav-link" data-bs-toggle="tab">OSCE</a>
+        </li>
+        <li class="nav-item">
             <a href="#ujian" class="nav-link" data-bs-toggle="tab">Ujian</a>
         </li>
     </ul>
@@ -347,6 +350,23 @@
                         <option selected>{{ $socas[0]->name }}</option>
                         @foreach ($socas->skip(1) as $soca)
                             <option>{{ $soca->name }}</option>
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                    <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="OSCE">
+            <div class="container mt-3 mb-3">
+                <form action="/dashboard/matkul/nilai/input-osce" method="post">
+                    @csrf
+                    <p>Pilih Mahasiswa : </p>
+                    <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                        <option selected>{{ $osces[0]->name }}</option>
+                        @foreach ($osces->skip(1) as $osce)
+                            <option>{{ $osce->name }}</option>
                         @endforeach
                     </select>
                     <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">

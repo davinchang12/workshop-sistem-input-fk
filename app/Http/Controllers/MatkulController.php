@@ -57,6 +57,7 @@ class MatkulController extends Controller
      */
     public function show(Matkul $matkul)
     {
+        $this->authorize('dosen');
         $checkUserAndMatkul = [
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
@@ -88,6 +89,14 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();
+        $osces = DB::table('nilai_o_s_c_e_s')
+            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul->id)
+            ->where('users.role', 'mahasiswa')
+            ->select('name', 'nim')
+            ->get();
 
         $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
@@ -109,6 +118,7 @@ class MatkulController extends Controller
             'dosen' => auth()->user()->id,
             'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul'),
             'socas' => $socas,
+            'osces' => $osces,
             'matkul' => $matkul,
             'skenarios' => $skenario,
         ]);
