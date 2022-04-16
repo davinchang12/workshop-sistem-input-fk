@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Jadwal;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -15,10 +16,12 @@ class NilaiPraktikumExport implements FromView, ShouldAutoSize, WithEvents
     {
         $request = request();
 
-        $praktikums = Jadwal::select('users.name', 'users.nim', 'matkuls.namamatkul')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->where('matkuls.id', $request['matkul_dipilih'])
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.kodematkul', $request['kodematkul'])
+            ->where('nilai_praktikums.namapraktikum', $request['jenis_praktikum'])
             ->where('users.role', 'mahasiswa')
             ->get();
 

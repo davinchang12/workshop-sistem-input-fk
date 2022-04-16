@@ -31,118 +31,194 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Matkul</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Nilai</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nilais as $nilai)
-                        @if (strpos($nilai->keterangan, 'tugas') !== false)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $nilai->matkul->namamatkul }}</td>
-                                <td>{{ $nilai->keterangan }}</td>
-                                <td>{{ $nilai->nilai_mhs }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+            {{-- TUGAS --}}
         </div>
         <div class="tab-pane fade" id="pbl">
-            <div class="container">
-                <div class="row">
-                    @foreach ($kelompoks as $kelompok)
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h5 class="card-title">{{ $kelompok->kodekelompok }}</h5>
-                                            <small>{{ $kelompok->matkul->keterangan }}</small><br>
-                                            <small>Tahun Ajaran {{ $kelompok->matkul->tahun_ajaran }}</small>
-                                        </div>
-                                        <div class="col-md-auto p-auto">
-                                            <div class="col pt-2">
-                                                <a href="/dashboard/nilai/lihat{{ $kelompok->matkul->namamatkul }}"
-                                                    class="badge bg-info w-100"><span data-feather="eye"></span></a>
-                                            </div>
-                                            <div class="col pt-2">
-                                                @can('dosen')
-                                                    <a href="/dashboard/dosen/nilai" class="badge bg-info w-100"><span
-                                                            data-feather="settings"></span></a>
-                                                @endcan
-                                            </div>
-                                            <div class="col pt-2">
-                                                @can('admin')
-                                                    <a href="/dashboard/admin/nilai/edit" class="badge bg-info w-100"><span
-                                                            data-feather="key"></span></a>
-                                                @endcan
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
+            @if (auth()->check())
+                @if (auth()->user()->hasRole('mahasiswa'))
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Kelompok</th>
+                                <th scope="col">Skenario</th>
+                                <th scope="col">Diskusi</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Nim</th>
+                                <th scope="col">Kehadiran</th>
+                                <th scope="col">Aktivitas Diskusi</th>
+                                <th scope="col">Relevansi Pembicaraan</th>
+                                <th scope="col">Keterampilan Berkomunikasi</th>
+                                <th scope="col">Laporan Sementara</th>
+                                <th scope="col">Laporan Resmi</th>
+                                <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pbls as $pbl)
+                                @if ($pbl->diskusi == 2)
+                                    <tr class="table-warning">
+                                    @else
+                                    <tr>
+                                @endif
+                                <td>{{ $pbl->kelompok }}</td>
+                                <td>{{ $pbl->skenario }}</td>
+                                <td>{{ $pbl->diskusi }}</td>
+                                <td>{{ $pbl->name }}</td>
+                                <td>{{ $pbl->nim }}</td>
+                                <td>{{ $pbl->kehadiran }}</td>
+                                <td>{{ $pbl->aktivitas_diskusi }}</td>
+                                <td>{{ $pbl->relevansi_pembicaraan }}</td>
+                                <td>{{ $pbl->keterampilan_berkomunikasi }}</td>
+                                <td>{{ $pbl->laporan_sementara }}</td>
+                                <td>{{ $pbl->laporan_resmi }}</td>
+                                <td>{{ $pbl->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                    @if ($check_praktikum_dosen)
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Kelompok</th>
+                                    <th scope="col">Skenario</th>
+                                    <th scope="col">Diskusi</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Nim</th>
+                                    <th scope="col">Kehadiran</th>
+                                    <th scope="col">Aktivitas Diskusi</th>
+                                    <th scope="col">Relevansi Pembicaraan</th>
+                                    <th scope="col">Keterampilan Berkomunikasi</th>
+                                    <th scope="col">Laporan Sementara</th>
+                                    <th scope="col">Laporan Resmi</th>
+                                    <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pbl_dosens as $pbl_dosen)
+                                    @if ($pbl_dosen->role == 'mahasiswa')
+                                        @if ($pbl_dosen->diskusi == 2)
+                                            <tr class="table-warning">
+                                            @else
+                                            <tr>
+                                        @endif
+                                        <td>{{ $pbl_dosen->kelompok }}</td>
+                                        <td>{{ $pbl_dosen->skenario }}</td>
+                                        <td>{{ $pbl_dosen->diskusi }}</td>
+                                        <td>{{ $pbl_dosen->name }}</td>
+                                        <td>{{ $pbl_dosen->nim }}</td>
+                                        <td>{{ $pbl_dosen->kehadiran }}</td>
+                                        <td>{{ $pbl_dosen->aktivitas_diskusi }}</td>
+                                        <td>{{ $pbl_dosen->relevansi_pembicaraan }}</td>
+                                        <td>{{ $pbl_dosen->keterampilan_berkomunikasi }}</td>
+                                        <td>{{ $pbl_dosen->laporan_sementara }}</td>
+                                        <td>{{ $pbl_dosen->laporan_resmi }}</td>
+                                        <td>{{ $pbl_dosen->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                @endif
+            @endif
         </div>
         <div class="tab-pane fade" id="praktikum">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Matkul</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Nilai</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nilais as $nilai)
-                        @if (strpos($nilai->keterangan, 'praktikum') !== false)
+            @if (auth()->check())
+                @if (auth()->user()->hasRole('mahasiswa'))
+                    <table class="table" style="text-align: center">
+                        <thead>
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $nilai->matkul->namamatkul }}</td>
-                                <td>{{ $nilai->keterangan }}</td>
-                                <td>{{ $nilai->nilai_mhs }}</td>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Nim</th>
+                                <th scope="col">Rata-rata Quiz (20%)</th>
+                                <th scope="col">Rata-rata Nilai Laporan (10%)</th>
+                                <th scope="col">Nilai Responsi (70%)</th>
+                                <th scope="col">Nilai Akhir</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Remedi</th>
+                                <th scope="col">Remedi Konversi</th>
+                                <th scope="col">Nilai Setelah Remedi</th>
+                                <th scope="col">Keterangan</th>
                             </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($praktikums as $praktikum)
+                                <tr>
+                                    <td>{{ $praktikum->name }}</td>
+                                    <td>{{ $praktikum->nim }}</td>
+                                    <td>{{ $praktikum->rata_rata_quiz }}</td>
+                                    <td>{{ $praktikum->rata_rata_laporan }}</td>
+                                    <td>{{ $praktikum->nilai_responsi }}</td>
+                                    <td>{{ $praktikum->nilai_akhir }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_akhir }}</td>
+                                    <td>{{ $praktikum->remedi }}</td>
+                                    <td>{{ $praktikum->remedi_konversi }}</td>
+                                    <td>{{ $praktikum->nilai_setelah_remedi }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_setelah_remedi }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                    @if ($check_praktikum_dosen)
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Nim</th>
+                                    <th scope="col">Rata-rata Quiz (20%)</th>
+                                    <th scope="col">Rata-rata Nilai Laporan (10%)</th>
+                                    <th scope="col">Nilai Responsi (70%)</th>
+                                    <th scope="col">Nilai Akhir</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Remedi</th>
+                                    <th scope="col">Remedi Konversi</th>
+                                    <th scope="col">Nilai Setelah Remedi</th>
+                                    <th scope="col">Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($praktikum_dosens as $praktikum_dosen)
+                                    @if ($praktikum_dosen->keterangan_nilai_setelah_remedi == 'TIDAK LULUS')
+                                        <tr class="table-danger">
+                                            <td>{{ $praktikum_dosen->name }}</td>
+                                            <td>{{ $praktikum_dosen->nim }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_responsi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->remedi }}</td>
+                                            <td>{{ $praktikum_dosen->remedi_konversi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td>{{ $praktikum_dosen->name }}</td>
+                                            <td>{{ $praktikum_dosen->nim }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_responsi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->remedi }}</td>
+                                            <td>{{ $praktikum_dosen->remedi_konversi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                @endif
+            @endif
         </div>
         <div class="tab-pane fade" id="Ujian">
-            <p>
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Matkul</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Nilai</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($nilais as $nilai)
-                        @if (strpos($nilai->keterangan, 'ujian') !== false)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $nilai->matkul->namamatkul }}</td>
-                                <td>{{ $nilai->keterangan }}</td>
-                                <td>{{ $nilai->nilai_mhs }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
-            </p>
+
         </div>
     </div>
     <script>

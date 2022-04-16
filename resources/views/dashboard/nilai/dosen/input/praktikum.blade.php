@@ -95,27 +95,27 @@
                         <input type="number" name="rata-rata-quiz{{ $loop->iteration }}"
                             id="rata-rata-quiz{{ $loop->iteration }}" max="100" min="0"
                             style="border: none; font-size:18px; width:100%; text-align: center;" value="{{ $praktikum->rata_rata_quiz }}"
-                            onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                            onchange="calculateNilaiAkhir({{ $loop->iteration }})" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
                         <input type="number" name="rata-rata-nilai-laporan{{ $loop->iteration }}"
                             id="rata-rata-nilai-laporan{{ $loop->iteration }}" max="100" min="0"
                             style="border: none; font-size:18px; width:100%; text-align: center;" value="{{ $praktikum->rata_rata_laporan }}"
-                            onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                            onchange="calculateNilaiAkhir({{ $loop->iteration }})" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
                         <input type="number" name="nilai-responsi{{ $loop->iteration }}"
                             id="nilai-responsi{{ $loop->iteration }}" max="100" min="0"
                             style="border: none; font-size:18px; width:100%; text-align: center;" value="{{ $praktikum->nilai_responsi }}"
-                            onchange="calculateNilaiAkhir({{ $loop->iteration }})">
+                            onchange="calculateNilaiAkhir({{ $loop->iteration }})" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
                         <input type="number" name="nilai-akhir{{ $loop->iteration }}"
                             id="nilai-akhir{{ $loop->iteration }}" max="100" min="0" value="{{ $praktikum->nilai_akhir }}"
-                            style="border: none; font-size:18px; width:100%; text-align: center;">
+                            style="border: none; font-size:18px; width:100%; text-align: center;" disabled>
                         
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
@@ -129,20 +129,20 @@
                         <input type="number" name="remedi{{ $loop->iteration }}"
                             id="remedi{{ $loop->iteration }}" max="100" min="0"
                             style="border: none; font-size:18px; width:100%; text-align: center;" value="{{ $praktikum->remedi }}"
-                            onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})">
+                            onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
                         <input type="number" name="remedi-konversi{{ $loop->iteration }}"
                             id="remedi-konversi{{ $loop->iteration }}" max="100" min="0"
                             style="border: none; font-size:18px; width:100%; text-align: center;" value="{{ $praktikum->remedi_konversi }}"
-                            onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})">
+                            onchange="calculateNilaiAkhirSetelahRemedi({{ $loop->iteration }})" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
                         <input type="number" name="nilai-setelah-remedi{{ $loop->iteration }}"
                             id="nilai-setelah-remedi{{ $loop->iteration }}" max="100" min="0" value="{{ $praktikum->nilai_setelah_remedi }}"
-                            style="border: none; font-size:18px; width:100%; text-align: center;">
+                            style="border: none; font-size:18px; width:100%; text-align: center;" disabled>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=bottom>
@@ -188,7 +188,7 @@
         var rata_rata_laporan = document.getElementById('rata-rata-nilai-laporan' + id).value;
         var remedi_konversi = document.getElementById('remedi-konversi' + id).value;
         var nilaiAkhirSetelahRemeditotal = document.querySelector('#nilai-setelah-remedi' + id);
-        
+
         var total = ((Number(rata_rata_quiz)*0.2) + (Number(rata_rata_laporan)*0.1) + (Number(remedi_konversi)*0.7)).toFixed(3);
 
         nilaiAkhirSetelahRemeditotal.value = total;

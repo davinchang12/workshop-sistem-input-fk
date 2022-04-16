@@ -19,7 +19,6 @@ class CreateJenisSOCASTable extends Migration
             $table->string('keterangan_soca');
             $table->integer('skor_soca');
             $table->integer('bobot')->nullable();
-            $table->integer('total_soca')->nullable();
             $table->string('kepuasan_presentasi');
             $table->text('komentar')->nullable();
             $table->timestamps();

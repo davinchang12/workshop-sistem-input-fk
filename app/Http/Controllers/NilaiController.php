@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Models\Matkul;
 use App\Models\Jadwal;
+use App\Models\Matkul;
 use App\Models\Kelompok;
 use Illuminate\Http\Request;
+use App\Models\NilaiPraktikum;
+use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
 {
@@ -17,19 +19,63 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        // $matkul = Matkul::all();
-        // return view('dashboard.nilai.index', compact('matkuls'));
-
         $request = request();
         
-        $checkUser = [
-            'user_id' => auth()->user()->id,
-            'matkul_id' => $request->matkul_dipilih,
-        ];
+        $pbl_dosens = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
+            ->join('nilai_p_b_l_skenario_diskusis', 'nilai_p_b_l_skenario_diskusi_nilais.nilaipblskenariodiskusi_id', '=', 'nilai_p_b_l_skenario_diskusis.id')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->get();
         
+        $pbls = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
+            ->join('nilai_p_b_l_skenario_diskusis', 'nilai_p_b_l_skenario_diskusi_nilais.nilaipblskenariodiskusi_id', '=', 'nilai_p_b_l_skenario_diskusis.id')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('users.id', auth()->user()->id)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->get();
+
+        $check_pbl = DB::table('nilai_p_b_l_s')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'nilais.id')
+            ->get();
+
+        $praktikum_dosens = DB::table('nilai_jenis_praktikums')
+            ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->get();
+
+        $praktikums = DB::table('nilai_jenis_praktikums')
+            ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('users.id', auth()->user()->id)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->get();
+
+        $check_praktikum = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->get();
+
         return view('dashboard.nilai.index', [
-            'nilais' => Nilai::where($checkUser)->get(),
-            'kelompoks' => Kelompok::where($checkUser)->get(),
+            'pbl_dosens' => $pbl_dosens,
+            'pbls' => $pbls,
+            'check_pbl_dosen' => $check_pbl->contains('name', auth()->user()->name),
+            'praktikum_dosens' => $praktikum_dosens,
+            'praktikums' => $praktikums,
+            'check_praktikum_dosen' => $check_praktikum->contains('name', auth()->user()->name)
         ]);
     }
         

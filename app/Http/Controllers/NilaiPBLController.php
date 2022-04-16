@@ -39,7 +39,6 @@ class NilaiPBLController extends Controller
      */
     public function store(Request $request)
     {
-
         for ($i = 1; $i <= (int)$request['loop']; $i++) {
             $getNilaiPBLSkenarioID = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id')
                 ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
@@ -49,6 +48,15 @@ class NilaiPBLController extends Controller
                 ->where('users.name', $request['nama' . $i])
                 ->where('nilai_p_b_l_skenario_diskusis.diskusi', $request['diskusi'])
                 ->first()->id;
+            
+                
+            $total = ((((int)$request['kehadiran' . $i] + (int)$request['aktivitas_saat_diskusi' . $i]) + (int)$request['relevansi_pembicaraan' . $i] + (int)$request['keterampilan_berkomunikasi' . $i]) / 16) * 100;
+            
+            if($request['laporan_resmi' . $i] == 'diskusi_1') {
+                $mean = ((int)$request['laporan_sementara' . $i] + $total) / 2;
+            } else {
+                $mean = ((int)$request['laporan_sementara' . $i] + $total + (int)$request['laporan_resmi' . $i]) / 3;
+            }
 
             NilaiPBLSkenarioDiskusiNilai::firstOrCreate(
                 ['nilaipblskenariodiskusi_id' => $getNilaiPBLSkenarioID],
@@ -57,12 +65,16 @@ class NilaiPBLController extends Controller
                     'aktivitas_diskusi' => $request['aktivitas_saat_diskusi' . $i],
                     'relevansi_pembicaraan' => $request['relevansi_pembicaraan' . $i],
                     'keterampilan_berkomunikasi' => $request['keterampilan_berkomunikasi' . $i],
-                    'laporan_sementara' => $request['laporan_sementara' . $i] ?? 0
+                    'laporan_sementara' => $request['laporan_sementara' . $i] ?? 0,
+                    'laporan_resmi' => $request['laporan_resmi' . $i] == 'diskusi_1' ? null : $request['laporan_resmi' . $i],
+                    'total' => $total,
+                    'rata_rata' => $mean,
+                    'catatan_kesan_kegiatan_diskusi_tutorial' => $request->catatan
                 ],
             );
         }
 
-        return redirect('/dashboard/matkul/nilai/');
+        return redirect('/dashboard/matkul/');
     }
 
     /**
