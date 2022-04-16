@@ -44,8 +44,13 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
             $calculateNilaiAkhir = ($row[4]*0.2)+($row[5]*0.1)+($row[6]*0.7);
             $keteranganNilaiAkhir = $calculateNilaiAkhir >= 70 ? "LULUS" : "TIDAK LULUS";
 
-            $calculateNilaiSetelahRemedi = ($row[4]*0.2)+($row[5]*0.1)+($row[10]*0.7);
-            $keteranganNilaiSetelahRemedi = $calculateNilaiSetelahRemedi >= 70 ? "LULUS" : "TIDAK LULUS";
+            if ($row[10] != null) {
+                $calculateNilaiSetelahRemedi = ($row[4]*0.2)+($row[5]*0.1)+($row[10]*0.7);
+                $keteranganNilaiSetelahRemedi = $calculateNilaiSetelahRemedi >= 70 ? "LULUS" : "TIDAK LULUS";
+            } else {
+                $calculateNilaiSetelahRemedi = $calculateNilaiAkhir;
+                $keteranganNilaiSetelahRemedi = $keteranganNilaiAkhir;
+            }
 
             $nilaijenispraktikum = NilaiJenisPraktikum::firstOrCreate(
                 ['nilai_praktikum_id' => $praktikum->id],
@@ -54,11 +59,11 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
                     'rata_rata_laporan' => $row[5],
                     'nilai_responsi' => $row[6],
                     'nilai_akhir' => $row[7] ?? $calculateNilaiAkhir,
-                    'keterangan_nilai_akhir' => $row[8] ?? $keteranganNilaiAkhir,
+                    'keterangan_nilai_akhir' => strtoupper($row[8]) ?? $keteranganNilaiAkhir,
                     'remedi' => $row[9],
                     'remedi_konversi' => $row[10],
                     'nilai_setelah_remedi' => $row[11] ?? $calculateNilaiSetelahRemedi,
-                    'keterangan_nilai_setelah_remedi' => $row[12] ?? $keteranganNilaiSetelahRemedi
+                    'keterangan_nilai_setelah_remedi' => strtoupper($row[12]) ?? $keteranganNilaiSetelahRemedi
                 ]
             );
 

@@ -64,14 +64,7 @@ class NilaiPraktikumController extends Controller
             NilaiJenisPraktikum::updateOrCreate(
                 ['nilai_praktikum_id' => $praktikum->id],
                 [
-                    'rata_rata_quiz' => $request['rata-rata-quiz' . $i],
-                    'rata_rata_laporan' => $request['rata-rata-nilai-laporan' . $i],
-                    'nilai_responsi' => $request['nilai-responsi' . $i],
-                    'nilai_akhir' => $request['nilai-akhir' . $i],
                     'keterangan_nilai_akhir' => $request['keterangan-nilai-akhir' . $i],
-                    'remedi' => $request['remedi' . $i],
-                    'remedi_konversi' => $request['remedi-konversi' . $i],
-                    'nilai_setelah_remedi' => $request['nilai-setelah-remedi' . $i],
                     'keterangan_nilai_setelah_remedi' => $request['keterangan-nilai-setelah-remedi' . $i]
                 ]
             );

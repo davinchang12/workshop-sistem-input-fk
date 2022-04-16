@@ -77,48 +77,50 @@
                         </tbody>
                     </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    <table class="table" style="text-align: center">
-                        <thead>
-                            <tr>
-                                <th scope="col">Kelompok</th>
-                                <th scope="col">Skenario</th>
-                                <th scope="col">Diskusi</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Nim</th>
-                                <th scope="col">Kehadiran</th>
-                                <th scope="col">Aktivitas Diskusi</th>
-                                <th scope="col">Relevansi Pembicaraan</th>
-                                <th scope="col">Keterampilan Berkomunikasi</th>
-                                <th scope="col">Laporan Sementara</th>
-                                <th scope="col">Laporan Resmi</th>
-                                <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pbl_dosens as $pbl_dosen)
-                                @if ($pbl_dosen->role == 'mahasiswa')
-                                    @if ($pbl_dosen->diskusi == 2)
-                                        <tr class="table-warning">
-                                        @else
-                                        <tr>
+                    @if ($check_praktikum_dosen)
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Kelompok</th>
+                                    <th scope="col">Skenario</th>
+                                    <th scope="col">Diskusi</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Nim</th>
+                                    <th scope="col">Kehadiran</th>
+                                    <th scope="col">Aktivitas Diskusi</th>
+                                    <th scope="col">Relevansi Pembicaraan</th>
+                                    <th scope="col">Keterampilan Berkomunikasi</th>
+                                    <th scope="col">Laporan Sementara</th>
+                                    <th scope="col">Laporan Resmi</th>
+                                    <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pbl_dosens as $pbl_dosen)
+                                    @if ($pbl_dosen->role == 'mahasiswa')
+                                        @if ($pbl_dosen->diskusi == 2)
+                                            <tr class="table-warning">
+                                            @else
+                                            <tr>
+                                        @endif
+                                        <td>{{ $pbl_dosen->kelompok }}</td>
+                                        <td>{{ $pbl_dosen->skenario }}</td>
+                                        <td>{{ $pbl_dosen->diskusi }}</td>
+                                        <td>{{ $pbl_dosen->name }}</td>
+                                        <td>{{ $pbl_dosen->nim }}</td>
+                                        <td>{{ $pbl_dosen->kehadiran }}</td>
+                                        <td>{{ $pbl_dosen->aktivitas_diskusi }}</td>
+                                        <td>{{ $pbl_dosen->relevansi_pembicaraan }}</td>
+                                        <td>{{ $pbl_dosen->keterampilan_berkomunikasi }}</td>
+                                        <td>{{ $pbl_dosen->laporan_sementara }}</td>
+                                        <td>{{ $pbl_dosen->laporan_resmi }}</td>
+                                        <td>{{ $pbl_dosen->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
+                                        </tr>
                                     @endif
-                                    <td>{{ $pbl_dosen->kelompok }}</td>
-                                    <td>{{ $pbl_dosen->skenario }}</td>
-                                    <td>{{ $pbl_dosen->diskusi }}</td>
-                                    <td>{{ $pbl_dosen->name }}</td>
-                                    <td>{{ $pbl_dosen->nim }}</td>
-                                    <td>{{ $pbl_dosen->kehadiran }}</td>
-                                    <td>{{ $pbl_dosen->aktivitas_diskusi }}</td>
-                                    <td>{{ $pbl_dosen->relevansi_pembicaraan }}</td>
-                                    <td>{{ $pbl_dosen->keterampilan_berkomunikasi }}</td>
-                                    <td>{{ $pbl_dosen->laporan_sementara }}</td>
-                                    <td>{{ $pbl_dosen->laporan_resmi }}</td>
-                                    <td>{{ $pbl_dosen->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
-                                    </tr>
-                                @endif
-                            @endforeach
-                        </tbody>
-                    </table>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 @endif
             @endif
         </div>
@@ -160,40 +162,58 @@
                         </tbody>
                     </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    <table class="table" style="text-align: center">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Nim</th>
-                                <th scope="col">Rata-rata Quiz (20%)</th>
-                                <th scope="col">Rata-rata Nilai Laporan (10%)</th>
-                                <th scope="col">Nilai Responsi (70%)</th>
-                                <th scope="col">Nilai Akhir</th>
-                                <th scope="col">Keterangan</th>
-                                <th scope="col">Remedi</th>
-                                <th scope="col">Remedi Konversi</th>
-                                <th scope="col">Nilai Setelah Remedi</th>
-                                <th scope="col">Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($praktikum_dosens as $praktikum_dosen)
+                    @if ($check_praktikum_dosen)
+                        <table class="table" style="text-align: center">
+                            <thead>
                                 <tr>
-                                    <td>{{ $praktikum_dosen->name }}</td>
-                                    <td>{{ $praktikum_dosen->nim }}</td>
-                                    <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
-                                    <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
-                                    <td>{{ $praktikum_dosen->nilai_responsi }}</td>
-                                    <td>{{ $praktikum_dosen->nilai_akhir }}</td>
-                                    <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
-                                    <td>{{ $praktikum_dosen->remedi }}</td>
-                                    <td>{{ $praktikum_dosen->remedi_konversi }}</td>
-                                    <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
-                                    <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Nim</th>
+                                    <th scope="col">Rata-rata Quiz (20%)</th>
+                                    <th scope="col">Rata-rata Nilai Laporan (10%)</th>
+                                    <th scope="col">Nilai Responsi (70%)</th>
+                                    <th scope="col">Nilai Akhir</th>
+                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Remedi</th>
+                                    <th scope="col">Remedi Konversi</th>
+                                    <th scope="col">Nilai Setelah Remedi</th>
+                                    <th scope="col">Keterangan</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($praktikum_dosens as $praktikum_dosen)
+                                    @if ($praktikum_dosen->keterangan_nilai_setelah_remedi == 'TIDAK LULUS')
+                                        <tr class="table-danger">
+                                            <td>{{ $praktikum_dosen->name }}</td>
+                                            <td>{{ $praktikum_dosen->nim }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_responsi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->remedi }}</td>
+                                            <td>{{ $praktikum_dosen->remedi_konversi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                        </tr>
+                                    @else
+                                        <tr>
+                                            <td>{{ $praktikum_dosen->name }}</td>
+                                            <td>{{ $praktikum_dosen->nim }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
+                                            <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_responsi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->remedi }}</td>
+                                            <td>{{ $praktikum_dosen->remedi_konversi }}</td>
+                                            <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 @endif
             @endif
         </div>

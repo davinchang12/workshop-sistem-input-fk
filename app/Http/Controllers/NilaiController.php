@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use Illuminate\Http\Request;
+use App\Models\NilaiPraktikum;
 use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
@@ -41,6 +42,11 @@ class NilaiController extends Controller
             ->where('matkuls.id', $request->matkul_dipilih)
             ->get();
 
+        $check_pbl = DB::table('nilai_p_b_l_s')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'nilais.id')
+            ->get();
+
         $praktikum_dosens = DB::table('nilai_jenis_praktikums')
             ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -57,12 +63,19 @@ class NilaiController extends Controller
             ->where('users.id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
             ->get();
-        
+
+        $check_praktikum = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->get();
+
         return view('dashboard.nilai.index', [
             'pbl_dosens' => $pbl_dosens,
             'pbls' => $pbls,
+            'check_pbl_dosen' => $check_pbl->contains('name', auth()->user()->name),
             'praktikum_dosens' => $praktikum_dosens,
-            'praktikums' => $praktikums
+            'praktikums' => $praktikums,
+            'check_praktikum_dosen' => $check_praktikum->contains('name', auth()->user()->name)
         ]);
     }
         

@@ -88,15 +88,11 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();
-
-        $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
-            ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-            ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
-            ->where('users.role', 'mahasiswa')
-            ->where('matkuls.id', $matkul->id)
+            
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where($checkUserAndMatkul)
             ->get();
 
         $fieldlabs = DB::table('nilai_semester_field_labs')
@@ -107,7 +103,7 @@ class MatkulController extends Controller
             ->get();
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
-        $skenario = $nilai->pbl->pblskenario ?? null;
+        $skenarios = $nilai->pbl->pblskenario ?? null;
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
@@ -118,7 +114,7 @@ class MatkulController extends Controller
             'socas' => $socas,
             'fieldlabs' => $fieldlabs,
             'matkul' => $matkul,
-            'skenarios' => $skenario,
+            'skenarios' => $skenarios,
         ]);
 
     }

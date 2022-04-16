@@ -235,7 +235,7 @@
                     <font color="#000000">{{ $praktikum->namamatkul }}</font>
                 </td>
                 <td height="19" align="center" valign=bottom>
-                    <font color="#000000">Histiologi</font>
+                    <font color="#000000">{{ $praktikum->namapraktikum }}</font>
                 </td>
                 <td height="19" align="center" valign=bottom>
                     <font color="#000000">{{ $praktikum->name }}</font>
