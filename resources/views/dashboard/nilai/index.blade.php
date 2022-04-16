@@ -36,7 +36,7 @@
         <div class="tab-pane fade" id="pbl">
             @if (auth()->check())
                 @if (auth()->user()->hasRole('mahasiswa'))
-                    <table class="table">
+                    <table class="table" style="text-align: center">
                         <thead>
                             <tr>
                                 <th scope="col">Kelompok</th>
@@ -77,7 +77,7 @@
                         </tbody>
                     </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    <table class="table">
+                    <table class="table" style="text-align: center">
                         <thead>
                             <tr>
                                 <th scope="col">Kelompok</th>
@@ -123,7 +123,79 @@
             @endif
         </div>
         <div class="tab-pane fade" id="praktikum">
-
+            @if (auth()->check())
+                @if (auth()->user()->hasRole('mahasiswa'))
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Nim</th>
+                                <th scope="col">Rata-rata Quiz (20%)</th>
+                                <th scope="col">Rata-rata Nilai Laporan (10%)</th>
+                                <th scope="col">Nilai Responsi (70%)</th>
+                                <th scope="col">Nilai Akhir</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Remedi</th>
+                                <th scope="col">Remedi Konversi</th>
+                                <th scope="col">Nilai Setelah Remedi</th>
+                                <th scope="col">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($praktikums as $praktikum)
+                                <tr>
+                                    <td>{{ $praktikum->name }}</td>
+                                    <td>{{ $praktikum->nim }}</td>
+                                    <td>{{ $praktikum->rata_rata_quiz }}</td>
+                                    <td>{{ $praktikum->rata_rata_laporan }}</td>
+                                    <td>{{ $praktikum->nilai_responsi }}</td>
+                                    <td>{{ $praktikum->nilai_akhir }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_akhir }}</td>
+                                    <td>{{ $praktikum->remedi }}</td>
+                                    <td>{{ $praktikum->remedi_konversi }}</td>
+                                    <td>{{ $praktikum->nilai_setelah_remedi }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_setelah_remedi }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Nim</th>
+                                <th scope="col">Rata-rata Quiz (20%)</th>
+                                <th scope="col">Rata-rata Nilai Laporan (10%)</th>
+                                <th scope="col">Nilai Responsi (70%)</th>
+                                <th scope="col">Nilai Akhir</th>
+                                <th scope="col">Keterangan</th>
+                                <th scope="col">Remedi</th>
+                                <th scope="col">Remedi Konversi</th>
+                                <th scope="col">Nilai Setelah Remedi</th>
+                                <th scope="col">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($praktikum_dosens as $praktikum_dosen)
+                                <tr>
+                                    <td>{{ $praktikum_dosen->name }}</td>
+                                    <td>{{ $praktikum_dosen->nim }}</td>
+                                    <td>{{ $praktikum_dosen->rata_rata_quiz }}</td>
+                                    <td>{{ $praktikum_dosen->rata_rata_laporan }}</td>
+                                    <td>{{ $praktikum_dosen->nilai_responsi }}</td>
+                                    <td>{{ $praktikum_dosen->nilai_akhir }}</td>
+                                    <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                    <td>{{ $praktikum_dosen->remedi }}</td>
+                                    <td>{{ $praktikum_dosen->remedi_konversi }}</td>
+                                    <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
+                                    <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            @endif
         </div>
         <div class="tab-pane fade" id="Ujian">
 
