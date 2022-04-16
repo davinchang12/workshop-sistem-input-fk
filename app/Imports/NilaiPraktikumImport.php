@@ -35,7 +35,6 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
     {
         foreach ($rows as $row) {
             $nilai = $this->nilai->where('namamatkul', $row[0])->where('nim', $row[3])->first();
-            // dd($row[4]);
             
             $praktikum = NilaiPraktikum::firstOrCreate(
                 ['nilai_id' => $nilai->id],
