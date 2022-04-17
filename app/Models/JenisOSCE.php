@@ -5,23 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NilaiJenisOSCE extends Model
+class JenisOSCE extends Model
 {
     use HasFactory;
-
     protected $guarded = [
         'id'
     ];
 
     protected $with = [
-        'osce',
         'jenisosce'
     ];
 
-    public function osce() {
-        return $this->belongsTo(NilaiOSCE::class);
-    }
     public function jenisosce() {
-        return $this->hasOne(JenisOSCE::class);
+        return $this->belongsTo(NilaiJenisOSCE::class, 'nilaijenisosce_id');
     }
 }
