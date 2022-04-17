@@ -19,6 +19,7 @@ use App\Http\Controllers\NilaiFieldlabController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
+use App\Http\Controllers\SettingMataKuliahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,7 +85,8 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
-// Route::get('/dashboard/akses', [])->middleware('admin');
+Route::get('/dashboard/settingjadwalkinerja', [])->middleware('admin');
+Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
