@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\JenisOSCE;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
 use App\Models\NilaiJenisOSCE;
+use App\Imports\SoalOSCEImport;
+use Illuminate\Support\Facades\File;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Collection; 
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateNilaiOSCERequest;
 
@@ -44,7 +52,7 @@ class NilaiOSCEController extends Controller
         $totalskor = 0;
         $value = 0;
         // dd($request);
-        $checkskor =  $skor = DB::table('jenis_o_s_c_e_s')
+        $checkskor =  DB::table('jenis_o_s_c_e_s')
                             ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
                             ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
                             ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
@@ -222,5 +230,29 @@ class NilaiOSCEController extends Controller
             'penguji' => auth()->user()->name,
             'kodematkul' => $request->kodematkul
         ]);
+    }
+    public function import(Request $request) {
+        
+		$this->validate($request, [
+			'file' => 'required|mimes:csv,xls,xlsx'
+		]);
+ 
+		$file = $request->file('file');
+ 
+		$nama_file = rand().$file->getClientOriginalName();
+ 
+		$file->move('nilai_tugas',$nama_file);
+ 
+		Excel::import(new SoalOSCEImport, public_path('/soal_osce/'.$nama_file));
+ 
+		Session::flash('sukses','Soal OSCE Berhasil Diimport!');
+
+        File::delete(public_path('/soal_osce/'.$nama_file));
+ 
+		return redirect('/dashboard/matkul');
+    }
+
+    public function export() {
+        return Excel::download(new SoalOSCEExport, 'soalosce.xlsx');
     }
 }

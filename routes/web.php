@@ -57,6 +57,7 @@ Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 
 Route::post('/dashboard/matkul/nilai/input-osce-submit', [NilaiOSCEController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-osce', [NilaiOSCEController::class, 'input']);
 Route::post('/dashboard/matkul/nilai/export-osce', [NilaiOSCEController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/import-osce', [NilaiOSCEController::class, 'import']);
 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
