@@ -13,10 +13,17 @@
 
             @can('admin')
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/rancangjadwalkinerja*') ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::is('dashboard/settingjadwalkinerja*') ? 'active' : '' }}"
                         href="/dashboard/rancangjadwalkinerja">
                         <span data-feather="file-plus"></span>
-                        Rancang Jadwal/Kinerja
+                        Setting Jadwal/Kinerja
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
+                        href="/dashboard/settingmatakuliah">
+                        <span data-feather="file-plus"></span>
+                        Setting Mata Kuliah
                     </a>
                 </li>
             @endcan
