@@ -18,11 +18,10 @@ class isAdmin
     {
 
         // if (!auth()->check() || auth()->user()->role !== 'admin' && auth()->user()->role !== 'superadmin' ){
-
         $checkUser = !auth()->check() || auth()->user()->role;
-        if($checkUser !== 'admin' || $checkUser !== 'superadmin') {
+        if(!auth()->check() || auth()->user()->role !== 'admin') {
             abort(403);
-        }
+        }   
         return $next($request);
     }
 }
