@@ -16,6 +16,7 @@ use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\NilaiTugasController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
+use App\Http\Controllers\NilaiFieldlabController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
@@ -49,10 +50,11 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 
+Route::get('/dashboard/matkul/nilai/export/field-lab', [NilaiFieldlabController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/import/field-lab', [NilaiFieldlabController::class, 'import']);
 
 Route::post('/dashboard/matkul/nilai/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-soca', [NilaiSOCAController::class, 'input']);
-Route::post('/dashboard/matkul/nilai/export-soca', [NilaiSOCAController::class, 'export']);
 
 Route::post('/dashboard/matkul/nilai/input-osce-submit', [NilaiOSCEController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-osce', [NilaiOSCEController::class, 'input']);

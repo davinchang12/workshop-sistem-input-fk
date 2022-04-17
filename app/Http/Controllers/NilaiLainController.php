@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LaporanFieldlab;
-use App\Http\Requests\StoreLaporanFieldlabRequest;
-use App\Http\Requests\UpdateLaporanFieldlabRequest;
+use App\Models\NilaiLain;
+use App\Http\Requests\StoreNilaiLainRequest;
+use App\Http\Requests\UpdateNilaiLainRequest;
 
-class LaporanFieldlabController extends Controller
+class NilaiLainController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class LaporanFieldlabController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreLaporanFieldlabRequest  $request
+     * @param  \App\Http\Requests\StoreNilaiLainRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreLaporanFieldlabRequest $request)
+    public function store(StoreNilaiLainRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class LaporanFieldlabController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\LaporanFieldlab  $laporanFieldlab
+     * @param  \App\Models\NilaiLain  $nilaiLain
      * @return \Illuminate\Http\Response
      */
-    public function show(LaporanFieldlab $laporanFieldlab)
+    public function show(NilaiLain $nilaiLain)
     {
         //
     }
@@ -53,10 +53,10 @@ class LaporanFieldlabController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\LaporanFieldlab  $laporanFieldlab
+     * @param  \App\Models\NilaiLain  $nilaiLain
      * @return \Illuminate\Http\Response
      */
-    public function edit(LaporanFieldlab $laporanFieldlab)
+    public function edit(NilaiLain $nilaiLain)
     {
         //
     }
@@ -64,11 +64,11 @@ class LaporanFieldlabController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateLaporanFieldlabRequest  $request
-     * @param  \App\Models\LaporanFieldlab  $laporanFieldlab
+     * @param  \App\Http\Requests\UpdateNilaiLainRequest  $request
+     * @param  \App\Models\NilaiLain  $nilaiLain
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLaporanFieldlabRequest $request, LaporanFieldlab $laporanFieldlab)
+    public function update(UpdateNilaiLainRequest $request, NilaiLain $nilaiLain)
     {
         //
     }
@@ -76,10 +76,10 @@ class LaporanFieldlabController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\LaporanFieldlab  $laporanFieldlab
+     * @param  \App\Models\NilaiLain  $nilaiLain
      * @return \Illuminate\Http\Response
      */
-    public function destroy(LaporanFieldlab $laporanFieldlab)
+    public function destroy(NilaiLain $nilaiLain)
     {
         //
     }

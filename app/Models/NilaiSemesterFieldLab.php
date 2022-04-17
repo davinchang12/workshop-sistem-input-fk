@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NilaiPBLSkenarioDiskusiNilai extends Model
+class NilaiSemesterFieldLab extends Model
 {
     use HasFactory;
 
@@ -14,10 +14,10 @@ class NilaiPBLSkenarioDiskusiNilai extends Model
     ];
 
     protected $with = [
-        'diskusi'
+        'fieldlab'
     ];
 
-    public function diskusi() {
-        return $this->belongsTo(NilaiPBLSkenarioDiskusi::class, 'nilaipblskenariodiskusi_id');
+    public function fieldlab() {
+        return $this->belongsTo(NilaiFieldlab::class, 'nilai_field_lab_id');
     }
 }

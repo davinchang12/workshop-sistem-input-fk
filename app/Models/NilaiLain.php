@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NilaiPBLSkenarioDiskusiNilai extends Model
+class NilaiLain extends Model
 {
     use HasFactory;
 
@@ -14,10 +14,14 @@ class NilaiPBLSkenarioDiskusiNilai extends Model
     ];
 
     protected $with = [
-        'diskusi'
+        'users'
     ];
 
-    public function diskusi() {
-        return $this->belongsTo(NilaiPBLSkenarioDiskusi::class, 'nilaipblskenariodiskusi_id');
+    public function users() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function nilaifieldlab() {
+        return $this->hasMany(NilaiFieldlab::class);
     }
 }

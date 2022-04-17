@@ -89,6 +89,7 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();
+      
         $osces = DB::table('nilai_o_s_c_e_s')
             ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -96,20 +97,22 @@ class MatkulController extends Controller
             ->where('matkuls.id', $matkul->id)
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
+            
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where($checkUserAndMatkul)
             ->get();
 
-        $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
-            ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-            ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+        $fieldlabs = DB::table('nilai_semester_field_labs')
+            ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+            ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
-            ->where('matkuls.id', $matkul->id)
             ->get();
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
-        $skenario = $nilai->pbl->pblskenario ?? null;
+        $skenarios = $nilai->pbl->pblskenario ?? null;
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
@@ -119,8 +122,9 @@ class MatkulController extends Controller
             'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul'),
             'socas' => $socas,
             'osces' => $osces,
+            'fieldlabs' => $fieldlabs,
             'matkul' => $matkul,
-            'skenarios' => $skenario,
+            'skenarios' => $skenarios,
         ]);
 
     }

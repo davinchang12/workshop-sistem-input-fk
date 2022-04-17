@@ -16,6 +16,11 @@ class NilaiPraktikum extends Model
     protected $with =[
         'nilai'
     ];
+
+    public function hasDosen($id) {
+        return $this->nilai_id == $id;
+    }
+
     public function nilai()
     {
         return $this->belongsTo(Nilai::class);
