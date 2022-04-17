@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(50)->create();
         User::create([
             'name' => 'Admin',
-            'role' => 'superadmin',
+            'role' => 'admin',
             'email' => 'admin@unika.ac.id',
             'password' =>  bcrypt('admin') 
         ]);
