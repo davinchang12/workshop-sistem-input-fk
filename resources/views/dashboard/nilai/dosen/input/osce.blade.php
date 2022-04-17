@@ -11,7 +11,6 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">   
 </head>
 <body>
-   @i = 0;
     <form action="/dashboard/matkul/nilai/input-osce-submit" method="post">
         @csrf
         <div class="container mt-3 mb-3 w-75">
@@ -59,16 +58,14 @@
                         </tr>
                         <tr>
                 @foreach($osces as $osce)
+                            
                     <tr>
                         <td style="border : 1px solid black"  align="middle" valign=middle>{{ $loop->iteration }}.<br></td>
                         <td style="border : 1px solid black" align="justify" colspan=2 valign=middle>{{  $osce->aspekdinilaiosce }}<br></td>
                         <td style="border : 1px solid black" align="middle" valign=middle>
-                            {{-- <p class=MsoNormal
-                                    id="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce))))) . '_bobot' }}"
-                                    align=center style='margin-bottom:0in;text-align:center;
-                                  line-height:normal'><span lang=IN>{{$osce->bobot}}</span></p> --}}
+                           
                             <p class=MsoNormal
-                                    id="_bobot"
+                                    id="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce))))) . '_bobot' }}"
                                     align=center style='margin-bottom:0in;text-align:center;
                                   line-height:normal'><span lang=IN>{{$osce->bobot}}</span></p>
                         </td>
@@ -76,23 +73,16 @@
                                 
                                 <input type="number"
                                             name="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }}"
-                                            id="skor_osce" 
-                                            max="2"
-                                            min="0" 
-                                            style="border: none; font-size:18px; width:100%; text-align: center;"
-                                            onchange="calculateBobot({{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }})">
-                                {{-- <input type="number"
-                                            name="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }}"
                                             id="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }}" 
                                             max="2"
                                             min="0" 
                                             style="border: none; font-size:18px; width:100%; text-align: center;"
-                                            onchange="calculateBobot({{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }})"> --}}
+                                            onchange="calculateBobot({{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  }}), calculateNilaiOSCE()">
                             
                         </td>
                         <td style="border : 1px solid black" align="middle" valign=middle>
                             <p 
-                                    id="_total"
+                                    id="{{ str_replace(',', '_', str_replace(')', '_', str_replace('(', '_', str_replace(' ', '_', strtolower($osce->aspekdinilaiosce)))))  . '_total' }}"
                                     align=center style='margin-bottom:0in;text-align:center;
                                   line-height:normal'></p>
                         </td>
@@ -104,21 +94,21 @@
                     </td>
                     <td colspan=1 rowspan=3 style="border :1px solid black" align="center" valign=middle><b><span
                         style='font-size:14.0pt'>
-                        <input type="radio"
+                        {{-- <input type="radio"
                                             name="hitungnilai"
                                             id="hitungnilai" 
                                             max="2"
                                             min="0" 
                                             style="border: none; font-size:18px; width:100%; text-align: center;"
-                                            onchange="calculateNilaiOSCE()">
+                                            onchange="calculateNilaiOSCE()"> --}}
                     </span></b>
                     </td>
                     
                     <td colspan=5 rowspan=3 style="border :1px solid black" align="center" valign=middle><b>
-                        <label
-                                            name="_nilai"
-                                            id='_nilai'
-                                            style="border: none; font-size:18px; width:100%; text-align: center;">
+                        <span
+                                            name="_nilaiosce"
+                                            id='_nilaiosce'
+                                            style="border: none; font-size:18px; width:100%; text-align: center;"><span>
                         
                     </b>
                     </td>
@@ -183,23 +173,23 @@
         function calculateBobot(jenis) {
 
             console.log(jenis.id);
-            var skor = document.getElementById("skor_osce").value;
-            var bobot = document.getElementById( "_bobot").textContent;
-            var totalResult = document.querySelector("#" +  "_total");
+            var skor = document.getElementById(jenis.id).value;
+            var bobot = document.getElementById(jenis.id + "_bobot").textContent;
+            var totalResult = document.querySelector("#" + jenis.id + "_total");
             
             var total = Number(skor) * Number(bobot);
             totalbobot += Number(bobot);
             totalskor += total;
             totalResult.innerHTML = total;
-            
+            calculateNilaiOSCE();
             
         }
         
-
         function calculateNilaiOSCE() {
-            var totalResult = document.querySelector('#_nilai');
+            var totalResult = document.querySelector('#_nilaiosce');
             var nilai = (totalskor / (2*totalbobot))*100;
             totalResult.innerHTML = nilai;
+            var nilai = Math.round(nilai * 100)/100;
         }
     </script>
 </body>

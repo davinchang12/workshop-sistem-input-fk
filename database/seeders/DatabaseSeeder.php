@@ -763,6 +763,9 @@ class DatabaseSeeder extends Seeder
             "skor_soca" => 0,
             "kepuasan_presentasi" => ""
         ]);
+
+
+
         JenisSOCA::create([
             'nilaijenissoca_id' => 2,
             "keterangan_soca" => "Fisiologi",
@@ -816,8 +819,7 @@ class DatabaseSeeder extends Seeder
         NilaiOSCE::create([
             'nilai_id' => 4,
             'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
-            'nama_penguji' => "dr. A",
-            'nilaiosce' => 0
+            'nama_penguji' => "dr. A"
         ]);
 
         NilaiJenisOSCE::create([
@@ -826,6 +828,12 @@ class DatabaseSeeder extends Seeder
             'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
             
         ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan 22",
+            
+        // ]);
         NilaiJenisOSCE::create([
             'nilaiosce_id' => 1,
             'bobot' => 1,
@@ -893,6 +901,8 @@ class DatabaseSeeder extends Seeder
             
         ]);
         
+
+
         NilaiJenisOSCE::create([
             'nilaiosce_id' => 2,
             'bobot' => 1,
@@ -969,127 +979,127 @@ class DatabaseSeeder extends Seeder
 
         
 
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 1,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 2,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 3,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 4,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 5,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 6,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 7,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 8,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 9,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 10,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 11,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 12,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 1,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 2,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 3,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 4,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 5,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 6,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 7,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 8,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 9,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 10,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 11,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 12,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
 
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 13,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 14,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 15,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 16,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 17,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 18,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 19,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 20,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 21,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 22,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 23,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
-        JenisOSCE::create([
-            'nilaijenisosce_id' => 24,
-            "skor_OSCE" => 0,
-            "total_osce" => 0,
-        ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 13,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 14,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 15,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 16,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 17,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 18,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 19,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 20,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 21,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 22,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 23,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
+        // JenisOSCE::create([
+        //     'nilaijenisosce_id' => 24,
+        //     "skor_OSCE" => 0,
+            
+        // ]);
 
 
         // Jadwal::factory(100)->create();

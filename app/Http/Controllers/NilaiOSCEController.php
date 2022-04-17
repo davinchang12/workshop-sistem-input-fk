@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JenisOSCE;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
+use App\Models\NilaiJenisOSCE;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateNilaiOSCERequest;
 
@@ -39,12 +41,24 @@ class NilaiOSCEController extends Controller
     {
         $this->authorize('dosen');
         
-        
-        
-        for($i = 0; $i < ((int)$request->jumlahaspek+6); $i++) {
-            $get_key = collect($request->all())->keys()[$i];
+        $totalskor = 0;
+        $value = 0;
+        // dd($request);
+        $checkskor =  $skor = DB::table('jenis_o_s_c_e_s')
+                            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+                            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                            ->join('users', 'nilais.user_id', '=', 'users.id')
+                            ->where('users.name', $request->nama)
+                            ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+                            ->limit(1)
+                            ->value('skor_osce'); 
+        for($i = 0; $i < ((int)$request->jumlahaspek); $i++) {
+            $get_key = collect($request->all())->keys()[6+$i];
             
-            DB::table('jenis_o_s_c_e_s')
+            if($checkskor == null){
+                DB::table('jenis_o_s_c_e_s')
                 ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
                 ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
                 ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
@@ -54,9 +68,59 @@ class NilaiOSCEController extends Controller
                 ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
                 ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%'.$get_key.'%')
                 ->limit(1)
-                ->update(['skor_osce' => (int)$request->$get_key, 'total_osce' => (int)$request->$get_key]);
-                // dd((int)$request->jumlahaspek+2);
+                ->update(['skor_osce' => (int)$request->$get_key]);
+            }
+            $skor = DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+            ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%'.$get_key.'%')
+            ->limit(1)
+            ->value('skor_osce'); 
+            $bobot = DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+            ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%'.$get_key.'%')
+            ->limit(1)
+            ->value('bobot');
+            $total = $skor * $bobot;
+            $value += $bobot;
+            $totalskor += $total; 
         }
+        $checknilai = DB::table('jenis_o_s_c_e_s')
+        ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+        ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+        ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->where('users.name', $request->nama)
+        ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+        ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%'.$get_key.'%')
+        ->value('nilai_o_s_c_e_s.nilaiosce');
+        // dd($checknilai);
+        if($checknilai == null){
+            $value = $value * 2;
+            $nilai = round((($totalskor / $value) * 100), 2);
+            DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+            ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%'.$get_key.'%')
+            ->update(['nilai_o_s_c_e_s.nilaiosce' => $nilai]);
+        }        
         
         return redirect('/dashboard/matkul/' . $request->kodematkul);
     }
@@ -107,16 +171,51 @@ class NilaiOSCEController extends Controller
     }
 
     public function input(Request $request) {
+        $this->authorize('dosen');
+        $osces = DB::table('nilai_jenis_o_s_c_e_s')
+                ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('matkuls.id', $request->matkul_dipilih)
+                ->where('users.name', $request->mahasiswa_dipilih)
+                ->get();
+                        
 
-        $osces = DB::table('jenis_o_s_c_e_s')
-            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
-            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
-            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->where('users.name', $request->mahasiswa_dipilih)
-            ->get();
+        $checkExist = DB::table('jenis_o_s_c_e_s')
+                    ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                    ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                    ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+                    ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                    ->join('users', 'nilais.user_id', '=', 'users.id')
+                    ->where('matkuls.id', $request->matkul_dipilih)
+                    ->where('users.name', $request->mahasiswa_dipilih)
+                    ->get('nilaijenisosce_id');
+            // dd($checkExist->isEmpty());
+            if($checkExist->isEmpty()){
+                        $i = 0;
+                        foreach( $osces as $osces2 ){
+                            $aspekid = DB::table('nilai_jenis_o_s_c_e_s')
+                            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+                            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                            ->join('users', 'nilais.user_id', '=', 'users.id')
+                            ->where('matkuls.id', $request->matkul_dipilih)
+                            ->where('users.name', $request->mahasiswa_dipilih)
+                            ->pluck("nilai_jenis_o_s_c_e_s.id");
+                            // dd($aspekid);
+                            DB::table('jenis_o_s_c_e_s')
+                            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+                            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                            ->join('users', 'nilais.user_id', '=', 'users.id')
+                            ->where('matkuls.id', $request->matkul_dipilih)
+                            ->where('users.name', $request->mahasiswa_dipilih)
+                            ->insert(['nilaijenisosce_id'=> $aspekid[$i]]);
+                           $i++;
+                        }
+                    }
 
         return view('dashboard.nilai.dosen.input.osce', [
             'osces' => $osces,

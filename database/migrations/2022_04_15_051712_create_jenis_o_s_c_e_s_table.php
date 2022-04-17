@@ -16,8 +16,7 @@ class CreateJenisOSCESTable extends Migration
         Schema::create('jenis_o_s_c_e_s', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilaijenisosce_id');
-            $table->integer('skor_osce');
-            $table->integer('total_osce')->nullable();
+            $table->integer('skor_osce')->nullable();
             $table->timestamps();
         });
     }

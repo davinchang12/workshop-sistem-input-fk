@@ -18,7 +18,7 @@ class CreateNilaiOSCESTable extends Migration
             $table->foreignId('nilai_id');
             $table->string('namaosce');
             $table->string('nama_penguji');
-            $table->integer('nilaiosce')->nullable();
+            $table->float('nilaiosce', 8, 2)->nullable();
             $table->timestamps();
         });
     }
