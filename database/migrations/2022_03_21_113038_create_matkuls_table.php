@@ -20,6 +20,7 @@ class CreateMatkulsTable extends Migration
             $table->text('keterangan');
             $table->string('tahun_ajaran');
             $table->integer('bobot_sks');
+            $table->string('blok')->nullable();
             $table->timestamps();
         });
     }
