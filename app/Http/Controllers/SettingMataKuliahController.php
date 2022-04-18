@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Matkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,21 +48,23 @@ class SettingMataKuliahController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Matkul $settingmatakuliah)
     {
-        return $id;
+        return view('dashboard.matkul.admin.show', [
+            'matkul' => $settingmatakuliah
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Matkul $matkul)
     {
         //
     }
@@ -70,10 +73,10 @@ class SettingMataKuliahController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Matkul $matkul)
     {
         //
     }
@@ -81,10 +84,10 @@ class SettingMataKuliahController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Matkul $matkul)
     {
         //
     }
