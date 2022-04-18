@@ -18,7 +18,7 @@ class SettingMataKuliahController extends Controller
         $matkuls = DB::table('matkuls')
             ->orderBy('keterangan', 'ASC')
             ->get();
-            
+
         return view('dashboard.matkul.admin.index', [
             'matkuls' => $matkuls
         ]);
@@ -92,5 +92,12 @@ class SettingMataKuliahController extends Controller
     public function destroy(Matkul $matkul)
     {
         //
+    }
+
+    public function checkBlok(Request $request)
+    {
+        $blok = substr ($request->kodematkul, -2);
+        $blok = $blok[0].".".$blok[1];
+        return response()->json(['blok' => $blok]);
     }
 }
