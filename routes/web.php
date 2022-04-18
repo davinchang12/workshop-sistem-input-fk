@@ -86,6 +86,7 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 
 // Admin
 Route::get('/dashboard/settingjadwalkinerja', [])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 
 // Superadmin
