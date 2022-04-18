@@ -302,7 +302,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Pendidikan Kedokteran dan Humaniora',
         'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.1"
         ]);
 
         Matkul::create([
@@ -310,7 +311,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sel, Biomolekuler dan Jaringan',
             'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.2"
         ]);
 
         Matkul::create([
@@ -318,7 +320,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Kulit, Tulang dan Otot',
             'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.3"
         ]);
 
         Matkul::create([
@@ -342,7 +345,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Jantung, Pembuluh Darah dan Pernafasan',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.1"
         ]);
 
         Matkul::create([
@@ -350,7 +354,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Saraf dan INdra',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.2"
         ]);
 
         Matkul::create([
@@ -358,7 +363,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Gastrointestinal, Hepatobilier, Pankreas, Ginjal, Saluran Kemih dan Endokrin',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.3"
         ]);
 
         Matkul::create([
@@ -382,7 +388,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Siklus Hidup',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.1"
         ]);
 
         Matkul::create([
@@ -390,7 +397,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Mekanisme Penyakit Dasar dan Penatalaksanaannya',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.2"
         ]);
 
         Matkul::create([
@@ -398,7 +406,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Endokrin dan Nutrisi',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.3"
         ]);
 
         Matkul::create([
@@ -422,7 +431,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Hemato-Imunologi',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.1"
         ]);
 
         Matkul::create([
@@ -430,7 +440,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Kulit, Tulang dan Otot',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.2"
         ]);
 
         Matkul::create([
@@ -438,7 +449,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Jantung, Pembuluh Darah dan Pernafasan',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.3"
         ]);
 
         Matkul::create([
@@ -462,7 +474,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Saraf dan Psikiatri',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.1"
         ]);
         
         Matkul::create([
@@ -470,7 +483,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Gastrointestinal dan Bilier',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.2"
         ]);
 
         Matkul::create([
@@ -478,7 +492,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Indera',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.3"
         ]);
 
         Matkul::create([
@@ -510,7 +525,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Ginjal dan Saluran Kemih',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.1"
         ]);
 
         Matkul::create([
@@ -518,7 +534,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Reproduksi',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.2"
         ]);
 
         Matkul::create([
@@ -526,7 +543,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Ilmu Kedokteran Keluarga dan Komunitas',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.3"
         ]);
 
         Matkul::create([
@@ -558,7 +576,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Kedokteran DTPK',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.1"
         ]);
 
         Matkul::create([
@@ -566,7 +585,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Kegawatdaruratan dan Medikolegal',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.2"
         ]);
 
         Matkul::create([
@@ -574,7 +594,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Elektif',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.3"
         ]);
 
         Matkul::create([
