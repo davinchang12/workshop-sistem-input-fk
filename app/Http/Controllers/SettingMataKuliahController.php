@@ -64,9 +64,11 @@ class SettingMataKuliahController extends Controller
      * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function edit(Matkul $matkul)
+    public function edit(Matkul $settingmatakuliah)
     {
-        //
+        return view('dashboard.matkul.admin.edit', [
+            'matkul' => $settingmatakuliah
+        ]);
     }
 
     /**
