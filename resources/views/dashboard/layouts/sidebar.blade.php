@@ -11,23 +11,6 @@
                 </a>
             </li>
 
-            @can('admin')
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/settingjadwalkinerja*') ? 'active' : '' }}"
-                        href="/dashboard/rancangjadwalkinerja">
-                        <span data-feather="file-plus"></span>
-                        Setting Jadwal/Kinerja
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
-                        href="/dashboard/settingmatakuliah">
-                        <span data-feather="file-plus"></span>
-                        Setting Mata Kuliah
-                    </a>
-                </li>
-            @endcan
-
             @can('dosen')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/jadwalkinerja*') ? 'active' : '' }}"
@@ -55,7 +38,30 @@
                 </li>
             @endcan
 
+            @can('admin')
+                <h6 class="sideba-heading d-flex justify-content-between align-items-center p-3 mt-4 mb-1 text-muted">
+                    <span>Admin</span>
+                </h6>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/settingjadwal*') ? 'active' : '' }}"
+                        href="/dashboard/rancangjadwalkinerja">
+                        <span data-feather="file-plus"></span>
+                        Setting Jadwal
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
+                        href="/dashboard/settingmatakuliah">
+                        <span data-feather="file-plus"></span>
+                        Setting Mata Kuliah
+                    </a>
+                </li>
+            @endcan
+
             @can('superadmin')
+                <h6 class="sideba-heading d-flex justify-content-between align-items-center p-3 mt-4 mb-1 text-muted">
+                    <span>Superadmin</span>
+                </h6>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/superadmin/*') ? 'active' : '' }}"
                         href="/dashboard/superadmin/">

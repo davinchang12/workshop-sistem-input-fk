@@ -85,9 +85,9 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
-Route::get('/dashboard/settingjadwalkinerja', [])->middleware('admin');
 Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
+Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
 
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
