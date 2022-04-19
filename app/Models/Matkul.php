@@ -15,7 +15,8 @@ class Matkul extends Model
         'keterangan',
         'tahun_ajaran',
         'bobot_sks',
-        'kinerja'
+        'kinerja',
+        'blok'
     ];
 
     public function nilais() {
