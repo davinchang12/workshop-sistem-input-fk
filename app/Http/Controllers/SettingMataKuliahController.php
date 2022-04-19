@@ -89,9 +89,28 @@ class SettingMataKuliahController extends Controller
      * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Matkul $matkul)
+    public function update(Request $request, Matkul $settingmatakuliah)
     {
-        //
+
+        $rules = [
+            'namamatkul' => 'required|max:255',
+            'keterangan' => 'required',
+            'tahun_ajaran' => 'required',
+            'bobot_sks' => 'required',
+            'blok' => 'nullable',
+            'kinerja' => 'nullable'
+        ];
+
+        if ($request->kodematkul != $settingmatakuliah->kodematkul) {
+            $rules['kodematkul'] = 'required|unique:matkuls';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Matkul::where('id', $settingmatakuliah->id)
+            ->update($validatedData);
+
+        return redirect('/dashboard/settingmatakuliah')->with('success', 'Mata kuliah berhasil diupdate!');
     }
 
     /**
