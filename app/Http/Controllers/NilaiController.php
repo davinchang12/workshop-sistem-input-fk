@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Models\Jadwal;
-use App\Models\Matkul;
-use App\Models\Kelompok;
 use Illuminate\Http\Request;
-use App\Models\NilaiPraktikum;
 use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
