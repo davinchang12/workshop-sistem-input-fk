@@ -21,6 +21,7 @@ class CreateMatkulsTable extends Migration
             $table->string('tahun_ajaran');
             $table->integer('bobot_sks');
             $table->string('blok')->nullable();
+            $table->string('kinerja')->nullable();
             $table->timestamps();
         });
     }
