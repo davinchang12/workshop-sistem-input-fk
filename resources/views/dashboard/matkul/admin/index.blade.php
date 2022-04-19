@@ -38,7 +38,7 @@
                             <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="badge bg-info"><span
                                     data-feather="eye"></span></a>
                             <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-                            <form action="/dashboard/posts/{{ $matkul->kodematkul }}" method="post" class="d-inline">
+                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
 

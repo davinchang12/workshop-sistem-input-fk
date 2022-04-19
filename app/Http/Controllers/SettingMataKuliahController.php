@@ -119,9 +119,11 @@ class SettingMataKuliahController extends Controller
      * @param  \App\Models\Matkul  $matkul
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matkul $matkul)
+    public function destroy(Matkul $settingmatakuliah)
     {
-        //
+        Matkul::destroy($settingmatakuliah->id);
+
+        return redirect('/dashboard/settingmatakuliah')->with('success', 'Mata kuliah berhasil dihapus!');
     }
 
     public function checkBlok(Request $request)
