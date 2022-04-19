@@ -31,7 +31,7 @@ class SettingMataKuliahController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.matkul.admin.create');
     }
 
     /**
@@ -42,7 +42,18 @@ class SettingMataKuliahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'kodematkul' => 'required|unique:matkuls',
+            'namamatkul' => 'required|max:255',
+            'keterangan' => 'required',
+            'tahun_ajaran' => 'required',
+            'bobot_sks' => 'required',
+            'blok' => 'nullable',
+            'kinerja' => 'nullable'
+        ]);
+        Matkul::create($validatedData);
+
+        return redirect('/dashboard/settingmatakuliah')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }
 
     /**
