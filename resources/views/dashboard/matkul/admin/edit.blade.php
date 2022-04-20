@@ -75,7 +75,7 @@
             </div>
             <div class="mb-3">
                 <label for="kinerja" class="form-label @error('kinerja') is-invalid @enderror">Kinerja</label>
-                <input type="text" class="form-control" id="kinerja" name="kinerja" required
+                <input type="text" class="form-control" id="kinerja" name="kinerja"
                     value="{{ old('kinerja', $matkul->kinerja) }}">
                 @error('bobot_sks')
                     <div class="invalid-feedback">
