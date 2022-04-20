@@ -12,7 +12,7 @@
     @endif
 
     <div class="table-responsive">
-        <a href="/dashboard/settingmatakuliah/create" class="btn btn-primary mb-3">Tambah Jadwal</a>
+        <a href="/dashboard/settingjadwal/create" class="btn btn-primary mb-3">Tambah Jadwal</a>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
