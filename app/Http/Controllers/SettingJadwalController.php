@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\Matkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class SettingJadwalController extends Controller
 {
@@ -51,7 +52,41 @@ class SettingJadwalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'matkul_id' => 'required',
+            'user_id' => 'required',
+            'tanggal' => 'required',
+            'jammasuk' => 'required',
+            'jamselesai' => 'required|after:jammasuk',
+            'ruangan' => 'nullable'
+        ];
+
+        $validatedData = $request->validate($rules);        
+        $validatedData['jammasuk'] = $validatedData['jammasuk'].":00";
+        $validatedData['jamselesai'] = $validatedData['jamselesai'].":00";
+        
+        $jadwals = DB::table('jadwals')
+            ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->where('users.id', $validatedData['user_id'])
+            ->where('jadwals.tanggal', $validatedData['tanggal'])
+            ->get();
+
+        if (count($jadwals)>0) {
+            foreach($jadwals as $jadwal) {
+                $ruleJam1 = $jadwal->jammasuk <= $validatedData['jammasuk'] && $validatedData['jammasuk'] <= $jadwal->jamselesai;
+                $ruleJam2 = strtotime($jadwal->jammasuk) <= strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) <= strtotime($jadwal->jamselesai);
+
+                if ($ruleJam1){
+                    throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam masuk pada tanggal yang sama di jadwal lain!']);
+                } else if ($ruleJam2) {
+                    throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam selesai pada tanggal yang sama di jadwal lain!']);
+                }
+            }
+        }
+
+        Jadwal::create($validatedData);
+
+        return redirect('/dashboard/settingjadwal')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }
 
     /**
