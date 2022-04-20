@@ -33,7 +33,7 @@ class SettingJadwalController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.jadwal.admin.create');
     }
 
     /**
