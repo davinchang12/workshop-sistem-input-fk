@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Jadwal;
+use App\Models\Matkul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +35,12 @@ class SettingJadwalController extends Controller
      */
     public function create()
     {
-        return view('dashboard.jadwal.admin.create');
+        $matkuls = Matkul::get();
+        $users = User::where('role', 'dosen')->get();
+        return view('dashboard.jadwal.admin.create', [
+            'users' => $users,
+            'matkuls' => $matkuls
+        ]);
     }
 
     /**
