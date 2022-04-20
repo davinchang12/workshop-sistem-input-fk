@@ -44,7 +44,7 @@
                 </h6>
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/settingjadwal*') ? 'active' : '' }}"
-                        href="/dashboard/rancangjadwalkinerja">
+                        href="/dashboard/settingjadwal">
                         <span data-feather="file-plus"></span>
                         Setting Jadwal
                     </a>
