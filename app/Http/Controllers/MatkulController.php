@@ -21,8 +21,10 @@ class MatkulController extends Controller
      */
     public function index()
     {
+        $nilais = Nilai::where('user_id', auth()->user()->id)->get();
+
         return view('dashboard.matkul.index', [
-            'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get(),
+            'nilais' => $nilais,
         ]);
     }
 
