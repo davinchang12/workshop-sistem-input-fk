@@ -16,6 +16,7 @@ use App\Http\Controllers\NilaiTugasController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
+use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
