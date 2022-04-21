@@ -358,7 +358,7 @@ class DatabaseSeeder extends Seeder
 
         Matkul::create([
             'kodematkul' => 'FKS052B22',
-            'namamatkul' => 'Sistem Saraf dan INdra',
+            'namamatkul' => 'Sistem Saraf dan Indra',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
             'bobot_sks' => 5,
