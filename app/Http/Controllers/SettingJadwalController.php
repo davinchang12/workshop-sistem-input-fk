@@ -182,8 +182,11 @@ class SettingJadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy(Jadwal $settingjadwal)
     {
-        //
+        Jadwal::destroy($settingjadwal->id);
+        Nilai::where('kodejadwal', $settingjadwal->id)->delete();
+
+        return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil dihapus!');
     }
 }
