@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matkul;
+use App\Models\Nilai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -80,6 +81,55 @@ class SettingMataKuliahController extends Controller
         return view('dashboard.matkul.admin.edit', [
             'matkul' => $settingmatakuliah
         ]);
+    }
+
+    public function editMahasiswa(Matkul $settingmatakuliah)
+    {
+        $angkatans = DB::table('users')
+            ->select('angkatan')
+            ->where('angkatan', '!=', null)
+            ->groupBy('angkatan')
+            ->get();
+
+        $users = DB::table('users')
+            ->select('users.id', 'users.name', 'users.nim', 'users.angkatan')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
+        return view('dashboard.matkul.admin.mahasiswa.edit', [
+            'matkul' => $settingmatakuliah,
+            'angkatans' => $angkatans,
+            'users' => $users
+        ]);
+    }
+
+    public function storeEditMahasiswa(Request $request) {
+        
+        $matkul_kodematkul = $request->input('matkul_kodematkul');
+        $matkul_id = $request->input('matkul_id');
+        $user_ids = $request->input('user_id');
+        
+        $nilais = DB::table('nilais')
+            ->where('matkul_id', $matkul_id)
+            ->get();
+
+        foreach($user_ids as $user_id) {            
+            if (!Nilai::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
+                Nilai::create([
+                    'user_id' => $user_id,
+                    'matkul_id' => $matkul_id
+                ]);
+            }
+        }
+
+        foreach($nilais as $nilai) {
+            if(!in_array($nilai->user_id, $user_ids)) {
+                Nilai::where('user_id', $nilai->user_id)
+                    ->delete();
+            }
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/');
     }
 
     /**

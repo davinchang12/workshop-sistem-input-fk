@@ -20,6 +20,7 @@ use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
+use App\Http\Controllers\SettingMahasiswaMataKuliah;
 use App\Http\Controllers\SettingMataKuliahController;
 
 /*
@@ -86,6 +87,9 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
+// Route::resource('dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', SettingMahasiswaMataKuliah::class)->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'editMahasiswa'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'storeEditMahasiswa'])->middleware('admin');
 Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
