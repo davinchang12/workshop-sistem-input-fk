@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
@@ -103,28 +104,51 @@ class SettingMataKuliahController extends Controller
         ]);
     }
 
-    public function storeEditMahasiswa(Request $request) {
-        
+    public function storeEditMahasiswa(Request $request)
+    {
+
         $matkul_kodematkul = $request->input('matkul_kodematkul');
         $matkul_id = $request->input('matkul_id');
         $user_ids = $request->input('user_id');
-        
+
         $nilais = DB::table('nilais')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('matkul_id', $matkul_id)
+            ->where('users.role', 'mahasiswa')
             ->get();
 
-        foreach($user_ids as $user_id) {            
+        $jadwals = DB::table('jadwals')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->where('matkul_id', $matkul_id)
+        ->where('users.role', 'mahasiswa')
+            ->get();
+
+        foreach ($user_ids as $user_id) {
             if (!Nilai::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
                 Nilai::create([
                     'user_id' => $user_id,
                     'matkul_id' => $matkul_id
                 ]);
             }
+
+            if (!Jadwal::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
+                Jadwal::create([
+                    'user_id' => $user_id,
+                    'matkul_id' => $matkul_id
+                ]);
+            }
         }
 
-        foreach($nilais as $nilai) {
-            if(!in_array($nilai->user_id, $user_ids)) {
+        foreach ($nilais as $nilai) {
+            if (!in_array($nilai->user_id, $user_ids)) {
                 Nilai::where('user_id', $nilai->user_id)
+                    ->delete();
+            }
+        }
+
+        foreach ($jadwals as $jadwal) {
+            if (!in_array($jadwal->user_id, $user_ids)) {
+                Jadwal::where('user_id', $jadwal->user_id)
                     ->delete();
             }
         }
@@ -178,8 +202,8 @@ class SettingMataKuliahController extends Controller
 
     public function checkBlok(Request $request)
     {
-        $blok = substr ($request->kodematkul, -2);
-        $blok = $blok[0].".".$blok[1];
+        $blok = substr($request->kodematkul, -2);
+        $blok = $blok[0] . "." . $blok[1];
         return response()->json(['blok' => $blok]);
     }
 }

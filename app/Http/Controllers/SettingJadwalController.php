@@ -22,11 +22,10 @@ class SettingJadwalController extends Controller
         $jadwals = DB::table('jadwals')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->where('users.role', '!=', 'mahasiswa')
             ->orderBy('tanggal', 'ASC')
             ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan')
             ->get();
-
-        // dd($jadwals);
 
         return view('dashboard.jadwal.admin.index', [
             'jadwals' => $jadwals,
