@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10001@unika.ac.id',
             'nim' => '21.P1.0001',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -51,6 +52,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10002@unika.ac.id',
             'nim' => '21.P1.0002',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -59,6 +61,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10003@unika.ac.id',
             'nim' => '21.P1.0003',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -67,6 +70,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10010@unika.ac.id',
             'nim' => '21.P1.0010',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -75,6 +79,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10011@unika.ac.id',
             'nim' => '21.P1.0011',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -83,6 +88,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '19p10001@unika.ac.id',
             'nim' => '19.P1.0001',
+            'angkatan' => '2019',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -91,6 +97,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '19p10002@unika.ac.id',
             'nim' => '19.P1.0002',
+            'angkatan' => '2019',
             'password' =>  bcrypt('admin')
         ]);
 
