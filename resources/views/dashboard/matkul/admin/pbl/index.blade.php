@@ -12,9 +12,10 @@
     @endif
 
     <div class="d-flex justify-content-between">
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl"
-            class="btn btn-success">Edit Dosen</a>
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
+                data-feather="arrow-left"></span> Kembali</a>
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl" class="btn btn-success">Edit
+            Dosen</a>
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/create"
             class="btn btn-success">Tambah Kelompok <span data-feather="arrow-right"></span></a>
     </div>
@@ -55,14 +56,15 @@
                                     </div>
                                     <div class="col-md-auto p-auto">
                                         <div class="col">
-                                            @can('dosen')
-                                                <form action="/dashboard/matkul/nilai/input-pbl" method="post"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    <button class="btn btn-primary w-100 shadow-none"><span
-                                                            data-feather="settings" style="height:24px;"></span></button>
-                                                </form>
-                                            @endcan
+                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl"
+                                                method="post" class="d-inline">
+                                                @method('delete')
+                                                @csrf
+
+                                                <button class="btn btn-danger w-100 shadow-none"
+                                                    onclick="return confirm('Are you sure?')"><span data-feather="x-circle"
+                                                        style="height:24px;"></span></button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
