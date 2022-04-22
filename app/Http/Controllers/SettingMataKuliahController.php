@@ -277,8 +277,8 @@ class SettingMataKuliahController extends Controller
                 ]);
             }
 
-            return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl');
         }
+        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl');
     }
 
     public function deleteKelompokPBL(Request $request)
