@@ -183,7 +183,7 @@ class SettingMataKuliahController extends Controller
             'matkul' => $settingmatakuliah,
             'nilais' => $nilais,
             'kelompoks' => $kelompoks,
-            'skenarios' => $skenarios
+            'skenarios' => $skenarios->unique()
         ]);
     }
 
@@ -229,7 +229,6 @@ class SettingMataKuliahController extends Controller
         $user_ids = $request->input('user_id');
         $matkul_kodematkul = $request->input('matkul_kodematkul');
         $matkul_id = $request->input('matkul_id');
-        $skenario_input = $request->input('skenario');
 
         $nilais = DB::table('nilais')
             ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -260,31 +259,30 @@ class SettingMataKuliahController extends Controller
                     'nilai_id' => $nilai_id
                 ]);
 
-                $nilaipblskenario = NilaiPBLSkenario::create([
-                    'nilaipbl_id' => $nilaipbl->id,
-                    'skenario' => $skenario_input,
-                    'kelompok' => $kelompoks->count() + 1
-                ]);
+                for ($i = 1; $i <= 4; $i++) {
+                    $nilaipblskenario = NilaiPBLSkenario::create([
+                        'nilaipbl_id' => $nilaipbl->id,
+                        'skenario' => $i,
+                        'kelompok' => $kelompoks->count() + 1
+                    ]);
 
-                NilaiPBLSkenarioDiskusi::create([
-                    'nilaipblskenario_id' => $nilaipblskenario->id,
-                    'diskusi' => 1
-                ]);
+                    NilaiPBLSkenarioDiskusi::create([
+                        'nilaipblskenario_id' => $nilaipblskenario->id,
+                        'diskusi' => 1
+                    ]);
 
-                NilaiPBLSkenarioDiskusi::create([
-                    'nilaipblskenario_id' => $nilaipblskenario->id,
-                    'diskusi' => 2
-                ]);
+                    NilaiPBLSkenarioDiskusi::create([
+                        'nilaipblskenario_id' => $nilaipblskenario->id,
+                        'diskusi' => 2
+                    ]);
+                }
             }
-
         }
         return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl');
     }
 
     public function deleteKelompokPBL(Request $request)
     {
-        // dd($request);
-
         $kodematkul = $request->input('kodematkul');
         $matkul_id = $request->input('matkul_id');
         $kelompok = $request->input('kelompok');
@@ -300,10 +298,7 @@ class SettingMataKuliahController extends Controller
             ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'nilai_p_b_l_skenarios.id as nilaipblskenario_id', 'users.name', 'kelompok')
             ->get();
 
-        // dd($skenarios);
-
         foreach ($skenarios as $skenario) {
-            // dd($skenario);
             $skenarioDiskusis = NilaiPBLSkenarioDiskusi::where('nilaipblskenario_id', $skenario->nilaipblskenario_id);
 
             $skenarioDiskusisCheck = $skenarioDiskusis->get();
