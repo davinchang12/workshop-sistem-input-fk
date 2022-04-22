@@ -6,7 +6,12 @@
     </div>
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingmahasiswamatakuliah" class="btn btn-success">Edit Mahasiswa <span data-feather="arrow-right"></span></a>
+        @if ($matkul->blok != null)
+            <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl"
+                class="btn btn-success">Edit Kelompok PBL</a>
+        @endif
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingmahasiswamatakuliah"
+            class="btn btn-success">Edit Mahasiswa <span data-feather="arrow-right"></span></a>
 
     </div>
 
@@ -28,7 +33,6 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Nama Mahasiswa</th>
                     <th scope="col">NIM</th>
                 </tr>
@@ -37,7 +41,6 @@
                 @foreach ($matkul->nilais as $nilai)
                     @if ($nilai->users->hasRole('mahasiswa'))
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $nilai->users->name }}</td>
                             <td>{{ $nilai->users->nim }}</td>
                         </tr>
