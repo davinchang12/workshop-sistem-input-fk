@@ -10,7 +10,7 @@
             <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
                     data-feather="arrow-left"></span> Kembali</a>
 
-            <input type="hidden" name="matkul_id" id="matkuk_id" value="{{ $matkul->id }}">
+            <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
             <input type="hidden" name="matkul_kodematkul" id="matkuk_kodematkul" value="{{ $matkul->kodematkul }}">
             <button type="submit" class="btn btn-primary">Simpan</button>
 
