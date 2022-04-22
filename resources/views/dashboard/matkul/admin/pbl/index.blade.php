@@ -56,11 +56,12 @@
                                     </div>
                                     <div class="col-md-auto p-auto">
                                         <div class="col">
-                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl"
+                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/delete"
                                                 method="post" class="d-inline">
-                                                @method('delete')
                                                 @csrf
-
+                                                <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
+                                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
+                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $kelompok }}">
                                                 <button class="btn btn-danger w-100 shadow-none"
                                                     onclick="return confirm('Are you sure?')"><span data-feather="x-circle"
                                                         style="height:24px;"></span></button>
