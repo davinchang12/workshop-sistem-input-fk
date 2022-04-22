@@ -9,6 +9,7 @@ use App\Models\NilaiPBL;
 use Illuminate\Http\Request;
 use App\Models\NilaiPBLSkenario;
 use App\Models\NilaiPBLSkenarioDiskusi;
+use App\Models\NilaiPBLSkenarioDiskusiNilai;
 use Illuminate\Support\Facades\DB;
 
 class SettingMataKuliahController extends Controller
@@ -246,15 +247,15 @@ class SettingMataKuliahController extends Controller
             ->where('matkuls.id', $matkul_id)
             ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'users.name', 'kelompok')
             ->get();
-        
+
         $kelompoks = $skenarios->pluck('kelompok')->unique();
-        
-        foreach ($user_ids as $user_id) {            
+
+        foreach ($user_ids as $user_id) {
             $check = $skenarios->where('user_id', $user_id)->first();
             if (!$check) {
-               
+
                 $nilai_id = $nilais->where('user_id', $user_id)->first()->nilai_id;
-                
+
                 $nilaipbl = NilaiPBL::create([
                     'nilai_id' => $nilai_id
                 ]);
@@ -275,22 +276,52 @@ class SettingMataKuliahController extends Controller
                     'diskusi' => 2
                 ]);
             }
-            // if (!NilaiPBL::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
-            //     Nilai::create([
-            //         'user_id' => $user_id,
-            //         'matkul_id' => $matkul_id
-            //     ]);
-            // }
-
-            // if (!Jadwal::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
-            //     Jadwal::create([
-            //         'user_id' => $user_id,
-            //         'matkul_id' => $matkul_id
-            //     ]);
-            // }
 
             return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl');
         }
+    }
+
+    public function deleteKelompokPBL(Request $request)
+    {
+        // dd($request);
+
+        $kodematkul = $request->input('kodematkul');
+        $matkul_id = $request->input('matkul_id');
+        $kelompok = $request->input('kelompok');
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_p_b_l_skenarios.kelompok', $kelompok)
+            ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'nilai_p_b_l_skenarios.id as nilaipblskenario_id', 'users.name', 'kelompok')
+            ->get();
+
+        // dd($skenarios);
+
+        foreach ($skenarios as $skenario) {
+            // dd($skenario);
+            $skenarioDiskusis = NilaiPBLSkenarioDiskusi::where('nilaipblskenario_id', $skenario->nilaipblskenario_id);
+
+            $skenarioDiskusisCheck = $skenarioDiskusis->get();
+            foreach ($skenarioDiskusisCheck as $skenarioDiskusi) {
+                NilaiPBLSkenarioDiskusiNilai::where('nilaipblskenariodiskusi_id', $skenarioDiskusi->id)
+                    ->delete();
+            }
+
+            $skenarioDiskusis->delete();
+
+            NilaiPBLSkenario::where('id', $skenario->nilaipblskenario_id)
+                ->delete();
+
+            NilaiPBL::where('id', $skenario->nilaipbl_id)
+                ->delete();
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl');
     }
 
     /**
