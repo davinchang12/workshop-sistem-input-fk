@@ -31,16 +31,6 @@
                     <p>Bobot SKS : <b>{{ $matkul->bobot_sks }}</b></p>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="skenario" class="form-label @error('skenario') is-invalid @enderror">Skenario</label>
-                <input type="text" class="form-control" id="skenario" name="skenario" required
-                    value="{{ old('skenario') }}">
-                @error('skenario')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
             <ul class="nav nav-tabs">
                 @foreach ($angkatans as $angkatan)
                     <li class="nav-item">
