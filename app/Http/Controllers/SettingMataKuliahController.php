@@ -118,9 +118,9 @@ class SettingMataKuliahController extends Controller
             ->get();
 
         $jadwals = DB::table('jadwals')
-        ->join('users', 'jadwals.user_id', '=', 'users.id')
-        ->where('matkul_id', $matkul_id)
-        ->where('users.role', 'mahasiswa')
+            ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->where('matkul_id', $matkul_id)
+            ->where('users.role', 'mahasiswa')
             ->get();
 
         foreach ($user_ids as $user_id) {
@@ -154,6 +154,38 @@ class SettingMataKuliahController extends Controller
         }
 
         return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/');
+    }
+
+    public function kelompokPBL(Matkul $settingmatakuliah)
+    {
+        $nilais = DB::table('nilais')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->get();
+
+        $users = DB::table('users')
+            ->select('users.id', 'users.name', 'users.nim', 'users.angkatan')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')            
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->select('users.name','kelompok')
+            ->get();
+        
+        $kelompoks = $skenarios->pluck('kelompok')->unique();
+
+        return view('dashboard.matkul.admin.pbl.index', [
+            'matkul' => $settingmatakuliah,
+            'nilais' => $nilais,
+            'kelompoks' => $kelompoks,
+            'skenarios' => $skenarios,
+            'users' => $users
+        ]);
     }
 
     /**
