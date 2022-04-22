@@ -88,9 +88,13 @@ Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'
 
 // Admin
 Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl', [SettingMataKuliahController::class, 'kelompokPBL'])->middleware('admin');
-Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/create', [SettingMataKuliahController::class, 'editKelompokPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl', [SettingMataKuliahController::class, 'storeKelompokPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/delete', [SettingMataKuliahController::class, 'deleteKelompokPBL'])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/create', [SettingMataKuliahController::class, 'createKelompokPBL'])->middleware('admin');
+
 Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'editMahasiswa'])->middleware('admin');
 Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'storeEditMahasiswa'])->middleware('admin');
+
 Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
