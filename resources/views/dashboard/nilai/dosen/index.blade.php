@@ -68,7 +68,7 @@
             </form>
             <div class="container">
                 <div class="row">
-                    <table class="talbe table-bordered">
+                    {{-- <table class="talbe table-bordered">
                         <tr>
                             <td colspan=19 align="center"><b>Daftar Nilai Tugas </b></td>
                         </tr>
@@ -124,7 +124,7 @@
                                 </tr>
                             @endif
                         @endforeach
-                    </table>
+                    </table> --}}
                 </div>
             </div>
         </div>
@@ -380,7 +380,104 @@
             </div> --}}
         </div>
         <div class="tab-pane fade" id="Ujian">
-            <p>Ujian tab content ...</p>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="#feedbackutb" class="nav-link active" data-bs-toggle="tab">Feedback UTB</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#feedbackuab" class="nav-link" data-bs-toggle="tab">Feedback UAB</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#nilaiujian" class="nav-link" data-bs-toggle="tab">Daftar Nilai Ujian</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="feedbackutb">
+                    <form action="/dashboard/matkul/nilai/export/feedbackutb" method="get">
+                        @csrf
+                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                    </form>
+                    <form method="post" action="/dashboard/matkul/nilai/import/feedbackutb" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                            </div>
+                            <div class="modal-body">
+        
+                                {{ csrf_field() }}
+        
+                                <label>Pilih file excel</label>
+                                <div class="form-group">
+                                    <input type="file" name="file" required="required">
+                                </div>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <div class="tab-pane fade" id="feedbackuab">
+                    <form action="/dashboard/matkul/nilai/export/feedbackuab" method="get">
+                        @csrf
+                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                    </form>
+                    <form method="post" action="/dashboard/matkul/nilai/import/feedbackuab" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                            </div>
+                            <div class="modal-body">
+        
+                                {{ csrf_field() }}
+        
+                                <label>Pilih file excel</label>
+                                <div class="form-group">
+                                    <input type="file" name="file" required="required">
+                                </div>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nilaiujian">
+                    <form action="/dashboard/matkul/nilai/export/nilaiujian" method="get">
+                        @csrf
+                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                    </form>
+                    <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                            </div>
+                            <div class="modal-body">
+        
+                                {{ csrf_field() }}
+        
+                                <label>Pilih file excel</label>
+                                <div class="form-group">
+                                    <input type="file" name="file" required="required">
+                                </div>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript">

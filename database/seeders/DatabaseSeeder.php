@@ -7,18 +7,27 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
-use App\Models\JenisOSCE;
-use App\Models\NilaiOSCE;
 use App\Models\NilaiPBL;
+use App\Models\JenisOSCE;
 use App\Models\JenisSOCA;
 use App\Models\NilaiLain;
+use App\Models\NilaiOSCE;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
+use App\Models\NilaiUjian;
+use App\Models\FeedbackUAB;
+use App\Models\FeedbackUTB;
+use App\Models\FeedbackUjian;
 use App\Models\NilaiFieldlab;
+use App\Models\NilaiJenisOSCE;
 use App\Models\NilaiJenisSOCA;
+use App\Models\HasilNilaiUjian;
 use Illuminate\Database\Seeder;
+use App\Models\JenisFeedbackUAB;
+use App\Models\JenisFeedbackUTB;
 use App\Models\NilaiPBLSkenario;
 use App\Models\RincianNilaiTugas;
+use App\Models\JenisFeedbackUjian;
 use App\Models\NilaiPBLSkenarioDiskusi;
 
 class DatabaseSeeder extends Seeder
@@ -937,12 +946,6 @@ class DatabaseSeeder extends Seeder
             'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
             
         ]);
-        // NilaiJenisOSCE::create([
-        //     'nilaiosce_id' => 1,
-        //     'bobot' => 1,
-        //     'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan 22",
-            
-        // ]);
         NilaiJenisOSCE::create([
             'nilaiosce_id' => 1,
             'bobot' => 1,
@@ -1088,128 +1091,6 @@ class DatabaseSeeder extends Seeder
 
         
 
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 1,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 2,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 3,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 4,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 5,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 6,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 7,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 8,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 9,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 10,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 11,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 12,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 13,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 14,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 15,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 16,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 17,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 18,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 19,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 20,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 21,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 22,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 23,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-        // JenisOSCE::create([
-        //     'nilaijenisosce_id' => 24,
-        //     "skor_OSCE" => 0,
-            
-        // ]);
-
 
         NilaiLain::create([
             'user_id' => 1
@@ -1248,6 +1129,156 @@ class DatabaseSeeder extends Seeder
             'semester' => "Semester 2"
         ]);
 
+        NilaiUjian::create([
+            'nilai_id' => 1,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 2,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 3,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 4,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 5,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 6,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 7,
+        ]);
+        NilaiUjian::create([
+            'nilai_id' => 8,
+        ]);
+
+
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 1,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 2,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 3,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 4,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 5,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 6,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 7,
+        ]);
+        HasilNilaiUjian::create([
+            'nilai_ujian_id' => 8,
+        ]);
+
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 1,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 2,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 3,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 4,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 5,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 6,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 7,
+        ]);
+        FeedbackUTB::create([
+            'hasil_ujians_id' => 8,
+        ]);
+
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 1,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 2,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 3,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 4,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 5,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 6,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 7,
+        ]);
+        FeedbackUAB::create([
+            'hasil_ujians_id' => 8,
+        ]);
+
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 1,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 2,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 3,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 4,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 5,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 6,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 7,
+        ]);
+        JenisFeedbackUTB::create([
+            'feedback_utb_id' => 8,
+        ]);
+
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 1,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 2,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 3,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 4,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 5,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 6,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 7,
+        ]);
+        JenisFeedbackUAB::create([
+            'feedback_uab_id' => 8,
+        ]);
         // Jadwal::factory(100)->create();
         // Kelompok::factory(50)->create();
     }
