@@ -7,19 +7,21 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
-use App\Models\JenisOSCE;
-use App\Models\NilaiOSCE;
 use App\Models\NilaiPBL;
+use App\Models\JenisOSCE;
 use App\Models\JenisSOCA;
 use App\Models\NilaiLain;
+use App\Models\NilaiOSCE;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
 use App\Models\NilaiFieldlab;
+use App\Models\NilaiJenisOSCE;
 use App\Models\NilaiJenisSOCA;
 use Illuminate\Database\Seeder;
 use App\Models\NilaiPBLSkenario;
 use App\Models\RincianNilaiTugas;
 use App\Models\NilaiPBLSkenarioDiskusi;
+use App\Models\NilaiPraktikum;
 
 class DatabaseSeeder extends Seeder
 {
@@ -826,6 +828,27 @@ class DatabaseSeeder extends Seeder
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
             'diskusi' => 2
+        ]);
+
+        NilaiPraktikum::create([
+            'nilai_id' => 2,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 3,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 4,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 5,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 8,
+            'namapraktikum' => 'Histiologi'
         ]);
 
         NilaiSOCA::create([
