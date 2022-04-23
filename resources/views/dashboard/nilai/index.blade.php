@@ -137,10 +137,12 @@
                                 <th scope="col">Nilai Responsi (70%)</th>
                                 <th scope="col">Nilai Akhir</th>
                                 <th scope="col">Keterangan</th>
+                                <th scope="col">Keterangan Berdasarkan</th>
                                 <th scope="col">Remedi</th>
                                 <th scope="col">Remedi Konversi</th>
                                 <th scope="col">Nilai Setelah Remedi</th>
                                 <th scope="col">Keterangan</th>
+                                <th scope="col">Keterangan Berdasarkan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,10 +155,12 @@
                                     <td>{{ $praktikum->nilai_responsi }}</td>
                                     <td>{{ $praktikum->nilai_akhir }}</td>
                                     <td>{{ $praktikum->keterangan_nilai_akhir }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_akhir_berdasarkan }}</td>
                                     <td>{{ $praktikum->remedi }}</td>
                                     <td>{{ $praktikum->remedi_konversi }}</td>
                                     <td>{{ $praktikum->nilai_setelah_remedi }}</td>
                                     <td>{{ $praktikum->keterangan_nilai_setelah_remedi }}</td>
+                                    <td>{{ $praktikum->keterangan_nilai_setelah_remedi_berdasarkan }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -173,10 +177,12 @@
                                     <th scope="col">Nilai Responsi (70%)</th>
                                     <th scope="col">Nilai Akhir</th>
                                     <th scope="col">Keterangan</th>
+                                    <th scope="col">Keterangan Berdasarkan</th>
                                     <th scope="col">Remedi</th>
                                     <th scope="col">Remedi Konversi</th>
                                     <th scope="col">Nilai Setelah Remedi</th>
                                     <th scope="col">Keterangan</th>
+                                    <th scope="col">Keterangan Berdasarkan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -190,10 +196,12 @@
                                             <td>{{ $praktikum_dosen->nilai_responsi }}</td>
                                             <td>{{ $praktikum_dosen->nilai_akhir }}</td>
                                             <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir_berdasarkan }}</td>
                                             <td>{{ $praktikum_dosen->remedi }}</td>
                                             <td>{{ $praktikum_dosen->remedi_konversi }}</td>
                                             <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
                                             <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi_berdasarkan }}</td>
                                         </tr>
                                     @else
                                         <tr>
@@ -204,10 +212,12 @@
                                             <td>{{ $praktikum_dosen->nilai_responsi }}</td>
                                             <td>{{ $praktikum_dosen->nilai_akhir }}</td>
                                             <td>{{ $praktikum_dosen->keterangan_nilai_akhir }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_akhir_berdasarkan }}</td>
                                             <td>{{ $praktikum_dosen->remedi }}</td>
                                             <td>{{ $praktikum_dosen->remedi_konversi }}</td>
                                             <td>{{ $praktikum_dosen->nilai_setelah_remedi }}</td>
                                             <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi }}</td>
+                                            <td>{{ $praktikum_dosen->keterangan_nilai_setelah_remedi_berdasarkan }}</td>
                                         </tr>
                                     @endif
                                 @endforeach
