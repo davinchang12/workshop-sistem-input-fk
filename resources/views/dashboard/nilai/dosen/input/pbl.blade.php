@@ -124,8 +124,9 @@
                         </b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=3 align="center" valign=middle><b>
-                            <font color="#000000">{{ date_format($skenarios->first()->skenariodiskusi->first()->created_at, 'd-m-Y') }}
+                            <font color="#000000">{{ date('d-m-Y', strtotime($skenarios->first()->skenariodiskusi->where('diskusi', $diskusi)->first()->tanggal_pelaksanaan)) }}
                             </font>
+                            <input type="hidden" name="tanggal_pelaksanaan" id="tanggal_pelaksanaan" value="{{ $skenarios->first()->skenariodiskusi->where('diskusi', $diskusi)->first()->tanggal_pelaksanaan }}">
                         </b></td>
                 </tr>
                 <tr>
@@ -208,19 +209,21 @@
                             <font color="#000000">VI</font>
                         </b></td>
                 </tr>
-
+                @php
+                    $count = 1;
+                @endphp
                 @foreach ($kelompoks as $kelompok)
                     @if ($kelompok->role == 'mahasiswa')
                         <tr>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle" sdval="1" sdnum="1033;">
-                                <font color="#000000">{{ $loop->iteration }}</font>
+                                <font color="#000000">{{ $count }}</font>
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
                                 <font face="Calibri" color="#000000">{{ $kelompok->name }}</font>
-                                <input type="hidden" name="nama{{ $loop->iteration }}"
-                                    id="nama{{ $loop->iteration }}" value="{{ $kelompok->name }}">
+                                <input type="hidden" name="nama{{ $count }}"
+                                    id="nama{{ $count }}" value="{{ $kelompok->name }}">
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
@@ -228,10 +231,10 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <select name="kehadiran{{ $loop->iteration }}"
-                                    id="kehadiran{{ $loop->iteration }}"
+                                <select name="kehadiran{{ $count }}"
+                                    id="kehadiran{{ $count }}"
                                     style="border:none; width:100%; font-size:18px; text-align:center;"
-                                    onchange="calculateTotal({{ $loop->iteration }})" required>
+                                    onchange="calculateTotal({{ $count }})" required>
                                     <option disabled selected value></option>
                                     <option value="4" title="Tepat Waktu">4</option>
                                     <option value="3" title="Terlambat 10 Menit">3</option>
@@ -241,10 +244,10 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <select name="aktivitas_saat_diskusi{{ $loop->iteration }}"
-                                    id="aktivitas_saat_diskusi{{ $loop->iteration }}"
+                                <select name="aktivitas_saat_diskusi{{ $count }}"
+                                    id="aktivitas_saat_diskusi{{ $count }}"
                                     style="border:none; width:100%; font-size:18px; text-align:center;"
-                                    onchange="calculateTotal({{ $loop->iteration }})" required>
+                                    onchange="calculateTotal({{ $count }})" required>
                                     <option disabled selected value></option>
                                     <option value="4" title="Sangat Aktif">4</option>
                                     <option value="3" title="Cukup Aktif">3</option>
@@ -254,10 +257,10 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <select name="relevansi_pembicaraan{{ $loop->iteration }}"
-                                    id="relevansi_pembicaraan{{ $loop->iteration }}"
+                                <select name="relevansi_pembicaraan{{ $count }}"
+                                    id="relevansi_pembicaraan{{ $count }}"
                                     style="border:none; width:100%; font-size:18px; text-align:center;"
-                                    onchange="calculateTotal({{ $loop->iteration }})" required>
+                                    onchange="calculateTotal({{ $count }})" required>
                                     <option disabled selected value></option>
                                     <option value="4" title="Selalu Relevan">4</option>
                                     <option value="3" title="Cukup Relevan">3</option>
@@ -267,10 +270,10 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <select name="keterampilan_berkomunikasi{{ $loop->iteration }}"
-                                    id="keterampilan_berkomunikasi{{ $loop->iteration }}"
+                                <select name="keterampilan_berkomunikasi{{ $count }}"
+                                    id="keterampilan_berkomunikasi{{ $count }}"
                                     style="border:none; width:100%; font-size:18px; text-align:center;"
-                                    onchange="calculateTotal({{ $loop->iteration }})" required>
+                                    onchange="calculateTotal({{ $count }})" required>
                                     <option disabled selected value></option>
                                     <option value="4" title="Sangat Baik">4</option>
                                     <option value="3" title="Baik">3</option>
@@ -280,24 +283,24 @@
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle">
-                                <input type="number" name="laporan_sementara{{ $loop->iteration }}"
-                                    id="laporan_sementara{{ $loop->iteration }}" max="100" min="0"
+                                <input type="number" name="laporan_sementara{{ $count }}"
+                                    id="laporan_sementara{{ $count }}" max="100" min="0"
                                     style="border: none; font-size:18px; width:100%; text-align: center;"
-                                    onchange="calculateMean({{ $loop->iteration }})">
+                                    onchange="calculateMean({{ $count }})">
                             </td>
 
                             @if ($kelompok->diskusi == 1)
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                     align="left" valign=bottom bgcolor="#000000">
-                                    <input type="hidden" name="laporan_resmi{{ $loop->iteration }}" id="laporan_resmi{{ $loop->iteration }}" value="diskusi_1">
+                                    <input type="hidden" name="laporan_resmi{{ $count }}" id="laporan_resmi{{ $count }}" value="diskusi_1">
                                 </td>
                             @else
                                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                     align="center" valign="middle" sdval="0" sdnum="1033;">
-                                    <input type="number" name="laporan_resmi{{ $loop->iteration }}"
-                                    id="laporan_resmi{{ $loop->iteration }}" max="100" min="0"
+                                    <input type="number" name="laporan_resmi{{ $count }}"
+                                    id="laporan_resmi{{ $count }}" max="100" min="0"
                                     style="border: none; font-size:18px; width:100%; text-align: center;"
-                                    onchange="calculateMean({{ $loop->iteration }})">
+                                    onchange="calculateMean({{ $count }})">
                                 </td>
                             @endif
 
@@ -305,18 +308,21 @@
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle" sdval="0" sdnum="1033;">
                                 <font face="Calibri" color="#000000">
-                                    <span id="total{{ $loop->iteration }}"></span>
+                                    <span id="total{{ $count }}"></span>
                                 </font>
                             </td>
                             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                                 align="center" valign="middle" sdval="0" sdnum="1033;">
                                 <font face="Calibri" color="#000000">
-                                    <span id="mean{{ $loop->iteration }}"></span>
+                                    <span id="mean{{ $count }}"></span>
                                 </font>
                             </td>
                         </tr>
-                        <input type="hidden" name="loop" id="loop" value="{{ $loop->iteration }}">
-                    @endif
+                        <input type="hidden" name="loop" id="loop" value="{{ $count }}">
+                        @php
+                            $count++;
+                        @endphp
+                        @endif
                 @endforeach
             </table>
 

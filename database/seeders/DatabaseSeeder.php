@@ -806,52 +806,64 @@ class DatabaseSeeder extends Seeder
 
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 1,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 2,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 3,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 4,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 5,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
 
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 1,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 2,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 3,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 4,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 5,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
 
         NilaiSOCA::create([
