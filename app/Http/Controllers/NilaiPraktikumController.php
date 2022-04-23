@@ -64,8 +64,10 @@ class NilaiPraktikumController extends Controller
             NilaiJenisPraktikum::updateOrCreate(
                 ['nilai_praktikum_id' => $praktikum->id],
                 [
-                    'keterangan_nilai_akhir' => $request['keterangan-nilai-akhir' . $i],
-                    'keterangan_nilai_setelah_remedi' => $request['keterangan-nilai-setelah-remedi' . $i]
+                    'keterangan_nilai_akhir' => $request['keterangan_akhir' . $i],
+                    'keterangan_nilai_akhir_berdasarkan' => $request['keterangan_akhir_berdasarkan' . $i],
+                    'keterangan_nilai_setelah_remedi' => $request['keterangan-nilai-setelah-remedi' . $i],
+                    'keterangan_nilai_setelah_remedi_berdasarkan' => $request['keterangan_nilai_setelah_remedi_berdasarkan' . $i],
                 ]
             );
         }

@@ -187,55 +187,60 @@
                 <div class="row">
                     @if ($praktikums != null)
                         @foreach ($praktikums as $praktikum)
-                                <div class="col-md-4 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <h5 class="card-title">
-                                                        Praktikum {{ $praktikum->namapraktikum }}
-                                                    </h5>
-                                                </div>
-                                                <div class="">
-                                                    <div class="col pt-2">
-                                                        @can('dosen')
-                                                            <form action="/dashboard/matkul/nilai/export/praktikum" method="post"
-                                                                enctype="multipart/form-data">
-                                                                @csrf
-                                                                <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
-                                                                <input type="hidden" name="jenis_praktikum" id="" value="{{ $praktikum->namapraktikum }}">
-                                                                <button class="btn btn-primary w-100 shadow-none"><span
-                                                                        data-feather="download"></span> Download</button>
-                                                            </form>
-                                                            <form method="post" action="/dashboard/matkul/nilai/import/praktikum" enctype="multipart/form-data">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                
-                                                                        {{ csrf_field() }}
-                                                
-                                                                        <label>Pilih file excel</label>
-                                                                        <div class="form-group">
-                                                                            <input type="file" name="file" required="required">
-                                                                        </div>
-                                                
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
-                                                                        <button type="submit" class="btn btn-primary w-100"><span
-                                                                            data-feather="upload"></span> Import</button>
-                                                                    </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">
+                                                    Praktikum {{ $praktikum->namapraktikum }}
+                                                </h5>
+                                            </div>
+                                            <div class="">
+                                                <div class="col pt-2">
+                                                    @can('dosen')
+                                                        <form action="/dashboard/matkul/nilai/export/praktikum" method="post"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="kodematkul" id=""
+                                                                value="{{ $matkul->kodematkul }}">
+                                                            <input type="hidden" name="jenis_praktikum" id=""
+                                                                value="{{ $praktikum->namapraktikum }}">
+                                                            <button class="btn btn-primary w-100 shadow-none"><span
+                                                                    data-feather="download"></span> Download</button>
+                                                        </form>
+                                                        <form method="post" action="/dashboard/matkul/nilai/import/praktikum"
+                                                            enctype="multipart/form-data">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Import
+                                                                        Template</h5>
                                                                 </div>
-                                                            </form>
-                                                        @endcan
-                                                    </div>
+                                                                <div class="modal-body">
+
+                                                                    {{ csrf_field() }}
+
+                                                                    <label>Pilih file excel</label>
+                                                                    <div class="form-group">
+                                                                        <input type="file" name="file" required="required">
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <input type="hidden" name="kodematkul" id=""
+                                                                        value="{{ $matkul->kodematkul }}">
+                                                                    <button type="submit" class="btn btn-primary w-100"><span
+                                                                            data-feather="upload"></span> Import</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                         @endforeach
                     @endif
                 </div>
@@ -297,14 +302,30 @@
                         <colgroup width="200"></colgroup>
                         <colgroup width="200"></colgroup>
                         <tr>
-                            <td height="40" align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">No</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Nama</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Nim</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Total Nilai Dosbing</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Total Nilai Penguji</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Total Nilai Dosen Luar</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F"><font color="#000000">Nilai Akhir</font></td>
-                            <td align="center" valign=middle bgcolor="#FFE48F" style="width: 20%"><font color="#000000">Keterangan</font></td>
+                            <td height="40" align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">No</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Nama</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Nim</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Total Nilai Dosbing</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Total Nilai Penguji</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Total Nilai Dosen Luar</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F">
+                                <font color="#000000">Nilai Akhir</font>
+                            </td>
+                            <td align="center" valign=middle bgcolor="#FFE48F" style="width: 20%">
+                                <font color="#000000">Keterangan</font>
+                            </td>
                         </tr>
                         @foreach ($fieldlabs as $fieldlab)
                             <tr>
@@ -323,39 +344,42 @@
             @endif
         </div>
         <div class="tab-pane fade" id="SOCA">
-            <div class="container mt-3 mb-3">
-                <form action="/dashboard/matkul/nilai/input-soca" method="post">
-                    @csrf
-                    <p>Pilih Mahasiswa : </p>
-                    <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                        <option selected>{{ $socas[0]->name }}</option>
-                        @foreach ($socas->skip(1) as $soca)
-                            <option>{{ $soca->name }}</option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
-                    <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                </form>
-            </div>
+            @if (count($socas) > 0)
+                <div class="container mt-3 mb-3">
+                    <form action="/dashboard/matkul/nilai/input-soca" method="post">
+                        @csrf
+                        <p>Pilih Mahasiswa : </p>
+                        <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                            <option selected>{{ $socas[0]->name }}</option>
+                            @foreach ($socas->skip(1) as $soca)
+                                <option>{{ $soca->name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                        <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            @endif
         </div>
         <div class="tab-pane fade" id="OSCE">
-            
-            <div class="container mt-3 mb-3">
-                <form action="/dashboard/matkul/nilai/input-osce" method="post">
-                    @csrf
-                    <p>Pilih Mahasiswa : </p>
-                    <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                        <option selected>{{ $osces[0]->name }}</option>
-                        @foreach ($osces->skip(1) as $osce)
-                            <option>{{ $osce->name }}</option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
-                    <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                </form>
-            </div>
+            @if (count($osces) > 0)
+                <div class="container mt-3 mb-3">
+                    <form action="/dashboard/matkul/nilai/input-osce" method="post">
+                        @csrf
+                        <p>Pilih Mahasiswa : </p>
+                        <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                            <option selected>{{ $osces[0]->name }}</option>
+                            @foreach ($osces->skip(1) as $osce)
+                                <option>{{ $osce->name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                        <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            @endif
             {{-- <div class="tab-pane fade show active" id="osce">
                 <form action="/dashboard/matkul/nilai/export-osce" method="get">
                     @csrf

@@ -97,6 +97,7 @@ class MatkulController extends Controller
             ->where('matkuls.id', $matkul->id)
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
+            ->get();
             
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -113,7 +114,7 @@ class MatkulController extends Controller
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenarios = $nilai->pbl->pblskenario ?? null;
-
+        
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,

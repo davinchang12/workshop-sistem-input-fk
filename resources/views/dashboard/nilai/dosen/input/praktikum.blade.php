@@ -23,10 +23,10 @@
                     <font color="#000000"><br></font>
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                    colspan=8 height="19" align="center" valign=bottom bgcolor="#92D050">
+                    colspan=9 height="19" align="center" valign=bottom bgcolor="#92D050">
                     <font color="#000000">NILAI</font>
                 </td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan="2"
                     align="center" valign=bottom bgcolor="#92D050">
                     <font color="#000000"><br></font>
                 </td>
@@ -61,6 +61,10 @@
                     <font color="#000000">KETERANGAN</font>
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    rowspan=2 align="center" valign=middle bgcolor="#96D0E2">
+                    <font color="#000000">KETERANGAN BERDASARKAN</font>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     rowspan=2 align="center" valign=middle bgcolor="#BF9000">
                     <font color="#000000">Remedi</font>
                 </td>
@@ -76,10 +80,14 @@
                     rowspan=2 align="center" valign=middle bgcolor="#ADB9CA">
                     <font color="#000000">Keterangan</font>
                 </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    rowspan=2 align="center" valign=middle bgcolor="#ADB9CA">
+                    <font color="#000000">Keterangan Berdasarkan</font>
+                </td>
             </tr>
             <tr>
             </tr>
-            @foreach ($praktikums as $praktikum)
+            @foreach ($praktikums as $praktikum) 
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
@@ -120,9 +128,22 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=bottom>
-                        <input type="text" name="keterangan-nilai-akhir{{ $loop->iteration }}"
-                            id="keterangan-nilai-akhir{{ $loop->iteration }}" value="{{ $praktikum->keterangan_nilai_akhir }}"
-                            style="border: none; font-size:18px; width:100%; text-align: center;">
+                        <input list="keterangan_akhirs{{ $loop->iteration }}" name="keterangan_akhir{{ $loop->iteration }}" id="keterangan_akhir{{ $loop->iteration }}" value="{{ $praktikum->keterangan_nilai_akhir }}" style="border: none; font-size:18px; width:100%; text-align: center;">
+                        <datalist id="keterangan_akhirs{{ $loop->iteration }}">
+                            <option value="LULUS">
+                            <option value="LULUS BILA DENGAN TUGAS">
+                            <option value="TIDAK LULUS">
+                        </datalist>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                        align="center" valign=bottom>
+                        <input list="keterangan_akhir_berdasarkans{{ $loop->iteration }}" name="keterangan_akhir_berdasarkan{{ $loop->iteration }}" id="keterangan_akhir_berdasarkan{{ $loop->iteration }}" value="{{ $praktikum->keterangan_nilai_akhir_berdasarkan }}" style="border: none; font-size:18px; width:100%; text-align: center;">
+                        <datalist id="keterangan_akhir_berdasarkans{{ $loop->iteration }}">
+                            <option value="QUIZ">
+                            <option value="LAPORAN">
+                            <option value="RESPONSI">
+                            <option value="NILAI AKHIR">
+                        </datalist>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
                         align="center" valign=middle>
@@ -149,6 +170,17 @@
                         <input type="text" name="keterangan-nilai-setelah-remedi{{ $loop->iteration }}"
                             id="keterangan-nilai-setelah-remedi{{ $loop->iteration }}" value="{{ $praktikum->keterangan_nilai_setelah_remedi }}"
                             style="border: none; font-size:18px; width:100%; text-align: center;">
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000; text-align:center;"
+                        align="center" valign=bottom>
+                        <input list="keterangan_nilai_setelah_remedi_berdasarkans{{ $loop->iteration }}" name="keterangan_nilai_setelah_remedi_berdasarkan{{ $loop->iteration }}" id="keterangan_nilai_setelah_remedi_berdasarkan{{ $loop->iteration }}" value="{{ $praktikum->keterangan_nilai_setelah_remedi_berdasarkan }}" style="border: none; font-size:18px; width:100%; text-align: center;">
+                        <datalist id="keterangan_nilai_setelah_remedi_berdasarkans{{ $loop->iteration }}">
+                            <option value="QUIZ">
+                            <option value="LAPORAN">
+                            <option value="RESPONSI">
+                            <option value="NILAI AKHIR">
+                            <option value="NILAI SETELAH REMEDI">
+                        </datalist>
                     </td>
                 </tr>
                 <input type="hidden" name="loop" id="loop" value="{{ $loop->iteration }}">
