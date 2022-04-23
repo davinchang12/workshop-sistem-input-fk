@@ -96,7 +96,7 @@ class NilaiTugasController extends Controller
     //     return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');
     // }
     public function import(Request $request) {
-        
+        $this->authorize('dosen');
 		$this->validate($request, [
 			'file' => 'required|mimes:csv,xls,xlsx'
 		]);
@@ -114,6 +114,10 @@ class NilaiTugasController extends Controller
         File::delete(public_path('/nilai_tugas/'.$nama_file));
  
 		return redirect('/dashboard/matkul');
+    }
+    public function export() {
+        $this->authorize('dosen');
+        return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');
     }
 
 }

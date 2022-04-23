@@ -3,6 +3,11 @@
 		<td style="border: 1px solid blank;" colspan=7 align="center" ><b>Daftar Nilai Tugas</b></td>
 		
 	</tr>
+	<tr>
+		<td style="border: 1px solid blank;" colspan=3 align="center" ><b>Dosen Penguji:</b></td>  
+		<td style="border: 1px solid blank;" colspan=4 align="center" ><b>{{ $dosen }}</b></td>  
+		
+	</tr>
 	
 	<tr>
 		<td style="border: 1px solid blank;" rowspan=3 bgcolor="lightgray" align="center" ><b>No</b></td>

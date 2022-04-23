@@ -23,8 +23,87 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
     public function view(): View
     {
         $request = request();
-        
+        $students = DB::table('nilais')
+                ->join('users', 'users.id', '=', 'nilais.user_id')
+                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                ->where('users.role', 'mahasiswa')
+                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                ->get();
         $dosen = User::where('id', '=', auth()->user()->id)->value('name');
+        // dd($dosen);
+        $checkrincian = DB::table('rincian_nilai_tugas')
+        ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->where('users.role', 'mahasiswa')
+        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+        ->select('rincian_nilai_tugas.nilai_id')->get();
+        // dd($checkrincian->isEmpty());
+        if($checkrincian->isEmpty()){
+            $i = 0;
+            foreach( $students as $nilai ){
+                $nilaiid = DB::table('nilais')
+                ->join('users', 'users.id', '=', 'nilais.user_id')
+                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                ->where('users.role', 'mahasiswa')
+                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                ->pluck('nilais.id');
+                
+                $rinciana = DB::table('rincian_nilai_tugas')
+                    ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                    ->join('users', 'users.id', '=', 'nilais.user_id')
+                    ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                    ->where('users.role', 'mahasiswa')
+                    ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                    ->insert(['rincian_nilai_tugas.nilai_id'=> $nilaiid[$i], 'rincian_nilai_tugas.dosenpenguji' => $dosen]);
+               $i++;
+            }
+        }
+        // dd($rinciana);
+        $rinciantugas= DB::table('rincian_nilai_tugas')
+        ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->where('users.role', 'mahasiswa')
+        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+        ->get();
+        // dd($rinciantugas);
+
+        $checktugas = DB::table('nilai_tugas')
+        ->join('rincian_nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+        ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->where('users.role', 'mahasiswa')
+        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+        ->select('nilai_tugas.rincian_nilai_tugas_id')->get();
+        // dd($checktugas->isEmpty());
+        if($checktugas->isEmpty()){
+            $j = 0;
+            foreach( $rinciantugas as $rincian ){
+                $rincianid = DB::table('rincian_nilai_tugas')
+                ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                ->join('users', 'users.id', '=', 'nilais.user_id')
+                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                ->where('users.role', 'mahasiswa')
+                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                ->pluck('rincian_nilai_tugas.id');
+                // dd($rincianid);
+                $nilaitugasa = DB::table('nilai_tugas')
+                ->join('rincian_nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+                ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                ->join('users', 'users.id', '=', 'nilais.user_id')
+                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                ->where('users.role', 'mahasiswa')
+                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                ->insert(['nilai_tugas.rincian_nilai_tugas_id' => $rincianid[$j]]);
+               $j++;
+               
+            }
+        }
+        // dd($nilaitugasa);
+
+
         $nilaitugas= DB::table('nilai_tugas')
         ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'nilai_tugas.rincian_nilai_tugas_id')
         ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
@@ -38,7 +117,7 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
             'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
             'dosen' => $dosen
         ]);
-    }
+}
 
     public function registerEvents(): array
     {
