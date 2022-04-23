@@ -119,32 +119,32 @@ class DatabaseSeeder extends Seeder
             'email' => 'dosen2@unika.ac.id',
             'password' =>  bcrypt('admin')
         ]);
-        $max = 10;
-        for($i=1;$i<=$max;$i++){
-            NilaiTugas::factory()->create();
-        }
+        // $max = 10;
+        // for($i=1;$i<=$max;$i++){
+        //     NilaiTugas::factory()->create();
+        // }
 
-        RincianNilaiTugas::create([
-            'nilai_id' => 1,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 2,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 3,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 4,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 5,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 6,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 7,
-        ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 1,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 2,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 3,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 4,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 5,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 6,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 7,
+        // ]);
         Nilai::create([
             'user_id' => 8,
             'matkul_id' => 1,

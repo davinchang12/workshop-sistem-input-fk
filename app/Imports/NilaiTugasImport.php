@@ -22,14 +22,14 @@ class NilaiTugasImport implements ToCollection, WithStartRow
         $this->users = User::select('id', 'name')->get();
         $this->nilaitugas = NilaiTugas::all();
         $this->rinciantugas = RincianNilaiTugas::all();
-        $this->dosen = auth()->user()->id;
+        $this->dosen = auth()->user()->name;
         $this->nilai = Jadwal::select('nilais.id', 'users.name', 'users.role', 'matkuls.namamatkul', 'users.nim')
         ->join('users', 'jadwals.user_id', '=', 'users.id')
         ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
         ->join('nilais', 'nilais.user_id', '=', 'users.id')
         ->where('users.role', 'mahasiswa')
         ->get();
-        
+        dd($dosen);
     }
     
     public function startRow(): int
@@ -56,10 +56,10 @@ class NilaiTugasImport implements ToCollection, WithStartRow
             $rinciantugas = $this->rinciantugas->where('nilai_id', $nilai->id)->first() ?? 
             RincianNilaiTugas::firstOrCreate([
                 ['nilai_id' => $nilai->id],
-                ['user_id' => $dosen]
+                ['dosenpenguji' => $dosen]
             ]);
             $rinciantugas->where('nilai_id', $nilai->id)
-                        ->where('user_id', null)->update(['user_id' => $dosen ?? null]);
+                        ->where('dosenpenguji', null)->update(['dosenpenguji' => $dosen ?? null]);
             
             $nilaitugas = $this->nilaitugas->where('rincian_nilai_tugas_id', $rinciantugas->id)->first();
             if( $nilaitugas->nilaitugas != null){
