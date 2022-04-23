@@ -44,9 +44,9 @@ class NilaiTugasImport implements ToCollection, WithStartRow
         foreach($rows as $row) {
             $user = $this->users->where('name', $row[1])->first();
             
-            // dd($nilai);
+            // dd($matkul->id);
             
-            $nilai = $this->nilai->where('matkul_id', $matkul)->where('user_id', $user)->first() ??
+            $nilai = $this->nilai->where('matkul_id', $matkul->id)->where('user_id', $user->id)->first() ??
             Nilai::firstOrCreate([
                 'matkul_id' => $matkul->id,
                 'user_id' => $user->id

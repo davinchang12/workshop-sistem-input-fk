@@ -112,6 +112,21 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->get();
 
+        $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
+        ->get();
+        // dd($ujians);
+
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenarios = $nilai->pbl->pblskenario ?? null;
         
@@ -126,6 +141,7 @@ class MatkulController extends Controller
             'fieldlabs' => $fieldlabs,
             'matkul' => $matkul,
             'skenarios' => $skenarios,
+            'ujians' => $ujians
         ]);
 
     }

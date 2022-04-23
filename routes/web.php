@@ -14,6 +14,7 @@ use App\Http\Controllers\NilaiSOCAController;
 use App\Http\Controllers\DosenNilaiController;
 use App\Http\Controllers\InputNilaiController;
 use App\Http\Controllers\NilaiTugasController;
+use App\Http\Controllers\NilaiUjianController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
@@ -64,6 +65,12 @@ Route::post('/dashboard/matkul/nilai/import-osce', [NilaiOSCEController::class, 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 
+Route::get('/dashboard/matkul/nilai/export/feedbackutb', [NilaiUjianController::class, 'export_utb']);
+Route::post('/dashboard/matkul/nilai/import/feedbackutb', [NilaiUjianController::class, 'import_utb']);
+Route::get('/dashboard/matkul/nilai/export/feedbackuab', [NilaiUjianController::class, 'export_uab']);
+Route::post('/dashboard/matkul/nilai/import/feedbackuab', [NilaiUjianController::class, 'import_uab']);
+Route::get('/dashboard/matkul/nilai/export/nilaiujian', [NilaiUjianController::class, 'export_ujian']);
+Route::post('/dashboard/matkul/nilai/import/nilaiujian', [NilaiUjianController::class, 'import_ujian']);
 
 Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
