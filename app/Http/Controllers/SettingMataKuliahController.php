@@ -157,7 +157,7 @@ class SettingMataKuliahController extends Controller
             }
         }
 
-        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/');
+        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/')->with('success', 'Mahasiswa berhasil diubah!');
     }
 
     public function kelompokPBL(Matkul $settingmatakuliah)
@@ -278,7 +278,7 @@ class SettingMataKuliahController extends Controller
                 }
             }
         }
-        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl');
+        return redirect('/dashboard/settingmatakuliah/' . $matkul_kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil ditambahkan!');
     }
 
     public function deleteKelompokPBL(Request $request)
@@ -316,7 +316,34 @@ class SettingMataKuliahController extends Controller
                 ->delete();
         }
 
-        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl');
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil dihapus!');
+    }
+
+    public function dosenPBL(Matkul $settingmatakuliah) {
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', '!=', 'mahasiswa')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->select('users.name', 'kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenarios.id')
+            ->get();
+
+        $diskusis = DB::table('nilai_p_b_l_skenario_diskusis')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->get();
+
+        return view('dashboard.matkul.admin.pbl.dosen.index', [
+            'matkul' => $settingmatakuliah,
+            'skenarios' => $skenarios->unique(),
+            'diskusis' => $diskusis
+        ]);
+    }
+
+    public function deleteDosenPBL() {
+
     }
 
     /**
