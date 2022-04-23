@@ -1,7 +1,7 @@
 
 <table cellspacing="0" border="0">
 	<tr>
-		<td style="border : 1px solid black" colspan=13 rowspan=2  align="center" valign=bottom><b>Daftar Nilai Ujian Tertulis Blok 1.1</b></td>
+		<td style="border : 1px solid black" colspan=14 rowspan=2  align="center" valign=bottom><b>Daftar Nilai Ujian Tertulis Blok 1.1</b></td>
 		</tr>
 	<tr>
 		</tr>
@@ -9,10 +9,11 @@
 		<td style="border : 1px solid black" rowspan=4 align="center" valign=bottom><b>No</b></td>
 		<td style="border : 1px solid black" rowspan=4 align="center" valign=bottom><b>Nama</b></td>
 		<td style="border : 1px solid black" rowspan=4 align="center" valign=bottom><b>Nim</b></td>
-		<td style="border : 1px solid black" colspan=10 align="center" valign=bottom><b>Penilaian</b></td>
+		<td style="border : 1px solid black" colspan=11 align="center" valign=bottom><b>Penilaian</b></td>
 		</tr>
 	<tr>
 		<td style="border : 1px solid black" colspan=2 align="center" valign=bottom><b>Ujian Blok</b></td>
+		<td style="border : 1px solid black" rowspan=3 align="center" valign=bottom bgcolor="gray"><b></b></td>
 		<td style="border : 1px solid black" rowspan=3 align="center" valign=bottom><b>UAB Combined</b></td>
 		<td style="border : 1px solid black" rowspan=3 align="center" valign=bottom><b>REMEDI </b></td>
 		<td style="border : 1px solid black" rowspan=3 align="center" valign=bottom><b>NILAI FINAL CBT </b></td>
@@ -35,6 +36,7 @@
             <td style="border: 1px solid blank;" align="center" valign=bottom>{{ $ujian->nim }}</td>
             <td style="border : 1px solid black" align="center" valign=bottom>{{ $ujian->utb }}</td>
             <td style="border : 1px solid black" align="center" valign=bottom >{{ $ujian->uab }}</td>
+            <td style="border : 1px solid black" align="center" valign=bottom bgcolor="gray"></td>
             <td style="border : 1px solid black" align="center" valign=bottom ></td>
             <td style="border : 1px solid black" align="center" valign=bottom>{{ $ujian->remediujian }}</td>
             <td style="border : 1px solid black" align="center" valign=bottom>{{ $ujian->finalcbt }}</td>

@@ -92,19 +92,32 @@ class FeedbackUABImport implements ToCollection, WithStartRow
                             'total' => null
                             ]
                         );
-                    $jenisfeedbackuabs = $this->jenisfeedbackutbs->where('feedback_uab_id', $feedbackuabs->id)->first() ??
-                    JenisFeedbackUAB::firstOrCreate(
-                        ['feedback_uab_id' => $feedbackuabs->id],
-                        [   
-                            'topik' => $topik,
-                            'skor' => $row[3]
-                            ]
-                        );
-                        $jenisfeedbackuabs->where('feedback_uab_id', $feedbackuabs->id)
-                        ->where('skor', null)->update(['skor' => $row[3] ?? null]);
-                        $jenisfeedbackuabs->where('feedback_uab_id', $feedbackuabs->id)
-                        ->where('topik', null)->update(['topik' => $topik ?? null]);
+                    
+                        $jenisfeedbackuabs = $this->jenisfeedbackutbs->where('feedback_uab_id', $feedbackuabs->id)->first();
+                        // dd($jenisfeedbacksuabs);
+                        if( $jenisfeedbackuabs->topik != null){
+                            JenisFeedbackUAB::firstOrCreate(
+                                ['feedback_uab_id' => $feedbackuabs->id,  
+                                    'topik' => $topik,
+                                    'skor' => $row[3]
+                                    ]
+                                );
+                            }
+                            else{
+                                $jenisfeedbackuabs = $this->jenisfeedbackutbs->where('feedback_uab_id', $feedbackuabs->id)->first() ??
+                                JenisFeedbackUAB::firstOrCreate(
+                                    ['topik' => $topik , 'feedback_uab_id' => $feedbackuabs->id],
+                                    [
+                                        
+                                        'skor' => $row[3]
+                                        ]
+                                    );
+                                    $jenisfeedbackuabs->where('feedback_uab_id', $feedbackuabs->id)
+                                    ->where('skor', null)->update(['skor' => $row[3] ?? null]);
+                                    $jenisfeedbackuabs->where('feedback_uab_id', $feedbackuabs->id)
+                                    ->where('topik', null)->update(['topik' => $topik ?? null]);      
             }
+        }
     }
 }
 

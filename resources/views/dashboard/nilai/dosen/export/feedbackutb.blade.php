@@ -16,9 +16,9 @@
             <td style="border: 1px solid blank;" align="center" valign=bottom>{{ $loop->iteration }}</td>
             <td style="border: 1px solid blank;" align="center" valign=bottom>{{ $utb->name }}</td>
             <td style="border: 1px solid blank;" align="center" valign=bottom>{{ $utb->nim }}</td>
-            <td style="border : 1px solid black" align="center" valign=bottom >{{ $utb->skor }}</td>
+            <td style="border : 1px solid black" align="center" valign=bottom ></td>
 			<td style="border : 1px solid black" align="center" valign=bottom >{{ $utb->namamatkul }}</td>
-			<td style="border : 1px solid black" align="center" valign=bottom >{{ $utb->topik }}</td>
+			<td style="border : 1px solid black" align="center" valign=bottom ></td>
         </tr>
     @endforeach
 	

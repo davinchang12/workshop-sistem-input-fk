@@ -49,6 +49,7 @@ class FeedbackUTBImport implements ToCollection, WithStartRow
     {
         $matkul = $this->matkul->where('namamatkul', $rows[0][4])->first();
         $topik = $rows[0][5];
+        // dd($matkul);
         
         foreach($rows as $row) {
             $user = $this->users->where('name', $row[1])->first();
@@ -89,18 +90,32 @@ class FeedbackUTBImport implements ToCollection, WithStartRow
                             'total' => null
                             ]
                         );
-                    $jenisfeedbacksutbs = $this->jenisfeedbackutbs->where('feedback_utb_id', $feedbackutbs->id)->first() ??
-                    JenisFeedbackUTB::firstOrCreate(
-                        ['feedback_utb_id' => $feedbackutbs->id],
-                        [
-                            'topik' => $topik,
-                            'skor' => $row[3]
-                            ]
-                        );
-                        $jenisfeedbacksutbs->where('feedback_utb_id', $feedbackutbs->id)
-                        ->where('skor', null)->update(['skor' => $row[3] ?? null]);
-                        $jenisfeedbacksutbs->where('feedback_utb_id', $feedbackutbs->id)
-                        ->where('topik', null)->update(['topik' => $topik ?? null]);
+
+                        $jenisfeedbacksutbs = $this->jenisfeedbackutbs->where('feedback_utb_id', $feedbackutbs->id)->first();
+                        // dd($jenisfeedbacksutbs);
+                        if( $jenisfeedbacksutbs->topik != null){
+                            JenisFeedbackUTB::firstOrCreate(
+                                [
+                                    'topik' => $topik , 
+                                    'feedback_utb_id' => $feedbackutbs->id,
+                                    'skor' => $row[3]
+                                    ]
+                                );
+                            }
+                            else{
+                                $jenisfeedbacksutbs = $this->jenisfeedbackutbs->where('feedback_utb_id', $feedbackutbs->id)->first() ??
+                                JenisFeedbackUTB::firstOrCreate(
+                                    ['topik' => $topik , 'feedback_utb_id' => $feedbackutbs->id],
+                                    [
+                                        
+                                        'skor' => $row[3]
+                                        ]
+                                    );
+                                    $jenisfeedbacksutbs->where('feedback_utb_id', $feedbackutbs->id)
+                                    ->where('skor', null)->update(['skor' => $row[3] ?? null]);
+                                    $jenisfeedbacksutbs->where('feedback_utb_id', $feedbackutbs->id)
+                                    ->where('topik', null)->update(['topik' => $topik ?? null]);
+                                }                         
 
             }
     }

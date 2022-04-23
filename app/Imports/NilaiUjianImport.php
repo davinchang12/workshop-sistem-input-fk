@@ -44,8 +44,8 @@ class NilaiUjianImport implements ToCollection, WithStartRow
     
     public function collection(Collection $rows)
     {
-        $matkul = $this->matkul->where('namamatkul', $rows[0][12])->first();
-        
+        $matkul = $this->matkul->where('namamatkul', $rows[0][13])->first();
+        // dd($rows[0][13]);
         foreach($rows as $row) {
             $user = $this->users->where('name', $row[1])->first();
             
@@ -64,18 +64,18 @@ class NilaiUjianImport implements ToCollection, WithStartRow
                     NilaiUjian::firstOrCreate(
                         ['nilai_id' => $nilai->id],
                         [
-                            'sintakutb' => $row[8],
-                            'sintakuab' => $row[9],
-                            'finalcbt' => $row[7]
+                            'sintakutb' => $row[9],
+                            'sintakuab' => $row[10],
+                            'finalcbt' => $row[8]
                             ]
                         );
 
                         $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('sintakutb', null)->update(['sintakutb' => $row[8] ?? null]);
+                        ->where('sintakutb', null)->update(['sintakutb' => $row[9] ?? null]);
                         $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('sintakuab', null)->update(['sintakuab' => $row[9] ?? null]);
+                        ->where('sintakuab', null)->update(['sintakuab' => $row[10] ?? null]);
                         $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('finalcbt', null)->update(['finalcbt' => $row[7] ?? null]);
+                        ->where('finalcbt', null)->update(['finalcbt' => $row[8] ?? null]);
                     
                 
                 

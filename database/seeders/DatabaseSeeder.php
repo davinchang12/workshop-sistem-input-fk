@@ -1129,156 +1129,156 @@ class DatabaseSeeder extends Seeder
             'semester' => "Semester 2"
         ]);
 
-        NilaiUjian::create([
-            'nilai_id' => 1,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 2,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 3,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 4,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 5,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 6,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 7,
-        ]);
-        NilaiUjian::create([
-            'nilai_id' => 8,
-        ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 1,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 2,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 3,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 4,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 5,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 6,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 7,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 8,
+        // ]);
 
 
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 1,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 2,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 3,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 4,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 5,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 6,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 7,
-        ]);
-        HasilNilaiUjian::create([
-            'nilai_ujian_id' => 8,
-        ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 1,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 2,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 3,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 4,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 5,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 6,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 7,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 8,
+        // ]);
 
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 1,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 2,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 3,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 4,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 5,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 6,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 7,
-        ]);
-        FeedbackUTB::create([
-            'hasil_ujians_id' => 8,
-        ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 1,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 2,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 3,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 4,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 5,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 6,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 7,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 8,
+        // ]);
 
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 1,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 2,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 3,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 4,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 5,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 6,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 7,
-        ]);
-        FeedbackUAB::create([
-            'hasil_ujians_id' => 8,
-        ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 1,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 2,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 3,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 4,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 5,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 6,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 7,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 8,
+        // ]);
 
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 1,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 2,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 3,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 4,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 5,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 6,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 7,
-        ]);
-        JenisFeedbackUTB::create([
-            'feedback_utb_id' => 8,
-        ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 1,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 2,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 3,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 4,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 5,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 6,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 7,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 8,
+        // ]);
 
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 1,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 2,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 3,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 4,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 5,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 6,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 7,
-        ]);
-        JenisFeedbackUAB::create([
-            'feedback_uab_id' => 8,
-        ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 1,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 2,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 3,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 4,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 5,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 6,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 7,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 8,
+        // ]);
         // Jadwal::factory(100)->create();
         // Kelompok::factory(50)->create();
     }
