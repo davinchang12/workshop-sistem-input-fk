@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl" class="btn btn-success">Edit
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen" class="btn btn-success">Edit
             Dosen</a>
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/create"
             class="btn btn-success">Tambah Kelompok <span data-feather="arrow-right"></span></a>
