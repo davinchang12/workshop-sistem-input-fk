@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\NilaiPBL;
 use Illuminate\Http\Request;
 use App\Models\NilaiPBLSkenario;
+use Illuminate\Support\Facades\DB;
 use App\Models\NilaiPBLSkenarioDiskusi;
 use App\Models\NilaiPBLSkenarioDiskusiNilai;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class SettingMataKuliahController extends Controller
 {
@@ -340,6 +342,96 @@ class SettingMataKuliahController extends Controller
             'skenarios' => $skenarios->unique(),
             'diskusis' => $diskusis
         ]);
+    }
+
+    public function createDosenPBL(Matkul $settingmatakuliah) {
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->select('users.name', 'kelompok')
+            ->get();
+
+        $kelompoks = $skenarios->pluck('kelompok')->unique();
+
+        $users = User::where('role', 'dosen')->get();
+
+        return view('dashboard.matkul.admin.pbl.dosen.create', [
+            'matkul' => $settingmatakuliah,
+            'kelompoks' => $kelompoks,
+            'users' => $users
+        ]);
+    }
+
+    public function storeDosenPBL(Request $request) {
+
+        $validatedData = $request->validate([
+            'kelompok' => 'required',
+            'user_id' => 'required',
+            'skenario' => 'required|integer',
+            'tanggal1' => 'required',
+            'tanggal2' => 'required',
+        ]);
+
+        $nilais = DB::table('nilais')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkul_id', $request->matkul_id)
+            ->where('users.role', 'dosen')
+            ->select('nilais.id as nilai_id', 'nilais.user_id as user_id')
+            ->get();
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'dosen')
+            ->where('matkuls.id', $request->matkul_id)
+            ->where('nilai_p_b_l_skenarios.kelompok', $validatedData['kelompok'])
+            ->where('nilai_p_b_l_skenarios.skenario', $validatedData['skenario'])
+            ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'users.name', 'nilai_p_b_l_skenarios.kelompok')
+            ->get();
+            
+        $check = $skenarios->where('user_id', $validatedData['user_id'])->first();
+
+        if (!$check) {
+
+            $nilai_id = $nilais->where('user_id', $validatedData['user_id'])->first()->nilai_id ?? 
+                Nilai::create([
+                    'user_id' => $validatedData['user_id'],
+                    'matkul_id' => $request->matkul_id
+                ])->id;
+
+            $nilaipbl = NilaiPBL::create([
+                'nilai_id' => $nilai_id
+            ]);
+
+            $nilaipblskenario = NilaiPBLSkenario::create([
+                'nilaipbl_id' => $nilaipbl->id,
+                'skenario' => $validatedData['skenario'],
+                'kelompok' => $validatedData['kelompok']
+            ]);
+
+            NilaiPBLSkenarioDiskusi::create([
+                'nilaipblskenario_id' => $nilaipblskenario->id,
+                'diskusi' => 1,
+                'tanggal_pelaksanaan' => $validatedData['tanggal1']
+            ]);
+
+            NilaiPBLSkenarioDiskusi::create([
+                'nilaipblskenario_id' => $nilaipblskenario->id,
+                'diskusi' => 2,
+                'tanggal_pelaksanaan' => $validatedData['tanggal2']
+            ]);
+        } else {
+            throw ValidationException::withMessages(['errorJam' => 'Dosen sudah ada di skenario '.$validatedData['skenario'].', kelompok '.$validatedData['kelompok'].'!']);
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil ditambahkan!');
     }
 
     public function deleteDosenPBL() {
