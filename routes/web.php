@@ -87,6 +87,8 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen/create', [SettingMataKuliahController::class, 'createDosenPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen', [SettingMataKuliahController::class, 'storeDosenPBL'])->middleware('admin');
 Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen', [SettingMataKuliahController::class, 'dosenPBL'])->middleware('admin');
 Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen/delete', [SettingMataKuliahController::class, 'deleteDosenPBL'])->middleware('admin');
 
