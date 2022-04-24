@@ -335,6 +335,7 @@ class SettingMataKuliahController extends Controller
 
         $diskusis = DB::table('nilai_p_b_l_skenario_diskusis')
             ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->select('nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', 'nilai_p_b_l_skenario_diskusis.id as id', 'nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan')
             ->get();
 
         return view('dashboard.matkul.admin.pbl.dosen.index', [
@@ -434,8 +435,26 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil ditambahkan!');
     }
 
-    public function deleteDosenPBL() {
+    public function deleteDosenPBL(Request $request) {
+        
+        $diskusis = $request->input('diskusi');
+        $skenario = $request->input('skenario');
 
+        foreach($diskusis as $diskusi) {
+            NilaiPBLSkenarioDiskusi::where('id', $diskusi)
+                ->delete();
+        }
+
+        $getSkenario = NilaiPBLSkenario::where('id', $skenario);
+
+        $idPBL = $getSkenario->first()->pbl->id;
+
+        $getSkenario->delete();
+
+        NilaiPBL::where('id', $idPBL)
+            ->delete();
+
+        return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil dihapus!');
     }
 
     /**

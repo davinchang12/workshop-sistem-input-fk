@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/create"
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/create"
             class="btn btn-success">Tambah Dosen <span data-feather="arrow-right"></span></a>
     </div>
 
@@ -46,18 +46,27 @@
         </thead>
         <tbody>
             @foreach ($skenarios as $skenario)
+                @php
+                    $temp = array();
+                @endphp
                 <tr>
-                    
                     <td>{{ $skenario->kelompok }}</td>
                     <td>{{ $skenario->name }}</td>
                     <td>{{ $skenario->skenario }}</td>
                     @foreach ($diskusis->where('nilaipblskenario_id', $skenario->id) as $diskusi)
+                        @php
+                            array_push($temp, $diskusi->id);
+                        @endphp
                         <td>{{ $diskusi->tanggal_pelaksanaan }}</td>
                     @endforeach
                     <td>
-                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/editdosen/delete" method="post" class="d-inline">
+                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/delete" method="post" class="d-inline">
                             @csrf
-
+                            @foreach ($temp as $t)
+                                <input type="hidden" name="diskusi[]" value="{{ $t }}">
+                            @endforeach
+                            <input type="hidden" name="skenario" value="{{ $skenario->id }}">
+                            <input type="hidden" name="kodematkul" value="{{ $matkul->kodematkul }}">
                             <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
                         </form>
                     </td>
