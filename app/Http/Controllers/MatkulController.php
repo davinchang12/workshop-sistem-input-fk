@@ -22,7 +22,7 @@ class MatkulController extends Controller
     public function index()
     {
         $nilais = Nilai::where('user_id', auth()->user()->id)->get();
-
+        
         return view('dashboard.matkul.index', [
             'nilais' => $nilais,
         ]);
@@ -104,6 +104,8 @@ class MatkulController extends Controller
 
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenarios = $nilai->pbl->pblskenario ?? null;
+
+        // dd($skenarios);
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),

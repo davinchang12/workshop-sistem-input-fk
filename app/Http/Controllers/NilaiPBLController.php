@@ -132,6 +132,7 @@ class NilaiPBLController extends Controller
         $diskusi_id = $request->diskusi_id;
         $kelompok = $request->kelompok;
         $dosen_tutor = auth()->user()->name;
+        $tanggal_pelaksanaan = $request->tanggal_pelaksanaan;
 
         $kelompoks = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id as diskusi_id', 'nilai_p_b_l_skenario_diskusis.diskusi as diskusi', 'users.role as role', 'users.name as name', 'users.nim as nim')
                 ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
@@ -151,7 +152,8 @@ class NilaiPBLController extends Controller
             'kelompok_id' => $kelompok,
             'skenario' => $skenario,
             'diskusi' => $diskusi,
-            'diskusi_id' => $diskusi_id
+            'diskusi_id' => $diskusi_id,
+            'tanggal_pelaksanaan' => $tanggal_pelaksanaan
         ]);
     }
 }

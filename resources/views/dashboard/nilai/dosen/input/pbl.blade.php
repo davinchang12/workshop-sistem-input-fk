@@ -124,9 +124,9 @@
                         </b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=3 align="center" valign=middle><b>
-                            <font color="#000000">{{ date('d-m-Y', strtotime($skenarios->first()->skenariodiskusi->where('diskusi', $diskusi)->first()->tanggal_pelaksanaan)) }}
+                            <font color="#000000">{{ date('d-m-Y', strtotime($tanggal_pelaksanaan)) }}
                             </font>
-                            <input type="hidden" name="tanggal_pelaksanaan" id="tanggal_pelaksanaan" value="{{ $skenarios->first()->skenariodiskusi->where('diskusi', $diskusi)->first()->tanggal_pelaksanaan }}">
+                            <input type="hidden" name="tanggal_pelaksanaan" id="tanggal_pelaksanaan" value="{{ $tanggal_pelaksanaan }}">
                         </b></td>
                 </tr>
                 <tr>
