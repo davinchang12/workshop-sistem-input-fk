@@ -4,8 +4,16 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Praktikum</h1>
     </div>
+
+    @if (session()->has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="d-flex justify-content-between">
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
+                data-feather="arrow-left"></span> Kembali</a>
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/create"
             class="btn btn-success">Tambah Praktikum <span data-feather="arrow-right"></span></a>
     </div>
@@ -33,18 +41,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    @foreach ($praktikums as $praktikum)
+                @foreach ($praktikums as $praktikum)
+                    <tr>
                         <td>{{ $praktikum->namapraktikum }}</td>
                         <td>
-                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/delete" method="post" class="d-inline">
-                            @csrf
+                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/delete"
+                                method="post" class="d-inline">
+                                @csrf
 
-                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
-                        </form>
+                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
+                                        data-feather="x-circle"></span></button>
+                            </form>
                         </td>
-                    @endforeach
-                </tr>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

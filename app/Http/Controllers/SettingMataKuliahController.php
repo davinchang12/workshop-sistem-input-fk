@@ -12,6 +12,7 @@ use App\Models\NilaiPBLSkenario;
 use Illuminate\Support\Facades\DB;
 use App\Models\NilaiPBLSkenarioDiskusi;
 use App\Models\NilaiPBLSkenarioDiskusiNilai;
+use App\Models\NilaiPraktikum;
 use Illuminate\Validation\ValidationException;
 
 class SettingMataKuliahController extends Controller
@@ -509,6 +510,29 @@ class SettingMataKuliahController extends Controller
         return view('dashboard.matkul.admin.praktikum.create', [
             'matkul' => $settingmatakuliah
         ]);
+    }
+
+    public function storeJenisPraktikum(Request $request) {
+        $jenispraktikum = $request->input('jenispraktikum');
+        $matkul_id = $request->input('matkul_id');
+        $kodematkul = $request->input('kodematkul');
+
+        $nilais = DB::table('nilais')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul_id)
+            ->where('users.role', 'mahasiswa')
+            ->select('nilais.id')
+            ->get();
+        
+        foreach($nilais as $nilai) {
+            NilaiPraktikum::create([
+                'nilai_id' => $nilai->id,
+                'namapraktikum' => $jenispraktikum
+            ]);
+        }
+
+        return redirect('/dashboard/settingmatakuliah/'.$kodematkul.'/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
     }
 
     /**

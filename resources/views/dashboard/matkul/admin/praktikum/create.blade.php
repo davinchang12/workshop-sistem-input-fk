@@ -19,6 +19,8 @@
                     </div>
                 @enderror
             </div>
+            <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
+            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
             <button type="submit" class="btn btn-primary">Tambah</button>
         </form>
     </div>

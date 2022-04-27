@@ -87,6 +87,7 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum', [SettingMataKuliahController::class, 'storeJenisPraktikum'])->middleware('admin');
 Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum/create', [SettingMataKuliahController::class, 'createJenisPraktikum'])->middleware('admin');
 Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum', [SettingMataKuliahController::class, 'jenisPraktikum'])->middleware('admin');
 
