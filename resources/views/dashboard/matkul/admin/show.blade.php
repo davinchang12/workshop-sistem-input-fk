@@ -7,6 +7,7 @@
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
         @if ($matkul->blok != null)
+            <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum" class="btn btn-success">Edit Praktikum</a>
             <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl"
                 class="btn btn-success">Edit Kelompok PBL</a>
         @endif
