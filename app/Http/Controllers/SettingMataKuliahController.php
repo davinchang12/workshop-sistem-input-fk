@@ -488,6 +488,22 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah')->with('success', 'Mata kuliah berhasil diupdate!');
     }
 
+    public function jenisPraktikum(Matkul $settingmatakuliah) {
+
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->select('nilai_praktikums.namapraktikum')
+            ->get()
+            ->unique();
+
+        return view('dashboard.matkul.admin.praktikum.index', [
+            'matkul' => $settingmatakuliah,
+            'praktikums' => $praktikums
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
