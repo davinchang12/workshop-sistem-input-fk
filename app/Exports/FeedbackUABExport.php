@@ -26,13 +26,15 @@ class FeedbackUABExport implements FromView, ShouldAutoSize, WithEvents
         $request = request();
         
         $dosen = User::where('id', '=', auth()->user()->id)->value('name');
-        $students = DB::table('nilais')
-                ->join('users', 'users.id', '=', 'nilais.user_id')
-                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-                ->where('users.role', 'mahasiswa')
-                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
-                ->get();
-        // dd($students);
+        $students = Jadwal::select('nilais.id')
+         ->join('users', 'jadwals.user_id', '=', 'users.id')
+         ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+         ->join('nilais', 'nilais.user_id', '=', 'users.id')
+         ->orderBy('nilais.id')
+         ->where('users.role', 'mahasiswa')
+         ->where('matkuls.id', $request->matkul_dipilih)
+         ->get();
+        // dd($nilais);
         $checkujian = DB::table('nilai_ujians')
         ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
         ->join('users', 'users.id', '=', 'nilais.user_id')
@@ -42,32 +44,26 @@ class FeedbackUABExport implements FromView, ShouldAutoSize, WithEvents
         ->select('nilai_ujians.nilai_id')->get();
         // dd($checkujian->isEmpty());
         if($checkujian->isEmpty()){
-            $i = 0;
             foreach( $students as $nilai ){
-                $nilaiid = DB::table('nilais')
-                ->join('users', 'users.id', '=', 'nilais.user_id')
-                ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-                ->where('users.role', 'mahasiswa')
-                ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
-                ->pluck('nilais.id');
-                
+                // dd($nilai->id);
                 DB::table('nilai_ujians')
                     ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
                     ->join('users', 'users.id', '=', 'nilais.user_id')
                     ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
                     ->where('users.role', 'mahasiswa')
                     ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
-                    ->insert(['nilai_ujians.nilai_id'=> $nilaiid[$i]]);
-               $i++;
+                    ->insert(['nilai_ujians.nilai_id'=> $nilai->id]);
             }
         }
 
-        $ujians= DB::table('nilai_ujians')
-        ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
-        ->join('users', 'users.id', '=', 'nilais.user_id')
-        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        $ujians= Jadwal::select('nilai_ujians.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+        ->orderBy('nilais.id')
         ->where('users.role', 'mahasiswa')
-        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+        ->where('matkuls.id', $request->matkul_dipilih)
         ->get();
         // dd($ujians);
 

@@ -70,6 +70,8 @@ Route::post('/dashboard/matkul/nilai/import/feedbackutb', [NilaiUjianController:
 Route::get('/dashboard/matkul/nilai/export/feedbackuab', [NilaiUjianController::class, 'export_uab']);
 Route::post('/dashboard/matkul/nilai/import/feedbackuab', [NilaiUjianController::class, 'import_uab']);
 Route::get('/dashboard/matkul/nilai/export/nilaiujian', [NilaiUjianController::class, 'export_ujian']);
+
+Route::post('/dashboard/matkul/nilai/import/nilaiujian-persen', [NilaiUjianController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/import/nilaiujian', [NilaiUjianController::class, 'import_ujian']);
 
 Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);

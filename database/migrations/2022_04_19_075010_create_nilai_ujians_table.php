@@ -19,6 +19,9 @@ class CreateNilaiUjiansTable extends Migration
             $table->float('sintakutb', 8, 2)->nullable();
             $table->float('sintakuab', 8, 2)->nullable();
             $table->float('finalcbt', 8, 2)->nullable();
+            $table->float('uabcombined', 8, 2)->nullable();
+            $table->float('uabcombinedremedial', 8, 2)->nullable();
+            $table->float('ratamin', 8, 2)->nullable();
             $table->timestamps();
         });
     }
