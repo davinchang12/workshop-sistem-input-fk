@@ -44,47 +44,30 @@
                             <tr>
                                 <th scope="col">No.</th>
                                 <th scope="col">Topik Tugas</th>
-                                <th scope="col">Nilai</th>
                                 <th scope="col">Dosen Pengampu</th>
+                                <th scope="col">Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($nilaitugas as $tugas)
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $tugas->keterangantugas }}</td>
-                                <td>{{ $tugas->nilaitugas }}</td>
-                                <td>{{ $tugas->dosenpenguji }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @elseif (auth()->user()->hasRole('dosen'))
-                        {{-- <table class="table" style="text-align: center">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">NIM</th>
-                                    
-                                    @foreach ($topik_tugas as $topik)
-                                        <th scope="col">{{ $topik->keterangantugas }}</th>
-                                    @endforeach
-                                    <th scope="col">Rata-Rata</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($nilaitugas_dosen as $tugas)
+                            {{-- @dd($nilaitugas->isEmpty()); --}}
+                            @if($nilaitugas->isEmpty())
+                            @else
+                                @foreach ($nilaitugas as $tugas)
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $tugas->name }}</td>
-                                    <td>{{ $tugas->nim }}</td>
-                                    @foreach ($topik_tugas as $topik)
-                                    <td>{{ $tugas->nilaitugas }}</td>
-                                    @endforeach
+                                    <td>{{ $tugas->keterangantugas}}</td>
+                                    <td>{{ $tugas->dosenpenguji }}</td>
                                     <td>{{ $tugas->nilaitugas }}</td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                        </table> --}}
+                                <td colspan="3">Rata-Rata</td>
+                                {{-- <td></td>
+                                <td></td> --}}
+                                <td>{{ $tugas->rataratatugas }}</td>
+                            @endif
+                        </tbody>
+                    </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                        
                         <table class="table" style="text-align: center">
                             <thead>
                                 <tr>
@@ -347,31 +330,63 @@
                             <th scope="col" style="text-align: left">{{ auth()->user()->nim }}</th>
                         </tr>
                         <tr>
-                            <th scope="col">No</th>
+                            <<th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">NIM</th>
                             <th scope="col">UTB</th>
                             <th scope="col">UAB</th>
-                            {{-- <th scope="col">UAB Combined</th> --}}
-                            <th scope="col">Remedi</th>
+                            <th scope="col">Rata-Rata</th>
+                            <th scope="col">UAB Combined</th>
                             <th scope="col">Sintak UTB</th>
                             <th scope="col">Sintak UAB</th>
-                            {{-- <th scope="col">UAB Combined setelah Remedi</th> --}}
-                            <th scope="col">Rata-Rata</th>
+                            <th scope="col">Remedi</th>
+                            <th scope="col">UAB Combined setelah Remedi</th>
                             <th scope="col">Nilai Final CBT</th>
+                            <th scope="col">Nilai Huruf</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($ujians as $ujian)
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $ujian->utb }}</td>
-                                <td>{{ $ujian->uab }}</td>
-                                {{-- <td></td> --}}
-                                <td>{{ $ujian->remediujian }}</td>
-                                <td>{{ $ujian->sintakutb }}</td>
-                                <td>{{ $ujian->sintakuab }}</td>
-                                {{-- <td></td> --}}
-                                <td>{{ $ujian->ratarata }}</td>
-                                <td>{{ $ujian->finalcbt }}</td>
-                                </tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $ujian->name }}</td>
+                            <td>{{ $ujian->nim }}</td>
+                            <td>{{ $ujian->utb }}</td>
+                            <td>{{ $ujian->uab }}</td>
+                            <td>{{ $ujian->ratarataujian }}</td>
+                            <td>{{ $ujian->uabcombined }}</td>
+                            <td>{{ $ujian->sintakutb }}</td>
+                            <td>{{ $ujian->sintakuab }}</td>
+                            @if( $ujian->remediujian == 0 || $ujian->remediujian == null )
+                                <td>-</td>
+                                <td>-</td>
+                            @else
+                                <td >{{ $ujian->remediujian }}</td>
+                                <td >{{ $ujian->uabcombinedremedial }}</td>
+                            @endif
+                            
+                            <td>{{ $ujian->finalcbt }}</td>
+                            @if($ujian->finalcbt >=90)
+                            <td>A</td>
+                            @endif
+                            @if($ujian->finalcbt < 90 &&  $ujian->finalcbt >= 85)
+                            <td>AB</td>
+                            @endif
+                            @if($ujian->finalcbt < 85 &&  $ujian->finalcbt >= 80)
+                            <td>BC</td>
+                            @endif
+                            @if($ujian->finalcbt < 80 &&  $ujian->finalcbt >= 75)
+                            <td>C</td>
+                            @endif
+                            @if($ujian->finalcbt < 75 &&  $ujian->finalcbt >= 70)
+                            <td>CD</td>
+                            @endif
+                            @if($ujian->finalcbt < 70 &&  $ujian->finalcbt >= 60)
+                            <td>D</td>
+                            @endif
+                            @if($ujian->finalcbt < 60)
+                            <td>E</td>
+                            @endif
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -385,13 +400,14 @@
                                     <th scope="col">NIM</th>
                                     <th scope="col">UTB</th>
                                     <th scope="col">UAB</th>
-                                    {{-- <th scope="col">UAB Combined</th> --}}
-                                    <th scope="col">Remedi</th>
+                                    <th scope="col">Rata-Rata</th>
+                                    <th scope="col">UAB Combined</th>
                                     <th scope="col">Sintak UTB</th>
                                     <th scope="col">Sintak UAB</th>
+                                    <th scope="col">Remedi</th>
                                     <th scope="col">UAB Combined setelah Remedi</th>
-                                    <th scope="col">Rata-Rata</th>
                                     <th scope="col">Nilai Final CBT</th>
+                                    <th scope="col">Nilai Huruf</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -401,13 +417,40 @@
                                         <td>{{ $ujian->nim }}</td>
                                         <td>{{ $ujian->utb }}</td>
                                         <td>{{ $ujian->uab }}</td>
-                                        {{-- <td></td> --}}
-                                        <td>{{ $ujian->remediujian }}</td>
+                                        <td>{{ $ujian->ratarataujian }}</td>
+                                        <td>{{ $ujian->uabcombined }}</td>
                                         <td>{{ $ujian->sintakutb }}</td>
                                         <td>{{ $ujian->sintakuab }}</td>
-                                        <td></td>
-                                        <td>{{ $ujian->ratarata }}</td>
+                                        @if( $ujian->remediujian == 0 || $ujian->remediujian == null )
+                                            <td>-</td>
+                                            <td>-</td>
+                                        @else
+                                            <td >{{ $ujian->remediujian }}</td>
+                                            <td >{{ $ujian->uabcombinedremedial }}</td>
+                                        @endif
+                                        
                                         <td>{{ $ujian->finalcbt }}</td>
+                                        @if($ujian->finalcbt >=90)
+                                        <td>A</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 90 &&  $ujian->finalcbt >= 85)
+                                        <td>AB</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 85 &&  $ujian->finalcbt >= 80)
+                                        <td>BC</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 80 &&  $ujian->finalcbt >= 75)
+                                        <td>C</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 75 &&  $ujian->finalcbt >= 70)
+                                        <td>CD</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 70 &&  $ujian->finalcbt >= 60)
+                                        <td>D</td>
+                                        @endif
+                                        @if($ujian->finalcbt < 60)
+                                        <td>E</td>
+                                        @endif
                                         </tr>
                                 @endforeach
                             </tbody>

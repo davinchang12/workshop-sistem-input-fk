@@ -69,7 +69,7 @@ class NilaiController extends Controller
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->get();
-
+        // dd($praktikums);
         $nilaitugas_dosen = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
@@ -141,16 +141,16 @@ class NilaiController extends Controller
             ->where('matkuls.id', $request->matkul_dipilih)
             ->get();
         // dd($topik_tugas);
-        $nilaitugas = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+        $nilaitugas = Jadwal::select('nilais.*', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('nilais', 'nilais.user_id', '=', 'users.id')
             ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-            ->where('users.id', auth()->user()->id)
-            // ->where('users.role', 'mahasiswa')
-            ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.matkul_id', $request->matkul_dipilih)
+            ->where('nilais.user_id', auth()->user()->id)
             ->get();
+            // dd($nilaitugas);
         $ujiandosens = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
@@ -174,10 +174,11 @@ class NilaiController extends Controller
             ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
             ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
             ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
-            ->where('users.id', auth()->user()->id)
-            ->where('users.role', 'mahasiswa')
-            ->where('matkuls.id', $request->matkul_dipilih)
+            ->groupBy('nilais.user_id')
+            ->where('nilais.matkul_id', $request->matkul_dipilih)
+            ->where('nilais.user_id', auth()->user()->id)
             ->get();
+            // dd($ujians);
             // $ujians= DB::table('nilai_ujians')->select('nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
             // ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
             // ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
@@ -199,7 +200,7 @@ class NilaiController extends Controller
             'nilaitugas_dosen' => $nilaitugas_dosen,
             'ujian_dosens' => $ujiandosens,
             'ujians' => $ujians,
-            'nilaitugas' => $nilaitugas,
+            'nilaitugas' => $nilaitugas->unique(),
             'topik_tugas' => $topik_tugas,
             'pbls' => $pbls,
             'check_pbl_dosen' => $check_pbl->contains('name', auth()->user()->name),

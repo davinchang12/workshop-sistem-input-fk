@@ -16,9 +16,10 @@ class CreateHasilNilaiUjiansTable extends Migration
         Schema::create('hasil_nilai_ujians', function (Blueprint $table) {
             $table->id();
             $table->foreignId("nilai_ujian_id");
-            $table->integer('utb')->nullable();
-            $table->integer('uab')->nullable();
-            $table->integer('remediujian')->nullable();
+            $table->float('utb', 8, 2)->nullable();
+            $table->float('uab', 8, 2)->nullable();
+            $table->float('ratarataujian', 8, 2)->nullable();
+            $table->float('remediujian', 8, 2)->nullable();
             $table->timestamps();
         });
     }

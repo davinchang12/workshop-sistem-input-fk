@@ -40,7 +40,6 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
                 ['nilai_id' => $nilai->id],
                 ['namapraktikum' => $row[1]]
             );
-
             $calculateNilaiAkhir = ($row[4]*0.2)+($row[5]*0.1)+($row[6]*0.7);
             $keteranganNilaiAkhir = $calculateNilaiAkhir >= 70 ? "LULUS" : "TIDAK LULUS";
 
