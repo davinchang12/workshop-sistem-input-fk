@@ -504,6 +504,13 @@ class SettingMataKuliahController extends Controller
         ]);
     }
 
+    public function createJenisPraktikum(Matkul $settingmatakuliah) {
+
+        return view('dashboard.matkul.admin.praktikum.create', [
+            'matkul' => $settingmatakuliah
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
