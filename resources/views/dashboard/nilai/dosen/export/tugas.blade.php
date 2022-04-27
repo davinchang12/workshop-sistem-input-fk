@@ -28,9 +28,9 @@
 				<td style="border: 1px solid blank;">{{ $loop->iteration }}</td>
 				<td style="border: 1px solid blank;">{{ $tugas->name }}</td>
 				<td style="border: 1px solid blank;">{{ $tugas->nim }}</td>
-				<td style="border: 1px solid blank;" colspan=2>{{ $tugas->nilaitugas }}</td>
+				<td style="border: 1px solid blank;" colspan=2></td>
 				<td style="border: 1px solid blank;" bgcolor="lightgray">{{ $tugas->namamatkul }}</td>
-				<td style="border: 1px solid blank;" bgcolor="lightgray">{{ $tugas->keterangantugas }}</td>
+				<td style="border: 1px solid blank;" bgcolor="lightgray"></td>
 			</tr>
 		@endforeach
 </table>

@@ -69,7 +69,7 @@ class NilaiUjianImport implements ToCollection, WithStartRow
                             'finalcbt' => $row[8]
                             ]
                         );
-
+                        // dd($row[9]);
                         $nilaiujian->where('nilai_id', $nilai->id)
                         ->where('sintakutb', null)->update(['sintakutb' => $row[9] ?? null]);
                         $nilaiujian->where('nilai_id', $nilai->id)

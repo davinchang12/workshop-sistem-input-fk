@@ -299,6 +299,14 @@ class DatabaseSeeder extends Seeder
             'jamselesai' => '12:00',
             'ruangan' => 'R2'
         ]);
+        Jadwal::create([
+            'user_id' => 10,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
 
         Jadwal::create([
             'user_id' => 2,
