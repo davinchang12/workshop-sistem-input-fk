@@ -17,6 +17,7 @@ class CreateRincianNilaiTugasTable extends Migration
             $table->id();
             $table->foreignId('nilai_id');
             $table->string('dosenpenguji')->nullable();
+            $table->float('rataratatugas', 8, 2)->nullable();
             $table->timestamps();
         });
     }

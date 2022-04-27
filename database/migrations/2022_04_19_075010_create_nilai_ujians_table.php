@@ -16,9 +16,9 @@ class CreateNilaiUjiansTable extends Migration
         Schema::create('nilai_ujians', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilai_id');
-            $table->integer('sintakutb')->nullable();
-            $table->integer('sintakuab')->nullable();
-            $table->integer('finalcbt')->nullable();
+            $table->float('sintakutb', 8, 2)->nullable();
+            $table->float('sintakuab', 8, 2)->nullable();
+            $table->float('finalcbt', 8, 2)->nullable();
             $table->timestamps();
         });
     }

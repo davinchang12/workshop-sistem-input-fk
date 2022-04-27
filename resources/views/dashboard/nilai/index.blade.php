@@ -31,7 +31,115 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
-            {{-- TUGAS --}}
+            @if (auth()->check())
+                @if (auth()->user()->hasRole('mahasiswa'))
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                            <th scope="col">Nama :</th>
+                            <th scope="col" style="text-align: left" >{{ auth()->user()->name }}</th>
+                            <th scope="col">NIM :</th>
+                            <th scope="col" style="text-align: left">{{ auth()->user()->nim }}</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Topik Tugas</th>
+                                <th scope="col">Nilai</th>
+                                <th scope="col">Dosen Pengampu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($nilaitugas as $tugas)
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $tugas->keterangantugas }}</td>
+                                <td>{{ $tugas->nilaitugas }}</td>
+                                <td>{{ $tugas->dosenpenguji }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                        {{-- <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">NIM</th>
+                                    
+                                    @foreach ($topik_tugas as $topik)
+                                        <th scope="col">{{ $topik->keterangantugas }}</th>
+                                    @endforeach
+                                    <th scope="col">Rata-Rata</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($nilaitugas_dosen as $tugas)
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $tugas->name }}</td>
+                                    <td>{{ $tugas->nim }}</td>
+                                    @foreach ($topik_tugas as $topik)
+                                    <td>{{ $tugas->nilaitugas }}</td>
+                                    @endforeach
+                                    <td>{{ $tugas->nilaitugas }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table> --}}
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">NIM</th>
+                                    @php
+                                        $keterangan = array();
+                                        $count = 0;                                    
+                                    @endphp   
+                                    @foreach ($topik_tugas as $topik)
+                                        <th scope="col">{{ $topik->keterangantugas }}</th>
+                                        @php
+                                            $count++;
+                                            array_push( $keterangan, $topik->keterangantugas);
+                                        @endphp
+                                    @endforeach
+                                    {{-- <th scope="col"></th> --}}
+                                    <th scope="col">Rata-Rata</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $x = 1;
+                                    $check = '';
+                                    $z = 0;
+                                @endphp
+
+                                @foreach ($nilaitugas_dosen as $tugas)
+                                
+                                @if($check != $tugas->name)
+                                @if($check != '')
+                                {{-- <td>{{ $tugas->rataratatugas }}</td> --}}
+                                    </tr>
+                                    @endif
+                                <tr>
+                                    <td>{{ $x }}</td>
+                                    <td>{{ $tugas->name }}</td>
+                                    <td>{{ $tugas->nim }}</td>
+                                    @php $check = $tugas->name; $x++; $z = 1; @endphp
+                                    <td>{{ $tugas->nilaitugas }}</td>
+                                @else
+                                    <td>{{ $tugas->nilaitugas }}</td>
+                                    @php $z++; @endphp
+                                    @endif
+                                    @if($check == $tugas->name)
+                                        @if($z == $count)
+                                        <td>{{ $tugas->rataratatugas }}</td>
+                                        @endif
+                                    @endif
+                                    @endforeach
+                            </tbody>
+                        </table>
+                @endif
+            @endif
         </div>
         <div class="tab-pane fade" id="pbl">
             @if (auth()->check())
@@ -228,7 +336,85 @@
             @endif
         </div>
         <div class="tab-pane fade" id="Ujian">
-
+            @if (auth()->check())
+                @if (auth()->user()->hasRole('mahasiswa'))
+                <table class="table" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nama :</th>
+                            <th scope="col" style="text-align: left" >{{ auth()->user()->name }}</th>
+                            <th scope="col">NIM :</th>
+                            <th scope="col" style="text-align: left">{{ auth()->user()->nim }}</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">UTB</th>
+                            <th scope="col">UAB</th>
+                            {{-- <th scope="col">UAB Combined</th> --}}
+                            <th scope="col">Remedi</th>
+                            <th scope="col">Sintak UTB</th>
+                            <th scope="col">Sintak UAB</th>
+                            {{-- <th scope="col">UAB Combined setelah Remedi</th> --}}
+                            <th scope="col">Rata-Rata</th>
+                            <th scope="col">Nilai Final CBT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($ujians as $ujian)
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $ujian->utb }}</td>
+                                <td>{{ $ujian->uab }}</td>
+                                {{-- <td></td> --}}
+                                <td>{{ $ujian->remediujian }}</td>
+                                <td>{{ $ujian->sintakutb }}</td>
+                                <td>{{ $ujian->sintakuab }}</td>
+                                {{-- <td></td> --}}
+                                <td>{{ $ujian->ratarata }}</td>
+                                <td>{{ $ujian->finalcbt }}</td>
+                                </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @elseif (auth()->user()->hasRole('dosen'))
+                    @if ($check_praktikum_dosen)
+                        <table class="table" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">NIM</th>
+                                    <th scope="col">UTB</th>
+                                    <th scope="col">UAB</th>
+                                    {{-- <th scope="col">UAB Combined</th> --}}
+                                    <th scope="col">Remedi</th>
+                                    <th scope="col">Sintak UTB</th>
+                                    <th scope="col">Sintak UAB</th>
+                                    <th scope="col">UAB Combined setelah Remedi</th>
+                                    <th scope="col">Rata-Rata</th>
+                                    <th scope="col">Nilai Final CBT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($ujian_dosens as $ujian)
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $ujian->name }}</td>
+                                        <td>{{ $ujian->nim }}</td>
+                                        <td>{{ $ujian->utb }}</td>
+                                        <td>{{ $ujian->uab }}</td>
+                                        {{-- <td></td> --}}
+                                        <td>{{ $ujian->remediujian }}</td>
+                                        <td>{{ $ujian->sintakutb }}</td>
+                                        <td>{{ $ujian->sintakuab }}</td>
+                                        <td></td>
+                                        <td>{{ $ujian->ratarata }}</td>
+                                        <td>{{ $ujian->finalcbt }}</td>
+                                        </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @endif
+                @endif
+            @endif
         </div>
     </div>
     <script>
