@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class NilaiUjianImport implements ToCollection, WithStartRow
 {
-    private $matkul, $user, $nilais, $nilaiujian, $dosen;
+    private $matkul, $user, $nilais, $nilaiujian, $dosen, $hasilnilaiujian;
     
     public function __construct()
     {
@@ -26,6 +26,7 @@ class NilaiUjianImport implements ToCollection, WithStartRow
         $this->matkul = Matkul::select('id', 'namamatkul')->get();
         $this->users = User::select('id', 'name')->get();
         $this->nilaiujian = NilaiUjian::all();
+        $this->hasilnilaiujian = HasilNilaiUjian::all();
         $this->dosen = auth()->user()->id;
         $this->nilais = Jadwal::select('nilais.id', 'users.name', 'users.role', 'matkuls.namamatkul', 'users.nim')
         ->join('users', 'jadwals.user_id', '=', 'users.id')
@@ -34,7 +35,7 @@ class NilaiUjianImport implements ToCollection, WithStartRow
         ->where('users.role', 'mahasiswa')
         ->get();
         
-        // dd(NilaiUjian::all());
+        
     }
 
     public function startRow(): int
@@ -44,10 +45,10 @@ class NilaiUjianImport implements ToCollection, WithStartRow
     
     public function collection(Collection $rows)
     {
-        $matkul = $this->matkul->where('namamatkul', $rows[0][13])->first();
-        // dd($rows[0][13]);
+        $matkul = $this->matkul->where('namamatkul', $rows[0][12])->first();
         foreach($rows as $row) {
             $user = $this->users->where('name', $row[1])->first();
+            // dd($matkul);
             
             
             
@@ -57,30 +58,30 @@ class NilaiUjianImport implements ToCollection, WithStartRow
                 'user_id' => $user->id
             ]);
             
-        //    dd($nilai);;
+        //    dd($nilai);
 
             
                     $nilaiujian = $this->nilaiujian->where('nilai_id', $nilai->id)->first() ?? 
                     NilaiUjian::firstOrCreate(
                         ['nilai_id' => $nilai->id],
                         [
-                            'sintakutb' => $row[9],
-                            'sintakuab' => $row[10],
-                            'finalcbt' => $row[8]
+                            'sintakutb' => 0,
+                            'sintakuab' => 0,
+                            'finalcbt' => 0
                             ]
                         );
-                        // dd($row[9]);
-                        $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('sintakutb', null)->update(['sintakutb' => $row[9] ?? null]);
-                        $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('sintakuab', null)->update(['sintakuab' => $row[10] ?? null]);
-                        $nilaiujian->where('nilai_id', $nilai->id)
-                        ->where('finalcbt', null)->update(['finalcbt' => $row[8] ?? null]);
+                        
+                        $hasilnilaiujian = $this->hasilnilaiujian->where('nilai_ujian_id', $nilaiujian->id)->first();                            
+                        $hasilnilaiujian->where('nilai_ujian_id', $nilaiujian->id)
+                                ->where('remediujian', null)->update(['remediujian' => $row[11] ?? null]);
+                            
+                        
+                        // dd($row[11]);
+                        
+                
+                
+           
+                    }
                     
-                
-                
-           
-           
-            }
     }
 }
