@@ -476,27 +476,7 @@
                 
                     <div class="tab-pane fade" id="nilaiujian">
                         
-                        {{-- <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian" enctype="multipart/form-data">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                                </div>
-                                <div class="modal-body">
-            
-                                    {{ csrf_field() }}
-            
-                                    <label>Pilih file excel</label>
-                                    <div class="form-group">
-                                        <input type="file" name="file" required="required">
-                                    </div>
-            
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Import</button>
-                                </div>
-                            </div>
-                        </form> --}}
+                        
                         <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian-persen" enctype="multipart/form-data">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -545,7 +525,28 @@
                         <form action="/dashboard/matkul/nilai/export/nilaiujian" method="get">
                             @csrf
                             <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                            <button class="btn btn-primary w-100 shadow-none">Download Hasil</button>
+                            <button class="btn btn-primary w-100 shadow-none">Download Template Remidi</button>
+                        </form>
+                        <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian" enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                                </div>
+                                <div class="modal-body">
+            
+                                    {{ csrf_field() }}
+            
+                                    <label>Pilih file excel</label>
+                                    <div class="form-group">
+                                        <input type="file" name="file" required="required">
+                                    </div>
+            
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
             </div>
