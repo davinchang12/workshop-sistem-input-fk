@@ -604,7 +604,7 @@ class NilaiUjianController extends Controller
                     ->where('nilais.id', $ujian->nilai_id)
                     ->where('matkuls.id', $request->matkul_dipilih)
                     ->update(['nilai_ujians.finalcbt'=> $ujian->remediujian]);
-                    $uabcombinedremed = ($ujian->finalcbt*$persenfinalcbt)+($ratapraktikum*$persenpraktikumen);
+                    $uabcombinedremed = ($ujian->finalcbt*$persenfinalcbt)+($ratapraktikum*$persenpraktikum);
                     $uabd = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                     ->join('users', 'jadwals.user_id', '=', 'users.id')
                     ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
