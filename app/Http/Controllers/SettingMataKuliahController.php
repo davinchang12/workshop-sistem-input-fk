@@ -542,8 +542,26 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
     }
 
-    public function deleteJenisPraktikum() {
-        return "HAI";
+    public function deleteJenisPraktikum(Request $request) {
+        $matkul_id = $request->input('matkul_id');
+        $kodematkul = $request->input('kodematkul');
+        $namapraktikum = $request->input('namapraktikum');
+        
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_praktikums.namapraktikum', $namapraktikum)
+            ->select('nilai_praktikums.id as praktikum_id', 'nilais.id as nilai_id')
+            ->get();
+
+        foreach($praktikums as $praktikum) {
+            NilaiPraktikum::where('id', $praktikum->praktikum_id)
+                ->delete();
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil dihapus!');
     }
 
     /**

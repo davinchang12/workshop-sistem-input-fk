@@ -48,7 +48,10 @@
                             <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/delete"
                                 method="post" class="d-inline">
                                 @csrf
-
+                                
+                                <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
+                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
+                                <input type="hidden" name="namapraktikum" id="namapraktikum" value="{{ $praktikum->namapraktikum }}">
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
                                         data-feather="x-circle"></span></button>
                             </form>
