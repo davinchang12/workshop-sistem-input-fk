@@ -57,11 +57,12 @@ class MatkulController extends Controller
      */
     public function show(Matkul $matkul)
     {
+        $this->authorize('dosen');
         $checkUserAndMatkul = [
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id 
         ];
-
+        // dd($matkul->namamatkul);
         // $nilaitugas=  DB::table('nilai_tugas')
         // ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
         // ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
@@ -88,6 +89,15 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();
+      
+        $osces = DB::table('nilai_o_s_c_e_s')
+            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul->id)
+            ->where('users.role', 'mahasiswa')
+            ->select('name', 'nim')
+            ->get();
             
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -102,11 +112,56 @@ class MatkulController extends Controller
             ->where('users.role', 'mahasiswa')
             ->get();
 
+        $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+        ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+        ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
+        ->get();
+        // dd($ujians);
+        $checkpraktikumujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+        ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+        ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
+        ->get();
+        // dd($checkpraktikumujians->isEmpty());$checkpraktikumujians->isEmpty()
+       if($checkpraktikumujians->isEmpty()){
+        $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('matkuls.id', $matkul->id)
+        ->get();
+        }
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenarios = $nilai->pbl->pblskenario ?? null;
-
-        // dd($skenarios);
-
+      
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
@@ -114,9 +169,12 @@ class MatkulController extends Controller
             'dosen' => auth()->user()->id,
             'namamatkul' => Matkul::where('id', $matkul->id)->pluck('namamatkul'),
             'socas' => $socas,
+            'osces' => $osces,
             'fieldlabs' => $fieldlabs,
             'matkul' => $matkul,
             'skenarios' => $skenarios,
+            'ujians' => $ujians,
+            'checkpraktikumujians' => $checkpraktikumujians
         ]);
 
     }

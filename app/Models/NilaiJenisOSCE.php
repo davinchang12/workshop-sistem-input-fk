@@ -14,10 +14,14 @@ class NilaiJenisOSCE extends Model
     ];
 
     protected $with = [
-        'osce'
+        'osce',
+        'jenisosce'
     ];
 
     public function osce() {
         return $this->belongsTo(NilaiOSCE::class);
+    }
+    public function jenisosce() {
+        return $this->hasOne(JenisOSCE::class);
     }
 }

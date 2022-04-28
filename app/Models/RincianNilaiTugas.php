@@ -14,7 +14,6 @@ class RincianNilaiTugas extends Model
     ];
 
     protected $with = [
-        'nilaitugas',
         'nilais'
     ];
 

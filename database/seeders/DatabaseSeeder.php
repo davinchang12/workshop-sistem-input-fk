@@ -8,16 +8,28 @@ use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiPBL;
+use App\Models\JenisOSCE;
 use App\Models\JenisSOCA;
 use App\Models\NilaiLain;
+use App\Models\NilaiOSCE;
 use App\Models\NilaiSOCA;
 use App\Models\NilaiTugas;
+use App\Models\NilaiUjian;
+use App\Models\FeedbackUAB;
+use App\Models\FeedbackUTB;
+use App\Models\FeedbackUjian;
 use App\Models\NilaiFieldlab;
+use App\Models\NilaiJenisOSCE;
 use App\Models\NilaiJenisSOCA;
+use App\Models\HasilNilaiUjian;
 use Illuminate\Database\Seeder;
+use App\Models\JenisFeedbackUAB;
+use App\Models\JenisFeedbackUTB;
 use App\Models\NilaiPBLSkenario;
 use App\Models\RincianNilaiTugas;
+use App\Models\JenisFeedbackUjian;
 use App\Models\NilaiPBLSkenarioDiskusi;
+use App\Models\NilaiPraktikum;
 
 class DatabaseSeeder extends Seeder
 {
@@ -114,32 +126,32 @@ class DatabaseSeeder extends Seeder
             'email' => 'dosen2@unika.ac.id',
             'password' =>  bcrypt('admin')
         ]);
-        $max = 10;
-        for($i=1;$i<=$max;$i++){
-            NilaiTugas::factory()->create();
-        }
+        // $max = 10;
+        // for($i=1;$i<=$max;$i++){
+        //     NilaiTugas::factory()->create();
+        // }
 
-        RincianNilaiTugas::create([
-            'nilai_id' => 1,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 2,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 3,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 4,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 5,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 6,
-        ]);
-        RincianNilaiTugas::create([
-            'nilai_id' => 7,
-        ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 1,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 2,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 3,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 4,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 5,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 6,
+        // ]);
+        // RincianNilaiTugas::create([
+        //     'nilai_id' => 7,
+        // ]);
         Nilai::create([
             'user_id' => 8,
             'matkul_id' => 1,
@@ -290,6 +302,14 @@ class DatabaseSeeder extends Seeder
             'user_id' => 9,
             'matkul_id' => 1,
             'tanggal' => '2022-03-29',
+            'jammasuk' => '08:00',
+            'jamselesai' => '12:00',
+            'ruangan' => 'R2'
+        ]);
+        Jadwal::create([
+            'user_id' => 10,
+            'matkul_id' => 1,
+            'tanggal' => '2022-03-29 07:48:06',
             'jammasuk' => '08:00',
             'jamselesai' => '12:00',
             'ruangan' => 'R2'
@@ -866,6 +886,27 @@ class DatabaseSeeder extends Seeder
             'tanggal_pelaksanaan' => '2022-04-29'
         ]);
 
+        NilaiPraktikum::create([
+            'nilai_id' => 2,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 3,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 4,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 5,
+            'namapraktikum' => 'Histiologi'
+        ]);
+        NilaiPraktikum::create([
+            'nilai_id' => 8,
+            'namapraktikum' => 'Histiologi'
+        ]);
+
         NilaiSOCA::create([
             'nilai_id' => 1,
             'namasoca' => "SKA",
@@ -910,6 +951,9 @@ class DatabaseSeeder extends Seeder
             "skor_soca" => 0,
             "kepuasan_presentasi" => ""
         ]);
+
+
+
         JenisSOCA::create([
             'nilaijenissoca_id' => 2,
             "keterangan_soca" => "Fisiologi",
@@ -955,6 +999,168 @@ class DatabaseSeeder extends Seeder
             "skor_soca" => 0,
             "kepuasan_presentasi" => ""
         ]);
+        NilaiOSCE::create([
+            'nilai_id' => 1,
+            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+            'nama_penguji' => "dr. A"
+        ]);
+        NilaiOSCE::create([
+            'nilai_id' => 4,
+            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+            'nama_penguji' => "dr. A"
+        ]);
+
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 1,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Edukasi untuk sadari",
+            
+        ]);
+        
+
+
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 2,
+            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+            
+        ]);
+        NilaiJenisOSCE::create([
+            'nilaiosce_id' => 2,
+            'bobot' => 1,
+            'aspekdinilaiosce' => "Edukasi untuk sadari",
+            
+        ]);
+
+
+        
+
 
         NilaiLain::create([
             'user_id' => 1
@@ -993,6 +1199,156 @@ class DatabaseSeeder extends Seeder
             'semester' => "Semester 2"
         ]);
 
+        // NilaiUjian::create([
+        //     'nilai_id' => 1,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 2,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 3,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 4,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 5,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 6,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 7,
+        // ]);
+        // NilaiUjian::create([
+        //     'nilai_id' => 8,
+        // ]);
+
+
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 1,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 2,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 3,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 4,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 5,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 6,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 7,
+        // ]);
+        // HasilNilaiUjian::create([
+        //     'nilai_ujian_id' => 8,
+        // ]);
+
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 1,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 2,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 3,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 4,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 5,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 6,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 7,
+        // ]);
+        // FeedbackUTB::create([
+        //     'hasil_ujians_id' => 8,
+        // ]);
+
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 1,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 2,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 3,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 4,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 5,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 6,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 7,
+        // ]);
+        // FeedbackUAB::create([
+        //     'hasil_ujians_id' => 8,
+        // ]);
+
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 1,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 2,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 3,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 4,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 5,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 6,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 7,
+        // ]);
+        // JenisFeedbackUTB::create([
+        //     'feedback_utb_id' => 8,
+        // ]);
+
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 1,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 2,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 3,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 4,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 5,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 6,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 7,
+        // ]);
+        // JenisFeedbackUAB::create([
+        //     'feedback_uab_id' => 8,
+        // ]);
         // Jadwal::factory(100)->create();
         // Kelompok::factory(50)->create();
     }

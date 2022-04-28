@@ -16,8 +16,9 @@ class CreateNilaiJenisOSCESTable extends Migration
         Schema::create('nilai_jenis_o_s_c_e_s', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilaiosce_id');
-            $table->integer('nilai_osce');
-            $table->string('namajenisosce');
+            $table->integer('bobot')->nullable();
+            $table->string('aspekdinilaiosce');
+
             $table->timestamps();
         });
     }

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Nilai extends Model
 {
@@ -17,7 +17,6 @@ class Nilai extends Model
     protected $with = [
         'users',
         'matkul',
-        'rinciannilaitugas'
     ];
 
     public function users()
@@ -32,6 +31,11 @@ class Nilai extends Model
     public function rinciannilaitugas()
     {
         return $this->hasOne(RincianNilaiTugas::class);
+    }
+
+    public function nilaiujian()
+    {
+        return $this->hasOne(NilaiUjian::class);
     }
 
 

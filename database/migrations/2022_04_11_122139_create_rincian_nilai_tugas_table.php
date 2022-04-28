@@ -15,8 +15,9 @@ class CreateRincianNilaiTugasTable extends Migration
     {
         Schema::create('rincian_nilai_tugas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_id')->nullable();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('nilai_id');
+            $table->string('dosenpenguji')->nullable();
+            $table->float('rataratatugas', 8, 2)->nullable();
             $table->timestamps();
         });
     }
