@@ -17,6 +17,7 @@ class CreateNilaiPBLSkenarioDiskusisTable extends Migration
             $table->id();
             $table->foreignId('nilaipblskenario_id');
             $table->string('diskusi');
+            $table->date('tanggal_pelaksanaan')->nullable();
             $table->timestamps();
         });
     }

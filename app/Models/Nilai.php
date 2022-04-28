@@ -11,7 +11,8 @@ class Nilai extends Model
 
     protected $fillable = [
         'user_id',
-        'matkul_id'
+        'matkul_id',
+        'kodejadwal'
     ];
     protected $with = [
         'users',

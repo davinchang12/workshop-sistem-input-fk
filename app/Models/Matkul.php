@@ -11,10 +11,12 @@ class Matkul extends Model
 
     protected $fillable = [
         'kodematkul',
-        'name',
+        'namamatkul',
         'keterangan',
         'tahun_ajaran',
-        'bobot_sks'
+        'bobot_sks',
+        'kinerja',
+        'blok'
     ];
 
     public function nilais() {

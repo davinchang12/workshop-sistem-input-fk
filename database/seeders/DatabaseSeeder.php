@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(50)->create();
         User::create([
             'name' => 'Admin',
-            'role' => 'superadmin',
+            'role' => 'admin',
             'email' => 'admin@unika.ac.id',
             'password' =>  bcrypt('admin') 
         ]);
@@ -55,6 +55,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10001@unika.ac.id',
             'nim' => '21.P1.0001',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -63,6 +64,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10002@unika.ac.id',
             'nim' => '21.P1.0002',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -71,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10003@unika.ac.id',
             'nim' => '21.P1.0003',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -79,6 +82,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10010@unika.ac.id',
             'nim' => '21.P1.0010',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -87,6 +91,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '21p10011@unika.ac.id',
             'nim' => '21.P1.0011',
+            'angkatan' => '2021',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -95,6 +100,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '19p10001@unika.ac.id',
             'nim' => '19.P1.0001',
+            'angkatan' => '2019',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -103,6 +109,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'mahasiswa',
             'email' => '19p10002@unika.ac.id',
             'nim' => '19.P1.0002',
+            'angkatan' => '2019',
             'password' =>  bcrypt('admin')
         ]);
 
@@ -228,73 +235,73 @@ class DatabaseSeeder extends Seeder
             'kodekelompok' => 'KKFK2'
         ]);
 
-        Jadwal::create([
-            'user_id' => 2,
-            'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 2,
+        //     'matkul_id' => 1,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
-        Jadwal::create([
-            'user_id' => 3,
-            'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 3,
+        //     'matkul_id' => 1,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
         
-        Jadwal::create([
-            'user_id' => 4,
-            'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 4,
+        //     'matkul_id' => 1,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
-        Jadwal::create([
-            'user_id' => 5,
-            'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 5,
+        //     'matkul_id' => 1,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
-        Jadwal::create([
-            'user_id' => 6,
-            'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 6,
+        //     'matkul_id' => 1,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
-        Jadwal::create([
-            'user_id' => 7,
-            'matkul_id' => 2,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 7,
+        //     'matkul_id' => 2,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
-        Jadwal::create([
-            'user_id' => 8,
-            'matkul_id' => 2,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 8,
+        //     'matkul_id' => 2,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
         Jadwal::create([
             'user_id' => 9,
             'matkul_id' => 1,
-            'tanggal' => '2022-03-29 07:48:06',
+            'tanggal' => '2022-03-29',
             'jammasuk' => '08:00',
             'jamselesai' => '12:00',
             'ruangan' => 'R2'
@@ -308,21 +315,22 @@ class DatabaseSeeder extends Seeder
             'ruangan' => 'R2'
         ]);
 
-        Jadwal::create([
-            'user_id' => 2,
-            'matkul_id' => 9,
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 2,
+        //     'matkul_id' => 9,
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
         Matkul::create([
             'kodematkul' => 'FKS011B11',
             'namamatkul' => 'Pendidikan Kedokteran dan Humaniora',
         'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.1"
         ]);
 
         Matkul::create([
@@ -330,7 +338,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sel, Biomolekuler dan Jaringan',
             'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.2"
         ]);
 
         Matkul::create([
@@ -338,7 +347,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Kulit, Tulang dan Otot',
             'keterangan' => 'Semester 1',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "1.3"
         ]);
 
         Matkul::create([
@@ -362,15 +372,17 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Jantung, Pembuluh Darah dan Pernafasan',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.1"
         ]);
 
         Matkul::create([
             'kodematkul' => 'FKS052B22',
-            'namamatkul' => 'Sistem Saraf dan INdra',
+            'namamatkul' => 'Sistem Saraf dan Indra',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.2"
         ]);
 
         Matkul::create([
@@ -378,7 +390,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Sistem Gastrointestinal, Hepatobilier, Pankreas, Ginjal, Saluran Kemih dan Endokrin',
             'keterangan' => 'Semester 2',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "2.3"
         ]);
 
         Matkul::create([
@@ -402,7 +415,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Siklus Hidup',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.1"
         ]);
 
         Matkul::create([
@@ -410,7 +424,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Mekanisme Penyakit Dasar dan Penatalaksanaannya',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.2"
         ]);
 
         Matkul::create([
@@ -418,7 +433,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Endokrin dan Nutrisi',
             'keterangan' => 'Semester 3',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "3.3"
         ]);
 
         Matkul::create([
@@ -442,7 +458,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Hemato-Imunologi',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.1"
         ]);
 
         Matkul::create([
@@ -450,7 +467,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Kulit, Tulang dan Otot',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.2"
         ]);
 
         Matkul::create([
@@ -458,7 +476,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Jantung, Pembuluh Darah dan Pernafasan',
             'keterangan' => 'Semester 4',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "4.3"
         ]);
 
         Matkul::create([
@@ -482,7 +501,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Saraf dan Psikiatri',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.1"
         ]);
         
         Matkul::create([
@@ -490,7 +510,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Gastrointestinal dan Bilier',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.2"
         ]);
 
         Matkul::create([
@@ -498,7 +519,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Indera',
             'keterangan' => 'Semester 5',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "5.3"
         ]);
 
         Matkul::create([
@@ -530,7 +552,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Ginjal dan Saluran Kemih',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.1"
         ]);
 
         Matkul::create([
@@ -538,7 +561,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Gangguan Sistem Reproduksi',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.2"
         ]);
 
         Matkul::create([
@@ -546,7 +570,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Ilmu Kedokteran Keluarga dan Komunitas',
             'keterangan' => 'Semester 6',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "6.3"
         ]);
 
         Matkul::create([
@@ -578,7 +603,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Kedokteran DTPK',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.1"
         ]);
 
         Matkul::create([
@@ -586,7 +612,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Kegawatdaruratan dan Medikolegal',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.2"
         ]);
 
         Matkul::create([
@@ -594,7 +621,8 @@ class DatabaseSeeder extends Seeder
             'namamatkul' => 'Elektif',
             'keterangan' => 'Semester 7',
             'tahun_ajaran' => '2021/2022',
-            'bobot_sks' => 5
+            'bobot_sks' => 5,
+            'blok' => "7.3"
         ]);
 
         Matkul::create([
@@ -798,52 +826,64 @@ class DatabaseSeeder extends Seeder
 
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 1,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 2,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 3,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 4,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 5,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
-            'diskusi' => 1
+            'diskusi' => 1,
+            'tanggal_pelaksanaan' => '2022-03-29'
         ]);
 
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 1,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 2,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 3,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 4,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 5,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
         NilaiPBLSkenarioDiskusi::create([
             'nilaipblskenario_id' => 6,
-            'diskusi' => 2
+            'diskusi' => 2,
+            'tanggal_pelaksanaan' => '2022-04-29'
         ]);
 
         NilaiPraktikum::create([

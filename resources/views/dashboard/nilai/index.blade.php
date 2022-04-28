@@ -142,6 +142,7 @@
                                 <th scope="col">Laporan Sementara</th>
                                 <th scope="col">Laporan Resmi</th>
                                 <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
+                                <th scope="col">Tanggal Pelaksanaan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,12 +164,13 @@
                                 <td>{{ $pbl->laporan_sementara }}</td>
                                 <td>{{ $pbl->laporan_resmi }}</td>
                                 <td>{{ $pbl->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
+                                <td>{{ $pbl->tanggal_pelaksanaan }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    @if ($check_praktikum_dosen)
+                    @if ($check_pbl_dosen)
                         <table class="table" style="text-align: center">
                             <thead>
                                 <tr>
@@ -184,6 +186,7 @@
                                     <th scope="col">Laporan Sementara</th>
                                     <th scope="col">Laporan Resmi</th>
                                     <th scope="col">Catatan / Kesan Kegiatan Diskusi Tutorial</th>
+                                    <th scope="col">Tanggal</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -206,6 +209,7 @@
                                         <td>{{ $pbl_dosen->laporan_sementara }}</td>
                                         <td>{{ $pbl_dosen->laporan_resmi }}</td>
                                         <td>{{ $pbl_dosen->catatan_kesan_kegiatan_diskusi_tutorial }}</td>
+                                        <td>{{ $pbl_dosen->tanggal_pelaksanaan }}</td>
                                         </tr>
                                     @endif
                                 @endforeach

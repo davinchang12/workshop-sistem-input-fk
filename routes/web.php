@@ -18,9 +18,12 @@ use App\Http\Controllers\NilaiUjianController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
+use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
+use App\Http\Controllers\SettingMahasiswaMataKuliah;
+use App\Http\Controllers\SettingMataKuliahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +102,27 @@ Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware(
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
-// Route::get('/dashboard/akses', [])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum/delete', [SettingMataKuliahController::class, 'deleteJenisPraktikum'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum', [SettingMataKuliahController::class, 'storeJenisPraktikum'])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum/create', [SettingMataKuliahController::class, 'createJenisPraktikum'])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingpraktikum', [SettingMataKuliahController::class, 'jenisPraktikum'])->middleware('admin');
+
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen/create', [SettingMataKuliahController::class, 'createDosenPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen', [SettingMataKuliahController::class, 'storeDosenPBL'])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen', [SettingMataKuliahController::class, 'dosenPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/editdosen/delete', [SettingMataKuliahController::class, 'deleteDosenPBL'])->middleware('admin');
+
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl', [SettingMataKuliahController::class, 'kelompokPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl', [SettingMataKuliahController::class, 'storeKelompokPBL'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/delete', [SettingMataKuliahController::class, 'deleteKelompokPBL'])->middleware('admin');
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingkelompokpbl/create', [SettingMataKuliahController::class, 'createKelompokPBL'])->middleware('admin');
+
+Route::get('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'editMahasiswa'])->middleware('admin');
+Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswamatakuliah', [SettingMataKuliahController::class, 'storeEditMahasiswa'])->middleware('admin');
+
+Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
+Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
+Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
 
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');

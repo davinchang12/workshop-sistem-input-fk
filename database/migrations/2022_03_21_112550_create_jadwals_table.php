@@ -17,9 +17,9 @@ class CreateJadwalsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('matkul_id');
-            $table->dateTime('tanggal');
-            $table->time('jammasuk');
-            $table->time('jamselesai');
+            $table->date('tanggal')->nullable();
+            $table->time('jammasuk')->nullable();
+            $table->time('jamselesai')->nullable();
             $table->text('ruangan')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();

@@ -16,16 +16,16 @@
 
     <div class="container">
         <div class="row">
-            @foreach ($jadwals as $jadwal)
+            @foreach ($nilais as $nilai)
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title">{{ $jadwal->matkul->namamatkul }}</h5>
-                                    <small>{{ $jadwal->matkul->kodematkul }}</small><br>
-                                    <small>{{ $jadwal->matkul->keterangan }}</small><br>
-                                    <small>Tahun Ajaran {{ $jadwal->matkul->tahun_ajaran }}</small>
+                                    <h5 class="card-title">{{ $nilai->matkul->namamatkul }}</h5>
+                                    <small>{{ $nilai->matkul->kodematkul }}</small><br>
+                                    <small>{{ $nilai->matkul->keterangan }}</small><br>
+                                    <small>Tahun Ajaran {{ $nilai->matkul->tahun_ajaran }}</small>
                                 </div>
                                 <div class="col-md-auto p-auto">
                                     <div class="col pt-2">
@@ -34,14 +34,14 @@
                                         <form action="/dashboard/matkul/nilai" method="get">
                                             @csrf
                                             <input type="hidden" name="matkul_dipilih" id=""
-                                                value="{{ $jadwal->matkul->id }}">
+                                                value="{{ $nilai->matkul->id }}">
                                             <button class="btn btn-primary w-100 shadow-none"><span
                                                     data-feather="eye"></span></button>
                                         </form>
                                     </div>
                                     @can('dosen')
                                         <div class="col pt-2">
-                                            <a href="/dashboard/matkul/{{ $jadwal->matkul->kodematkul }}"
+                                            <a href="/dashboard/matkul/{{ $nilai->matkul->kodematkul }}"
                                                 class="btn btn-primary w-100"><span data-feather="settings"></span></a>
                                         </div>
                                     @endcan

@@ -15,11 +15,13 @@ class CreateMatkulsTable extends Migration
     {
         Schema::create('matkuls', function (Blueprint $table) {
             $table->id();
-            $table->string('kodematkul');
+            $table->string('kodematkul')->unique();
             $table->string('namamatkul');
             $table->text('keterangan');
             $table->string('tahun_ajaran');
             $table->integer('bobot_sks');
+            $table->string('blok')->nullable();
+            $table->string('kinerja')->nullable();
             $table->timestamps();
         });
     }

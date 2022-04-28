@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Jadwal;
-use App\Models\JenisSOCA;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
@@ -23,8 +21,10 @@ class MatkulController extends Controller
      */
     public function index()
     {
+        $nilais = Nilai::where('user_id', auth()->user()->id)->get();
+        
         return view('dashboard.matkul.index', [
-            'jadwals' => Jadwal::where('user_id', auth()->user()->id)->get(),
+            'nilais' => $nilais,
         ]);
     }
 
@@ -161,7 +161,7 @@ class MatkulController extends Controller
         }
         $nilai = Nilai::where($checkUserAndMatkul)->first();
         $skenarios = $nilai->pbl->pblskenario ?? null;
-        // dd($ujians);
+      
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,

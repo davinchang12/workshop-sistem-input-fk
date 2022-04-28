@@ -38,18 +38,17 @@ class NilaiPBLController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {        
         for ($i = 1; $i <= (int)$request['loop']; $i++) {
-            $getNilaiPBLSkenarioID = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id')
+            $getNilaiPBLSkenarioID = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id as id', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan', 'users.id as user_id')
                 ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
                 ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
                 ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
                 ->join('users', 'nilais.user_id', '=', 'users.id')
                 ->where('users.name', $request['nama' . $i])
                 ->where('nilai_p_b_l_skenario_diskusis.diskusi', $request['diskusi'])
-                ->first()->id;
+                ->first();
             
-                
             $total = ((((int)$request['kehadiran' . $i] + (int)$request['aktivitas_saat_diskusi' . $i]) + (int)$request['relevansi_pembicaraan' . $i] + (int)$request['keterampilan_berkomunikasi' . $i]) / 16) * 100;
             
             if($request['laporan_resmi' . $i] == 'diskusi_1') {
@@ -58,8 +57,11 @@ class NilaiPBLController extends Controller
                 $mean = ((int)$request['laporan_sementara' . $i] + $total + (int)$request['laporan_resmi' . $i]) / 3;
             }
 
+            NilaiPBLSkenarioDiskusi::where('id', $getNilaiPBLSkenarioID->id)
+                ->update(['tanggal_pelaksanaan' => $request['tanggal_pelaksanaan']]);
+
             NilaiPBLSkenarioDiskusiNilai::firstOrCreate(
-                ['nilaipblskenariodiskusi_id' => $getNilaiPBLSkenarioID],
+                ['nilaipblskenariodiskusi_id' => $getNilaiPBLSkenarioID->id],
                 [
                     'kehadiran' => $request['kehadiran' . $i],
                     'aktivitas_diskusi' => $request['aktivitas_saat_diskusi' . $i],
@@ -130,6 +132,7 @@ class NilaiPBLController extends Controller
         $diskusi_id = $request->diskusi_id;
         $kelompok = $request->kelompok;
         $dosen_tutor = auth()->user()->name;
+        $tanggal_pelaksanaan = $request->tanggal_pelaksanaan;
 
         $kelompoks = NilaiPBLSkenarioDiskusi::select('nilai_p_b_l_skenario_diskusis.id as diskusi_id', 'nilai_p_b_l_skenario_diskusis.diskusi as diskusi', 'users.role as role', 'users.name as name', 'users.nim as nim')
                 ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
@@ -149,7 +152,8 @@ class NilaiPBLController extends Controller
             'kelompok_id' => $kelompok,
             'skenario' => $skenario,
             'diskusi' => $diskusi,
-            'diskusi_id' => $diskusi_id
+            'diskusi_id' => $diskusi_id,
+            'tanggal_pelaksanaan' => $tanggal_pelaksanaan
         ]);
     }
 }

@@ -144,6 +144,7 @@
                                                     </h5>
                                                     <small><b>Skenario {{ $skenario->skenario }}</b></small><br>
                                                     <small><b>Diskusi {{ $diskusi->diskusi }}</b></small><br><br>
+                                                    <small><b>Tanggal {{ $diskusi->tanggal_pelaksanaan }}</b></small><br>
                                                     <small>{{ $skenario->pbl->nilai->matkul->keterangan }}</small><br>
                                                     <small>Tahun Ajaran
                                                         {{ $skenario->pbl->nilai->matkul->tahun_ajaran }}</small>
@@ -166,6 +167,7 @@
                                                                     value="{{ $diskusi->diskusi }}">
                                                                 <input type="hidden" name="diskusi_id" id=""
                                                                     value="{{ $diskusi->id }}">
+                                                                <input type="hidden" name="tanggal_pelaksanaan" value="{{ $diskusi->tanggal_pelaksanaan }}">
                                                                 <button class="btn btn-primary w-100 shadow-none"><span
                                                                         data-feather="settings"></span></button>
                                                             </form>

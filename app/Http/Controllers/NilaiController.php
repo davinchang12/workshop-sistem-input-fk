@@ -8,7 +8,6 @@ use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
-use App\Models\NilaiPraktikum;
 use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
