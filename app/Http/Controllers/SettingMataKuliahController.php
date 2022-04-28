@@ -130,20 +130,24 @@ class SettingMataKuliahController extends Controller
             ->where('users.role', 'mahasiswa')
             ->get();
 
-        foreach ($user_ids as $user_id) {
-            if (!Nilai::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
-                Nilai::create([
-                    'user_id' => $user_id,
-                    'matkul_id' => $matkul_id
-                ]);
-            }
+        if ($user_ids != null) {
+            foreach ($user_ids as $user_id) {
+                if (!Nilai::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
+                    Nilai::create([
+                        'user_id' => $user_id,
+                        'matkul_id' => $matkul_id
+                    ]);
+                }
 
-            if (!Jadwal::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
-                Jadwal::create([
-                    'user_id' => $user_id,
-                    'matkul_id' => $matkul_id
-                ]);
+                if (!Jadwal::where('user_id', $user_id)->where('matkul_id', $matkul_id)->exists()) {
+                    Jadwal::create([
+                        'user_id' => $user_id,
+                        'matkul_id' => $matkul_id
+                    ]);
+                }
             }
+        } else {
+            $user_ids = array();
         }
 
         foreach ($nilais as $nilai) {
@@ -542,11 +546,12 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
     }
 
-    public function deleteJenisPraktikum(Request $request) {
+    public function deleteJenisPraktikum(Request $request)
+    {
         $matkul_id = $request->input('matkul_id');
         $kodematkul = $request->input('kodematkul');
         $namapraktikum = $request->input('namapraktikum');
-        
+
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -556,7 +561,7 @@ class SettingMataKuliahController extends Controller
             ->select('nilai_praktikums.id as praktikum_id', 'nilais.id as nilai_id')
             ->get();
 
-        foreach($praktikums as $praktikum) {
+        foreach ($praktikums as $praktikum) {
             NilaiPraktikum::where('id', $praktikum->praktikum_id)
                 ->delete();
         }
