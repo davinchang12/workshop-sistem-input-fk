@@ -322,7 +322,8 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil dihapus!');
     }
 
-    public function dosenPBL(Matkul $settingmatakuliah) {
+    public function dosenPBL(Matkul $settingmatakuliah)
+    {
 
         $skenarios = DB::table('nilai_p_b_l_skenarios')
             ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
@@ -346,7 +347,8 @@ class SettingMataKuliahController extends Controller
         ]);
     }
 
-    public function createDosenPBL(Matkul $settingmatakuliah) {
+    public function createDosenPBL(Matkul $settingmatakuliah)
+    {
 
         $skenarios = DB::table('nilai_p_b_l_skenarios')
             ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
@@ -369,7 +371,8 @@ class SettingMataKuliahController extends Controller
         ]);
     }
 
-    public function storeDosenPBL(Request $request) {
+    public function storeDosenPBL(Request $request)
+    {
 
         $validatedData = $request->validate([
             'kelompok' => 'required',
@@ -397,12 +400,12 @@ class SettingMataKuliahController extends Controller
             ->where('nilai_p_b_l_skenarios.skenario', $validatedData['skenario'])
             ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'users.name', 'nilai_p_b_l_skenarios.kelompok')
             ->get();
-            
+
         $check = $skenarios->where('user_id', $validatedData['user_id'])->first();
 
         if (!$check) {
 
-            $nilai_id = $nilais->where('user_id', $validatedData['user_id'])->first()->nilai_id ?? 
+            $nilai_id = $nilais->where('user_id', $validatedData['user_id'])->first()->nilai_id ??
                 Nilai::create([
                     'user_id' => $validatedData['user_id'],
                     'matkul_id' => $request->matkul_id
@@ -430,18 +433,19 @@ class SettingMataKuliahController extends Controller
                 'tanggal_pelaksanaan' => $validatedData['tanggal2']
             ]);
         } else {
-            throw ValidationException::withMessages(['errorJam' => 'Dosen sudah ada di skenario '.$validatedData['skenario'].', kelompok '.$validatedData['kelompok'].'!']);
+            throw ValidationException::withMessages(['errorJam' => 'Dosen sudah ada di skenario ' . $validatedData['skenario'] . ', kelompok ' . $validatedData['kelompok'] . '!']);
         }
 
         return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil ditambahkan!');
     }
 
-    public function deleteDosenPBL(Request $request) {
-        
+    public function deleteDosenPBL(Request $request)
+    {
+
         $diskusis = $request->input('diskusi');
         $skenario = $request->input('skenario');
 
-        foreach($diskusis as $diskusi) {
+        foreach ($diskusis as $diskusi) {
             NilaiPBLSkenarioDiskusi::where('id', $diskusi)
                 ->delete();
         }
@@ -489,7 +493,8 @@ class SettingMataKuliahController extends Controller
         return redirect('/dashboard/settingmatakuliah')->with('success', 'Mata kuliah berhasil diupdate!');
     }
 
-    public function jenisPraktikum(Matkul $settingmatakuliah) {
+    public function jenisPraktikum(Matkul $settingmatakuliah)
+    {
 
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -505,14 +510,16 @@ class SettingMataKuliahController extends Controller
         ]);
     }
 
-    public function createJenisPraktikum(Matkul $settingmatakuliah) {
+    public function createJenisPraktikum(Matkul $settingmatakuliah)
+    {
 
         return view('dashboard.matkul.admin.praktikum.create', [
             'matkul' => $settingmatakuliah
         ]);
     }
 
-    public function storeJenisPraktikum(Request $request) {
+    public function storeJenisPraktikum(Request $request)
+    {
         $jenispraktikum = $request->input('jenispraktikum');
         $matkul_id = $request->input('matkul_id');
         $kodematkul = $request->input('kodematkul');
@@ -524,15 +531,19 @@ class SettingMataKuliahController extends Controller
             ->where('users.role', 'mahasiswa')
             ->select('nilais.id')
             ->get();
-        
-        foreach($nilais as $nilai) {
+
+        foreach ($nilais as $nilai) {
             NilaiPraktikum::create([
                 'nilai_id' => $nilai->id,
                 'namapraktikum' => $jenispraktikum
             ]);
         }
 
-        return redirect('/dashboard/settingmatakuliah/'.$kodematkul.'/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
+    }
+
+    public function deleteJenisPraktikum() {
+        return "HAI";
     }
 
     /**
