@@ -249,6 +249,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="SOCA">
+            @if(count($socas) > 0)
             <div class="container mt-3 mb-3">
                 <form action="/dashboard/matkul/nilai/input-soca" method="post">
                     @csrf
@@ -264,6 +265,7 @@
                     <button type="submit" class="btn btn-primary mt-3">Pilih</button>
                 </form>
             </div>
+            @endif
         </div>
         <div class="tab-pane fade" id="field-lab">
             <form action="/dashboard/matkul/nilai/export/field-lab" method="get">
