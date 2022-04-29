@@ -1180,22 +1180,32 @@ class DatabaseSeeder extends Seeder
 
         NilaiFieldlab::create([
             'nilai_lain_id' => 1,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 2,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 3,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 4,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 5,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
 
