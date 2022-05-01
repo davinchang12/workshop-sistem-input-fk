@@ -57,21 +57,21 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::is('dashboard/settingosce*') ? 'active' : '' }}"
                         href="/dashboard/settingosce">
                         <span data-feather="file-plus"></span>
                         Setting OSCE
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::is('dashboard/settingsoca*') ? 'active' : '' }}"
                         href="/dashboard/settingsoca">
                         <span data-feather="file-plus"></span>
                         Setting SOCA
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('dashboard/settingmatakuliah*') ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::is('dashboard/settingfieldlab*') ? 'active' : '' }}"
                         href="/dashboard/settingfieldlab">
                         <span data-feather="file-plus"></span>
                         Setting Field Lab
