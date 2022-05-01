@@ -29,8 +29,11 @@
                         <td>{{ $fieldlab->semester }}</td>
                         <td>{{ $fieldlab->keterangan }}</td>
                         <td>
-                            <a href="/dashboard/settingfieldlab" class="badge bg-info"><span
-                                    data-feather="eye"></span></a>
+                            <form action="/dashboard/settingfieldlab/show" method="post" class="d-inline">
+                                @csrf
+                                <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
+                                <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
+                            </form>
                             <form action="/dashboard/settingfieldlab" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf

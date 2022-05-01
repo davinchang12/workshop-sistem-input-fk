@@ -81,8 +81,6 @@ class SettingFieldLab extends Controller
             ->select('kelompok')
             ->get();
 
-        // dd($kelompoks->pluck('kelompok')->toArray());
-
         $kelompok = 1;
 
         for ($i = 1; $i <= 10; $i++) {
@@ -93,7 +91,7 @@ class SettingFieldLab extends Controller
         }
 
         foreach ($user_ids as $user_id) {
-            $nilailain = NilaiLain::create([
+            $nilailain = NilaiLain::firstOrCreate([
                 'user_id' => $user_id,
             ]);
 
@@ -105,6 +103,29 @@ class SettingFieldLab extends Controller
             ]);
         }
         return redirect('/dashboard/settingfieldlab/')->with('success', 'Kelompok Berhasil ditambahkan');
+    }
+
+    public function showSemester(Request $request) {
+        $semester = $request->input('semester');
+
+        $kelompoks = DB::table('nilai_fieldlabs')
+            ->where('semester', $semester)
+            ->groupBy('kelompok')
+            ->select('kelompok')
+            ->get();
+
+        $fieldlabs = DB::table('nilai_fieldlabs')
+            ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('semester', $semester)
+            ->get();
+
+        // dd($fieldlabs);
+
+        return view('dashboard.fieldlab.admin.showsemester', [
+            'kelompoks' => $kelompoks,
+            'fieldlabs' => $fieldlabs
+        ]);
     }
 
     /**
