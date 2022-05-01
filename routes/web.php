@@ -22,6 +22,7 @@ use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
+use App\Http\Controllers\SettingFieldLab;
 use App\Http\Controllers\SettingMahasiswaMataKuliah;
 use App\Http\Controllers\SettingMataKuliahController;
 
@@ -124,6 +125,7 @@ Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahControlle
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
 
+Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middleware('admin');
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 
