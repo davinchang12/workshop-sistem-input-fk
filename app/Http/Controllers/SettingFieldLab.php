@@ -73,10 +73,11 @@ class SettingFieldLab extends Controller
         // dd($request);
 
         $user_ids = $request->input('user_id');
-        $semester = $request->input('semester');
+        $semester = 'Semester '.$request->input('semester');
         $keterangan = $request->input('keterangan');
 
         $kelompoks = DB::table('nilai_fieldlabs')
+            ->where('semester', $semester)
             ->groupBy('kelompok')
             ->select('kelompok')
             ->get();
@@ -97,7 +98,7 @@ class SettingFieldLab extends Controller
 
             NilaiFieldlab::create([
                 'nilai_lain_id' => $nilailain->id,
-                'semester' => 'Semester '.$semester,
+                'semester' => $semester,
                 'kelompok' => $kelompok,
                 'keterangan' => $keterangan
             ]);
@@ -111,7 +112,7 @@ class SettingFieldLab extends Controller
         $kelompoks = DB::table('nilai_fieldlabs')
             ->where('semester', $semester)
             ->groupBy('kelompok')
-            ->select('kelompok')
+            ->select('kelompok', 'semester')
             ->get();
 
         $fieldlabs = DB::table('nilai_fieldlabs')
@@ -126,6 +127,17 @@ class SettingFieldLab extends Controller
             'kelompoks' => $kelompoks,
             'fieldlabs' => $fieldlabs
         ]);
+    }
+
+    public function deleteKelompok(Request $request) {
+        $kelompok = $request->input('kelompok');
+        $semester = $request->input('semester');
+
+        NilaiFieldlab::where('kelompok', $kelompok)
+            ->where('semester', $semester)
+            ->delete();
+
+        return back()->with('success', 'Kelompok berhasil di hapus!');
     }
 
     /**

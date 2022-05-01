@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Kelompok PBL</h1>
+        <h1 class="h2">Kelompok Field Lab</h1>
     </div>
 
     @if (session()->has('success'))
@@ -38,6 +38,8 @@
                                             <form action="/dashboard/settingfieldlab/deletekelompok"
                                                 method="post" class="d-inline">
                                                 @csrf
+                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $kelompok->kelompok }}">
+                                                <input type="hidden" name="semester" id="semester" value="{{ $kelompok->semester }}">
                                                 <button class="btn btn-danger w-100 shadow-none"
                                                     onclick="return confirm('Are you sure?')"><span data-feather="x-circle"
                                                         style="height:24px;"></span></button>

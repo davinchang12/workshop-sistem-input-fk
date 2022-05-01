@@ -29,8 +29,7 @@
                         <td>{{ $fieldlab->semester }}</td>
                         <td>{{ $fieldlab->keterangan }}</td>
                         <td>
-                            <form action="/dashboard/settingfieldlab/show" method="post" class="d-inline">
-                                @csrf
+                            <form action="/dashboard/settingfieldlab/show" method="get" class="d-inline">
                                 <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
                                 <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
                             </form>
