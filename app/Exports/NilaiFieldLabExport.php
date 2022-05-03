@@ -13,10 +13,14 @@ class NilaiFieldLabExport implements FromView, ShouldAutoSize, WithEvents
 {
     public function view(): View
     {
+        $request = request();
+
         $fieldlabs = DB::table('nilai_fieldlabs')
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
+            ->where('nilai_fieldlabs.semester', $request['semester'])
+            ->where('nilai_fieldlabs.kelompok', $request['kelompok'])
             ->get();
 
         return view('dashboard.nilai.dosen.export.fieldlab', [

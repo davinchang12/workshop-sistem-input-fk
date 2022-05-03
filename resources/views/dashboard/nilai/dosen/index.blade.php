@@ -269,84 +269,65 @@
             @endif
         </div>
         <div class="tab-pane fade" id="field-lab">
-            <form action="/dashboard/matkul/nilai/export/field-lab" method="get">
-                @csrf
-                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-            </form>
-            <form method="post" action="/dashboard/matkul/nilai/import/field-lab" enctype="multipart/form-data">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                    </div>
-                    <div class="modal-body">
-
-                        {{ csrf_field() }}
-
-                        <label>Pilih file excel</label>
-                        <div class="form-group">
-                            <input type="file" name="file" required="required">
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Import</button>
-                    </div>
-                </div>
-            </form>
-            @if (count($fieldlabs) > 0)
-                <div class="mt-3 mb-3">
-                    <table class="table-bordered">
-                        <colgroup width="50"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <colgroup width="200"></colgroup>
-                        <tr>
-                            <td height="40" align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">No</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Nama</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Nim</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Total Nilai Dosbing</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Total Nilai Penguji</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Total Nilai Dosen Luar</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F">
-                                <font color="#000000">Nilai Akhir</font>
-                            </td>
-                            <td align="center" valign=middle bgcolor="#FFE48F" style="width: 20%">
-                                <font color="#000000">Keterangan</font>
-                            </td>
-                        </tr>
+            <div class="container mt-3">
+                <div class="row">
+                    @if ($fieldlabs != null)
                         @foreach ($fieldlabs as $fieldlab)
-                            <tr>
-                                <td height="19" align="center" valign=middle>{{ $loop->iteration }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->name }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->nim }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->total_nilai_dosbing }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->total_nilai_penguji }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->total_nilai_penguji_2 }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->nilai_akhir }}</td>
-                                <td align="center" valign=middle>{{ $fieldlab->keterangan }}</td>
-                            </tr>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">
+                                                    {{ $fieldlab->semester }}
+                                                </h5>
+                                            </div>
+                                            <div class="">
+                                                <div class="col pt-2">
+                                                    @can('dosen')
+                                                        <form action="/dashboard/matkul/nilai/export/field-lab" method="get">
+                                                            @csrf
+                                                            <input type="hidden" name="matkul_dipilih" id=""
+                                                                value="{{ $matkul->id }}">
+                                                                <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
+                                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $fieldlab->kelompok }}">
+                                                                <button class="btn btn-primary w-100 shadow-none"><span
+                                                                    data-feather="download"></span> Download</button>
+                                                        </form>
+                                                        <form method="post" action="/dashboard/matkul/nilai/import/field-lab"
+                                                            enctype="multipart/form-data">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Import
+                                                                        Template</h5>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    {{ csrf_field() }}
+
+                                                                    <label>Pilih file excel</label>
+                                                                    <div class="form-group">
+                                                                        <input type="file" name="file" required="required">
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" class="btn btn-primary w-100"><span
+                                                                        data-feather="upload"></span> Import</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    @endcan
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
-                    </table>
+                    @endif
                 </div>
-            @endif
+            </div>
         </div>
         <div class="tab-pane fade" id="SOCA">
             @if (count($socas) > 0)

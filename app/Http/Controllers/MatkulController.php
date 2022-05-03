@@ -105,11 +105,10 @@ class MatkulController extends Controller
             ->where($checkUserAndMatkul)
             ->get();
 
-        $fieldlabs = DB::table('nilai_semester_field_labs')
-            ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+        $fieldlabs = DB::table('nilai_fieldlabs')
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
-            ->where('users.role', 'mahasiswa')
+            ->where('users.id', auth()->user()->id)
             ->get();
 
         $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
