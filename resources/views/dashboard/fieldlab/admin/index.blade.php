@@ -33,10 +33,9 @@
                                 <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
                                 <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
                             </form>
-                            <form action="/dashboard/settingfieldlab" method="post" class="d-inline">
-                                @method('delete')
+                            <form action="/dashboard/settingfieldlab/deletesemester" method="post" class="d-inline">
                                 @csrf
-
+                                <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
                             </form>
                         </td>

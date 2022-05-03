@@ -17,8 +17,8 @@
         <form method="post" action="/dashboard/settingfieldlab" class="mb-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <label for="user_id" class="form-label">Nama Dosen</label>
-                <select class="form-select" id="user_id" name="user_id">
+                <label for="dosen_id" class="form-label">Nama Dosen</label>
+                <select class="form-select" id="dosen_id" name="dosen_id">
                     @foreach ($dosens as $dosen)
                         <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
                     @endforeach

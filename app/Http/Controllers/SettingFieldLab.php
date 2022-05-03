@@ -70,8 +70,7 @@ class SettingFieldLab extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-
+        $dosen_id = $request->input('dosen_id');
         $user_ids = $request->input('user_id');
         $semester = 'Semester '.$request->input('semester');
         $keterangan = $request->input('keterangan');
@@ -90,6 +89,17 @@ class SettingFieldLab extends Controller
                 break;
             }
         }
+
+        $nilailaindosen = NilaiLain::firstOrCreate([
+            'user_id' => $dosen_id,
+        ]);
+
+        NilaiFieldLab::create([
+            'nilai_lain_id' => $nilailaindosen->id,
+            'semester' => $semester,
+            'kelompok' => $kelompok,
+            'keterangan' => $keterangan
+        ]);
 
         foreach ($user_ids as $user_id) {
             $nilailain = NilaiLain::firstOrCreate([
@@ -121,8 +131,6 @@ class SettingFieldLab extends Controller
             ->where('semester', $semester)
             ->get();
 
-        // dd($fieldlabs);
-
         return view('dashboard.fieldlab.admin.showsemester', [
             'kelompoks' => $kelompoks,
             'fieldlabs' => $fieldlabs
@@ -138,6 +146,15 @@ class SettingFieldLab extends Controller
             ->delete();
 
         return back()->with('success', 'Kelompok berhasil di hapus!');
+    }
+
+    public function deleteSemester(Request $request) {
+        $semester = $request->input('semester');
+
+        NilaiFieldlab::where('semester', $semester)
+            ->delete();
+
+        return back()->with('success', 'Semester berhasil di hapus!');
     }
 
     /**
