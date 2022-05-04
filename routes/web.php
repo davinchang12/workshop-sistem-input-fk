@@ -1,9 +1,11 @@
 <?php
 
 use App\Exports\NilaiTugasExport;
+use App\Http\Controllers\SettingOSCE;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\SettingFieldLab;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
@@ -22,7 +24,6 @@ use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
-use App\Http\Controllers\SettingFieldLab;
 use App\Http\Controllers\SettingMahasiswaMataKuliah;
 use App\Http\Controllers\SettingMataKuliahController;
 
@@ -124,6 +125,8 @@ Route::post('/dashboard/settingmatakuliah/{settingmatakuliah}/settingmahasiswama
 Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahController::class, 'checkBlok'])->middleware('admin');
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
+
+Route::resource('/dashboard/settingosce', SettingOSCE::class)->middleware('admin');
 
 Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class, 'deleteSemester'])->middleware('admin');
 Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
