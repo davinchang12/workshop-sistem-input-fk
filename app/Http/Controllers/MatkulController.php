@@ -91,10 +91,8 @@ class MatkulController extends Controller
             ->get();
       
         $osces = DB::table('nilai_o_s_c_e_s')
-            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->where('matkuls.id', $matkul->id)
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();

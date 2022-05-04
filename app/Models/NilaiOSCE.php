@@ -17,8 +17,8 @@ class NilaiOSCE extends Model
         'jenis'
     ];
     
-    public function nilai() {
-        return $this->belongTo(Nilai::class);
+    public function nilailain() {
+        return $this->belongTo(NilaiLain::class, 'nilai_lain_id');
     }
     public function jenis() {
         return $this->hasMany(NilaiJenisOSCE::class);

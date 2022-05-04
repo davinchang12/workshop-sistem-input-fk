@@ -24,4 +24,8 @@ class NilaiLain extends Model
     public function nilaifieldlab() {
         return $this->hasMany(NilaiFieldlab::class);
     }
+
+    public function nilaiosce() {
+        return $this->hasMany(NilaiOSCE::class);
+    }
 }

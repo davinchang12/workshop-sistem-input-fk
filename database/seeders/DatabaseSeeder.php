@@ -1000,12 +1000,12 @@ class DatabaseSeeder extends Seeder
             "kepuasan_presentasi" => ""
         ]);
         NilaiOSCE::create([
-            'nilai_id' => 1,
+            'nilai_lain_id' => 2,
             'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
             'nama_penguji' => "dr. A"
         ]);
         NilaiOSCE::create([
-            'nilai_id' => 4,
+            'nilai_lain_id' => 3,
             'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
             'nama_penguji' => "dr. A"
         ]);
