@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,31 @@ class SettingOSCE extends Controller
      */
     public function create()
     {
-        //
+        $dosens = User::where('role', 'dosen')->get();
+
+        $users = DB::table('users')
+            ->select('users.id', 'users.name', 'users.nim', 'users.angkatan')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
+        $angkatans = DB::table('users')
+            ->select('angkatan')
+            ->where('angkatan', '!=', null)
+            ->groupBy('angkatan')
+            ->get();
+
+        $osces = DB::table('nilai_o_s_c_e_s')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->select('users.id as user_id')
+            ->get();
+
+        return view('dashboard.osce.admin.create', [
+            'dosens' => $dosens,
+            'users' => $users,
+            'angkatans' => $angkatans,
+            'osces' => $osces
+        ]);
     }
 
     /**

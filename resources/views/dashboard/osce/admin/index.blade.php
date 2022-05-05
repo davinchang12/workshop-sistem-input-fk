@@ -12,7 +12,7 @@
     @endif
 
     <div class="table-responsive col-lg-8">
-        <a href="/dashboard/settingosce/create" class="btn btn-primary mb-3">Tambah Dosen</a>
+        <a href="/dashboard/settingosce/create" class="btn btn-primary mb-3">Tambah Dosen Penguji</a>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
