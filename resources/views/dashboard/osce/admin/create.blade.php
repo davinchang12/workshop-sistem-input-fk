@@ -17,14 +17,17 @@
         <form method="post" action="/dashboard/settingosce" class="mb-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <label for="dosen_id" class="form-label">Nama Dosen</label>
-                <select class="form-select" id="dosen_id" name="dosen_id">
+                <label for="nama_osce" class="form-label">Nama OSCE</label>
+                <input type="text" class="form-control" id="nama_osce" name="nama_osce" value="{{ old('nama_osce') }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="nama_dosen" class="form-label">Nama Dosen</label>
+                <select class="form-select" id="nama_dosen" name="nama_dosen">
                     @foreach ($dosens as $dosen)
-                        <option value="{{ $dosen->id }}">{{ $dosen->name }}</option>
+                        <option value="{{ $dosen->name }}">{{ $dosen->name }}</option>
                     @endforeach
                 </select>
             </div>
-            
             <ul class="nav nav-tabs">
                 @foreach ($angkatans as $angkatan)
                     <li class="nav-item">

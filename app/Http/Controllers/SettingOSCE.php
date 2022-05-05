@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\NilaiLain;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,7 +69,26 @@ class SettingOSCE extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama_dosen' => 'required',
+            'nama_osce' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $validatedData['nama_osce'] = strtoupper($validatedData['nama_osce']);
+
+        foreach($validatedData['user_id'] as $user) {
+            $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
+                NilaiLain::create(['user_id' => $user])->id;
+
+            NilaiOSCE::create([
+                'nilai_lain_id' => $nilai_lain,
+                'namaosce' => $validatedData['nama_osce'],
+                'nama_penguji' => $validatedData['nama_dosen']
+            ]);    
+        }
+
+        return redirect('/dashboard/settingosce')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');
     }
 
     /**
