@@ -14,14 +14,14 @@ class NilaiSOCA extends Model
     ];
 
     protected $with = [
-        'nilai'
+        'nilailain'
     ];
 
     public function jenis() {
         return $this->hasMany(NilaiJenisSOCA::class);
     }
 
-    public function nilai() {
-        return $this->belongsTo(Nilai::class, 'nilai_id');
+    public function nilailain() {
+        return $this->belongsTo(NilaiLain::class, 'nilai_lain_id');
     }
 }

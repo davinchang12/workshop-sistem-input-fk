@@ -13,7 +13,7 @@ class NilaiOSCE extends Model
         'id'
     ];
     protected $with =[
-        'nilai',
+        'nilailain',
         'jenis'
     ];
     
