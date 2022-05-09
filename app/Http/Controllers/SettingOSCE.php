@@ -121,6 +121,30 @@ class SettingOSCE extends Controller
         ]);
     }
 
+    public function createSoal() {
+        $nama_osce = DB::table('nilai_o_s_c_e_s')
+        ->select('namaosce')
+        ->get()
+        ->unique();         
+        
+        return view('dashboard.osce.admin.createsoal', [
+            'namaosces' => $nama_osce
+        ]);
+    }
+
+    public function exportTemplate() {
+        // return Excel::download(new NilaiPraktikumExport, 'template-soal-osce.xlsx');
+    }
+
+    public function tambahSoal(Request $request) {
+        $validatedData = $request->validate([
+            'nama_osce' => 'required',
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+
+        dd($request);
+    }
+
     /**
      * Display the specified resource.
      *
