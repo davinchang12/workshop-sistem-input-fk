@@ -121,6 +121,49 @@ class SettingOSCE extends Controller
         ]);
     }
 
+    public function updateDosen(Request $request) {
+        $namaosce = $request->input('nama_osce');
+        $namadosen = $request->input('nama_dosen');
+        $user_ids = $request->input('user_id');
+
+        $nilai_osces = DB::table('nilai_o_s_c_e_s')
+            ->where('namaosce', $namaosce)
+            ->where('nama_penguji', $namadosen)
+            ->get();
+
+        $nilai_lain_id = array();
+        if($user_ids != null) {
+            foreach ($user_ids as $user_id) {
+                $nilai_lain = NilaiLain::where('user_id', $user_id)->first()->id ??
+                    NilaiLain::create(['user_id' => $user_id])->id;
+
+                array_push($nilai_lain_id, $nilai_lain);
+
+                if(!NilaiOSCE::where('nilai_lain_id', $nilai_lain)->exists()) {
+                    NilaiOSCE::create([
+                        'nilai_lain_id' => $nilai_lain,
+                        'namaosce' => $namaosce,
+                        'nama_penguji' => $namadosen
+                    ]);   
+                }
+            }
+        }
+
+        foreach ($nilai_osces as $nilai_osce) {
+            if (!in_array($nilai_osce->nilai_lain_id, $nilai_lain_id)) {
+                NilaiOSCE::where('nilai_lain_id', $nilai_osce->nilai_lain_id)
+                    ->delete();
+            }
+        }
+        
+        return redirect('/dashboard/settingosce')->with('success', 'Data berhasil di update!');
+    }
+    
+    public function deleteDosen(Request $request) {
+        dd($request);
+    }
+
+
     public function createSoal() {
         $nama_osce = DB::table('nilai_o_s_c_e_s')
         ->select('namaosce')

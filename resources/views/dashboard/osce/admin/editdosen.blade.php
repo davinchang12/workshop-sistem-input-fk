@@ -14,18 +14,20 @@
     <a href="/dashboard/settingosce" class="btn btn-success"><span data-feather="arrow-left"></span> Kembali</a>
 
     <div class="col-lg-8 mt-3">
-        <form method="post" action="/dashboard/settingosce" class="mb-5" enctype="multipart/form-data">
+        <form method="post" action="/dashboard/settingosce/updatedosen" class="mb-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="nama_osce" class="form-label">Nama OSCE</label>
-                <input type="text" class="form-control" id="nama_osce" name="nama_osce" value="{{ old('nama_osce', $osces[0]->namaosce) }}" required>
+                <input type="text" class="form-control" id="nama_osce" name="nama_osce" value="{{ old('nama_osce', $osces[0]->namaosce) }}" required readonly>
             </div>
             <div class="mb-3">
                 <label for="nama_dosen" class="form-label">Nama Dosen</label>
-                <select class="form-select" id="nama_dosen" name="nama_dosen">
+                <select class="form-select" id="nama_dosen" name="nama_dosen" disabled>
                     @foreach ($dosens as $dosen)
                         <option value="{{ $dosen->name }}" {{ $dosen->name == $osces[0]->nama_penguji ? "selected" : "" }}>{{ $dosen->name }}</option>
                     @endforeach
+
+                    <input type="hidden" name="nama_dosen" id="nama_dosen" value="{{ $osces[0]->nama_penguji }}">
                 </select>
             </div>
             <ul class="nav nav-tabs">
@@ -75,7 +77,7 @@
                 @endforeach
             </div>
 
-            <button type="submit" class="btn btn-primary">Tambah</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 @endsection

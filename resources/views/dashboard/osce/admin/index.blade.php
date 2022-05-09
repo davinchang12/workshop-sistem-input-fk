@@ -40,7 +40,10 @@
                             </form>
                             <form action="/dashboard/settingosce/delete" method="post" class="d-inline">
                                 @csrf
-
+                                
+                                <input type="hidden" name="nama_penguji" id="nama_penguji"
+                                    value="{{ $osce->nama_penguji }}">
+                                <input type="hidden" name="namaosce" id="namaosce" value="{{ $osce->namaosce }}">
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
                                         data-feather="x-circle"></span></button>
                             </form>
