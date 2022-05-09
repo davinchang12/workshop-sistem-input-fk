@@ -18,7 +18,7 @@ class SettingOSCE extends Controller
     public function index()
     {
         $osces = DB::table('nilai_o_s_c_e_s')
-            ->select('nama_penguji')
+            ->select('nama_penguji', 'namaosce')
             ->get()
             ->unique('nama_penguji');
 
@@ -89,6 +89,36 @@ class SettingOSCE extends Controller
         }
 
         return redirect('/dashboard/settingosce')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');
+    }
+
+    public function editDosen(Request $request) {
+
+        $dosens = User::where('role', 'dosen')->get();
+
+        $users = DB::table('users')
+            ->select('users.id', 'users.name', 'users.nim', 'users.angkatan')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
+        $angkatans = DB::table('users')
+            ->select('angkatan')
+            ->where('angkatan', '!=', null)
+            ->groupBy('angkatan')
+            ->get();
+
+        $osces = DB::table('nilai_o_s_c_e_s')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_o_s_c_e_s.namaosce', $request['namaosce'])
+            ->select('users.id as user_id', 'nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji')
+            ->get();
+
+        return view('dashboard.osce.admin.editdosen', [
+            'dosens' => $dosens,
+            'users' => $users,
+            'angkatans' => $angkatans,
+            'osces' => $osces
+        ]);
     }
 
     /**

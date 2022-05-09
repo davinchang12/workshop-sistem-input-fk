@@ -126,6 +126,7 @@ Route::get('/dashboard/settingmatakuliah/checkBlok', [SettingMataKuliahControlle
 Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::class)->middleware('admin');
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
 
+Route::post('/dashboard/settingosce/edit', [SettingOSCE::class, 'editDosen'])->middleware('admin');
 Route::resource('/dashboard/settingosce', SettingOSCE::class)->middleware('admin');
 
 Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class, 'deleteSemester'])->middleware('admin');

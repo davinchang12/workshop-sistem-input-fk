@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th scope="col">Nama Dosen</th>
+                    <th scope="col">Nama OSCE</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -24,8 +25,15 @@
                 @foreach ($osces as $osce)
                     <tr>
                         <td>{{ $osce->nama_penguji }}</td>
+                        <td>{{ $osce->namaosce }}</td>
                         <td>
-                            <a href="/dashboard/settingosce/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+                            <form action="/dashboard/settingosce/edit" method="post" class="d-inline">
+                                @csrf
+                                
+                                <input type="hidden" name="nama_penguji" id="nama_penguji" value="{{ $osce->nama_penguji }}">
+                                <input type="hidden" name="namaosce" id="namaosce" value="{{ $osce->namaosce }}">
+                                <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                            </form>
                             <form action="/dashboard/settingosce/delete" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
