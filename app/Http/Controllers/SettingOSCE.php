@@ -156,13 +156,19 @@ class SettingOSCE extends Controller
             }
         }
         
-        return redirect('/dashboard/settingosce')->with('success', 'Data berhasil di update!');
+        return redirect('/dashboard/settingosce')->with('success', 'Data berhasil diupdate!');
     }
     
     public function deleteDosen(Request $request) {
-        dd($request);
-    }
+        $namaosce = $request->input('namaosce');
+        $nama_penguji = $request->input('nama_penguji');
 
+        NilaiOSCE::where('namaosce', $namaosce)
+            ->where('nama_penguji', $nama_penguji)
+            ->delete();
+
+        return redirect('/dashboard/settingosce')->with('success', 'Data berhasil dihapus!');
+    }
 
     public function createSoal() {
         $nama_osce = DB::table('nilai_o_s_c_e_s')
