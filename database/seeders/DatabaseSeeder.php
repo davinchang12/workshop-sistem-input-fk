@@ -908,13 +908,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         NilaiSOCA::create([
-            'nilai_id' => 1,
+            'nilai_lain_id' => 1,
             'namasoca' => "SKA",
             'nama_penguji' => "dr. A"
         ]);
 
         NilaiSOCA::create([
-            'nilai_id' => 3,
+            'nilai_lain_id' => 3,
             'namasoca' => "SKA",
             'nama_penguji' => "dr. A"
         ]);
