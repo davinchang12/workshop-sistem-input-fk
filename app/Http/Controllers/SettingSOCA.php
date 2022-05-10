@@ -161,6 +161,17 @@ class SettingSOCA extends Controller
         return redirect('/dashboard/settingsoca')->with('success', 'Data berhasil diupdate!');
     }
 
+    public function deleteDosen(Request $request) {
+        $namasoca = $request->input('namasoca');
+        $nama_penguji = $request->input('nama_penguji');
+
+        NilaiSOCA::where('namasoca', $namasoca)
+            ->where('nama_penguji', $nama_penguji)
+            ->delete();
+
+        return redirect('/dashboard/settingsoca')->with('success', 'Data berhasil dihapus!');
+    }
+
     /**
      * Display the specified resource.
      *
