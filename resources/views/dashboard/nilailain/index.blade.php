@@ -79,7 +79,7 @@
                 </div>
             @endif
         </div>
-        <div class="tab-pane fade" id="field-lab">
+        <div class="tab-pane fade" id="fieldlab">
             <div class="container mt-3">
                 <div class="row">
                     @if ($fieldlabs != null)
@@ -98,11 +98,7 @@
                                                     @can('dosen')
                                                         <form action="/dashboard/nilailain/export/field-lab" method="get">
                                                             @csrf
-                                                            <input type="hidden" name="matkul_dipilih" id=""
-                                                                value="{{ $matkul->id }}">
-                                                                <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
-                                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $fieldlab->kelompok }}">
-                                                                <button class="btn btn-primary w-100 shadow-none"><span
+                                                            <button class="btn btn-primary w-100 shadow-none"><span
                                                                     data-feather="download"></span> Download</button>
                                                         </form>
                                                         <form method="post" action="/dashboard/nilailain/import/field-lab"
@@ -124,7 +120,7 @@
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" class="btn btn-primary w-100"><span
-                                                                        data-feather="upload"></span> Import</button>
+                                                                            data-feather="upload"></span> Import</button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -139,23 +135,6 @@
                     @endif
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="SOCA">
-            @if (count($socas) > 0)
-                <div class="container mt-3 mb-3">
-                    <form action="/dashboard/nilailain/input-soca" method="post">
-                        @csrf
-                        <p>Pilih Mahasiswa : </p>
-                        <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                            <option selected>{{ $socas[0]->name }}</option>
-                            @foreach ($socas->skip(1) as $soca)
-                                <option>{{ $soca->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                    </form>
-                </div>
-            @endif
         </div>
     </div>
     <script>
