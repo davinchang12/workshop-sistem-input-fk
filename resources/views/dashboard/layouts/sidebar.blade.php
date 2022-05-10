@@ -28,6 +28,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('dashboard/nilailain*') ? 'active' : '' }}" href="/dashboard/nilailain">
+                    <span data-feather="file-text"></span>
+                    Nilai Lain
+                </a>
+            </li>
+
             @can('mahasiswa')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/kritikdansaran*') ? 'active' : '' }}"
