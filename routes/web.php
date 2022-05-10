@@ -2,6 +2,7 @@
 
 use App\Exports\NilaiTugasExport;
 use App\Http\Controllers\SettingOSCE;
+use App\Http\Controllers\SettingSOCA;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
@@ -133,6 +134,14 @@ Route::post('/dashboard/settingosce/createsoal/tambah', [SettingOSCE::class, 'ta
 Route::get('/dashboard/settingosce/createsoal/export-template', [SettingOSCE::class, 'exportTemplate'])->middleware('admin');
 Route::get('/dashboard/settingosce/createsoal', [SettingOSCE::class, 'createSoal'])->middleware('admin');
 Route::resource('/dashboard/settingosce', SettingOSCE::class)->middleware('admin');
+
+Route::post('/dashboard/settingsoca/delete', [SettingSOCA::class, 'deleteDosen'])->middleware('admin');
+Route::post('/dashboard/settingsoca/createsoal/tambah', [SettingSOCA::class, 'tambahSoal'])->middleware('admin');
+Route::get('/dashboard/settingsoca/createsoal/export-template', [SettingSOCA::class, 'exportTemplate'])->middleware('admin');
+Route::get('/dashboard/settingsoca/createsoal', [SettingSOCA::class, 'createSoal'])->middleware('admin');
+Route::post('/dashboard/settingsoca/updatedosen', [SettingSOCA::class, 'updateDosen'])->middleware('admin');
+Route::post('/dashboard/settingsoca/edit', [SettingSOCA::class, 'editDosen'])->middleware('admin');
+Route::resource('/dashboard/settingsoca', SettingSOCA::class)->middleware('admin');
 
 Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class, 'deleteSemester'])->middleware('admin');
 Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
