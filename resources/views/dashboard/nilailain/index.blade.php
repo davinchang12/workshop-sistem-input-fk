@@ -39,28 +39,6 @@
                     </form>
                 </div>
             @endif
-            {{-- <div class="tab-pane fade show active" id="osce">
-                <form action="/dashboard/nilailain/export-osce" method="get">
-                    @csrf
-                    <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                    <button class="btn btn-primary w-100 shadow-none">Download Template Buat Soal OSCE</button>
-                </form>
-                <form method="post" action="/dashboard/nilailain/import-osce" enctype="multipart/form-data">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Import Soal OSCE</h5>
-                        </div>
-                        <div class="modal-body">
-    
-                            {{ csrf_field() }}
-    
-                            <label>Pilih file excel</label>
-                            <div class="form-group">
-                                <input type="file" name="file" required="required">
-                            </div>
-    
-                        </div>
-            </div> --}}
         </div>
         <div class="tab-pane fade" id="soca">
             @if (count($socas) > 0)
@@ -97,6 +75,8 @@
                                                 <div class="col pt-2">
                                                     @can('dosen')
                                                         <form action="/dashboard/nilailain/export/field-lab" method="get">
+                                                            <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
+                                                            <input type="hidden" name="kelompok" id="kelompok" value="{{ $fieldlab->kelompok }}">
                                                             @csrf
                                                             <button class="btn btn-primary w-100 shadow-none"><span
                                                                     data-feather="download"></span> Download</button>
