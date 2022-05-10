@@ -18,7 +18,6 @@
             <input type="hidden" name="nama" id="nama" value="{{ $osces[0]->name }}">
             <input type="hidden" name="nim" id="nim" value="{{ $osces[0]->nim }}">
             <input type="hidden" name="jumlahaspek" id="jumlahaspek" value="{{ count($osces) }}">
-            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $kodematkul }}">
             <div class="d-flex justify-content-between">
                 <a href="/dashboard/nilailain" class="btn btn-success mt-3">Kembali</a>
                 <button type="submit" class="btn btn-primary mt-3 ml-2">Submit Nilai</button>
