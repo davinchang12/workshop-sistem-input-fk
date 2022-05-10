@@ -139,7 +139,7 @@ class SettingOSCE extends Controller
 
                 array_push($nilai_lain_id, $nilai_lain);
 
-                if(!NilaiOSCE::where('nilai_lain_id', $nilai_lain)->exists()) {
+                if(!NilaiOSCE::where('nilai_lain_id', $nilai_lain)->where('namaosce', $namaosce)->where('nama_penguji', $namadosen)->exists()) {
                     NilaiOSCE::create([
                         'nilai_lain_id' => $nilai_lain,
                         'namaosce' => $namaosce,
@@ -152,6 +152,8 @@ class SettingOSCE extends Controller
         foreach ($nilai_osces as $nilai_osce) {
             if (!in_array($nilai_osce->nilai_lain_id, $nilai_lain_id)) {
                 NilaiOSCE::where('nilai_lain_id', $nilai_osce->nilai_lain_id)
+                    ->where('namaosce', $namaosce)
+                    ->where('nama_penguji', $namadosen)
                     ->delete();
             }
         }
