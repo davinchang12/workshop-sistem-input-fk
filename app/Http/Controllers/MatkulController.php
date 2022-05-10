@@ -91,10 +91,8 @@ class MatkulController extends Controller
             ->get();
       
         $osces = DB::table('nilai_o_s_c_e_s')
-            ->join('nilais', 'nilai_o_s_c_e_s.nilai_id', '=', 'nilais.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->where('matkuls.id', $matkul->id)
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->select('name', 'nim')
             ->get();
@@ -104,12 +102,13 @@ class MatkulController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where($checkUserAndMatkul)
             ->get();
-            
-        $fieldlabs = DB::table('nilai_semester_field_labs')
-            ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+      
+//         $fieldlabs = DB::table('nilai_semester_field_labs')
+//             ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+        $fieldlabs = DB::table('nilai_fieldlabs')
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
-            ->where('users.role', 'mahasiswa')
+            ->where('users.id', auth()->user()->id)
             ->get();
 
         $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' , 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')

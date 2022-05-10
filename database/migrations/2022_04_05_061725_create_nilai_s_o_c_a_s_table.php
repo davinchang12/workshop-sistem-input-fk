@@ -15,7 +15,7 @@ class CreateNilaiSOCASTable extends Migration
     {
         Schema::create('nilai_s_o_c_a_s', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_id');
+            $table->foreignId('nilai_lain_id');
             $table->string('namasoca');
             $table->string('nama_penguji');
             $table->timestamps();
