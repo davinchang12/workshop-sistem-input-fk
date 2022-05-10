@@ -102,7 +102,9 @@ class MatkulController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where($checkUserAndMatkul)
             ->get();
-
+      
+//         $fieldlabs = DB::table('nilai_semester_field_labs')
+//             ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
         $fieldlabs = DB::table('nilai_fieldlabs')
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
