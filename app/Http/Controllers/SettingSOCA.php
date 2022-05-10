@@ -91,6 +91,76 @@ class SettingSOCA extends Controller
         return redirect('/dashboard/settingsoca')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');
     }
 
+    public function editDosen(Request $request) {
+
+        $dosens = User::where('role', 'dosen')->get();
+
+        $users = DB::table('users')
+            ->select('users.id', 'users.name', 'users.nim', 'users.angkatan')
+            ->where('users.role', 'mahasiswa')
+            ->get();
+
+        $angkatans = DB::table('users')
+            ->select('angkatan')
+            ->where('angkatan', '!=', null)
+            ->groupBy('angkatan')
+            ->get();
+
+        $socas = DB::table('nilai_s_o_c_a_s')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_s_o_c_a_s.namasoca', $request['namasoca'])
+            ->select('users.id as user_id', 'nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji')
+            ->get();
+
+        return view('dashboard.soca.admin.editdosen', [
+            'dosens' => $dosens,
+            'users' => $users,
+            'angkatans' => $angkatans,
+            'socas' => $socas
+        ]);
+    }
+
+    public function updateDosen(Request $request) {
+        $namasoca = $request->input('nama_soca');
+        $namadosen = $request->input('nama_dosen');
+        $user_ids = $request->input('user_id');
+
+        $nilai_socas = DB::table('nilai_s_o_c_a_s')
+            ->where('namasoca', $namasoca)
+            ->where('nama_penguji', $namadosen)
+            ->get();
+
+        $nilai_lain_id = array();
+        if($user_ids != null) {
+            foreach ($user_ids as $user_id) {
+                $nilai_lain = NilaiLain::where('user_id', $user_id)->first()->id ??
+                    NilaiLain::create(['user_id' => $user_id])->id;
+
+                array_push($nilai_lain_id, $nilai_lain);
+
+                if(!NilaiSOCA::where('nilai_lain_id', $nilai_lain)->where('namasoca', $namasoca)->where('nama_penguji', $namadosen)->exists()) {
+                    NilaiSOCA::create([
+                        'nilai_lain_id' => $nilai_lain,
+                        'namasoca' => $namasoca,
+                        'nama_penguji' => $namadosen
+                    ]);   
+                }
+            }
+        }
+
+        foreach ($nilai_socas as $nilai_soca) {
+            if (!in_array($nilai_soca->nilai_lain_id, $nilai_lain_id)) {
+                NilaiSOCA::where('nilai_lain_id', $nilai_soca->nilai_lain_id)
+                    ->where('namasoca', $namasoca)
+                    ->where('nama_penguji', $namadosen)
+                    ->delete();
+            }
+        }
+        
+        return redirect('/dashboard/settingsoca')->with('success', 'Data berhasil diupdate!');
+    }
+
     /**
      * Display the specified resource.
      *
