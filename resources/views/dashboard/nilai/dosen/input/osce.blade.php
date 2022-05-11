@@ -168,6 +168,7 @@
         var totalskor = 0;
         var totalbobot = 0;
         var nilai = 0;
+        var jenis_2 = [];
 
         function calculateBobot(jenis) {
 
@@ -180,15 +181,32 @@
             totalbobot += Number(bobot);
             totalskor += total;
             totalResult.innerHTML = total;
+
+            if(!jenis_2.includes(jenis.id)) {
+                jenis_2.push(jenis.id)
+            }
+
             calculateNilaiOSCE();
             
         }
         
         function calculateNilaiOSCE() {
-            var totalResult = document.querySelector('#_nilaiosce');
-            var nilai = (totalskor / (2*totalbobot))*100;
-            totalResult.innerHTML = nilai;
-            var nilai = Math.round(nilai * 100)/100;
+            // var totalResult = document.querySelector('#_nilaiosce');
+            // var nilai = (totalskor / (2*totalbobot))*100;
+            // totalResult.innerHTML = nilai;
+            // var nilai = Math.round(nilai * 100)/100;
+
+            var tempTotalSkor = 0;
+            var tempTotalBobot = 0;
+            jenis_2.forEach(element => {
+                tempTotalBobot += Number(document.getElementById(element + '_bobot').textContent);
+                tempTotalSkor += Number(document.querySelector('#' + element + '_total').innerHTML);
+            });
+
+            var tempTotal = (tempTotalSkor / (2 * tempTotalBobot)) * 100;
+
+            var totalResult = document.querySelector("#_nilaiosce");
+            totalResult.innerHTML = tempTotal;
         }
     </script>
 </body>
