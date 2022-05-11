@@ -14,8 +14,11 @@
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen" class="btn btn-success">Edit
-            Dosen</a>
+        @if ($kelompoks->first() != null)
+            <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen"
+                class="btn btn-success">Edit
+                Dosen</a>
+        @endif
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/create"
             class="btn btn-success">Tambah Kelompok <span data-feather="arrow-right"></span></a>
     </div>
@@ -56,12 +59,16 @@
                                     </div>
                                     <div class="col-md-auto p-auto">
                                         <div class="col">
-                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/delete"
+                                            <form
+                                                action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/delete"
                                                 method="post" class="d-inline">
                                                 @csrf
-                                                <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
-                                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
-                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $kelompok }}">
+                                                <input type="hidden" name="matkul_id" id="matkul_id"
+                                                    value="{{ $matkul->id }}">
+                                                <input type="hidden" name="kodematkul" id="kodematkul"
+                                                    value="{{ $matkul->kodematkul }}">
+                                                <input type="hidden" name="kelompok" id="kelompok"
+                                                    value="{{ $kelompok }}">
                                                 <button class="btn btn-danger w-100 shadow-none"
                                                     onclick="return confirm('Are you sure?')"><span data-feather="x-circle"
                                                         style="height:24px;"></span></button>

@@ -26,12 +26,25 @@
                                         <h5 class="card-title">
                                             Kelompok {{ $kelompok->kelompok }}
                                         </h5>
+                                        <small>Dosen : </small><br>
+                                        @foreach ($fieldlabs as $fieldlab)
+                                            @if ($fieldlab->kelompok == $kelompok->kelompok)
+                                                @if ($fieldlab->role == 'dosen')
+                                                    <small><b>{{ $fieldlab->name }}</b></small><br>
+                                                @endif
+                                            @endif
+                                        @endforeach
+                                        <br>
                                         <small>Anggota :</small><br>
                                         @foreach ($fieldlabs as $fieldlab)
                                             @if ($fieldlab->kelompok == $kelompok->kelompok)
-                                                <small><b>{{ $fieldlab->name }}</b></small><br>
+                                                @if ($fieldlab->role == 'mahasiswa')
+                                                    <small><b>{{ $fieldlab->name }}</b></small><br>
+                                                @endif
                                             @endif
                                         @endforeach
+
+
                                     </div>
                                     <div class="col-md-auto p-auto">
                                         <div class="col">

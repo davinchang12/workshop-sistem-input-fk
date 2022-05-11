@@ -256,6 +256,15 @@ class SettingMataKuliahController extends Controller
 
         $kelompoks = $skenarios->pluck('kelompok')->unique();
 
+        $kelompok = 1;
+
+        for ($i = 1; $i <= 10; $i++) {
+            if(!in_array($i, $kelompoks->toArray())) {
+                $kelompok = $i;
+                break;
+            }
+        }
+
         foreach ($user_ids as $user_id) {
             $check = $skenarios->where('user_id', $user_id)->first();
             if (!$check) {
@@ -270,7 +279,7 @@ class SettingMataKuliahController extends Controller
                     $nilaipblskenario = NilaiPBLSkenario::create([
                         'nilaipbl_id' => $nilaipbl->id,
                         'skenario' => $i,
-                        'kelompok' => $kelompoks->count() + 1
+                        'kelompok' => $kelompok
                     ]);
 
                     NilaiPBLSkenarioDiskusi::create([
