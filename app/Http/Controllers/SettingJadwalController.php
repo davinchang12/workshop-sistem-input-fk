@@ -24,7 +24,7 @@ class SettingJadwalController extends Controller
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->where('users.role', '!=', 'mahasiswa')
             ->orderBy('tanggal', 'ASC')
-            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan')
+            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi')
             ->get();
 
         return view('dashboard.jadwal.admin.index', [
@@ -58,6 +58,7 @@ class SettingJadwalController extends Controller
         $rules = [
             'matkul_id' => 'required',
             'user_id' => 'required',
+            'materi' => 'required',
             'tanggal' => 'required',
             'jammasuk' => 'required',
             'jamselesai' => 'required|after:jammasuk',
@@ -65,6 +66,7 @@ class SettingJadwalController extends Controller
         ];
 
         $validatedData = $request->validate($rules);
+        $validatedData['materi'] = strtoupper($validatedData['materi']);
         $validatedData['jammasuk'] = $validatedData['jammasuk'] . ":00";
         $validatedData['jamselesai'] = $validatedData['jamselesai'] . ":00";
 
@@ -137,6 +139,7 @@ class SettingJadwalController extends Controller
         $rules = [
             'matkul_id' => 'required',
             'user_id' => 'required',
+            'materi' => 'required',
             'tanggal' => 'required',
             'jammasuk' => 'required',
             'jamselesai' => 'required|after:jammasuk',
@@ -144,6 +147,7 @@ class SettingJadwalController extends Controller
         ];
 
         $validatedData = $request->validate($rules);
+        $validatedData['materi'] = strtoupper($validatedData['materi']);
 
         $jadwals = DB::table('jadwals')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
