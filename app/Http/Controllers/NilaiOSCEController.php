@@ -62,8 +62,7 @@ class NilaiOSCEController extends Controller
             ->limit(1)
             ->value('skor_osce');
         for ($i = 0; $i < ((int)$request->jumlahaspek); $i++) {
-            $get_key = collect($request->all())->keys()[6 + $i];
-
+            $get_key = collect($request->all())->keys()[5 + $i];
             if ($checkskor == null) {
                 DB::table('jenis_o_s_c_e_s')
                     ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
