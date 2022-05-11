@@ -16,17 +16,21 @@ class NilaiLainController extends Controller
      */
     public function index()
     {
-        $socas = DB::table('nilai_s_o_c_a_s')
+        $socas = DB::table('nilai_jenis_s_o_c_a_s')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
+            ->groupBy('users.name')
             ->select('name', 'nim')
             ->get();
       
-        $osces = DB::table('nilai_o_s_c_e_s')
+        $osces = DB::table('nilai_jenis_o_s_c_e_s')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
+            ->groupBy('users.name')
             ->select('name', 'nim')
             ->get();
 
