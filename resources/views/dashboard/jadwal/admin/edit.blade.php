@@ -39,6 +39,16 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Msateri</label>
+                <input type="text" class="form-control" id="materi" name="materi"
+                    value="{{ old('materi', $settingjadwal->materi) }}">
+                @error('materi')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="tanggal" class="form-label @error('tanggal') is-invalid @enderror">Tanggal</label>
                 <input type="date" class="form-control" id="tanggal" name="tanggal" required
                     value="{{ old('tanggal', $settingjadwal->tanggal) }}">
