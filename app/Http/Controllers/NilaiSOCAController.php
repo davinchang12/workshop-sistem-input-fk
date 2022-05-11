@@ -185,6 +185,7 @@ class NilaiSOCAController extends Controller
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
             ->get();
@@ -194,6 +195,7 @@ class NilaiSOCAController extends Controller
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
             ->get();

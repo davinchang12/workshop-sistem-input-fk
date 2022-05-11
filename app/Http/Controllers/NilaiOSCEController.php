@@ -178,6 +178,7 @@ class NilaiOSCEController extends Controller
             ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->get();
 
@@ -186,6 +187,7 @@ class NilaiOSCEController extends Controller
             ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->get('nilaijenisosce_id');
         // dd($checkExist->isEmpty());
@@ -196,6 +198,7 @@ class NilaiOSCEController extends Controller
                     ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
                     ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
                     ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                    ->where('nama_penguji', auth()->user()->name)
                     ->where('users.name', $request->mahasiswa_dipilih)
                     ->pluck("nilai_jenis_o_s_c_e_s.id");
                 // dd($aspekid);
@@ -204,6 +207,7 @@ class NilaiOSCEController extends Controller
                     ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
                     ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
                     ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                    ->where('nama_penguji', auth()->user()->name)
                     ->where('users.name', $request->mahasiswa_dipilih)
                     ->insert(['nilaijenisosce_id' => $aspekid[$i]]);
                 $i++;
