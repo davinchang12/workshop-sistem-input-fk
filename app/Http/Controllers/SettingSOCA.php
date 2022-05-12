@@ -20,7 +20,7 @@ class SettingSOCA extends Controller
     public function index()
     {
         $socas = DB::table('nilai_s_o_c_a_s')
-            ->select('nama_penguji', 'namasoca')
+            ->select('nama_penguji', 'namasoca', 'keterangan')
             ->groupBy('nama_penguji', 'namasoca')
             ->get();
 
@@ -116,7 +116,7 @@ class SettingSOCA extends Controller
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.namasoca', $request['namasoca'])
-            ->select('users.id as user_id', 'nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji')
+            ->select('users.id as user_id', 'nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.keterangan')
             ->get();
 
         return view('dashboard.soca.admin.editdosen', [

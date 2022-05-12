@@ -21,6 +21,7 @@
                 <tr>
                     <th scope="col">Nama Dosen</th>
                     <th scope="col">Nama SOCA</th>
+                    <th scope="col">Semester</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{ $soca->nama_penguji }}</td>
                         <td>{{ $soca->namasoca }}</td>
+                        <td>{{ $soca->keterangan }}</td>
                         <td>
                             <form action="/dashboard/settingsoca/edit" method="post" class="d-inline">
                                 @csrf
