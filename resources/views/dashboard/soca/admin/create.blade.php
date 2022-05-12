@@ -21,6 +21,10 @@
                 <input type="text" class="form-control" id="nama_soca" name="nama_soca" value="{{ old('nama_soca') }}" required>
             </div>
             <div class="mb-3">
+                <label for="keterangan" class="form-label">Semester</label>
+                <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ old('keterangan') }}" required>
+            </div>
+            <div class="mb-3">
                 <label for="nama_dosen" class="form-label">Nama Dosen</label>
                 <select class="form-select" id="nama_dosen" name="nama_dosen">
                     @foreach ($dosens as $dosen)
