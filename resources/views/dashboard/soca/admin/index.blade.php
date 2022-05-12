@@ -38,6 +38,7 @@
                                 <input type="hidden" name="nama_penguji" id="nama_penguji"
                                     value="{{ $soca->nama_penguji }}">
                                 <input type="hidden" name="namasoca" id="namasoca" value="{{ $soca->namasoca }}">
+                                <input type="hidden" name="keterangan" id="keterangan" value="{{ $soca->keterangan }}">
                                 <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
                             </form>
                             <form action="/dashboard/settingsoca/delete" method="post" class="d-inline">
@@ -46,6 +47,7 @@
                                 <input type="hidden" name="nama_penguji" id="nama_penguji"
                                     value="{{ $soca->nama_penguji }}">
                                 <input type="hidden" name="namasoca" id="namasoca" value="{{ $soca->namasoca }}">
+                                <input type="hidden" name="keterangan" id="keterangan" value="{{ $soca->keterangan }}">
                                 <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
                                         data-feather="x-circle"></span></button>
                             </form>
