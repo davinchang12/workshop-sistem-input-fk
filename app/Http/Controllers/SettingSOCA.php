@@ -132,10 +132,12 @@ class SettingSOCA extends Controller
         $namasoca = $request->input('nama_soca');
         $namadosen = $request->input('nama_dosen');
         $user_ids = $request->input('user_id');
+        $keterangan = $request->input('keterangan');
 
         $nilai_socas = DB::table('nilai_s_o_c_a_s')
             ->where('namasoca', $namasoca)
             ->where('nama_penguji', $namadosen)
+            ->where('keterangan', $keterangan)
             ->get();
 
         $nilai_lain_id = array();
@@ -150,7 +152,8 @@ class SettingSOCA extends Controller
                     NilaiSOCA::create([
                         'nilai_lain_id' => $nilai_lain,
                         'namasoca' => $namasoca,
-                        'nama_penguji' => $namadosen
+                        'nama_penguji' => $namadosen,
+                        'keterangan' => $keterangan
                     ]);
                 }
             }
@@ -161,6 +164,7 @@ class SettingSOCA extends Controller
                 NilaiSOCA::where('nilai_lain_id', $nilai_soca->nilai_lain_id)
                     ->where('namasoca', $namasoca)
                     ->where('nama_penguji', $namadosen)
+                    ->where('keterangan', $keterangan)
                     ->delete();
             }
         }
