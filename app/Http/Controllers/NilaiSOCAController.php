@@ -114,9 +114,9 @@ class NilaiSOCAController extends Controller
             ->update([
                 'komentar' => $request->hasil_penilaian_keterampilan_presentasi_dan_sikap
             ]);
-        
+            
         for($i = 0; $i < (int)$request->jumlah_ke_2; $i++) {
-            $get_key = collect($request->all())->keys()[8+$i];
+            $get_key = collect($request->all())->keys()[7+$i];
 
             DB::table('jenis_s_o_c_a_s')
                 ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
