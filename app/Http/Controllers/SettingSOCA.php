@@ -176,9 +176,11 @@ class SettingSOCA extends Controller
     {
         $namasoca = $request->input('namasoca');
         $nama_penguji = $request->input('nama_penguji');
-
+        $keterangan = $request->input('keterangan');
+    
         NilaiSOCA::where('namasoca', $namasoca)
             ->where('nama_penguji', $nama_penguji)
+            ->where('keterangan', $keterangan)
             ->delete();
 
         return redirect('/dashboard/settingsoca')->with('success', 'Data berhasil dihapus!');
