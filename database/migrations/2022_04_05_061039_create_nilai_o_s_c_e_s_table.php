@@ -15,7 +15,7 @@ class CreateNilaiOSCESTable extends Migration
     {
         Schema::create('nilai_o_s_c_e_s', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_id');
+            $table->foreignId('nilai_lain_id');
             $table->string('namaosce');
             $table->string('nama_penguji');
             $table->float('nilaiosce', 8, 2)->nullable();

@@ -20,6 +20,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Kode Matakuliah</th>
                     <th scope="col">Nama Mata Kuliah</th>
+                    <th scope="col">Materi / Topik</th>
                     <th scope="col">Dosen</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Jam Masuk</th>
@@ -34,6 +35,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $jadwal->kodematkul }}</td>
                         <td>{{ $jadwal->namamatkul }}</td>
+                        <td>{{ $jadwal->materi }}</td>
                         <td>{{ $jadwal->name }}</td>
                         <td>{{ $jadwal->tanggal }}</td>
                         <td>{{ $jadwal->jammasuk }}</td>

@@ -19,9 +19,8 @@
             <input type="hidden" name="nama" id="nama" value="{{ $socas[0]->name }}">
             <input type="hidden" name="nim" id="nim" value="{{ $socas[0]->nim }}">
             <input type="hidden" name="jumlah_ke_2" id="jumlah_ke_2" value="{{ count($socas_2) }}">
-            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $kodematkul }}">
             <div class="d-flex justify-content-between">
-                <a href="/dashboard/matkul/{{ $kodematkul }}" class="btn btn-success mt-3">Kembali</a>
+                <a href="/dashboard/nilailain" class="btn btn-success mt-3">Kembali</a>
                 <button type="submit" class="btn btn-primary mt-3 ml-2">Submit Nilai</button>
             </div>
             <div class=WordSection1>

@@ -15,7 +15,7 @@ class NilaiFieldlab extends Model
         'id'
     ];
     protected $with =[
-        'nilai',
+        'nilailain',
     ];
     public function nilailain()
     {

@@ -301,6 +301,7 @@ class DatabaseSeeder extends Seeder
         Jadwal::create([
             'user_id' => 9,
             'matkul_id' => 1,
+            'materi' => 'test 1',
             'tanggal' => '2022-03-29',
             'jammasuk' => '08:00',
             'jamselesai' => '12:00',
@@ -309,6 +310,7 @@ class DatabaseSeeder extends Seeder
         Jadwal::create([
             'user_id' => 10,
             'matkul_id' => 1,
+            'materi' => 'test 2',
             'tanggal' => '2022-03-29 07:48:06',
             'jammasuk' => '08:00',
             'jamselesai' => '12:00',
@@ -908,13 +910,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         NilaiSOCA::create([
-            'nilai_id' => 1,
+            'nilai_lain_id' => 1,
             'namasoca' => "SKA",
             'nama_penguji' => "dr. A"
         ]);
 
         NilaiSOCA::create([
-            'nilai_id' => 3,
+            'nilai_lain_id' => 3,
             'namasoca' => "SKA",
             'nama_penguji' => "dr. A"
         ]);
@@ -1000,12 +1002,12 @@ class DatabaseSeeder extends Seeder
             "kepuasan_presentasi" => ""
         ]);
         NilaiOSCE::create([
-            'nilai_id' => 1,
+            'nilai_lain_id' => 2,
             'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
             'nama_penguji' => "dr. A"
         ]);
         NilaiOSCE::create([
-            'nilai_id' => 4,
+            'nilai_lain_id' => 3,
             'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
             'nama_penguji' => "dr. A"
         ]);
@@ -1180,22 +1182,32 @@ class DatabaseSeeder extends Seeder
 
         NilaiFieldlab::create([
             'nilai_lain_id' => 1,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 2,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 3,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 4,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
         NilaiFieldlab::create([
             'nilai_lain_id' => 5,
+            'kelompok' => 1,
+            'keterangan' => '2021/2022',
             'semester' => "Semester 2"
         ]);
 

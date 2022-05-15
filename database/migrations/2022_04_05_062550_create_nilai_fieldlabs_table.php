@@ -17,6 +17,8 @@ class CreateNilaiFieldlabsTable extends Migration
             $table->id();
             $table->foreignId('nilai_lain_id');
             $table->string('semester');
+            $table->integer('kelompok');
+            $table->string('keterangan');
             $table->timestamps();
             $table->softDeletes();
         });

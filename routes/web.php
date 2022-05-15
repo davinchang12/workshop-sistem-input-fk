@@ -1,9 +1,12 @@
 <?php
 
 use App\Exports\NilaiTugasExport;
+use App\Http\Controllers\SettingOSCE;
+use App\Http\Controllers\SettingSOCA;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\SettingFieldLab;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
@@ -20,6 +23,7 @@ use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
 use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
+use App\Http\Controllers\NilaiLainController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
 use App\Http\Controllers\SettingMahasiswaMataKuliah;
@@ -54,17 +58,6 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 // Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
 // Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
 
-Route::get('/dashboard/matkul/nilai/export/field-lab', [NilaiFieldlabController::class, 'export']);
-Route::post('/dashboard/matkul/nilai/import/field-lab', [NilaiFieldlabController::class, 'import']);
-
-Route::post('/dashboard/matkul/nilai/input-soca-submit', [NilaiSOCAController::class, 'store']);
-Route::post('/dashboard/matkul/nilai/input-soca', [NilaiSOCAController::class, 'input']);
-
-Route::post('/dashboard/matkul/nilai/input-osce-submit', [NilaiOSCEController::class, 'store']);
-Route::post('/dashboard/matkul/nilai/input-osce', [NilaiOSCEController::class, 'input']);
-Route::post('/dashboard/matkul/nilai/export-osce', [NilaiOSCEController::class, 'export']);
-Route::post('/dashboard/matkul/nilai/import-osce', [NilaiOSCEController::class, 'import']);
-
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 
@@ -90,6 +83,19 @@ Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('
 Route::resource('/dashboard/matkul', MatkulController::class)->only([
     'index', 'show'
 ])->middleware('auth');
+
+
+Route::get('/dashboard/nilailain/export/field-lab', [NilaiFieldlabController::class, 'export']);
+Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::class, 'import']);
+
+Route::post('/dashboard/nilailain/input-soca-submit', [NilaiSOCAController::class, 'store']);
+Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'input']);
+
+Route::post('/dashboard/nilailain/input-osce-submit', [NilaiOSCEController::class, 'store']);
+Route::post('/dashboard/nilailain/input-osce', [NilaiOSCEController::class, 'input']);
+Route::post('/dashboard/nilailain/export-osce', [NilaiOSCEController::class, 'export']);
+Route::post('/dashboard/nilailain/import-osce', [NilaiOSCEController::class, 'import']);
+Route::resource('/dashboard/nilailain', NilaiLainController::class)->middleware('auth');
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
 
@@ -147,6 +153,26 @@ Route::resource('/dashboard/settingmatakuliah', SettingMataKuliahController::cla
 Route::resource('/dashboard/settingjadwal', SettingJadwalController::class)->middleware('admin');
 
 
+Route::post('/dashboard/settingosce/delete', [SettingOSCE::class, 'deleteDosen'])->middleware('admin');
+Route::post('/dashboard/settingosce/updatedosen', [SettingOSCE::class, 'updateDosen'])->middleware('admin');
+Route::post('/dashboard/settingosce/edit', [SettingOSCE::class, 'editDosen'])->middleware('admin');
+Route::post('/dashboard/settingosce/createsoal/tambah', [SettingOSCE::class, 'tambahSoal'])->middleware('admin');
+Route::get('/dashboard/settingosce/createsoal/export-template', [SettingOSCE::class, 'exportTemplate'])->middleware('admin');
+Route::get('/dashboard/settingosce/createsoal', [SettingOSCE::class, 'createSoal'])->middleware('admin');
+Route::resource('/dashboard/settingosce', SettingOSCE::class)->middleware('admin');
+
+Route::post('/dashboard/settingsoca/delete', [SettingSOCA::class, 'deleteDosen'])->middleware('admin');
+Route::post('/dashboard/settingsoca/createsoal/tambah', [SettingSOCA::class, 'tambahSoal'])->middleware('admin');
+Route::get('/dashboard/settingsoca/createsoal/export-template', [SettingSOCA::class, 'exportTemplate'])->middleware('admin');
+Route::get('/dashboard/settingsoca/createsoal', [SettingSOCA::class, 'createSoal'])->middleware('admin');
+Route::post('/dashboard/settingsoca/updatedosen', [SettingSOCA::class, 'updateDosen'])->middleware('admin');
+Route::post('/dashboard/settingsoca/edit', [SettingSOCA::class, 'editDosen'])->middleware('admin');
+Route::resource('/dashboard/settingsoca', SettingSOCA::class)->middleware('admin');
+
+Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class, 'deleteSemester'])->middleware('admin');
+Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
+Route::get('/dashboard/settingfieldlab/show', [SettingFieldLab::class, 'showSemester'])->middleware('admin');
+Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middleware('admin');
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 

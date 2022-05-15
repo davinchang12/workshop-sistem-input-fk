@@ -11,16 +11,15 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">   
 </head>
 <body>
-    <form action="/dashboard/matkul/nilai/input-osce-submit" method="post">
+    <form action="/dashboard/nilailain/input-osce-submit" method="post">
         @csrf
         <div class="container mt-3 mb-3 w-75">
             <input type="hidden" name="namaosce" id="namaosce" value="{{ $osces[0]->namaosce }}">
             <input type="hidden" name="nama" id="nama" value="{{ $osces[0]->name }}">
             <input type="hidden" name="nim" id="nim" value="{{ $osces[0]->nim }}">
             <input type="hidden" name="jumlahaspek" id="jumlahaspek" value="{{ count($osces) }}">
-            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $kodematkul }}">
             <div class="d-flex justify-content-between">
-                <a href="/dashboard/matkul/{{ $kodematkul }}" class="btn btn-success mt-3">Kembali</a>
+                <a href="/dashboard/nilailain" class="btn btn-success mt-3">Kembali</a>
                 <button type="submit" class="btn btn-primary mt-3 ml-2">Submit Nilai</button>
             </div>
 
@@ -169,6 +168,7 @@
         var totalskor = 0;
         var totalbobot = 0;
         var nilai = 0;
+        var jenis_2 = [];
 
         function calculateBobot(jenis) {
 
@@ -181,15 +181,32 @@
             totalbobot += Number(bobot);
             totalskor += total;
             totalResult.innerHTML = total;
+
+            if(!jenis_2.includes(jenis.id)) {
+                jenis_2.push(jenis.id)
+            }
+
             calculateNilaiOSCE();
             
         }
         
         function calculateNilaiOSCE() {
-            var totalResult = document.querySelector('#_nilaiosce');
-            var nilai = (totalskor / (2*totalbobot))*100;
-            totalResult.innerHTML = nilai;
-            var nilai = Math.round(nilai * 100)/100;
+            // var totalResult = document.querySelector('#_nilaiosce');
+            // var nilai = (totalskor / (2*totalbobot))*100;
+            // totalResult.innerHTML = nilai;
+            // var nilai = Math.round(nilai * 100)/100;
+
+            var tempTotalSkor = 0;
+            var tempTotalBobot = 0;
+            jenis_2.forEach(element => {
+                tempTotalBobot += Number(document.getElementById(element + '_bobot').textContent);
+                tempTotalSkor += Number(document.querySelector('#' + element + '_total').innerHTML);
+            });
+
+            var tempTotal = (tempTotalSkor / (2 * tempTotalBobot)) * 100;
+
+            var totalResult = document.querySelector("#_nilaiosce");
+            totalResult.innerHTML = tempTotal;
         }
     </script>
 </body>
