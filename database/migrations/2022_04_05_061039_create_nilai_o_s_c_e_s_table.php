@@ -20,6 +20,7 @@ class CreateNilaiOSCESTable extends Migration
             $table->string('nama_penguji');
             $table->float('nilaiosce', 8, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

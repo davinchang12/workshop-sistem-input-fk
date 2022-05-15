@@ -28,6 +28,7 @@ class CreateNilaiJenisPraktikumsTable extends Migration
             $table->string('keterangan_nilai_setelah_remedi')->nullable();
             $table->string('keterangan_nilai_setelah_remedi_berdasarkan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

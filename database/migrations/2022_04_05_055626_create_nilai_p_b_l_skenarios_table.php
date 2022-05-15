@@ -19,6 +19,7 @@ class CreateNilaiPBLSkenariosTable extends Migration
             $table->string('skenario');
             $table->string('kelompok');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

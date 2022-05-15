@@ -18,6 +18,7 @@ class CreateJenisOSCESTable extends Migration
             $table->foreignId('nilaijenisosce_id');
             $table->integer('skor_osce')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

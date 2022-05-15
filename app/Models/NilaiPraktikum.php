@@ -5,11 +5,12 @@ namespace App\Models;
 use App\Models\Nilai;
 use App\Models\NilaiJenisPraktikum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NilaiPraktikum extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded = [
         'id'
     ];

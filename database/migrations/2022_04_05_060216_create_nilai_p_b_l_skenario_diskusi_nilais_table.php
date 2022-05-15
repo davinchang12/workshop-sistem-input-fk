@@ -26,6 +26,7 @@ class CreateNilaiPBLSkenarioDiskusiNilaisTable extends Migration
             $table->double('rata_rata', 8, 2);
             $table->text('catatan_kesan_kegiatan_diskusi_tutorial')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

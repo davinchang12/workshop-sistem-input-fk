@@ -18,6 +18,7 @@ class CreateKelompoksTable extends Migration
             $table->foreignId('matkul_id');
             $table->string('kodekelompok');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

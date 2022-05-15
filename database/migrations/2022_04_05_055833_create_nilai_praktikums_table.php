@@ -18,6 +18,7 @@ class CreateNilaiPraktikumsTable extends Migration
             $table->foreignId('nilai_id');
             $table->string('namapraktikum');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

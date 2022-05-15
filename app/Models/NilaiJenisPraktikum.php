@@ -6,11 +6,12 @@ use App\Models\NilaiPraktikum;
 use App\Models\NilaiQuizPraktikum;
 use App\Models\NilaiLaporanPraktikum;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NilaiJenisPraktikum extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $guarded = [
         'id'
     ];

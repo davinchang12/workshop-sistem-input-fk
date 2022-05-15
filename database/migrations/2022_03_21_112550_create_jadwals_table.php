@@ -23,6 +23,7 @@ class CreateJadwalsTable extends Migration
             $table->text('ruangan')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

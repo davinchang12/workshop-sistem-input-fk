@@ -21,6 +21,7 @@ class CreateHasilNilaiUjiansTable extends Migration
             $table->float('ratarataujian', 8, 2)->nullable();
             $table->float('remediujian', 8, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

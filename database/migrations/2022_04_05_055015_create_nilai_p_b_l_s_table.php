@@ -17,6 +17,7 @@ class CreateNilaiPBLSTable extends Migration
             $table->id();
             $table->foreignId('nilai_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

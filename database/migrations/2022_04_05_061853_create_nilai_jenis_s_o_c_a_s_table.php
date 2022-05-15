@@ -18,6 +18,7 @@ class CreateNilaiJenisSOCASTable extends Migration
             $table->foreignId('nilaisoca_id');
             $table->string('namaanalisis');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

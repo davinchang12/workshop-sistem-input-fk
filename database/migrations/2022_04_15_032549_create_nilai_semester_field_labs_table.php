@@ -22,6 +22,7 @@ class CreateNilaiSemesterFieldLabsTable extends Migration
             $table->integer('nilai_akhir');
             $table->string('keterangan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

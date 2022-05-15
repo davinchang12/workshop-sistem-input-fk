@@ -23,6 +23,7 @@ class CreateNilaiUjiansTable extends Migration
             $table->float('uabcombinedremedial', 8, 2)->nullable();
             $table->float('ratamin', 8, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

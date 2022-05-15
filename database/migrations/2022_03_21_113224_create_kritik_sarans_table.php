@@ -18,6 +18,7 @@ class CreateKritikSaransTable extends Migration
             $table->foreignId('matkul_id');
             $table->text('kritik')->nullable();
             $table->text('saran')->nullable();
+            $table->softDeletes();
         });
     }
 

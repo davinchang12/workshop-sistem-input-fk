@@ -19,6 +19,7 @@ class CreateRincianNilaiTugasTable extends Migration
             $table->string('dosenpenguji')->nullable();
             $table->float('rataratatugas', 8, 2)->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

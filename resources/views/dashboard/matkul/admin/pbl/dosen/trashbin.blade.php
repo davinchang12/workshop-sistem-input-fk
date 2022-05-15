@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Dosen PBL</h1>
+        <h1 class="h2">Trashbin Dosen PBL</h1>
     </div>
 
     @if (session()->has('success'))
@@ -12,12 +12,10 @@
     @endif
 
     <div class="d-flex justify-content-between">
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl" class="btn btn-success"><span
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/trashbin"
-                class="btn btn-success">Trashbin</span></a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/create"
-            class="btn btn-success">Tambah Dosen <span data-feather="arrow-right"></span></a>
+        {{-- <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/create"
+            class="btn btn-success">Tambah Dosen <span data-feather="arrow-right"></span></a> --}}
     </div>
 
     <div class="row d-flex justify-content-between mt-3">
@@ -62,14 +60,23 @@
                         <td>{{ $diskusi->tanggal_pelaksanaan }}</td>
                     @endforeach
                     <td>
-                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/delete" method="post" class="d-inline">
+                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/restore" method="post" class="d-inline">
                             @csrf
                             @foreach ($temp as $t)
                                 <input type="hidden" name="diskusi[]" value="{{ $t }}">
                             @endforeach
                             <input type="hidden" name="skenario" value="{{ $skenario->id }}">
                             <input type="hidden" name="kodematkul" value="{{ $matkul->kodematkul }}">
-                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
+                            <button class="badge bg-warning border-0" onclick="return confirm('Restore data?')"><span data-feather="refresh-ccw"></span></button>
+                        </form>
+                        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen/force-delete" method="post" class="d-inline">
+                            @csrf
+                            @foreach ($temp as $t)
+                                <input type="hidden" name="diskusi[]" value="{{ $t }}">
+                            @endforeach
+                            <input type="hidden" name="skenario" value="{{ $skenario->id }}">
+                            <input type="hidden" name="kodematkul" value="{{ $matkul->kodematkul }}">
+                            <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?It will not be able restored?')"><span data-feather="x-circle"></span></button>
                         </form>
                     </td>
                 </tr>

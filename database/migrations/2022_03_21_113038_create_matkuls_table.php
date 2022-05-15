@@ -23,6 +23,7 @@ class CreateMatkulsTable extends Migration
             $table->string('blok')->nullable();
             $table->string('kinerja')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

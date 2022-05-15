@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Mata Kuliah</h1>
+        <h1 class="h2">Trashbin Mata Kuliah</h1>
     </div>
 
     @if (session()->has('success'))
@@ -12,8 +12,12 @@
     @endif
 
     <div class="table-responsive">
-        <a href="/dashboard/settingmatakuliah/create" class="btn btn-primary mb-3">Tambah Mata Kuliah</a>
-        <a href="/dashboard/settingmatakuliah/trashbin" class="btn btn-primary mb-3">Trashbin</a>
+        <a href="/dashboard/settingmatakuliah" class="btn btn-primary mb-3">Kembali</a>
+        <form action="/dashboard/settingmatakuliah/trashbin/empty-trash" method="post" class="d-inline">
+            @method('post')
+            @csrf
+            <button class="btn btn-primary bg-danger mb-3" onclick="return confirm('Are you sure? All of the data will not be able restored')">Hapus Semua Data di Trashbin</button>
+        </form>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
@@ -36,14 +40,17 @@
                         <td>{{ $matkul->tahun_ajaran }}</td>
                         <td>{{ $matkul->bobot_sks }}</td>
                         <td>
-                            <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="badge bg-info"><span
-                                    data-feather="eye"></span></a>
-                            <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" method="post" class="d-inline">
-                                @method('delete')
+                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/restore" method="post" class="d-inline">
+                                @method('post')
                                 @csrf
-
-                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
+                                <input type="hidden" id="kodematkul" name="kodematkul" value={{ $matkul->kodematkul }}>
+                                <button class="badge bg-warning border-0" onclick="return confirm('Restore data?')"><span data-feather="refresh-ccw"></span></button>
+                            </form>
+                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/force-delete" method="post" class="d-inline">
+                                @method('post')
+                                @csrf
+                                <input type="hidden" id="kodematkul" name="kodematkul" value={{ $matkul->kodematkul }}>
+                                <button class="badge bg-danger border-0" onclick="return confirm('Delete Data?It will not be able restored')"><span data-feather="x-circle"></span></button>
                             </form>
                         </td>
                     </tr>

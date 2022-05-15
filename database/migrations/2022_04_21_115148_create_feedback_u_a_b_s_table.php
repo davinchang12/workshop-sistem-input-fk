@@ -18,6 +18,7 @@ class CreateFeedbackUABSTable extends Migration
             $table->foreignId("hasil_ujians_id");
             $table->integer('total')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

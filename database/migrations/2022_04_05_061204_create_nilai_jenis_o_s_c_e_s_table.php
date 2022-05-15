@@ -18,8 +18,8 @@ class CreateNilaiJenisOSCESTable extends Migration
             $table->foreignId('nilaiosce_id');
             $table->integer('bobot')->nullable();
             $table->string('aspekdinilaiosce');
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

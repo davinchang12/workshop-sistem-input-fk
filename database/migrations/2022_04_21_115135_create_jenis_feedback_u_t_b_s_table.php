@@ -19,6 +19,7 @@ class CreateJenisFeedbackUTBSTable extends Migration
             $table->string('topik')->nullable();
             $table->integer('skor')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -25,12 +25,36 @@ class SettingMataKuliahController extends Controller
     public function index()
     {
         $matkuls = DB::table('matkuls')
+            ->where('matkuls.deleted_at', '=', null)
             ->orderBy('keterangan', 'ASC')
             ->get();
 
         return view('dashboard.matkul.admin.index', [
             'matkuls' => $matkuls
         ]);
+    }
+    public function trashbin()
+    {
+        $matkuls = DB::table('matkuls')
+            ->where('matkuls.deleted_at', '!=', null)
+            ->orderBy('keterangan', 'ASC')
+            ->get();
+
+        return view('dashboard.matkul.admin.trashbin', [
+            'matkuls' => $matkuls
+        ]);
+    }
+    public function restore(Request $request){
+        Matkul::where('kodematkul', '=', $request->kodematkul)->restore();
+        return redirect('/dashboard/settingmatakuliah/trashbin')->with('success', 'Matakuliah berhasil direstore!');
+    }
+    public function forceDelete(Request $request){
+        Matkul::where('kodematkul', '=', $request->kodematkul)->forceDelete();
+        return redirect('/dashboard/settingmatakuliah/trashbin')->with('success', 'Matakuliah berhasil dihapus!');
+    }
+    public function emptyTrash(Request $request){
+        Matkul::where('deleted_at', '!=', null)->ForceDelete();
+        return redirect('/dashboard/settingmatakuliah/trashbin')->with('success', 'Semua matakuliah di trashbin berhasil dihapus!');
     }
 
     /**
@@ -181,12 +205,41 @@ class SettingMataKuliahController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_p_b_l_skenarios.deleted_at','=',null)
             ->select('users.name', 'kelompok')
             ->get();
 
         $kelompoks = $skenarios->pluck('kelompok')->unique();
 
         return view('dashboard.matkul.admin.pbl.index', [
+            'matkul' => $settingmatakuliah,
+            'nilais' => $nilais,
+            'kelompoks' => $kelompoks,
+            'skenarios' => $skenarios->unique()
+        ]);
+    }
+
+    public function trashbinkelompokPBL(Matkul $settingmatakuliah)
+    {
+        $nilais = DB::table('nilais')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->get();
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_p_b_l_skenarios.deleted_at','!=',null)
+            ->select('users.name', 'kelompok')
+            ->get();
+
+        $kelompoks = $skenarios->pluck('kelompok')->unique();
+
+        return view('dashboard.matkul.admin.pbl.trashbin', [
             'matkul' => $settingmatakuliah,
             'nilais' => $nilais,
             'kelompoks' => $kelompoks,
@@ -323,7 +376,119 @@ class SettingMataKuliahController extends Controller
                 ->delete();
         }
 
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil dihapus sementara!');
+    }
+    public function forcedeleteKelompokPBL(Request $request)
+    {
+        $kodematkul = $request->input('kodematkul');
+        $matkul_id = $request->input('matkul_id');
+        $kelompok = $request->input('kelompok');
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_p_b_l_skenarios.kelompok', $kelompok)
+            ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'nilai_p_b_l_skenarios.id as nilaipblskenario_id', 'users.name', 'kelompok')
+            ->get();
+
+        foreach ($skenarios as $skenario) {
+            $skenarioDiskusis = NilaiPBLSkenarioDiskusi::where('nilaipblskenario_id', $skenario->nilaipblskenario_id);
+
+            $skenarioDiskusisCheck = $skenarioDiskusis->get();
+            foreach ($skenarioDiskusisCheck as $skenarioDiskusi) {
+                NilaiPBLSkenarioDiskusiNilai::where('nilaipblskenariodiskusi_id', $skenarioDiskusi->id)
+                    ->forcedelete();
+            }
+
+            $skenarioDiskusis->forcedelete();
+
+            NilaiPBLSkenario::where('id', $skenario->nilaipblskenario_id)
+                ->forcedelete();
+
+            NilaiPBL::where('id', $skenario->nilaipbl_id)
+                ->forcedelete();
+        }
+
         return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil dihapus!');
+    }
+    public function emptyKelompokPBL(Request $request)
+    {
+        $kodematkul = $request->input('kodematkul');
+        $matkul_id = $request->input('matkul_id');
+        // $kelompok = $request->input('kelompok');
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_p_b_l_skenarios.deleted_at', '!=', null)
+            // ->where('nilai_p_b_l_skenarios.kelompok', $kelompok)
+            ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'nilai_p_b_l_skenarios.id as nilaipblskenario_id', 'users.name', 'kelompok')
+            ->get();
+
+        foreach ($skenarios as $skenario) {
+            $skenarioDiskusis = NilaiPBLSkenarioDiskusi::where('nilaipblskenario_id', $skenario->nilaipblskenario_id);
+
+            $skenarioDiskusisCheck = $skenarioDiskusis->get();
+            foreach ($skenarioDiskusisCheck as $skenarioDiskusi) {
+                NilaiPBLSkenarioDiskusiNilai::where('nilaipblskenariodiskusi_id', $skenarioDiskusi->id)
+                    ->forcedelete();
+            }
+
+            $skenarioDiskusis->forcedelete();
+
+            NilaiPBLSkenario::where('id', $skenario->nilaipblskenario_id)
+                ->forcedelete();
+
+            NilaiPBL::where('id', $skenario->nilaipbl_id)
+                ->forcedelete();
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil dihapus!');
+    }
+    public function restoredeleteKelompokPBL(Request $request)
+    {
+        $kodematkul = $request->input('kodematkul');
+        $matkul_id = $request->input('matkul_id');
+        $kelompok = $request->input('kelompok');
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_p_b_l_skenarios.kelompok', $kelompok)
+            ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'nilai_p_b_l_skenarios.id as nilaipblskenario_id', 'users.name', 'kelompok')
+            ->get();
+
+        foreach ($skenarios as $skenario) {
+            $skenarioDiskusis = NilaiPBLSkenarioDiskusi::where('nilaipblskenario_id', $skenario->nilaipblskenario_id);
+
+            $skenarioDiskusisCheck = $skenarioDiskusis->get();
+            foreach ($skenarioDiskusisCheck as $skenarioDiskusi) {
+                NilaiPBLSkenarioDiskusiNilai::where('nilaipblskenariodiskusi_id', $skenarioDiskusi->id)
+                    ->restore();
+            }
+
+            $skenarioDiskusis->restore();
+
+            NilaiPBLSkenario::where('id', $skenario->nilaipblskenario_id)
+                ->restore();
+
+            NilaiPBL::where('id', $skenario->nilaipbl_id)
+                ->restore();
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingkelompokpbl')->with('success', 'Kelompok berhasil direstore!');
     }
 
     public function dosenPBL(Matkul $settingmatakuliah)
@@ -336,6 +501,7 @@ class SettingMataKuliahController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('users.role', '!=', 'mahasiswa')
             ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_p_b_l_skenarios.deleted_at','=', null)
             ->select('users.name', 'kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenarios.id')
             ->get();
 
@@ -345,6 +511,32 @@ class SettingMataKuliahController extends Controller
             ->get();
 
         return view('dashboard.matkul.admin.pbl.dosen.index', [
+            'matkul' => $settingmatakuliah,
+            'skenarios' => $skenarios->unique(),
+            'diskusis' => $diskusis
+        ]);
+    }
+
+    public function trashbindosenPBL(Matkul $settingmatakuliah)
+    {
+
+        $skenarios = DB::table('nilai_p_b_l_skenarios')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('users.role', '!=', 'mahasiswa')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_p_b_l_skenarios.deleted_at','!=', null)
+            ->select('users.name', 'kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenarios.id')
+            ->get();
+
+        $diskusis = DB::table('nilai_p_b_l_skenario_diskusis')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->select('nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', 'nilai_p_b_l_skenario_diskusis.id as id', 'nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan')
+            ->get();
+
+        return view('dashboard.matkul.admin.pbl.dosen.trashbin', [
             'matkul' => $settingmatakuliah,
             'skenarios' => $skenarios->unique(),
             'diskusis' => $diskusis
@@ -448,14 +640,12 @@ class SettingMataKuliahController extends Controller
 
         $diskusis = $request->input('diskusi');
         $skenario = $request->input('skenario');
-
         foreach ($diskusis as $diskusi) {
             NilaiPBLSkenarioDiskusi::where('id', $diskusi)
                 ->delete();
         }
 
         $getSkenario = NilaiPBLSkenario::where('id', $skenario);
-
         $idPBL = $getSkenario->first()->pbl->id;
 
         $getSkenario->delete();
@@ -463,7 +653,89 @@ class SettingMataKuliahController extends Controller
         NilaiPBL::where('id', $idPBL)
             ->delete();
 
+        return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil dihapus sementara!');
+    }
+    public function forcedeleteDosenPBL(Request $request)
+    {
+
+        $diskusis = $request->input('diskusi');
+        $skenario = $request->input('skenario');
+        
+        foreach ($diskusis as $diskusi) {
+            NilaiPBLSkenarioDiskusi::where('deleted_at', '!=', null)->where('id', $diskusi)
+                ->forcedelete();
+        }
+
+        $getSkenario = DB::table('nilai_p_b_l_skenarios')
+        ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+        ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 'mahasiswa')
+        ->where('nilai_p_b_l_skenarios.id', $skenario)
+        ->where('nilai_p_b_l_skenarios.deleted_at','!=', null)
+        ->select('users.name', 'kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenarios.*', 'nilai_p_b_l_s.id')
+        ->get();
+        // $getSkenario = NilaiPBLSkenario::where('deleted_at', '!=', null)->where('id', $skenario);
+        
+        $idPBL = $getSkenario->first()->id;
+        
+        $getSkenario = DB::table('nilai_p_b_l_skenarios')
+        ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+        ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 'mahasiswa')
+        ->where('nilai_p_b_l_skenarios.id', $skenario)
+        ->where('nilai_p_b_l_skenarios.deleted_at','!=', null)
+        ->delete();
+
+        NilaiPBL::where('deleted_at', '!=', null)->where('id', $idPBL)
+            ->forcedelete();
+
         return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil dihapus!');
+    }
+    
+    public function restoreDosenPBL(Request $request)
+    {
+
+        $diskusis = $request->input('diskusi');
+        $skenario = $request->input('skenario');
+
+        foreach ($diskusis as $diskusi) {
+            NilaiPBLSkenarioDiskusi::where('deleted_at', '!=', null)->where('id', $diskusi)
+            ->restore();
+        }
+        
+        $getSkenario = DB::table('nilai_p_b_l_skenarios')
+        ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+        ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 'mahasiswa')
+        ->where('nilai_p_b_l_skenarios.id', $skenario)
+        ->where('nilai_p_b_l_skenarios.deleted_at','!=', null)
+        ->select('users.name', 'kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenarios.*', 'nilai_p_b_l_s.id')
+        ->get();
+        // $getSkenario = NilaiPBLSkenario::where('deleted_at', '!=', null)->where('id', $skenario);
+        
+        $idPBL = $getSkenario->first()->id;
+        
+        $getSkenario = DB::table('nilai_p_b_l_skenarios')
+        ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+        ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->where('users.role', '!=', 'mahasiswa')
+        ->where('nilai_p_b_l_skenarios.id', $skenario)
+        ->where('nilai_p_b_l_skenarios.deleted_at','!=', null)
+        ->update(['nilai_p_b_l_skenarios.deleted_at' => null]);
+        
+        NilaiPBL::where('deleted_at', '!=', null)->where('id', $idPBL)
+        ->restore();
+        
+        // dd($skenario);
+        return redirect('/dashboard/settingmatakuliah/' . $request->kodematkul . '/settingkelompokpbl/editdosen')->with('success', 'Dosen berhasil direstore!');
     }
 
     /**
@@ -504,6 +776,7 @@ class SettingMataKuliahController extends Controller
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_praktikums.deleted_at', '=', null)
             ->select('nilai_praktikums.namapraktikum')
             ->get()
             ->unique();
@@ -512,6 +785,39 @@ class SettingMataKuliahController extends Controller
             'matkul' => $settingmatakuliah,
             'praktikums' => $praktikums
         ]);
+    }
+    public function trashbinPraktikum(Matkul $settingmatakuliah)
+    {
+        // dd($settingmatakuliah->id);
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_praktikums.deleted_at', '!=', null)
+            ->select('nilai_praktikums.namapraktikum')
+            ->get()
+            ->unique();
+
+        return view('dashboard.matkul.admin.praktikum.trashbin', [
+            'matkul' => $settingmatakuliah,
+            'praktikums' => $praktikums
+        ]);
+    }
+    
+    public function restoreJenisPraktikum(Request $request)
+    {
+        // dd($request);
+        $kodematkul = $request->kodematkul;
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $request->matkul_id)
+            ->where('nilai_praktikums.namapraktikum', $request->namapraktikum)
+            ->where('nilai_praktikums.deleted_at', '!=', null)
+            ->update(['nilai_praktikums.deleted_at' => null]);
+
+            return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil direstore!');
+        
     }
 
     public function createJenisPraktikum(Matkul $settingmatakuliah)
@@ -543,7 +849,7 @@ class SettingMataKuliahController extends Controller
             ]);
         }
 
-        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil ditambahkan!');
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil dihapus!');
     }
 
     public function deleteJenisPraktikum(Request $request)
@@ -566,9 +872,55 @@ class SettingMataKuliahController extends Controller
                 ->delete();
         }
 
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil dihapus sementara!');
+    }
+    public function forcedeleteJenisPraktikum(Request $request)
+    {
+        $matkul_id = $request->input('matkul_id');
+        $kodematkul = $request->input('kodematkul');
+        $namapraktikum = $request->input('namapraktikum');
+
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_praktikums.namapraktikum', $namapraktikum)
+            ->where('nilai_praktikums.deleted_at', '!=', null)
+            ->select('nilai_praktikums.id as praktikum_id', 'nilais.id as nilai_id')
+            ->get();
+
+        foreach ($praktikums as $praktikum) {
+            NilaiPraktikum::where('id', $praktikum->praktikum_id)
+                ->forcedelete();
+        }
+
         return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Praktikum berhasil dihapus!');
     }
+    public function emptyPraktikum(Request $request)
+    {
+        $matkul_id = $request->input('matkul_id');
+        $kodematkul = $request->input('kodematkul');
+        $namapraktikum = $request->input('namapraktikum');
 
+        $praktikums = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('matkuls.id', $matkul_id)
+            ->where('nilai_praktikums.deleted_at', '!=', null)
+            ->select('nilai_praktikums.id as praktikum_id', 'nilais.id as nilai_id')
+            ->get();
+
+        foreach ($praktikums as $praktikum) {
+            NilaiPraktikum::where('id', $praktikum->praktikum_id)
+                ->forcedelete();
+        }
+
+        return redirect('/dashboard/settingmatakuliah/' . $kodematkul . '/settingpraktikum')->with('success', 'Trashbin berhasil dikosongkan!');
+    }
+
+    
     /**
      * Remove the specified resource from storage.
      *

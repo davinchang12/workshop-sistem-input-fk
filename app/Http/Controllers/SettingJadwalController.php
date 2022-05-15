@@ -23,6 +23,7 @@ class SettingJadwalController extends Controller
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->where('users.role', '!=', 'mahasiswa')
+            ->where('jadwals.deleted_at', '=', null)
             ->orderBy('tanggal', 'ASC')
             ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan')
             ->get();
@@ -31,6 +32,8 @@ class SettingJadwalController extends Controller
             'jadwals' => $jadwals,
         ]);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -174,7 +177,36 @@ class SettingJadwalController extends Controller
 
         return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil diupdate!');
     }
+    public function trashbin()
+    {
 
+        $jadwals = DB::table('jadwals')
+            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'jadwals.user_id', '=', 'users.id')
+            ->where('users.role', '!=', 'mahasiswa')
+            ->where('jadwals.deleted_at', '!=', null)
+            ->orderBy('tanggal', 'ASC')
+            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan')
+            ->get();
+        // dd($jadwals);
+        return view('dashboard.jadwal.admin.trashbin', [
+            'jadwals' => $jadwals,
+        ]);
+    }
+
+    public function restore(Request $request){
+        Jadwal::where('id', '=', $request->kodejadwal)->restore();
+        return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Jadwal berhasil direstore!');
+    }
+
+    public function forceDelete(Request $request){
+        Jadwal::where('id', '=', $request->kodejadwal)->forceDelete();
+        return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Jadwal berhasil dihapus!');
+    }
+    public function emptyTrash(){
+        Jadwal::where('deleted_at', '!=', null)->forceDelete();
+        return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Semua jadwal di trashbin berhasil dihapus!');
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -186,6 +218,6 @@ class SettingJadwalController extends Controller
         Jadwal::destroy($settingjadwal->id);
         Nilai::where('kodejadwal', $settingjadwal->id)->delete();
 
-        return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil dihapus!');
+        return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil dihapus sementara!');
     }
 }

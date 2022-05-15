@@ -17,6 +17,7 @@ class CreateFeedbackTable extends Migration
             $table->foreignId('nilai_id');
             $table->text('feedback')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

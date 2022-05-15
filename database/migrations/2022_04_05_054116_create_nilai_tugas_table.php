@@ -19,6 +19,7 @@ class CreateNilaiTugasTable extends Migration
             $table->string('keterangantugas')->nullable();
             $table->integer('nilaitugas')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

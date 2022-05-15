@@ -22,6 +22,7 @@ class CreateJenisSOCASTable extends Migration
             $table->string('kepuasan_presentasi');
             $table->text('komentar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

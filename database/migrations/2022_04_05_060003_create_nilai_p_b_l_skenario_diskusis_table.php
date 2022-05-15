@@ -19,6 +19,7 @@ class CreateNilaiPBLSkenarioDiskusisTable extends Migration
             $table->string('diskusi');
             $table->date('tanggal_pelaksanaan')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

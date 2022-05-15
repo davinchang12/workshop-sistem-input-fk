@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Jadwal</h1>
+        <h1 class="h2">Trashbin Jadwal</h1>
     </div>
 
     @if (session()->has('success'))
@@ -12,8 +12,12 @@
     @endif
 
     <div class="table-responsive">
-        <a href="/dashboard/settingjadwal/create" class="btn btn-primary mb-3">Tambah Jadwal</a>
-        <a href="/dashboard/settingjadwal/trashbin" class="btn btn-primary mb-3">Trashbin</a>
+        <a href="/dashboard/settingjadwal" class="btn btn-primary mb-3">Kembali</a>
+        <form action="/dashboard/settingjadwal/trashbin/empty-trash" method="post" class="d-inline">
+            @method('post')
+            @csrf
+            <button class="btn btn-primary bg-danger mb-3" onclick="return confirm('Are you sure? All of the data will not be able restored')">Hapus Semua Data di Trashbin</button>
+        </form>
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
@@ -40,12 +44,18 @@
                         <td>{{ $jadwal->jamselesai }}</td>
                         <td>{{ $jadwal->ruangan }}</td>
                         <td>
-                            <a href="/dashboard/settingjadwal/{{ $jadwal->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
-                            <form action="/dashboard/settingjadwal/{{ $jadwal->id }}" method="post" class="d-inline">
-                                @method('delete')
+                            {{-- <a href="/dashboard/settingjadwal/{{ $jadwal->id }}/restore" class="badge bg-warning"><span data-feather="refresh-ccw"></span></a> --}}
+                            <form action="/dashboard/settingjadwal/{{ $jadwal->id }}/restore" method="post" class="d-inline">
+                                @method('post')
                                 @csrf
-
-                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span data-feather="x-circle"></span></button>
+                                <input type="hidden" id="kodejadwal" name="kodejadwal" value={{  $jadwal->id }}>
+                                <button class="badge bg-warning border-0" onclick="return confirm('Restore Data?')"><span data-feather="refresh-ccw"></span></button>
+                            </form>
+                            <form action="/dashboard/settingjadwal/{{ $jadwal->id }}/force-delete" method="post" class="d-inline">
+                                @method('post')
+                                @csrf
+                                <input type="hidden" id="kodejadwal" name="kodejadwal" value={{  $jadwal->id }}>
+                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure? It will not be able restored')"><span data-feather="x-circle"></span></button>
                             </form>
                         </td>
                     </tr>

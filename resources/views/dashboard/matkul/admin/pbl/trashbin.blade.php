@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Kelompok PBL</h1>
+        <h1 class="h2">Trashbin Kelompok PBL</h1>
     </div>
 
     @if (session()->has('success'))
@@ -11,21 +11,20 @@
         </div>
     @endif
 
-    <div class="d-flex justify-content-between">
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
+    <div class="table-responsive">
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-primary mb-3"><span
                 data-feather="arrow-left"></span> Kembali</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/trashbinkelompokpbl" class="btn btn-success">Trashbin</a>
-            {{-- <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/trashbinpbl"
+        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/emptytrash"
                     method="post" class="d-inline">
                     @csrf
                     <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
                     <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
-                    <button class="btn btn-success">Trashbin</button>
-            </form> --}}
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen" class="btn btn-success">Edit
-            Dosen</a>
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/create"
-            class="btn btn-success">Tambah Kelompok <span data-feather="arrow-right"></span></a>
+
+                    <button class="btn btn-primary bg-danger mb-3"
+                        onclick="return confirm('Are you sure? All data will not be able restored!')">Hapus semua kelompok di trashbin</span></button>
+        </form>
+        {{-- <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/empty-trash"
+            class="btn btn-primary bg-danger mb-3"onclick="return confirm('Are you sure? All data will not be able restored!')">Hapus semua kelompok di trashbin</a> --}}
     </div>
 
     <div class="row d-flex justify-content-between mt-3">
@@ -64,14 +63,24 @@
                                     </div>
                                     <div class="col-md-auto p-auto">
                                         <div class="col">
-                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/delete"
+                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/restore"
+                                                method="post" class="d-inline">
+                                                @csrf
+                                                <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
+                                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
+                                                <input type="hidden" name="kelompok" id="kelompok" value="{{ $kelompok }}">
+                                                <button class="btn btn-warning w-100 shadow-none"
+                                                    onclick="return confirm('Restore Data?')"><span data-feather="refresh-ccw"
+                                                        style="height:24px;"></span></button>
+                                            </form>
+                                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/force-delete"
                                                 method="post" class="d-inline">
                                                 @csrf
                                                 <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
                                                 <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
                                                 <input type="hidden" name="kelompok" id="kelompok" value="{{ $kelompok }}">
                                                 <button class="btn btn-danger w-100 shadow-none"
-                                                    onclick="return confirm('Are you sure?')"><span data-feather="x-circle"
+                                                    onclick="return confirm('Are you sure? The data will not be able restored!')"><span data-feather="x-circle"
                                                         style="height:24px;"></span></button>
                                             </form>
                                         </div>

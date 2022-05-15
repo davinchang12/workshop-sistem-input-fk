@@ -14,6 +14,14 @@
     <div class="d-flex justify-content-between">
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
+        
+        <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/trashbinpraktikum"
+                                method="post" class="d-inline">
+                                @csrf
+                                {{-- <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}"> --}}
+                                <button class="btn btn-success">Trashbin</button>
+                            </form>
+
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/create"
             class="btn btn-success">Tambah Praktikum <span data-feather="arrow-right"></span></a>
     </div>
@@ -41,23 +49,28 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($praktikums as $praktikum)
-                    <tr>
-                        <td>{{ $praktikum->namapraktikum }}</td>
-                        <td>
-                            <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/delete"
-                                method="post" class="d-inline">
-                                @csrf
-                                
-                                <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
-                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
-                                <input type="hidden" name="namapraktikum" id="namapraktikum" value="{{ $praktikum->namapraktikum }}">
-                                <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
-                                        data-feather="x-circle"></span></button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
+                @if($praktikums == null){
+
+                }
+                @else
+                    @foreach ($praktikums as $praktikum)
+                        <tr>
+                            <td>{{ $praktikum->namapraktikum }}</td>
+                            <td>
+                                <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingpraktikum/delete"
+                                    method="post" class="d-inline">
+                                    @csrf
+                                    
+                                    <input type="hidden" name="matkul_id" id="matkul_id" value="{{ $matkul->id }}">
+                                    <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
+                                    <input type="hidden" name="namapraktikum" id="namapraktikum" value="{{ $praktikum->namapraktikum }}">
+                                    <button class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><span
+                                            data-feather="x-circle"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
     </div>
