@@ -99,8 +99,11 @@ class AksesEditNilaiController extends Controller
      * @param  \App\Models\AksesEditNilai  $aksesEditNilai
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AksesEditNilai $aksesEditNilai)
+    public function destroy(AksesEditNilai $akseseditnilai)
     {
-        //
+        AksesEditNilai::where('id', $akseseditnilai->id)
+            ->delete();
+
+        return redirect('/dashboard/akseseditnilai')->with('success', 'Akses berhasil dihapus!');
     }
 }

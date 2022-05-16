@@ -30,7 +30,6 @@
                         <td>{{ $akseseditnilai->users->name }}</td>
                         <td>{{ $akseseditnilai->jenisnilai }}</td>
                         <td>
-                            <a href="/dashboard/akseseditnilai/{{ $akseseditnilai->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                             <form action="/dashboard/akseseditnilai/{{ $akseseditnilai->id }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
