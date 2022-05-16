@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <form action="/dashboard/matkul/nilai/input-soca-submit" method="post">
+    <form action="/dashboard/nilailain/input-soca-submit" method="post">
         @csrf
         <div class="container mt-3 mb-3 w-75">
             <input type="hidden" name="namasoca" id="namasoca" value="{{ $socas[0]->namasoca }}">

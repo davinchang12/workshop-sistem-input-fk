@@ -140,7 +140,7 @@ class NilaiPraktikumController extends Controller
 
         Excel::import(new NilaiPraktikumImport, public_path('/nilai_praktikum/' . $nama_file));
 
-        Session::flash('sukses', 'Nilai Tugas Berhasil Diimport!');
+        Session::flash('sukses', 'Nilai Praktikum Berhasil Diimport!');
 
         File::delete(public_path('/nilai_praktikum/' . $nama_file));
 

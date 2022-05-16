@@ -2,20 +2,43 @@
 
 namespace App\Imports;
 
+use App\Models\NilaiJenisOSCE;
 use App\Models\NilaiOSCE;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class SoalOSCEImport implements ToModel
+class SoalOSCEImport implements ToCollection, WithStartRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+    public function __construct()
     {
-        return new NilaiOSCE([
-            //
-        ]);
+        $request = request();
+
+        $this->nama_osce = $request['nama_osce'];
+    }
+
+    /**
+     * @return int
+     */
+    public function startRow(): int
+    {
+        return 3;
+    }
+
+    public function collection(Collection $rows)
+    {
+        $nilaiosces = NilaiOSCE::where('namaosce', $this->nama_osce)
+            ->select('id')
+            ->get();
+
+        foreach ($nilaiosces as $nilaiosce) {
+            foreach ($rows as $row) {
+                NilaiJenisOSCE::firstOrCreate([
+                    'nilaiosce_id' => $nilaiosce->id,
+                    'bobot' => $row['1'],
+                    'aspekdinilaiosce' => $row['0']
+                ]);
+            }
+        }
     }
 }

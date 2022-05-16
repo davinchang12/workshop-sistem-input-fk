@@ -18,6 +18,7 @@ class CreateNilaiSOCASTable extends Migration
             $table->foreignId('nilai_lain_id');
             $table->string('namasoca');
             $table->string('nama_penguji');
+            $table->string('keterangan');
             $table->timestamps();
             $table->softDeletes();
         });

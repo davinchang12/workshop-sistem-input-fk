@@ -6,7 +6,13 @@ use App\Models\User;
 use App\Models\NilaiLain;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
+use App\Exports\SoalOSCEExport;
+use App\Imports\SoalOSCEImport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 class SettingOSCE extends Controller
 {
@@ -77,7 +83,7 @@ class SettingOSCE extends Controller
 
         $validatedData['nama_osce'] = strtoupper($validatedData['nama_osce']);
 
-        foreach($validatedData['user_id'] as $user) {
+        foreach ($validatedData['user_id'] as $user) {
             $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
                 NilaiLain::create(['user_id' => $user])->id;
 
@@ -85,13 +91,14 @@ class SettingOSCE extends Controller
                 'nilai_lain_id' => $nilai_lain,
                 'namaosce' => $validatedData['nama_osce'],
                 'nama_penguji' => $validatedData['nama_dosen']
-            ]);    
+            ]);
         }
 
         return redirect('/dashboard/settingosce')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');
     }
 
-    public function editDosen(Request $request) {
+    public function editDosen(Request $request)
+    {
 
         $dosens = User::where('role', 'dosen')->get();
 
@@ -121,7 +128,8 @@ class SettingOSCE extends Controller
         ]);
     }
 
-    public function updateDosen(Request $request) {
+    public function updateDosen(Request $request)
+    {
         $namaosce = $request->input('nama_osce');
         $namadosen = $request->input('nama_dosen');
         $user_ids = $request->input('user_id');
@@ -132,19 +140,19 @@ class SettingOSCE extends Controller
             ->get();
 
         $nilai_lain_id = array();
-        if($user_ids != null) {
+        if ($user_ids != null) {
             foreach ($user_ids as $user_id) {
                 $nilai_lain = NilaiLain::where('user_id', $user_id)->first()->id ??
                     NilaiLain::create(['user_id' => $user_id])->id;
 
                 array_push($nilai_lain_id, $nilai_lain);
 
-                if(!NilaiOSCE::where('nilai_lain_id', $nilai_lain)->where('namaosce', $namaosce)->where('nama_penguji', $namadosen)->exists()) {
+                if (!NilaiOSCE::where('nilai_lain_id', $nilai_lain)->where('namaosce', $namaosce)->where('nama_penguji', $namadosen)->exists()) {
                     NilaiOSCE::create([
                         'nilai_lain_id' => $nilai_lain,
                         'namaosce' => $namaosce,
                         'nama_penguji' => $namadosen
-                    ]);   
+                    ]);
                 }
             }
         }
@@ -157,11 +165,12 @@ class SettingOSCE extends Controller
                     ->delete();
             }
         }
-        
+
         return redirect('/dashboard/settingosce')->with('success', 'Data berhasil diupdate!');
     }
-    
-    public function deleteDosen(Request $request) {
+
+    public function deleteDosen(Request $request)
+    {
         $namaosce = $request->input('namaosce');
         $nama_penguji = $request->input('nama_penguji');
 
@@ -172,28 +181,45 @@ class SettingOSCE extends Controller
         return redirect('/dashboard/settingosce')->with('success', 'Data berhasil dihapus!');
     }
 
-    public function createSoal() {
+    public function createSoal()
+    {
         $nama_osce = DB::table('nilai_o_s_c_e_s')
-        ->select('namaosce')
-        ->get()
-        ->unique();         
-        
+            ->select('namaosce')
+            ->get()
+            ->unique();
+
         return view('dashboard.osce.admin.createsoal', [
             'namaosces' => $nama_osce
         ]);
     }
 
-    public function exportTemplate() {
-        // return Excel::download(new NilaiPraktikumExport, 'template-soal-osce.xlsx');
+    public function exportTemplate()
+    {
+        return Excel::download(new SoalOSCEExport, 'template-soal-osce.xlsx');
     }
 
-    public function tambahSoal(Request $request) {
-        $validatedData = $request->validate([
+    public function tambahSoal(Request $request)
+    {
+        $this->validate($request, [
             'nama_osce' => 'required',
             'file' => 'required|mimes:csv,xls,xlsx'
         ]);
 
-        dd($request);
+        // dd($request->file('file'));
+
+        $file = $request->file('file');
+
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        $file->move('nilai_osce', $nama_file);
+
+        Excel::import(new SoalOSCEImport, public_path('/nilai_osce/' . $nama_file));
+
+        Session::flash('sukses', 'Nilai OSCE Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_osce/' . $nama_file));
+
+        return redirect('/dashboard/settingosce/')->with('success', 'Soal berhasil di tambahkan!');
     }
 
     /**
