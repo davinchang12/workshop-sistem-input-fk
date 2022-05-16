@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Msateri</label>
+                <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Materi</label>
                 <input type="text" class="form-control" id="materi" name="materi"
                     value="{{ old('materi', $settingjadwal->materi) }}">
                 @error('materi')
