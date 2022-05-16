@@ -15,7 +15,10 @@ class AksesEditNilaiController extends Controller
      */
     public function index()
     {
-        //
+        $akseseditnilais = AksesEditNilai::get();
+        return view('dashboard.akseseditnilai.admin.index', [
+            'akseseditnilais' => $akseseditnilais
+        ]);
     }
 
     /**
