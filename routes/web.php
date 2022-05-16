@@ -12,6 +12,7 @@ use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NilaiPBLController;
 use App\Http\Controllers\EditNilaiController;
+use App\Http\Controllers\NilaiLainController;
 use App\Http\Controllers\NilaiOSCEController;
 use App\Http\Controllers\NilaiSOCAController;
 use App\Http\Controllers\DosenNilaiController;
@@ -23,7 +24,7 @@ use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
 use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
-use App\Http\Controllers\NilaiLainController;
+use App\Http\Controllers\AksesEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
 use App\Http\Controllers\SettingMahasiswaMataKuliah;
@@ -173,6 +174,9 @@ Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class
 Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
 Route::get('/dashboard/settingfieldlab/show', [SettingFieldLab::class, 'showSemester'])->middleware('admin');
 Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middleware('admin');
+
+Route::resource('/dashboard/akseseditnilai', AksesEditNilaiController::class)->middleware('admin');
+
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 
