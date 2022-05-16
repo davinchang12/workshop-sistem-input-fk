@@ -16,6 +16,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->command('akses_edit_nilais:delete')->everySixHours();
+
+        // php artisan schedule:run >> /dev/null 2>&1
     }
 
     /**
