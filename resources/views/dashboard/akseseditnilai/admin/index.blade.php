@@ -12,7 +12,6 @@
     @endif
     <div class="table-responsive">
         <a href="/dashboard/akseseditnilai/create" class="btn btn-primary mb-3">Tambah Akses</a>
-        <a href="/dashboard/akseseditnilai/trashbin" class="btn btn-primary mb-3">Trashbin</a>
     
         <table class="table table-striped table-sm">
             <thead>
