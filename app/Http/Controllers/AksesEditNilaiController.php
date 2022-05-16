@@ -102,7 +102,7 @@ class AksesEditNilaiController extends Controller
     public function destroy(AksesEditNilai $akseseditnilai)
     {
         AksesEditNilai::where('id', $akseseditnilai->id)
-            ->delete();
+            ->forcedelete();
 
         return redirect('/dashboard/akseseditnilai')->with('success', 'Akses berhasil dihapus!');
     }
