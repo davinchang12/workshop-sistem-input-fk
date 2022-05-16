@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\AksesEditNilai;
-use App\Http\Requests\StoreAksesEditNilaiRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateAksesEditNilaiRequest;
 
 class AksesEditNilaiController extends Controller
@@ -28,7 +30,10 @@ class AksesEditNilaiController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'dosen')->get();
+        return view('dashboard.akseseditnilai.admin.create', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -37,9 +42,21 @@ class AksesEditNilaiController extends Controller
      * @param  \App\Http\Requests\StoreAksesEditNilaiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAksesEditNilaiRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+            'jenisnilai' => 'required',
+            'passwordakses' => 'required'
+        ]);
+
+        AksesEditNilai::create([
+            'user_id' => $validatedData['user_id'],
+            'jenisnilai' => strtoupper($validatedData['jenisnilai']),
+            'passwordakses' => Hash::make($validatedData['passwordakses'])
+        ]);
+
+        return redirect('dashboard/akseseditnilai')->with('success', 'Akses berhasi diberikan!');
     }
 
     /**
