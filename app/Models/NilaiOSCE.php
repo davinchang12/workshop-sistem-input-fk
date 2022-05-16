@@ -14,11 +14,10 @@ class NilaiOSCE extends Model
     ];
     protected $with =[
         'nilailain',
-        'jenis'
     ];
     
     public function nilailain() {
-        return $this->belongTo(NilaiLain::class, 'nilai_lain_id');
+        return $this->belongsTo(NilaiLain::class, 'nilai_lain_id');
     }
     public function jenis() {
         return $this->hasMany(NilaiJenisOSCE::class);

@@ -7,8 +7,12 @@ use App\Models\NilaiLain;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
 use App\Exports\SoalOSCEExport;
+use App\Imports\SoalOSCEImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File;
 
 class SettingOSCE extends Controller
 {
@@ -196,12 +200,26 @@ class SettingOSCE extends Controller
 
     public function tambahSoal(Request $request)
     {
-        $validatedData = $request->validate([
+        $this->validate($request, [
             'nama_osce' => 'required',
             'file' => 'required|mimes:csv,xls,xlsx'
         ]);
 
-        dd($request);
+        // dd($request->file('file'));
+
+        $file = $request->file('file');
+
+        $nama_file = rand() . $file->getClientOriginalName();
+
+        $file->move('nilai_osce', $nama_file);
+
+        Excel::import(new SoalOSCEImport, public_path('/nilai_osce/' . $nama_file));
+
+        Session::flash('sukses', 'Nilai OSCE Berhasil Diimport!');
+
+        File::delete(public_path('/nilai_osce/' . $nama_file));
+
+        return redirect('/dashboard/settingosce/')->with('success', 'Soal berhasil di tambahkan!');
     }
 
     /**
