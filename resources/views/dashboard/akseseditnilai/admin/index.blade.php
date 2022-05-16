@@ -20,7 +20,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Dosen</th>
                     <th scope="col">Jenis Nilai</th>
-                    <th scope="col">Password</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $akseseditnilai->users->name }}</td>
                         <td>{{ $akseseditnilai->jenisnilai }}</td>
-                        <td>{{ $akseseditnilai->passwordakses }}</td>
                         <td>
                             <a href="/dashboard/akseseditnilai/{{ $akseseditnilai->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                             <form action="/dashboard/akseseditnilai/{{ $akseseditnilai->id }}" method="post" class="d-inline">
