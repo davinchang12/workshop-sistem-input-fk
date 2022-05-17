@@ -18,6 +18,10 @@ class CreateNilaisTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('matkul_id');
             $table->integer('kodejadwal')->nullable();
+            $table->integer('tugas')->nullable();
+            $table->integer('pbl')->nullable();
+            $table->integer('praktikum')->nullable();
+            $table->integer('ujian')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

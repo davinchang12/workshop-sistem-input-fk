@@ -10,10 +10,8 @@ class Nilai extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'user_id',
-        'matkul_id',
-        'kodejadwal'
+    protected $guarded = [
+        'id'
     ];
     protected $with = [
         'users',
