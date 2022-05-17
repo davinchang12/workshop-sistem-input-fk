@@ -66,7 +66,7 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=11 rowspan=2 align="center" valign=middle><b>
-                            <font size=6 color="#000000">NILAI DISKUSI BLOK 6.1</font>
+                            <font size=6 color="#000000">NILAI DISKUSI BLOK {{ $blok }}</font>
                         </b></td>
                 </tr>
                 <tr>

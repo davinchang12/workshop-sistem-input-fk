@@ -127,6 +127,7 @@ class NilaiPBLController extends Controller
     public function input(Request $request)
     {
         $kodematkul = $request->kodematkul;
+        $blok = $request->blok;
         $skenario = $request->skenario;
         $diskusi = $request->diskusi;
         $diskusi_id = $request->diskusi_id;
@@ -149,6 +150,7 @@ class NilaiPBLController extends Controller
             'skenarios' => NilaiPBLSkenario::where('kelompok', $kelompok)->get(),
             'tutor' => $dosen_tutor,
             'kodematkul' => $kodematkul,
+            'blok' => $blok,
             'kelompok_id' => $kelompok,
             'skenario' => $skenario,
             'diskusi' => $diskusi,
