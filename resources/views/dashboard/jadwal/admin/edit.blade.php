@@ -40,7 +40,7 @@
             </div>
             <div class="mb-3">
                 <label for="jenis" class="form-label">Jenis</label>
-                <select class="form-select" id="jenis" name="jenis">
+                <select class="form-select" id="jenis" name="jenis" disabled>
                     <option value="" {{ $settingjadwal->jenis == "" ? "selected" : "" }}></option>
                     <option value="tugas" {{ $settingjadwal->jenis == "tugas" ? "selected" : "" }}>Tugas</option>
                     <option value="pbl" {{ $settingjadwal->jenis == "pbl" ? "selected" : "" }}>PBL</option>
