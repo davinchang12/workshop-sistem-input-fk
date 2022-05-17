@@ -27,6 +27,12 @@ class Nilai extends Model
     {
         return $this->belongsTo(Matkul::class);
     }
+
+    public function nilaijenis()
+    {
+        return $this->hasMany(NilaiJenis::class);
+    }
+
     public function rinciannilaitugas()
     {
         return $this->hasOne(RincianNilaiTugas::class);
