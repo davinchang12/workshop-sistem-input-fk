@@ -10,14 +10,8 @@ class Jadwal extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'matkul_id',
-        'user_id',
-        'materi',
-        'tanggal',
-        'jammasuk',
-        'jamselesai',
-        'ruangan'
+    protected $guarded = [
+        'id'
     ];
 
     protected $with = [
