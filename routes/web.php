@@ -61,6 +61,8 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
+Route::post('/dashboard/matkul/nilai/edit/tugas', [NilaiTugasController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/tugas/simpan', [NilaiTugasController::class, 'simpan']);
 
 Route::get('/dashboard/matkul/nilai/export/feedbackutb', [NilaiUjianController::class, 'export_utb']);
 Route::post('/dashboard/matkul/nilai/import/feedbackutb', [NilaiUjianController::class, 'import_utb']);
