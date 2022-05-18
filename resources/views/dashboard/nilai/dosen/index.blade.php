@@ -15,6 +15,12 @@
         </div>
     @endif
 
+    @if (session()->has('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a href="#tugas" class="nav-link active" data-bs-toggle="tab">Tugas</a>
@@ -32,11 +38,6 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
             <div class="container mt-3">
-                @if (session()->has('fail'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('fail') }}
-                    </div>
-                @endif
                 <div class="d-flex justify-content-between">
                     <div>
                         <p>
@@ -272,7 +273,8 @@
                                                                 <div class="collapse"
                                                                     id="collapseExample{{ $loop->iteration }}">
                                                                     <form class="form-inline"
-                                                                        action="/dashboard/matkul/nilai/edit/praktikum" method="post">
+                                                                        action="/dashboard/matkul/nilai/edit/praktikum"
+                                                                        method="post">
                                                                         @csrf
                                                                         <input type="hidden" name="matkul_dipilih" id=""
                                                                             value="{{ $matkul->id }}">
@@ -293,7 +295,8 @@
                                                                         <label for="password" class="form-label">Password :
                                                                         </label>
                                                                         <input type="password" name="password" id="password">
-                                                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                                                        <button
+                                                                            class="btn btn-primary shadow-none">Submit</button>
                                                                     </form>
                                                                 </div>
                                                             </div>
@@ -304,7 +307,8 @@
                                                                     value="{{ $matkul->kodematkul }}">
                                                                 <input type="hidden" name="jenis_praktikum" id=""
                                                                     value="{{ $praktikum->namapraktikum }}">
-                                                                <button class="btn btn-primary w-100 shadow-none">Download</button>
+                                                                <button
+                                                                    class="btn btn-primary w-100 shadow-none">Download</button>
                                                             </form>
                                                         </div>
 
