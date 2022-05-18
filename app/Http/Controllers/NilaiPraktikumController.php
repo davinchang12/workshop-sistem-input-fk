@@ -47,10 +47,9 @@ class NilaiPraktikumController extends Controller
     {
         for ($i = 1; $i <= (int)$request['loop']; $i++) {
 
-            $nilai = Jadwal::select('users.name', 'users.nim', 'nilais.id', 'matkuls.kodematkul')
-                ->join('users', 'jadwals.user_id', '=', 'users.id')
-                ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-                ->join('nilais', 'nilais.user_id', '=', 'users.id')
+            $nilai = Nilai::select('users.name', 'users.nim', 'nilais.id', 'matkuls.kodematkul')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
                 ->where('matkuls.kodematkul', $request['kodematkul'])
                 ->where('users.nim', $request['nim' . $i])
                 ->where('users.role', 'mahasiswa')
@@ -150,10 +149,9 @@ class NilaiPraktikumController extends Controller
 
     public function importView(Request $request)
     {
-        $praktikums = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $praktikums = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->where('users.role', 'mahasiswa')
