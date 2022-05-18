@@ -280,18 +280,6 @@
                                                                             value="{{ $matkul->id }}">
                                                                         <input type="hidden" name="kodematkul" id=""
                                                                             value="{{ $matkul->kodematkul }}">
-                                                                        <input type="hidden" name="blok" id="blok"
-                                                                            value="{{ $matkul->blok }}">
-                                                                        <input type="hidden" name="kelompok" id=""
-                                                                            value="{{ $skenario->kelompok }}">
-                                                                        <input type="hidden" name="skenario" id=""
-                                                                            value="{{ $skenario->skenario }}">
-                                                                        <input type="hidden" name="diskusi" id=""
-                                                                            value="{{ $diskusi->diskusi }}">
-                                                                        <input type="hidden" name="diskusi_id" id=""
-                                                                            value="{{ $diskusi->id }}">
-                                                                        <input type="hidden" name="tanggal_pelaksanaan"
-                                                                            value="{{ $diskusi->tanggal_pelaksanaan }}">
                                                                         <label for="password" class="form-label">Password :
                                                                         </label>
                                                                         <input type="password" name="password" id="password">
