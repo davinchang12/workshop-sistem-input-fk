@@ -154,7 +154,7 @@
                     @if ($skenarios != null)
                         @foreach ($skenarios as $skenario)
                             @foreach ($skenario->skenariodiskusi as $diskusi)
-                                <div class="col-md-4 mb-3">
+                                <div class="col-sm-4 mb-3">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -169,11 +169,20 @@
                                                     <small>Tahun Ajaran
                                                         {{ $skenario->pbl->nilai->matkul->tahun_ajaran }}</small>
                                                 </div>
-                                                <div class="col-md-auto p-auto">
-                                                    <div class="col pt-2">
-                                                        @can('dosen')
-                                                            <form action="/dashboard/matkul/nilai/input-pbl" method="post"
-                                                                enctype="multipart/form-data">
+                                                <div class="d-flex justify-content-between mt-3">
+                                                    <div>
+                                                        <p>
+                                                            <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                href="#collapseExample{{ $loop->iteration }}"
+                                                                role="button" aria-bs-expanded="false"
+                                                                aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                Edit Nilai
+                                                            </a>
+                                                        </p>
+                                                        <div class="collapse"
+                                                            id="collapseExample{{ $loop->iteration }}">
+                                                            <form class="form-inline"
+                                                                action="/dashboard/matkul/nilai/edit/pbl" method="post">
                                                                 @csrf
                                                                 <input type="hidden" name="matkul_dipilih" id=""
                                                                     value="{{ $matkul->id }}">
@@ -191,11 +200,37 @@
                                                                     value="{{ $diskusi->id }}">
                                                                 <input type="hidden" name="tanggal_pelaksanaan"
                                                                     value="{{ $diskusi->tanggal_pelaksanaan }}">
-                                                                <button class="btn btn-primary w-100 shadow-none"><span
-                                                                        data-feather="settings"></span></button>
+                                                                <label for="password" class="form-label">Password :
+                                                                </label>
+                                                                <input type="password" name="password" id="password">
+                                                                <button class="btn btn-primary shadow-none">Submit</button>
                                                             </form>
-                                                        @endcan
+                                                        </div>
                                                     </div>
+                                                    @can('dosen')
+                                                        <form action="/dashboard/matkul/nilai/input-pbl" method="post"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="matkul_dipilih" id=""
+                                                                value="{{ $matkul->id }}">
+                                                            <input type="hidden" name="kodematkul" id=""
+                                                                value="{{ $matkul->kodematkul }}">
+                                                            <input type="hidden" name="blok" id="blok"
+                                                                value="{{ $matkul->blok }}">
+                                                            <input type="hidden" name="kelompok" id=""
+                                                                value="{{ $skenario->kelompok }}">
+                                                            <input type="hidden" name="skenario" id=""
+                                                                value="{{ $skenario->skenario }}">
+                                                            <input type="hidden" name="diskusi" id=""
+                                                                value="{{ $diskusi->diskusi }}">
+                                                            <input type="hidden" name="diskusi_id" id=""
+                                                                value="{{ $diskusi->id }}">
+                                                            <input type="hidden" name="tanggal_pelaksanaan"
+                                                                value="{{ $diskusi->tanggal_pelaksanaan }}">
+                                                            <button class="btn btn-primary w-100 shadow-none"><span
+                                                                    data-feather="settings"></span></button>
+                                                        </form>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
