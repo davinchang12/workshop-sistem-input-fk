@@ -75,6 +75,8 @@ Route::post('/dashboard/matkul/nilai/import/nilaiujian', [NilaiUjianController::
 
 Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
+Route::post('/dashboard/matkul/nilai/edit/pbl', [NilaiPBLController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/pbl/simpan', [NilaiPBLController::class, 'simpan']);
 
 Route::post('/dashboard/matkul/nilai/import/praktikum-submit', [NilaiPraktikumController::class, 'store']);
 Route::get('/dashboard/matkul/nilai/import/praktikum-view', [NilaiPraktikumController::class, 'importView']);
