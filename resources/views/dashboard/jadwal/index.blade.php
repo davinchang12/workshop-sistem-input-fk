@@ -25,7 +25,7 @@
             <tr>
                 <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Hari</b></td>
                 <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Tanggal</b></td>
-                <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Jam Masuk</b></td>
+                <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Jam</b></td>
                 <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Kode Matkul</b></td>
                 <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Nama Matkul</b></td>
                 <td style="border:1px solid black; vertical-align : middle;text-align:center;" > <b>Materi</b></td>
