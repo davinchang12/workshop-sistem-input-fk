@@ -83,15 +83,15 @@
         <tr>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="80"
                 align="center" valign=middle bgcolor="#F4B183"><b>
-                    <font color="#000000">RATA-RATA QUIZ (20%)</font>
+                    <font color="#000000">RATA-RATA QUIZ</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#8FAADC"><b>
-                    <font color="#000000">RATA-RATA NILAI LAPORAN (10%)</font>
+                    <font color="#000000">RATA-RATA NILAI LAPORAN</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#FFD966"><b>
-                    <font color="#000000">NILAI RESPONSI (70%)</font>
+                    <font color="#000000">NILAI RESPONSI</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#A9D18E"><b>
@@ -203,7 +203,7 @@
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1"><b>
-                    <font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file</font>
+                    <font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file (dengan persentase Quiz 20%, Laporan 10%, Responsi 70%)</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
@@ -220,7 +220,7 @@
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
-                <b><font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file
+                <b><font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file (dengan persentase Quiz 20%, Laporan 10%, Remedi 70%)
                 </font></b>
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
