@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,8 @@ class JadwalController extends Controller
     public function index()
     {
         $this->authorize('dosen');
+        $now = Carbon::now();
+        $now = date('n');
         $user = auth()->user()->id;
         $jadwals = DB::table('jadwals')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
@@ -23,6 +26,7 @@ class JadwalController extends Controller
             ->where('users.role', '!=', 'mahasiswa')
             ->where('users.id', $user)
             ->where('jadwals.deleted_at', '=', null)
+            ->whereMonth(('jadwals.tanggal'), '=', $now)
             ->orderBy('tanggal', 'ASC')
             ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi')
             ->get();
