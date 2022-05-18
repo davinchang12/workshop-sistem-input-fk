@@ -154,7 +154,7 @@
                     @if ($skenarios != null)
                         @foreach ($skenarios as $skenario)
                             @foreach ($skenario->skenariodiskusi as $diskusi)
-                                <div class="col-sm-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -247,7 +247,7 @@
                 <div class="row">
                     @if ($praktikums != null)
                         @foreach ($praktikums as $praktikum)
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -260,6 +260,43 @@
                                                 <div class="col pt-2">
                                                     @can('dosen')
                                                         <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>
+                                                                    <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                        href="#collapseExample{{ $loop->iteration }}"
+                                                                        role="button" aria-bs-expanded="false"
+                                                                        aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                        Edit Nilai
+                                                                    </a>
+                                                                </p>
+                                                                <div class="collapse"
+                                                                    id="collapseExample{{ $loop->iteration }}">
+                                                                    <form class="form-inline"
+                                                                        action="/dashboard/matkul/nilai/edit/pbl" method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="matkul_dipilih" id=""
+                                                                            value="{{ $matkul->id }}">
+                                                                        <input type="hidden" name="kodematkul" id=""
+                                                                            value="{{ $matkul->kodematkul }}">
+                                                                        <input type="hidden" name="blok" id="blok"
+                                                                            value="{{ $matkul->blok }}">
+                                                                        <input type="hidden" name="kelompok" id=""
+                                                                            value="{{ $skenario->kelompok }}">
+                                                                        <input type="hidden" name="skenario" id=""
+                                                                            value="{{ $skenario->skenario }}">
+                                                                        <input type="hidden" name="diskusi" id=""
+                                                                            value="{{ $diskusi->diskusi }}">
+                                                                        <input type="hidden" name="diskusi_id" id=""
+                                                                            value="{{ $diskusi->id }}">
+                                                                        <input type="hidden" name="tanggal_pelaksanaan"
+                                                                            value="{{ $diskusi->tanggal_pelaksanaan }}">
+                                                                        <label for="password" class="form-label">Password :
+                                                                        </label>
+                                                                        <input type="password" name="password" id="password">
+                                                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
                                                             <form action="/dashboard/matkul/nilai/export/praktikum"
                                                                 method="post" enctype="multipart/form-data">
                                                                 @csrf
@@ -267,16 +304,7 @@
                                                                     value="{{ $matkul->kodematkul }}">
                                                                 <input type="hidden" name="jenis_praktikum" id=""
                                                                     value="{{ $praktikum->namapraktikum }}">
-                                                                <button class="btn btn-primary w-100 shadow-none"><span
-                                                                        data-feather="download"></span> Download</button>
-                                                            </form>
-                                                            <form action="/dashboard/matkul/nilai/edit/praktikum" method="get">
-                                                                @csrf
-                                                                <input type="hidden" name="kodematkul" id=""
-                                                                    value="{{ $matkul->kodematkul }}">
-                                                                <input type="hidden" name="jenis_praktikum" id=""
-                                                                    value="{{ $praktikum->namapraktikum }}">
-                                                                <button class="btn btn-primary w-100 shadow-none">Edit</button>
+                                                                <button class="btn btn-primary w-100 shadow-none">Download</button>
                                                             </form>
                                                         </div>
 
