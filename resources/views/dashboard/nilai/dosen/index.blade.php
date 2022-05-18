@@ -272,7 +272,7 @@
                                                                 <div class="collapse"
                                                                     id="collapseExample{{ $loop->iteration }}">
                                                                     <form class="form-inline"
-                                                                        action="/dashboard/matkul/nilai/edit/pbl" method="post">
+                                                                        action="/dashboard/matkul/nilai/edit/praktikum" method="post">
                                                                         @csrf
                                                                         <input type="hidden" name="matkul_dipilih" id=""
                                                                             value="{{ $matkul->id }}">
