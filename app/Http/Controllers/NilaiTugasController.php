@@ -177,20 +177,63 @@ class NilaiTugasController extends Controller
 
     public function simpan(Request $request)
     {
-        // dd($request);
 
-        $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-            ->orderBy('nilais.id')
-            ->orderBy('nilai_tugas.keterangantugas')
-            ->where('users.role', 'mahasiswa')
-            ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->get();
-        
-        dd($nilaitugas_dosen);
+        $user_nims = $request->input('user_nim');
+        $keterangan = $request->input('keterangan');
+        $ratarata = $request->input('ratarata');
+
+        foreach ($user_nims as $key => $user_nim) {
+            for ($i = 0; $i < (int)$request->totaltugas; $i++) {
+                $get_key = collect($request->all())->keys()[5 + $i];
+
+                Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+                    ->join('users', 'nilais.user_id', '=', 'users.id')
+                    ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                    ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                    ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+                    ->orderBy('nilais.id')
+                    ->orderBy('nilai_tugas.keterangantugas')
+                    ->where('users.role', 'mahasiswa')
+                    ->where('users.nim', $user_nim)
+                    ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+                    ->where('matkuls.id', $request->matkul_dipilih)
+                    ->where('keterangantugas', $keterangan[$i])
+                    ->update([
+                        'nilaitugas' => $request->$get_key[$key]
+                    ]);
+            }
+
+            $listtugas = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+                ->groupBy('nilais.id')
+                ->orderBy('nilais.id')
+                ->orderBy('nilai_tugas.keterangantugas')
+                ->where('users.role', 'mahasiswa')
+                ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+                ->where('matkuls.id', $request->matkul_dipilih)
+                ->get();
+
+            foreach ($listtugas as $key => $tugas) {
+                Nilai::select('nilai_tugas.nilaitugas')
+                    ->join('users', 'nilais.user_id', '=', 'users.id')
+                    ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                    ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+                    ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+                    ->where('users.role', 'mahasiswa')
+                    ->where('rincian_nilai_tugas.nilai_id', $tugas->nilai_id)
+                    ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+                    ->where('matkuls.id', $request->matkul_dipilih)
+                    ->update(['rincian_nilai_tugas.rataratatugas' => $ratarata[$key]]);
+            }
+        }
+
+        AksesEditNilai::where('jenisnilai', 'TUGAS')
+            ->where('user_id', auth()->user()->id)
+            ->forcedelete();
+
+        return redirect('/dashboard/matkul/' . $request->input('kodematkul'))->with('success', 'Nilai tugas berhasil diedit!');
     }
 }

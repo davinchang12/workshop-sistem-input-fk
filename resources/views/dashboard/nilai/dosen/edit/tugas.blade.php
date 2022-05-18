@@ -11,6 +11,7 @@
             
 
             <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul_dipilih }}">
+            <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $kodematkul }}">
             <button class="btn btn-primary shadow-none">Simpan</button>
 
         </div>
@@ -33,6 +34,7 @@
                             $count++;
                             array_push($keterangan, $topik->keterangantugas);
                         @endphp
+                        <input type="hidden" name="keterangan[]" id="keterangan[]" value="{{ $topik->keterangantugas }}">
                     @endforeach
                     {{-- <th scope="col"></th> --}}
                     <th scope="col">Rata-Rata</th>
@@ -76,6 +78,7 @@
                                 <input type="number" max="100" min="0"
                                     style="border: none; font-size:18px; width:100%; text-align: center;"
                                     name="tugas{{ $y }}[]" id="tugas{{ $y }}[]" value="{{ $tugas->nilaitugas }}" onchange="calculateAVG()">
+                                    <input type="hidden" name="totaltugas" id="totaltugas" value="{{ $y }}">
                             </td>
                             @php
                                 $z++;
