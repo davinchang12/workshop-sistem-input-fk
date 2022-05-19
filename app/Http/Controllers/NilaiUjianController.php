@@ -884,7 +884,7 @@ class NilaiUjianController extends Controller
         return Excel::download(new FeedbackUABExport, 'feedbackuab.xlsx');
     }
 
-    public function check_utb(Request $request)
+    public function check(Request $request)
     {
         $aksesnilai = AksesEditNilai::where('user_id', auth()->user()->id)
             ->where('jenisnilai', 'UJIAN')
@@ -917,7 +917,7 @@ class NilaiUjianController extends Controller
 
                     $dosen = User::where('id', '=', auth()->user()->id)->value('name');
 
-                    return view('dashboard.nilai.dosen.export.feedbackutb', [
+                    return view('dashboard.nilai.dosen.export.ujian', [
                         'ujians' => $ujians,
                         'utbs' => $jenisutbs,
                         'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
@@ -930,7 +930,7 @@ class NilaiUjianController extends Controller
         }
     }
 
-    public function simpan_utb(Request $request)
+    public function simpan(Request $request)
     {
 
         AksesEditNilai::where('jenisnilai', 'UJIAN')
