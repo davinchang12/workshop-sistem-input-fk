@@ -66,17 +66,13 @@ Route::post('/dashboard/matkul/nilai/edit/tugas/simpan', [NilaiTugasController::
 
 Route::get('/dashboard/matkul/nilai/export/feedbackutb', [NilaiUjianController::class, 'export_utb']);
 Route::post('/dashboard/matkul/nilai/import/feedbackutb', [NilaiUjianController::class, 'import_utb']);
-Route::post('/dashboard/matkul/nilai/edit/feedbackutb', [NilaiUjianController::class, 'check_utb']);
-Route::post('/dashboard/matkul/nilai/edit/feedbackutb/simpan', [NilaiUjianController::class, 'simpan_utb']);
 
 Route::get('/dashboard/matkul/nilai/export/feedbackuab', [NilaiUjianController::class, 'export_uab']);
 Route::post('/dashboard/matkul/nilai/import/feedbackuab', [NilaiUjianController::class, 'import_uab']);
-Route::post('/dashboard/matkul/nilai/edit/feedbackuab', [NilaiUjianController::class, 'check_uab']);
-Route::post('/dashboard/matkul/nilai/edit/feedbackuab/simpan', [NilaiUjianController::class, 'simpan_uab']);
 
 Route::get('/dashboard/matkul/nilai/export/nilaiujian', [NilaiUjianController::class, 'export_ujian']);
-Route::post('/dashboard/matkul/nilai/edit/nilaiujian', [NilaiUjianController::class, 'check_ujian']);
-Route::post('/dashboard/matkul/nilai/edit/nilaiujian/simpan', [NilaiUjianController::class, 'simpan_ujian']);
+Route::post('/dashboard/matkul/nilai/edit/ujian', [NilaiUjianController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/ujian/simpan', [NilaiUjianController::class, 'simpan']);
 
 Route::post('/dashboard/matkul/nilai/import/nilaiujian-persen', [NilaiUjianController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/import/nilaiujian', [NilaiUjianController::class, 'import_ujian']);
