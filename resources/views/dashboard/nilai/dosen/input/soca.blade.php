@@ -268,8 +268,14 @@
                             <p class=MsoNormal align=right style='margin-bottom:0in;text-align:right'><b>Total
                                     Jumlah</b><span lang=IN> = </span></p>
                             <p class=MsoNormal style='margin-bottom:0in'>&nbsp;</p>
-                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><b>Nilai
-                                    akhir (Jumlah Total : 2) = ………………</b></p>
+                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                <b>
+                                    Nilai akhir (Jumlah Total : 2) =
+                                    <input type="number" name="totalsoca" id="totalsoca"
+                                        style="text-align:left;border: none; font-size:18px;" readonly="readonly">
+                                </b>
+                            </p>
+
                         </td>
                         <td width=126 valign=top style='width:94.7pt;border-top:none;border-left:
                                   none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
@@ -379,7 +385,8 @@
                                   border-top:none;padding:.75pt 4.9pt 0in 4.9pt;height:71.45pt'>
                             <p class=MsoNormal><span lang=ES>Hasil Penilaian Keterampilan presentasi &amp;
                                     sikap</span></p>
-                            <textarea name="hasil_penilaian_keterampilan_presentasi_dan_sikap" id="hasil_penilaian_keterampilan_presentasi_dan_sikap" style="width: 100%"></textarea>
+                            <textarea name="hasil_penilaian_keterampilan_presentasi_dan_sikap"
+                                id="hasil_penilaian_keterampilan_presentasi_dan_sikap" style="width: 100%"></textarea>
                         </td>
                     </tr>
                 </table>
@@ -459,7 +466,7 @@
 
             totalResult.innerHTML = total;
 
-            if(!jenis_2.includes(jenis.id)) {
+            if (!jenis_2.includes(jenis.id)) {
                 jenis_2.push(jenis.id)
             }
 
@@ -473,6 +480,8 @@
             });
             var totalResult = document.querySelector("#total_jumlah");
             totalResult.innerHTML = tempTotal;
+
+            document.getElementById("totalsoca").value = tempTotal / 2;
         }
     </script>
 </body>
