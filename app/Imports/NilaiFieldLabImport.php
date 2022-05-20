@@ -16,6 +16,7 @@ class NilaiFieldLabImport implements ToCollection, WithStartRow
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
+            ->select('users.nim as nim', 'nilai_fieldlabs.id as id')
             ->get();
     }
 
@@ -31,6 +32,13 @@ class NilaiFieldLabImport implements ToCollection, WithStartRow
     {
        foreach($rows as $row) {
             $fieldlab = $this->fieldlab->where('nim', $row[4])->first();
+
+            if ($row[7] == 0) {
+                $nilai_akhir = ((float)$row[5] * 0.5) + ((float)$row[6] * 0.5);
+            } else {
+                $nilai_akhir = ((float)$row[5] * 0.5) + ((float)$row[6] * 0.25) + ((float)$row[7] * 0.25);
+            }
+
             $keterangan = $row[6] >= 80 ? "LULUS" : "TIDAK LULUS";
             
             NilaiSemesterFieldLab::firstOrCreate([
@@ -38,8 +46,8 @@ class NilaiFieldLabImport implements ToCollection, WithStartRow
                 'total_nilai_dosbing' => $row[5],
                 'total_nilai_penguji' => $row[6],
                 'total_nilai_penguji_2' => $row[7] ?? 0,
-                'nilai_akhir' => $row[8],
-                'keterangan' => $row[9] ?? $keterangan
+                'nilai_akhir' => $row[8] ?? $nilai_akhir,
+                'keterangan_akhir' => $row[9] ?? $keterangan
             ]);
        }
     }

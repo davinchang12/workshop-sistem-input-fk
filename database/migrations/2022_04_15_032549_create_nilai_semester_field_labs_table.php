@@ -16,11 +16,11 @@ class CreateNilaiSemesterFieldLabsTable extends Migration
         Schema::create('nilai_semester_field_labs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('nilai_field_lab_id');
-            $table->integer('total_nilai_dosbing');
-            $table->integer('total_nilai_penguji');
-            $table->integer('total_nilai_penguji_2')->nullable();
-            $table->integer('nilai_akhir');
-            $table->string('keterangan');
+            $table->float('total_nilai_dosbing', 8, 2);
+            $table->float('total_nilai_penguji', 8, 2);
+            $table->float('total_nilai_penguji_2', 8, 2)->nullable();
+            $table->float('nilai_akhir');
+            $table->string('keterangan_akhir');
             $table->timestamps();
             $table->softDeletes();
         });
