@@ -11,6 +11,12 @@
         </div>
     @endif
 
+    @if (session()->has('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a href="#osce" class="nav-link active" data-bs-toggle="tab">OSCE</a>
@@ -37,6 +43,24 @@
                         </select>
                         <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p>
+                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                    aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                    Edit Nilai
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <form class="form-inline" action="/dashboard/nilailain/edit/osce" method="post">
+                                    @csrf
+                                    <label for="password" class="form-label">Password : </label>
+                                    <input type="password" name="password" id="password">
+                                    <button class="btn btn-primary shadow-none">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>
@@ -75,8 +99,10 @@
                                                 <div class="col pt-2">
                                                     @can('dosen')
                                                         <form action="/dashboard/nilailain/export/field-lab" method="get">
-                                                            <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
-                                                            <input type="hidden" name="kelompok" id="kelompok" value="{{ $fieldlab->kelompok }}">
+                                                            <input type="hidden" name="semester" id="semester"
+                                                                value="{{ $fieldlab->semester }}">
+                                                            <input type="hidden" name="kelompok" id="kelompok"
+                                                                value="{{ $fieldlab->kelompok }}">
                                                             @csrf
                                                             <button class="btn btn-primary w-100 shadow-none"><span
                                                                     data-feather="download"></span> Download</button>
