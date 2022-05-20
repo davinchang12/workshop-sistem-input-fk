@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NilaiFieldlab;
+use App\Models\AksesEditNilai;
+use Illuminate\Support\Facades\DB;
+
 use App\Exports\NilaiFieldLabExport;
 use App\Imports\NilaiFieldLabImport;
-
 use Illuminate\Support\Facades\File;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Session;
 
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\NilaiSemesterFieldLab;
+use Illuminate\Support\Facades\Session;
 use App\Http\Requests\StoreNilaiFieldlabRequest;
 use App\Http\Requests\UpdateNilaiFieldlabRequest;
 
@@ -92,7 +96,8 @@ class NilaiFieldlabController extends Controller
         //
     }
 
-    public function export() {
+    public function export()
+    {
         return Excel::download(new NilaiFieldLabExport, 'nilaifieldlab.xlsx');
     }
 
@@ -116,5 +121,61 @@ class NilaiFieldlabController extends Controller
         File::delete(public_path('/nilai_field_lab/' . $nama_file));
 
         return redirect('/dashboard/nilailain');
+    }
+
+    public function check(Request $request)
+    {
+        $aksesnilai = AksesEditNilai::where('user_id', auth()->user()->id)
+            ->where('jenisnilai', 'FIELDLAB')
+            ->get();
+
+        if (count($aksesnilai) > 0) {
+            foreach ($aksesnilai as $akses) {
+                if (Hash::check($request->password, $akses->passwordakses)) {
+                    session("fieldlab", true);
+
+                    $fieldlabs = DB::table('nilai_semester_field_labs')
+                        ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
+                        ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
+                        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                        ->where('users.role', 'mahasiswa')
+                        ->where('nilai_fieldlabs.semester', $request['semester'])
+                        ->where('nilai_fieldlabs.kelompok', $request['kelompok'])
+                        ->get();
+
+                    if (count($fieldlabs) > 0) {
+                        return view('dashboard.nilai.dosen.edit.fieldlab', [
+                            'fieldlabs' => $fieldlabs
+                        ]);
+                    } else {
+                        return back()->with('fail', 'Nilai Fieldlab belum diisi!');
+                    }
+                } else {
+                    return back()->with('fail', 'Password edit salah!');
+                }
+            }
+        } else {
+            return back()->with('fail', 'Password edit salah!');
+        }
+    }
+
+    public function simpan(Request $request)
+    {
+        for ($i = 0; $i < ((int)$request->count - 1); $i++) {
+            NilaiSemesterFieldLab::where('nilai_field_lab_id', $request->fieldlab_id[$i])
+                ->update([
+                    'total_nilai_dosbing' => $request->total_nilai_dosbing[$i],
+                    'total_nilai_penguji' => $request->total_nilai_penguji[$i],
+                    'total_nilai_penguji_2' => $request->total_nilai_penguji_2[$i],
+                    'nilai_akhir' => $request->nilai_akhir[$i],
+                    'keterangan_akhir' => $request->keterangan_akhir[$i]
+                ]);
+        }
+
+        AksesEditNilai::where('jenisnilai', 'FIELDLAB')
+            ->where('user_id', auth()->user()->id)
+            ->forcedelete();
+
+        return redirect('/dashboard/nilailain')->with('success', 'Nilai fieldlab berhasil diedit!');
     }
 }
