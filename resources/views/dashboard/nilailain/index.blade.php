@@ -116,15 +116,44 @@
                                             <div class="">
                                                 <div class="col pt-2">
                                                     @can('dosen')
-                                                        <form action="/dashboard/nilailain/export/field-lab" method="get">
-                                                            <input type="hidden" name="semester" id="semester"
-                                                                value="{{ $fieldlab->semester }}">
-                                                            <input type="hidden" name="kelompok" id="kelompok"
-                                                                value="{{ $fieldlab->kelompok }}">
-                                                            @csrf
-                                                            <button class="btn btn-primary w-100 shadow-none"><span
-                                                                    data-feather="download"></span> Download</button>
-                                                        </form>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>
+                                                                    <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                        href="#collapseExample{{ $loop->iteration }}"
+                                                                        role="button" aria-bs-expanded="false"
+                                                                        aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                        Edit Nilai
+                                                                    </a>
+                                                                </p>
+                                                                <div class="collapse"
+                                                                    id="collapseExample{{ $loop->iteration }}">
+                                                                    <form class="form-inline"
+                                                                        action="/dashboard/nilailain/edit/fieldlab"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="semester" id="semester"
+                                                                            value="{{ $fieldlab->semester }}">
+                                                                        <input type="hidden" name="kelompok" id="kelompok"
+                                                                            value="{{ $fieldlab->kelompok }}">
+                                                                        <label for="password" class="form-label">Password :
+                                                                        </label>
+                                                                        <input type="password" name="password" id="password">
+                                                                        <button
+                                                                            class="btn btn-primary shadow-none">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <form action="/dashboard/nilailain/export/field-lab" method="get">
+                                                                <input type="hidden" name="semester" id="semester"
+                                                                    value="{{ $fieldlab->semester }}">
+                                                                <input type="hidden" name="kelompok" id="kelompok"
+                                                                    value="{{ $fieldlab->kelompok }}">
+                                                                @csrf
+                                                                <button
+                                                                    class="btn btn-primary w-100 shadow-none">Download</button>
+                                                            </form>
+                                                        </div>
                                                         <form method="post" action="/dashboard/nilailain/import/field-lab"
                                                             enctype="multipart/form-data">
                                                             <div class="modal-content">
@@ -143,8 +172,8 @@
 
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary w-100"><span
-                                                                            data-feather="upload"></span> Import</button>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary w-100">Import</button>
                                                                 </div>
                                                             </div>
                                                         </form>
