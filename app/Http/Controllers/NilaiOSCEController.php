@@ -243,14 +243,10 @@ class NilaiOSCEController extends Controller
                         ->select('name', 'nim')
                         ->get();
 
-                    if (count($osces) > 0) {
-                        return view('dashboard.nilai.dosen.edit.osceedit', [
-                            'osces' => $osces,
-                            'penguji' => auth()->user()->name,
-                        ]);
-                    } else {
-                        return back()->with('fail', 'Nilai OSCE belum diisi!');
-                    }
+                    return view('dashboard.nilai.dosen.edit.osceedit', [
+                        'osces' => $osces,
+                        'penguji' => auth()->user()->name,
+                    ]);
                 }
             }
         } else {
@@ -269,10 +265,14 @@ class NilaiOSCEController extends Controller
             ->where('users.name', $request->mahasiswa_dipilih)
             ->get();
 
-        return view('dashboard.nilai.dosen.edit.osceinput', [
-            'osces' => $osces,
-            'penguji' => auth()->user()->name,
-        ]);
+        if (count($osces) > 0) {
+            return view('dashboard.nilai.dosen.edit.osceinput', [
+                'osces' => $osces,
+                'penguji' => auth()->user()->name,
+            ]);
+        } else {
+            return redirect('/dashboard/nilailain')->with('fail', 'Nilai OSCE belum diisi!');
+        }
     }
 
     public function simpan(Request $request)
