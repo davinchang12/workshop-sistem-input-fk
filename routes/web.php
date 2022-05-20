@@ -98,6 +98,8 @@ Route::resource('/dashboard/matkul', MatkulController::class)->only([
 
 Route::get('/dashboard/nilailain/export/field-lab', [NilaiFieldlabController::class, 'export']);
 Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::class, 'import']);
+Route::post('/dashboard/nilailain/edit/fieldlab', [NilaiFieldlabController::class, 'check']);
+Route::post('/dashboard/nilailain/edit/fieldlab/simpan', [NilaiFieldlabController::class, 'simpan']);
 
 Route::post('/dashboard/nilailain/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'input']);
