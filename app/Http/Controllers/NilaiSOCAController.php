@@ -323,6 +323,14 @@ class NilaiSOCAController extends Controller
 
     public function simpan(Request $request)
     {
+        DB::table('nilai_s_o_c_a_s')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->limit(1)
+            ->update(['nilaisocas' => (int)$request->totalsoca]);
+
         DB::table('jenis_s_o_c_a_s')
             ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')

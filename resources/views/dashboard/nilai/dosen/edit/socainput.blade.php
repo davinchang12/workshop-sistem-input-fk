@@ -272,8 +272,13 @@
                             <p class=MsoNormal align=right style='margin-bottom:0in;text-align:right'><b>Total
                                     Jumlah</b><span lang=IN> = </span></p>
                             <p class=MsoNormal style='margin-bottom:0in'>&nbsp;</p>
-                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><b>Nilai
-                                    akhir (Jumlah Total : 2) = ………………</b></p>
+                            <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
+                                <b>
+                                    Nilai akhir (Jumlah Total : 2) =
+                                    <input type="number" name="totalsoca" id="totalsoca"
+                                        style="text-align:left;border: none; font-size:18px;" readonly="readonly">
+                                </b>
+                            </p>
                         </td>
                         <td width=126 valign=top style='width:94.7pt;border-top:none;border-left:
                                   none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
@@ -479,6 +484,8 @@
             });
             var totalResult = document.querySelector("#total_jumlah");
             totalResult.innerHTML = tempTotal;
+            
+            document.getElementById("totalsoca").value = tempTotal / 2;
         }
 
         window.onload = function() {
