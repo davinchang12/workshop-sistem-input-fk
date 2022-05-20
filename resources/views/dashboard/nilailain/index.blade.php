@@ -78,6 +78,24 @@
                         </select>
                         <button type="submit" class="btn btn-primary mt-3">Pilih</button>
                     </form>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p>
+                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                    aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                    Edit Nilai
+                                </a>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <form class="form-inline" action="/dashboard/nilailain/edit/soca" method="post">
+                                    @csrf
+                                    <label for="password" class="form-label">Password : </label>
+                                    <input type="password" name="password" id="password">
+                                    <button class="btn btn-primary shadow-none">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>
