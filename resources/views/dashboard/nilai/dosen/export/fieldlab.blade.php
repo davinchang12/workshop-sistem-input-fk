@@ -35,7 +35,7 @@
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Wajib</font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Wajib</font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Opsional</font></td>
-		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Wajib</font></td>
+		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Opsional</font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Opsional</font></td>
 	</tr>
 	<tr>
@@ -47,7 +47,7 @@
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000"><br></font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000"><br></font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000"><br></font></td>
-		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000"><br></font></td>
+		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem</font></td>
 		<td align="center" valign=middle bgcolor="#F2F2F2"><font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem</font></td>
 	</tr>
 	@php
