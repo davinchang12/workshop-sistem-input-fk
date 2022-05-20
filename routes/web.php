@@ -104,8 +104,10 @@ Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'inp
 
 Route::post('/dashboard/nilailain/input-osce-submit', [NilaiOSCEController::class, 'store']);
 Route::post('/dashboard/nilailain/input-osce', [NilaiOSCEController::class, 'input']);
-Route::post('/dashboard/nilailain/export-osce', [NilaiOSCEController::class, 'export']);
-Route::post('/dashboard/nilailain/import-osce', [NilaiOSCEController::class, 'import']);
+Route::post('/dashboard/nilailain/edit/osce', [NilaiOSCEController::class, 'check']);
+Route::post('/dashboard/nilailain/edit/osce/input', [NilaiOSCEController::class, 'input_edit']);
+Route::post('/dashboard/nilailain/edit/osce/simpan', [NilaiOSCEController::class, 'simpan']);
+
 Route::resource('/dashboard/nilailain', NilaiLainController::class)->middleware('auth');
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
