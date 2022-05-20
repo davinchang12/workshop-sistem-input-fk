@@ -30,16 +30,16 @@ class NilaiFieldLabImport implements ToCollection, WithStartRow
     public function collection(Collection $rows)
     {
        foreach($rows as $row) {
-            $fieldlab = $this->fieldlab->where('nim', $row[2])->first();
+            $fieldlab = $this->fieldlab->where('nim', $row[4])->first();
             $keterangan = $row[6] >= 80 ? "LULUS" : "TIDAK LULUS";
             
             NilaiSemesterFieldLab::firstOrCreate([
                 'nilai_field_lab_id' => $fieldlab->id,
-                'total_nilai_dosbing' => $row[3],
-                'total_nilai_penguji' => $row[4],
-                'total_nilai_penguji_2' => $row[5] ?? 0,
-                'nilai_akhir' => $row[6],
-                'keterangan' => $row[7] ?? $keterangan
+                'total_nilai_dosbing' => $row[5],
+                'total_nilai_penguji' => $row[6],
+                'total_nilai_penguji_2' => $row[7] ?? 0,
+                'nilai_akhir' => $row[8],
+                'keterangan' => $row[9] ?? $keterangan
             ]);
        }
     }

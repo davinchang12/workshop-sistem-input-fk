@@ -21,6 +21,7 @@ class SettingFieldLab extends Controller
         $fieldlabs = DB::table('nilai_fieldlabs')
             ->orderBy('keterangan', 'ASC')
             ->groupBy('semester')
+            ->where('deleted_at', '=', null)
             ->get();
 
         return view('dashboard.fieldlab.admin.index', [

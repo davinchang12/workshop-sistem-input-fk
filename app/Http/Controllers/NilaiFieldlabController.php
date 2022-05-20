@@ -115,6 +115,6 @@ class NilaiFieldlabController extends Controller
 
         File::delete(public_path('/nilai_field_lab/' . $nama_file));
 
-        return redirect('/dashboard/matkul');
+        return redirect('/dashboard/nilailain');
     }
 }

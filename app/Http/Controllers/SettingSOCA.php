@@ -22,6 +22,7 @@ class SettingSOCA extends Controller
         $socas = DB::table('nilai_s_o_c_a_s')
             ->select('nama_penguji', 'namasoca', 'keterangan')
             ->groupBy('nama_penguji', 'namasoca')
+            ->where('deleted_at', '=', null)
             ->get();
 
         return view('dashboard.soca.admin.index', [
