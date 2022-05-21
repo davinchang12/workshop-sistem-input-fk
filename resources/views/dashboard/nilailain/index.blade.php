@@ -30,164 +30,202 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="osce">
-            @if (count($osces) > 0)
-                <div class="container mt-3 mb-3">
-                    <form action="/dashboard/nilailain/input-osce" method="post">
-                        @csrf
-                        <p>Pilih Mahasiswa : </p>
-                        <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                            <option selected>{{ $osces[0]->name }}</option>
-                            @foreach ($osces->skip(1) as $osce)
-                                <option>{{ $osce->name }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                    </form>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>
-                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                    aria-bs-expanded="false" aria-bs-controls="collapseExample">
-                                    Edit Nilai
-                                </a>
-                            </p>
-                            <div class="collapse" id="collapseExample">
-                                <form class="form-inline" action="/dashboard/nilailain/edit/osce" method="post">
-                                    @csrf
-                                    <label for="password" class="form-label">Password : </label>
-                                    <input type="password" name="password" id="password">
-                                    <button class="btn btn-primary shadow-none">Submit</button>
-                                </form>
+            @can('dosen')
+                @if (count($osces) > 0)
+                    <div class="container mt-3 mb-3">
+                        <form action="/dashboard/nilailain/input-osce" method="post">
+                            @csrf
+                            <p>Pilih Mahasiswa : </p>
+                            <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                                <option selected>{{ $osces[0]->name }}</option>
+                                @foreach ($osces->skip(1) as $osce)
+                                    <option>{{ $osce->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        </form>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                        aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/nilailain/edit/osce" method="post">
+                                        @csrf
+                                        <label for="password" class="form-label">Password : </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            @endcan
         </div>
         <div class="tab-pane fade" id="soca">
-            @if (count($socas) > 0)
-                <div class="container mt-3 mb-3">
-                    <form action="/dashboard/nilailain/input-soca" method="post">
-                        @csrf
-                        <p>Pilih Mahasiswa : </p>
-                        <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                            <option selected>{{ $socas[0]->name }}</option>
-                            @foreach ($socas->skip(1) as $soca)
-                                <option>{{ $soca->name }}</option>
+            @can('mahasiswa')
+                @if (count($mhs_socas) > 0)
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama SOCA</th>
+                                <th scope="col">Nama Penguji</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($mhs_socas as $mhs_soca)
+                                <tr>
+                                    <td>{{ $mhs_soca->namasoca }}</td>
+                                    <td>{{ $mhs_soca->nama_penguji }}</td>
+                                    <td>
+                                        <form action="/dashboard/nilailain/show" method="post">
+                                            @csrf
+                                            <input type="hidden" name="soca_id" id="soca_id" value="{{ $mhs_soca->id }}">
+                                            <input type="hidden" name="nama_penguji" id="nama_penguji"
+                                                value="{{ $mhs_soca->nama_penguji }}">
+
+                                            <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-primary mt-3">Pilih</button>
-                    </form>
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p>
-                                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                    aria-bs-expanded="false" aria-bs-controls="collapseExample">
-                                    Edit Nilai
-                                </a>
-                            </p>
-                            <div class="collapse" id="collapseExample">
-                                <form class="form-inline" action="/dashboard/nilailain/edit/soca" method="post">
-                                    @csrf
-                                    <label for="password" class="form-label">Password : </label>
-                                    <input type="password" name="password" id="password">
-                                    <button class="btn btn-primary shadow-none">Submit</button>
-                                </form>
+                        </tbody>
+                    </table>
+                @endif
+            @endcan
+            @can('dosen')
+                @if (count($socas) > 0)
+                    <div class="container mt-3 mb-3">
+                        <form action="/dashboard/nilailain/input-soca" method="post">
+                            @csrf
+                            <p>Pilih Mahasiswa : </p>
+                            <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                                <option selected>{{ $socas[0]->name }}</option>
+                                @foreach ($socas->skip(1) as $soca)
+                                    <option>{{ $soca->name }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-primary mt-3">Pilih</button>
+                        </form>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                        aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/nilailain/edit/soca" method="post">
+                                        @csrf
+                                        <label for="password" class="form-label">Password : </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            @endcan
         </div>
         <div class="tab-pane fade" id="fieldlab">
-            <div class="container mt-3">
-                <div class="row">
-                    @if ($fieldlabs != null)
-                        @foreach ($fieldlabs as $fieldlab)
-                            <div class="col-md-4 mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col">
-                                                <h5 class="card-title">
-                                                    {{ $fieldlab->semester }}
-                                                </h5>
-                                            </div>
-                                            <div class="">
-                                                <div class="col pt-2">
-                                                    @can('dosen')
-                                                        <div class="d-flex justify-content-between">
-                                                            <div>
-                                                                <p>
-                                                                    <a class="btn btn-primary" data-bs-toggle="collapse"
-                                                                        href="#collapseExample{{ $loop->iteration }}"
-                                                                        role="button" aria-bs-expanded="false"
-                                                                        aria-bs-controls="collapseExample{{ $loop->iteration }}">
-                                                                        Edit Nilai
-                                                                    </a>
-                                                                </p>
-                                                                <div class="collapse"
-                                                                    id="collapseExample{{ $loop->iteration }}">
-                                                                    <form class="form-inline"
-                                                                        action="/dashboard/nilailain/edit/fieldlab"
-                                                                        method="post">
-                                                                        @csrf
-                                                                        <input type="hidden" name="semester" id="semester"
-                                                                            value="{{ $fieldlab->semester }}">
-                                                                        <input type="hidden" name="kelompok" id="kelompok"
-                                                                            value="{{ $fieldlab->kelompok }}">
-                                                                        <label for="password" class="form-label">Password :
-                                                                        </label>
-                                                                        <input type="password" name="password" id="password">
-                                                                        <button
-                                                                            class="btn btn-primary shadow-none">Submit</button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                            <form action="/dashboard/nilailain/export/field-lab" method="get">
-                                                                <input type="hidden" name="semester" id="semester"
-                                                                    value="{{ $fieldlab->semester }}">
-                                                                <input type="hidden" name="kelompok" id="kelompok"
-                                                                    value="{{ $fieldlab->kelompok }}">
-                                                                @csrf
-                                                                <button
-                                                                    class="btn btn-primary w-100 shadow-none">Download</button>
-                                                            </form>
-                                                        </div>
-                                                        <form method="post" action="/dashboard/nilailain/import/field-lab"
-                                                            enctype="multipart/form-data">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Import
-                                                                        Template</h5>
-                                                                </div>
-                                                                <div class="modal-body">
-
-                                                                    {{ csrf_field() }}
-
-                                                                    <label>Pilih file excel</label>
-                                                                    <div class="form-group">
-                                                                        <input type="file" name="file" required="required">
+            @can('dosen')
+                <div class="container mt-3">
+                    <div class="row">
+                        @if ($fieldlabs != null)
+                            @foreach ($fieldlabs as $fieldlab)
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h5 class="card-title">
+                                                        {{ $fieldlab->semester }}
+                                                    </h5>
+                                                </div>
+                                                <div class="">
+                                                    <div class="col pt-2">
+                                                        @can('dosen')
+                                                            <div class="d-flex justify-content-between">
+                                                                <div>
+                                                                    <p>
+                                                                        <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                            href="#collapseExample{{ $loop->iteration }}"
+                                                                            role="button" aria-bs-expanded="false"
+                                                                            aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                            Edit Nilai
+                                                                        </a>
+                                                                    </p>
+                                                                    <div class="collapse"
+                                                                        id="collapseExample{{ $loop->iteration }}">
+                                                                        <form class="form-inline"
+                                                                            action="/dashboard/nilailain/edit/fieldlab"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            <input type="hidden" name="semester" id="semester"
+                                                                                value="{{ $fieldlab->semester }}">
+                                                                            <input type="hidden" name="kelompok" id="kelompok"
+                                                                                value="{{ $fieldlab->kelompok }}">
+                                                                            <label for="password" class="form-label">Password :
+                                                                            </label>
+                                                                            <input type="password" name="password" id="password">
+                                                                            <button
+                                                                                class="btn btn-primary shadow-none">Submit</button>
+                                                                        </form>
                                                                     </div>
-
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary w-100">Import</button>
-                                                                </div>
+                                                                <form action="/dashboard/nilailain/export/field-lab" method="get">
+                                                                    <input type="hidden" name="semester" id="semester"
+                                                                        value="{{ $fieldlab->semester }}">
+                                                                    <input type="hidden" name="kelompok" id="kelompok"
+                                                                        value="{{ $fieldlab->kelompok }}">
+                                                                    @csrf
+                                                                    <button
+                                                                        class="btn btn-primary w-100 shadow-none">Download</button>
+                                                                </form>
                                                             </div>
-                                                        </form>
-                                                    @endcan
+                                                            <form method="post" action="/dashboard/nilailain/import/field-lab"
+                                                                enctype="multipart/form-data">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Import
+                                                                            Template</h5>
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        {{ csrf_field() }}
+
+                                                                        <label>Pilih file excel</label>
+                                                                        <div class="form-group">
+                                                                            <input type="file" name="file" required="required">
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit"
+                                                                            class="btn btn-primary w-100">Import</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        @endcan
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                    @endif
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
-            </div>
+            @endcan
         </div>
     </div>
     <script>

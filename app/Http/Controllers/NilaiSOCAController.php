@@ -48,7 +48,7 @@ class NilaiSOCAController extends Controller
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->limit(1)
             ->update(['nilaisocas' => (int)$request->totalsoca]);
-        
+
         DB::table('jenis_s_o_c_a_s')
             ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
@@ -150,9 +150,58 @@ class NilaiSOCAController extends Controller
      * @param  \App\Models\NilaiSOCA  $nilaiSOCA
      * @return \Illuminate\Http\Response
      */
-    public function show(NilaiSOCA $nilaiSOCA)
+    public function show(Request $request)
     {
-        //
+
+        $socas = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
+            ->get();
+
+        $socas_2 = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
+            ->get();
+
+        $socas_3 = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Keterampilan saat presentasi')
+            ->get();
+
+        $socas_4 = DB::table('jenis_s_o_c_a_s')
+            ->join('nilai_jenis_s_o_c_a_s', 'jenis_s_o_c_a_s.nilaijenissoca_id', '=', 'nilai_jenis_s_o_c_a_s.id')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
+            ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Hasil Penilaian Keterampilan presentasi & sikap')
+            ->get();
+
+        if ($socas_3[0]->kepuasan_presentasi != "") {
+            return view('dashboard.nilailain.soca', [
+                'socas' => $socas,
+                'socas_2' => $socas_2,
+                'socas_3' => $socas_3,
+                'socas_4' => $socas_4,
+                'penguji' => $request->nama_penguji,
+            ]);
+        } else {
+            return redirect('/dashboard/nilailain')->with('fail', 'Nilai SOCA belum diisi!');
+        }
+
+        return view('dashboard.nilailain.soca', []);
     }
 
     /**

@@ -101,6 +101,7 @@ Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::c
 Route::post('/dashboard/nilailain/edit/fieldlab', [NilaiFieldlabController::class, 'check']);
 Route::post('/dashboard/nilailain/edit/fieldlab/simpan', [NilaiFieldlabController::class, 'simpan']);
 
+Route::post('/dashboard/nilailain/show', [NilaiSOCAController::class, 'show']);
 Route::post('/dashboard/nilailain/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'input']);
 Route::post('/dashboard/nilailain/edit/soca', [NilaiSOCAController::class, 'check']);

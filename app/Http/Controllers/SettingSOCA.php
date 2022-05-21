@@ -221,24 +221,24 @@ class SettingSOCA extends Controller
             $test = NilaiSOCA::find($soca->id);
 
             if (!$test->relation) {
-                $p1 = NilaiJenisSOCA::create([
+                $p1 = NilaiJenisSOCA::firstOrCreate([
                     'nilaisoca_id' => $soca->id,
                     'namaanalisis' => "Kemampuan analisa masalah"
                 ]);
-                $p2 = NilaiJenisSOCA::create([
+                $p2 = NilaiJenisSOCA::firstOrCreate([
                     'nilaisoca_id' => $soca->id,
                     'namaanalisis' => "Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)"
                 ]);
-                $p3 = NilaiJenisSOCA::create([
+                $p3 = NilaiJenisSOCA::firstOrCreate([
                     'nilaisoca_id' => $soca->id,
                     'namaanalisis' => "Keterampilan saat presentasi"
                 ]);
-                $keterampilansikap = NilaiJenisSOCA::create([
+                $keterampilansikap = NilaiJenisSOCA::firstOrCreate([
                     'nilaisoca_id' => $soca->id,
                     'namaanalisis' => "Hasil Penilaian Keterampilan presentasi & sikap"
                 ]);
 
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $p1->id,
                     "keterangan_soca" => "Overview Masalah",
                     "bobot" => 2,
@@ -246,7 +246,7 @@ class SettingSOCA extends Controller
                     "kepuasan_presentasi" => ""
                 ]);
 
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $p1->id,
                     "keterangan_soca" => "Analisis Masalah",
                     "bobot" => 4,
@@ -257,7 +257,7 @@ class SettingSOCA extends Controller
                 foreach ($validatedData['soals'] as $key => $soal) {
                     $bobot = $validatedData['bobots'][$key]['bobot'];
 
-                    JenisSOCA::create([
+                    JenisSOCA::firstOrCreate([
                         'nilaijenissoca_id' => $p2->id,
                         "keterangan_soca" => ucwords($soal['soal']),
                         "bobot" => $bobot,
@@ -266,25 +266,25 @@ class SettingSOCA extends Controller
                     ]);
                 }
 
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $p3->id,
                     "keterangan_soca" => "Sikap",
                     "skor_soca" => 0,
                     "kepuasan_presentasi" => ""
                 ]);
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $p3->id,
                     "keterangan_soca" => "Kemampuan berkomunikasi",
                     "skor_soca" => 0,
                     "kepuasan_presentasi" => ""
                 ]);
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $p3->id,
                     "keterangan_soca" => "Sistematika penyajian",
                     "skor_soca" => 0,
                     "kepuasan_presentasi" => ""
                 ]);
-                JenisSOCA::create([
+                JenisSOCA::firstOrCreate([
                     'nilaijenissoca_id' => $keterampilansikap->id,
                     "keterangan_soca" => "Hasil Penilaian Keterampilan presentasi & sikap",
                     "skor_soca" => 0,
