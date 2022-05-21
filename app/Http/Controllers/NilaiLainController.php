@@ -18,12 +18,12 @@ class NilaiLainController extends Controller
     {
 
         $mhs_osces = DB::table('nilai_o_s_c_e_s')
-        ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
-        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
-        ->where('users.role', 'mahasiswa')
-        ->where('users.id', auth()->user()->id)
-        ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id')
-        ->get();
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('users.id', auth()->user()->id)
+            ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id')
+            ->get();
 
         $mhs_socas = DB::table('nilai_s_o_c_a_s')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
@@ -43,7 +43,7 @@ class NilaiLainController extends Controller
             ->groupBy('users.name')
             ->select('name', 'nim')
             ->get();
-      
+
         $osces = DB::table('nilai_jenis_o_s_c_e_s')
             ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
@@ -57,17 +57,17 @@ class NilaiLainController extends Controller
         // $fieldlabs = DB::table('nilai_semester_field_labs')
         //     ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
         $fieldlabs = DB::table('nilai_fieldlabs')
-        ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
-        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
-        ->where('users.id', auth()->user()->id)
-        ->get();
-            
+            ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('users.id', auth()->user()->id)
+            ->get();
+
         return view('dashboard.nilailain.index', [
             'socas' => $socas,
             'osces' => $osces,
             'fieldlabs' => $fieldlabs,
             'mhs_socas' => $mhs_socas,
-            'mhs_osces' => $mhs_osces,
+            'mhs_osces' => $mhs_osces
         ]);
     }
 

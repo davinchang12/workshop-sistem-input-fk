@@ -96,6 +96,7 @@ Route::resource('/dashboard/matkul', MatkulController::class)->only([
 ])->middleware('auth');
 
 
+Route::post('/dashboard/nilailain/show/fieldlab', [NilaiFieldlabController::class, 'show']);
 Route::get('/dashboard/nilailain/export/field-lab', [NilaiFieldlabController::class, 'export']);
 Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::class, 'import']);
 Route::post('/dashboard/nilailain/edit/fieldlab', [NilaiFieldlabController::class, 'check']);

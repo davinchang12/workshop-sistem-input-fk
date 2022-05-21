@@ -168,6 +168,43 @@
             @endcan
         </div>
         <div class="tab-pane fade" id="fieldlab">
+            @can('mahasiswa')
+                <div class="container mt-3">
+                    <div class="row">
+                        @if ($fieldlabs != null)
+                            @foreach ($fieldlabs as $fieldlab)
+                                <div class="col-md-4 mb-3">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <h5 class="card-title mb-0">
+                                                        {{ $fieldlab->semester }}
+                                                    </h5>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <form action="/dashboard/nilailain/show/fieldlab" method="post"
+                                                        class="mb-0">
+                                                        @csrf
+                                                        <input type="hidden" name="semester" id="semester"
+                                                            value="{{ $fieldlab->semester }}">
+
+                                                        <input type="hidden" name="kelompok" id="kelompok"
+                                                            value="{{ $fieldlab->kelompok }}">
+
+                                                        <button class="badge bg-info border-0"><span
+                                                                data-feather="eye"></span></button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            @endcan
             @can('dosen')
                 <div class="container mt-3">
                     <div class="row">
