@@ -84,7 +84,9 @@ class MatkulController extends Controller
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->where($checkUserAndMatkul)
+            ->where('matkul_id', $matkul->id)
+            ->where('nilai_praktikums.deleted_at', null)
+            ->groupBy('nilai_praktikums.namapraktikum')
             ->get();
 
         $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')

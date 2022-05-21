@@ -129,7 +129,6 @@ class NilaiPraktikumController extends Controller
 
     public function import(Request $request)
     {
-
         $this->validate($request, [
             'file' => 'required|mimes:csv,xls,xlsx'
         ]);
@@ -147,7 +146,7 @@ class NilaiPraktikumController extends Controller
         File::delete(public_path('/nilai_praktikum/' . $nama_file));
 
         return redirect()
-            ->action([NilaiPraktikumController::class, 'importView'], ["kodematkul" => $request['kodematkul']]);
+            ->action([NilaiPraktikumController::class, 'importView'], ["kodematkul" => $request['kodematkul'], "namapraktikum" => $request['jenis_praktikum']]);
     }
 
     public function importView(Request $request)
@@ -158,6 +157,7 @@ class NilaiPraktikumController extends Controller
             ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->where('users.role', 'mahasiswa')
+            ->where('nilai_praktikums.namapraktikum', $request['namapraktikum'])
             ->where('matkuls.kodematkul', $request['kodematkul'])
             ->get();
 
@@ -185,6 +185,7 @@ class NilaiPraktikumController extends Controller
                         ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
                         ->where('users.role', 'mahasiswa')
                         ->where('matkuls.kodematkul', $request['kodematkul'])
+                        ->where('nilai_praktikums.namapraktikum', $request['jenis_praktikum'])
                         ->get();
 
                     if (count($praktikums) > 0) {

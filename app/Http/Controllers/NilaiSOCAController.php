@@ -160,6 +160,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->get();
 
         $socas_2 = DB::table('jenis_s_o_c_a_s')
@@ -169,6 +170,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->get();
 
         $socas_3 = DB::table('jenis_s_o_c_a_s')
@@ -178,6 +180,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Keterampilan saat presentasi')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->get();
 
         $socas_4 = DB::table('jenis_s_o_c_a_s')
@@ -187,21 +190,22 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.id', $request['soca_id'])
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Hasil Penilaian Keterampilan presentasi & sikap')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->get();
 
-        if ($socas_3[0]->kepuasan_presentasi != "") {
-            return view('dashboard.nilailain.soca', [
-                'socas' => $socas,
-                'socas_2' => $socas_2,
-                'socas_3' => $socas_3,
-                'socas_4' => $socas_4,
-                'penguji' => $request->nama_penguji,
-            ]);
+        if (count($socas_3) > 0) {
+            if ($socas_3[0]->kepuasan_presentasi != "") {
+                return view('dashboard.nilailain.soca', [
+                    'socas' => $socas,
+                    'socas_2' => $socas_2,
+                    'socas_3' => $socas_3,
+                    'socas_4' => $socas_4,
+                    'penguji' => $request->nama_penguji,
+                ]);
+            }
         } else {
             return redirect('/dashboard/nilailain')->with('fail', 'Nilai SOCA belum diisi!');
         }
-
-        return view('dashboard.nilailain.soca', []);
     }
 
     /**

@@ -54,6 +54,7 @@ class SettingSOCA extends Controller
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->select('users.id as user_id')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->get();
 
         return view('dashboard.soca.admin.create', [

@@ -22,6 +22,7 @@ class NilaiLainController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('users.id', auth()->user()->id)
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id')
             ->get();
 
@@ -30,6 +31,7 @@ class NilaiLainController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('users.id', auth()->user()->id)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id')
             ->get();
 
@@ -50,6 +52,7 @@ class NilaiLainController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.role', 'mahasiswa')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->groupBy('users.name')
             ->select('name', 'nim')
             ->get();
@@ -60,6 +63,7 @@ class NilaiLainController extends Controller
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.id', auth()->user()->id)
+            ->where('nilai_fieldlabs.deleted_at', null)
             ->get();
 
         return view('dashboard.nilailain.index', [

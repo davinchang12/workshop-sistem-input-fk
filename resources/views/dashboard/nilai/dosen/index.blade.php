@@ -280,6 +280,8 @@
                                                                             value="{{ $matkul->id }}">
                                                                         <input type="hidden" name="kodematkul" id=""
                                                                             value="{{ $matkul->kodematkul }}">
+                                                                        <input type="hidden" name="jenis_praktikum" id=""
+                                                                            value="{{ $praktikum->namapraktikum }}">
                                                                         <label for="password" class="form-label">Password :
                                                                         </label>
                                                                         <input type="password" name="password" id="password">
@@ -320,6 +322,8 @@
                                                                 <div class="modal-footer">
                                                                     <input type="hidden" name="kodematkul" id=""
                                                                         value="{{ $matkul->kodematkul }}">
+                                                                    <input type="hidden" name="jenis_praktikum" id=""
+                                                                        value="{{ $praktikum->namapraktikum }}">
                                                                     <button type="submit" class="btn btn-primary w-100"><span
                                                                             data-feather="upload"></span> Import</button>
                                                                 </div>

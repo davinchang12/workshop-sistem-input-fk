@@ -53,6 +53,7 @@ class SettingFieldLab extends Controller
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->select('users.id as user_id')
+            ->where('nilai_fieldlabs.deleted_at', null)
             ->get();
             
         return view('dashboard.fieldlab.admin.create', [

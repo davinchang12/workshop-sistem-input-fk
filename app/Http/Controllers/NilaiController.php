@@ -63,11 +63,11 @@ class NilaiController extends Controller
             ->where('matkuls.id', $request->matkul_dipilih)
             ->get();
 
-        $check_praktikum = DB::table('nilai_praktikums')
-            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->get();
-        // dd($praktikums);
+        // $check_praktikum = DB::table('nilai_praktikums')
+        //     ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+        //     ->join('users', 'nilais.user_id', '=', 'users.id')
+        //     ->get();
+        // dd($check_praktikum->contains('name', auth()->user()->name));
         $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -196,7 +196,7 @@ class NilaiController extends Controller
             'check_pbl_dosen' => $check_pbl->contains('name', auth()->user()->name),
             'praktikum_dosens' => $praktikum_dosens,
             'praktikums' => $praktikums,
-            'check_praktikum_dosen' => $check_praktikum->contains('name', auth()->user()->name)
+            // 'check_praktikum_dosen' => $check_praktikum->contains('name', auth()->user()->name)
         ]);
     }
         

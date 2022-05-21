@@ -146,12 +146,14 @@ class SettingMataKuliahController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('matkul_id', $matkul_id)
             ->where('users.role', 'mahasiswa')
+            ->where('nilais.deleted_at', null)
             ->get();
 
         $jadwals = DB::table('jadwals')
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->where('matkul_id', $matkul_id)
             ->where('users.role', 'mahasiswa')
+            ->where('jadwals.deleted_at', null)
             ->get();
 
         if ($user_ids != null) {
@@ -271,6 +273,7 @@ class SettingMataKuliahController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $settingmatakuliah->id)
+            ->where('nilai_p_b_l_s.deleted_at', null)
             ->select('users.id', 'users.name', 'kelompok')
             ->get();
 
@@ -304,6 +307,7 @@ class SettingMataKuliahController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $matkul_id)
+            ->where('nilai_p_b_l_s.deleted_at', null)
             ->select('users.id as user_id', 'nilai_p_b_l_s.id as nilaipbl_id', 'users.name', 'kelompok')
             ->get();
 

@@ -227,9 +227,9 @@
                             <tr>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Nim</th>
-                                <th scope="col">Rata-rata Quiz (20%)</th>
-                                <th scope="col">Rata-rata Nilai Laporan (10%)</th>
-                                <th scope="col">Nilai Responsi (70%)</th>
+                                <th scope="col">Rata-rata Quiz</th>
+                                <th scope="col">Rata-rata Nilai Laporan</th>
+                                <th scope="col">Nilai Responsi</th>
                                 <th scope="col">Nilai Akhir</th>
                                 <th scope="col">Keterangan</th>
                                 <th scope="col">Keterangan Berdasarkan</th>
@@ -261,15 +261,15 @@
                         </tbody>
                     </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    @if ($check_praktikum_dosen)
+                    {{-- @if ($check_praktikum_dosen) --}}
                         <table class="table" style="text-align: center">
                             <thead>
                                 <tr>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Nim</th>
-                                    <th scope="col">Rata-rata Quiz (20%)</th>
-                                    <th scope="col">Rata-rata Nilai Laporan (10%)</th>
-                                    <th scope="col">Nilai Responsi (70%)</th>
+                                    <th scope="col">Rata-rata Quiz</th>
+                                    <th scope="col">Rata-rata Nilai Laporan</th>
+                                    <th scope="col">Nilai Responsi</th>
                                     <th scope="col">Nilai Akhir</th>
                                     <th scope="col">Keterangan</th>
                                     <th scope="col">Keterangan Berdasarkan</th>
@@ -318,7 +318,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    @endif
+                    {{-- @endif --}}
                 @endif
             @endif
         </div>
@@ -395,7 +395,7 @@
                     </tbody>
                 </table>
                 @elseif (auth()->user()->hasRole('dosen'))
-                    @if ($check_praktikum_dosen)
+                    {{-- @if ($check_praktikum_dosen) --}}
                         <table class="table" style="text-align: center">
                             <thead>
                                 <tr>
@@ -459,7 +459,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    @endif
+                    {{-- @endif --}}
                 @endif
             @endif
         </div>
