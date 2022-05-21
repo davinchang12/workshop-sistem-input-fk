@@ -134,9 +134,26 @@ class NilaiOSCEController extends Controller
      * @param  \App\Models\NilaiOSCE  $nilaiOSCE
      * @return \Illuminate\Http\Response
      */
-    public function show(NilaiOSCE $nilaiOSCE)
+    public function show(Request $request)
     {
-        //
+        // dd($request);
+
+        $osces = DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_o_s_c_e_s.id', $request['osce_id'])
+            ->get();
+
+        if (count($osces) > 0) {
+            return view('dashboard.nilailain.osce', [
+                'osces' => $osces,
+                'penguji' => $request['nama_penguji'],
+            ]);
+        } else {
+            return redirect('/dashboard/nilailain')->with('fail', 'Nilai OSCE belum diisi!');
+        }
     }
 
     /**

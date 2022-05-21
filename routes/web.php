@@ -101,13 +101,14 @@ Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::c
 Route::post('/dashboard/nilailain/edit/fieldlab', [NilaiFieldlabController::class, 'check']);
 Route::post('/dashboard/nilailain/edit/fieldlab/simpan', [NilaiFieldlabController::class, 'simpan']);
 
-Route::post('/dashboard/nilailain/show', [NilaiSOCAController::class, 'show']);
+Route::post('/dashboard/nilailain/show/soca', [NilaiSOCAController::class, 'show']);
 Route::post('/dashboard/nilailain/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'input']);
 Route::post('/dashboard/nilailain/edit/soca', [NilaiSOCAController::class, 'check']);
 Route::post('/dashboard/nilailain/edit/soca/input', [NilaiSOCAController::class, 'input_edit']);
 Route::post('/dashboard/nilailain/edit/soca/simpan', [NilaiSOCAController::class, 'simpan']);
 
+Route::post('/dashboard/nilailain/show/osce', [NilaiOSCEController::class, 'show']);
 Route::post('/dashboard/nilailain/input-osce-submit', [NilaiOSCEController::class, 'store']);
 Route::post('/dashboard/nilailain/input-osce', [NilaiOSCEController::class, 'input']);
 Route::post('/dashboard/nilailain/edit/osce', [NilaiOSCEController::class, 'check']);

@@ -30,6 +30,38 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="osce">
+            @can('mahasiswa')
+                @if (count($mhs_osces) > 0)
+                    <table class="table" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nama OSCE</th>
+                                <th scope="col">Nama Penguji</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($mhs_osces as $mhs_osce)
+                                <tr>
+                                    <td>{{ $mhs_osce->namaosce }}</td>
+                                    <td>{{ $mhs_osce->nama_penguji }}</td>
+                                    <td>
+                                        <form action="/dashboard/nilailain/show/osce" method="post">
+                                            @csrf
+                                            <input type="hidden" name="osce_id" id="osce_id" value="{{ $mhs_osce->id }}">
+                                            <input type="hidden" name="nama_penguji" id="nama_penguji"
+                                                value="{{ $mhs_osce->nama_penguji }}">
+
+                                            <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            @endcan
             @can('dosen')
                 @if (count($osces) > 0)
                     <div class="container mt-3 mb-3">
@@ -84,7 +116,7 @@
                                     <td>{{ $mhs_soca->namasoca }}</td>
                                     <td>{{ $mhs_soca->nama_penguji }}</td>
                                     <td>
-                                        <form action="/dashboard/nilailain/show" method="post">
+                                        <form action="/dashboard/nilailain/show/soca" method="post">
                                             @csrf
                                             <input type="hidden" name="soca_id" id="soca_id" value="{{ $mhs_soca->id }}">
                                             <input type="hidden" name="nama_penguji" id="nama_penguji"

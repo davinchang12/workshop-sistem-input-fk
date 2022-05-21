@@ -16,6 +16,15 @@ class NilaiLainController extends Controller
      */
     public function index()
     {
+
+        $mhs_osces = DB::table('nilai_o_s_c_e_s')
+        ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+        ->where('users.role', 'mahasiswa')
+        ->where('users.id', auth()->user()->id)
+        ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id')
+        ->get();
+
         $mhs_socas = DB::table('nilai_s_o_c_a_s')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
@@ -23,8 +32,6 @@ class NilaiLainController extends Controller
             ->where('users.id', auth()->user()->id)
             ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id')
             ->get();
-
-        // dd($mhs_socas);
 
         $socas = DB::table('nilai_jenis_s_o_c_a_s')
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
@@ -59,7 +66,8 @@ class NilaiLainController extends Controller
             'socas' => $socas,
             'osces' => $osces,
             'fieldlabs' => $fieldlabs,
-            'mhs_socas' => $mhs_socas
+            'mhs_socas' => $mhs_socas,
+            'mhs_osces' => $mhs_osces,
         ]);
     }
 
