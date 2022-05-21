@@ -152,34 +152,34 @@ class DatabaseSeeder extends Seeder
         // RincianNilaiTugas::create([
         //     'nilai_id' => 7,
         // ]);
-        Nilai::create([
-            'user_id' => 8,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 2,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 3,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 4,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 5,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 6,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 7,
-            'matkul_id' => 2,
-        ]);
+        // Nilai::create([
+        //     'user_id' => 8,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 2,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 3,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 4,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 5,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 6,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 7,
+        //     'matkul_id' => 2,
+        // ]);
 
         // Kelompok::create([
         //     'user_id' => 2,
