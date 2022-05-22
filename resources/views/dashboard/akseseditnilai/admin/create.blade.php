@@ -30,7 +30,8 @@
                     <option value="tugas">Tugas</option>
                     <option value="praktikum">Praktikum</option>
                     <option value="pbl">PBL</option>
-                    <option value="ujian">Ujian</option>
+                    <option value="feedbackutb">FeedbackUTB</option>
+                    <option value="feedbackuab">FeedbackUAB</option>
                     <option value="fieldlab">Field Lab</option>
                     <option value="osce">OSCE</option>
                     <option value="soca">SOCA</option>

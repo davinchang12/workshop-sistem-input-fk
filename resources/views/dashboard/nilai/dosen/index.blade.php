@@ -343,23 +343,6 @@
         </div>
         <div class="tab-pane fade" id="Ujian">
             <div class="container mt-3">
-                <p>
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExampleujian" role="button"
-                        aria-bs-expanded="false" aria-bs-controls="collapseExampleujian">
-                        Edit Nilai
-                    </a>
-                </p>
-                <div class="collapse" id="collapseExampleujian">
-                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/praktikum" method="post">
-                        @csrf
-                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
-                        <label for="password" class="form-label">Password :
-                        </label>
-                        <input type="password" name="password" id="password">
-                        <button class="btn btn-primary shadow-none">Submit</button>
-                    </form>
-                </div>
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a href="#feedbackutb" class="nav-link active" data-bs-toggle="tab">Feedback UTB</a>
@@ -373,11 +356,33 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="feedbackutb">
-                        <form action="/dashboard/matkul/nilai/export/feedbackutb" method="get">
-                            @csrf
-                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                            <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-                        </form>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/feedbackutb"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                                        <label for="password" class="form-label">Password :
+                                        </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form action="/dashboard/matkul/nilai/export/feedbackutb" method="get">
+                                @csrf
+                                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                            </form>
+                        </div>
                         <form method="post" action="/dashboard/matkul/nilai/import/feedbackutb"
                             enctype="multipart/form-data">
                             <div class="modal-content">
@@ -403,11 +408,33 @@
 
                     </div>
                     <div class="tab-pane fade" id="feedbackuab">
-                        <form action="/dashboard/matkul/nilai/export/feedbackuab" method="get">
-                            @csrf
-                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                            <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-                        </form>
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/feedbackuab"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                                        <label for="password" class="form-label">Password :
+                                        </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form action="/dashboard/matkul/nilai/export/feedbackuab" method="get">
+                                @csrf
+                                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                            </form>
+                        </div>
                         <form method="post" action="/dashboard/matkul/nilai/import/feedbackuab"
                             enctype="multipart/form-data">
                             <div class="modal-content">

@@ -88,7 +88,7 @@
                     @if ($check == $tugas->name)
                         @if ($z == $count)
                             <td>
-                                <input type="float" max="100" min="0"
+                                <input type="number" max="100" min="0" step="0.01"
                                 style="border: none; font-size:18px; width:100%; text-align: center;"
                                 name="ratarata[]" id="ratarata[]" value="{{ $tugas->rataratatugas }}" readonly="readonly">
                             </td>

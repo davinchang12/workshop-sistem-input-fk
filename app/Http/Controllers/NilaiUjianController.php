@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\FeedbackUjian;
 use App\Models\AksesEditNilai;
 use App\Models\HasilNilaiUjian;
+use App\Models\JenisFeedbackUAB;
+use App\Models\JenisFeedbackUTB;
 use App\Exports\NilaiUjianExport;
 use App\Imports\NilaiUjianImport;
 use App\Exports\FeedbackUABExport;
@@ -884,16 +886,16 @@ class NilaiUjianController extends Controller
         return Excel::download(new FeedbackUABExport, 'feedbackuab.xlsx');
     }
 
-    public function check(Request $request)
+    public function check_utb(Request $request)
     {
         $aksesnilai = AksesEditNilai::where('user_id', auth()->user()->id)
-            ->where('jenisnilai', 'UJIAN')
+            ->where('jenisnilai', 'FEEDBACKUTB')
             ->get();
 
         if (count($aksesnilai) > 0) {
             foreach ($aksesnilai as $akses) {
                 if (Hash::check($request->password, $akses->passwordakses)) {
-                    session("ujian", true);
+                    session("feedbackutb", true);
 
                     $ujians = Nilai::select('nilai_ujians.*')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -913,16 +915,22 @@ class NilaiUjianController extends Controller
                         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
                         ->where('users.role', 'mahasiswa')
                         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                        ->select('jenis_feedback_u_t_b_s.id as jenisfeedback_id', 'feedback_u_t_b_s.id as feedback_id', 'users.name', 'users.nim', 'jenis_feedback_u_t_b_s.skor', 'jenis_feedback_u_t_b_s.topik',)
                         ->get();
 
                     $dosen = User::where('id', '=', auth()->user()->id)->value('name');
 
-                    return view('dashboard.nilai.dosen.export.ujian', [
-                        'ujians' => $ujians,
-                        'utbs' => $jenisutbs,
-                        'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
-                        'dosen' => $dosen
-                    ]);
+                    if (count($jenisutbs) > 0) {
+                        return view('dashboard.nilai.dosen.edit.feedbackutb', [
+                            'ujians' => $ujians,
+                            'utbs' => $jenisutbs,
+                            'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
+                            'kodematkul' => $request->kodematkul,
+                            'dosen' => $dosen
+                        ]);
+                    } else {
+                        return back()->with('fail', 'Nilai Feedback UTB belum diisi!');
+                    }
                 }
             }
         } else {
@@ -930,13 +938,93 @@ class NilaiUjianController extends Controller
         }
     }
 
-    public function simpan(Request $request)
+    public function simpan_utb(Request $request)
     {
+        $skors = $request->input('skor');
+        $feedback_ids = $request->input('jenisfeedback');
 
-        AksesEditNilai::where('jenisnilai', 'UJIAN')
+        foreach ($feedback_ids as $key => $feedback_id) {
+            JenisFeedbackUTB::where('id', $feedback_id)
+                ->update([
+                    'skor' => $skors[$key]
+                ]);
+        }
+
+        AksesEditNilai::where('jenisnilai', 'FEEDBACKUTB')
             ->where('user_id', auth()->user()->id)
             ->forcedelete();
 
         return redirect('/dashboard/matkul/' . $request->input('kodematkul'))->with('success', 'Nilai Feedback UTB berhasil diedit!');
+    }
+
+    public function check_uab(Request $request)
+    {
+        $aksesnilai = AksesEditNilai::where('user_id', auth()->user()->id)
+            ->where('jenisnilai', 'FEEDBACKUAB')
+            ->get();
+
+        if (count($aksesnilai) > 0) {
+            foreach ($aksesnilai as $akses) {
+                if (Hash::check($request->password, $akses->passwordakses)) {
+                    session("feedbackuab", true);
+
+                    $ujians = Nilai::select('nilai_ujians.*')
+                        ->join('users', 'nilais.user_id', '=', 'users.id')
+                        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+                        ->orderBy('nilais.id')
+                        ->where('users.role', 'mahasiswa')
+                        ->where('matkuls.id', $request->matkul_dipilih)
+                        ->get();
+
+                    $jenisuabs = DB::table('jenis_feedback_u_a_b_s')
+                        ->join('feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+                        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.id', '=', 'feedback_u_a_b_s.hasil_ujians_id')
+                        ->join('nilai_ujians', 'nilai_ujians.id', '=', 'hasil_nilai_ujians.nilai_ujian_id')
+                        ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+                        ->join('users', 'users.id', '=', 'nilais.user_id')
+                        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+                        ->where('users.role', 'mahasiswa')
+                        ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                        ->select('jenis_feedback_u_a_b_s.id as jenisfeedback_id', 'feedback_u_a_b_s.id as feedback_id', 'users.name', 'users.nim', 'jenis_feedback_u_a_b_s.skor', 'jenis_feedback_u_a_b_s.topik',)
+                        ->get();
+
+                    $dosen = User::where('id', '=', auth()->user()->id)->value('name');
+
+                    if (count($jenisuabs) > 0) {
+                        return view('dashboard.nilai.dosen.edit.feedbackuab', [
+                            'ujians' => $ujians,
+                            'uabs' => $jenisuabs,
+                            'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
+                            'kodematkul' => $request->kodematkul,
+                            'dosen' => $dosen
+                        ]);
+                    } else {
+                        return back()->with('fail', 'Nilai Feedback UAB belum diisi!');
+                    }
+                }
+            }
+        } else {
+            return back()->with('fail', 'Password edit salah!');
+        }
+    }
+
+    public function simpan_uab(Request $request)
+    {
+        $skors = $request->input('skor');
+        $feedback_ids = $request->input('jenisfeedback');
+
+        foreach ($feedback_ids as $key => $feedback_id) {
+            JenisFeedbackUAB::where('id', $feedback_id)
+                ->update([
+                    'skor' => $skors[$key]
+                ]);
+        }
+
+        AksesEditNilai::where('jenisnilai', 'FEEDBACKUAB')
+            ->where('user_id', auth()->user()->id)
+            ->forcedelete();
+
+        return redirect('/dashboard/matkul/' . $request->input('kodematkul'))->with('success', 'Nilai Feedback UAB berhasil diedit!');
     }
 }
