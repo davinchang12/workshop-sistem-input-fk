@@ -6,15 +6,17 @@ use App\Models\Jadwal;
 use App\Models\JenisOSCE;
 use App\Models\NilaiOSCE;
 use Illuminate\Http\Request;
+use App\Models\AksesEditNilai;
 use App\Models\NilaiJenisOSCE;
 use App\Imports\SoalOSCEImport;
-use Illuminate\Support\Facades\File;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\UpdateNilaiOSCERequest;
 
 class NilaiOSCEController extends Controller
@@ -123,7 +125,7 @@ class NilaiOSCEController extends Controller
                 ->update(['nilai_o_s_c_e_s.nilaiosce' => $nilai]);
         }
 
-        return redirect('/dashboard/nilailain');
+        return redirect('/dashboard/nilailain')->with('success', 'Nilai OSCE berhasil diinput!');
     }
 
     /**
@@ -132,9 +134,26 @@ class NilaiOSCEController extends Controller
      * @param  \App\Models\NilaiOSCE  $nilaiOSCE
      * @return \Illuminate\Http\Response
      */
-    public function show(NilaiOSCE $nilaiOSCE)
+    public function show(Request $request)
     {
-        //
+        // dd($request);
+
+        $osces = DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nilai_o_s_c_e_s.id', $request['osce_id'])
+            ->get();
+
+        if (count($osces) > 0) {
+            return view('dashboard.nilailain.osce', [
+                'osces' => $osces,
+                'penguji' => $request['nama_penguji'],
+            ]);
+        } else {
+            return redirect('/dashboard/nilailain')->with('fail', 'Nilai OSCE belum diisi!');
+        }
     }
 
     /**
@@ -217,31 +236,122 @@ class NilaiOSCEController extends Controller
         return view('dashboard.nilai.dosen.input.osce', [
             'osces' => $osces,
             'penguji' => auth()->user()->name,
-            'kodematkul' => $request->kodematkul
         ]);
     }
-    // public function import(Request $request) {
 
-    // 	$this->validate($request, [
-    // 		'file' => 'required|mimes:csv,xls,xlsx'
-    // 	]);
+    public function check(Request $request)
+    {
+        $aksesnilai = AksesEditNilai::where('user_id', auth()->user()->id)
+            ->where('jenisnilai', 'OSCE')
+            ->get();
 
-    // 	$file = $request->file('file');
+        if (count($aksesnilai) > 0) {
+            foreach ($aksesnilai as $akses) {
+                if (Hash::check($request->password, $akses->passwordakses)) {
+                    session("osce", true);
 
-    // 	$nama_file = rand().$file->getClientOriginalName();
+                    $osces = DB::table('nilai_jenis_o_s_c_e_s')
+                        ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                        ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+                        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                        ->where('nama_penguji', auth()->user()->name)
+                        ->where('users.role', 'mahasiswa')
+                        ->groupBy('users.name')
+                        ->select('name', 'nim')
+                        ->get();
 
-    // 	$file->move('nilai_tugas',$nama_file);
+                    return view('dashboard.nilai.dosen.edit.osceedit', [
+                        'osces' => $osces,
+                        'penguji' => auth()->user()->name,
+                    ]);
+                }
+            }
+        } else {
+            return back()->with('fail', 'Password edit salah!');
+        }
+    }
 
-    // 	Excel::import(new SoalOSCEImport, public_path('/soal_osce/'.$nama_file));
+    public function input_edit(Request $request)
+    {
+        $osces = DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
+            ->where('users.name', $request->mahasiswa_dipilih)
+            ->get();
 
-    // 	Session::flash('sukses','Soal OSCE Berhasil Diimport!');
+        if (count($osces) > 0) {
+            return view('dashboard.nilai.dosen.edit.osceinput', [
+                'osces' => $osces,
+                'penguji' => auth()->user()->name,
+            ]);
+        } else {
+            return redirect('/dashboard/nilailain')->with('fail', 'Nilai OSCE belum diisi!');
+        }
+    }
 
-    //     File::delete(public_path('/soal_osce/'.$nama_file));
+    public function simpan(Request $request)
+    {
+        // dd($request);
+        $totalskor = 0;
+        $value = 0;
+        for ($i = 0; $i < ((int)$request->jumlahaspek); $i++) {
+            $get_key = collect($request->all())->keys()[5 + $i];
 
-    // 	return redirect('/dashboard/matkul');
-    // }
+            DB::table('jenis_o_s_c_e_s')
+                ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+                ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                ->where('users.name', $request->nama)
+                ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+                ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%' . $get_key . '%')
+                ->limit(1)
+                ->update(['skor_osce' => (int)$request->$get_key]);
 
-    // public function export() {
-    //     return Excel::download(new SoalOSCEExport, 'soalosce.xlsx');
-    // }
+            $skor = DB::table('jenis_o_s_c_e_s')
+                ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+                ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                ->where('users.name', $request->nama)
+                ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+                ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%' . $get_key . '%')
+                ->limit(1)
+                ->value('skor_osce');
+            $bobot = DB::table('jenis_o_s_c_e_s')
+                ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+                ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+                ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                ->where('users.name', $request->nama)
+                ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+                ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%' . $get_key . '%')
+                ->limit(1)
+                ->value('bobot');
+            $total = $skor * $bobot;
+            $value += $bobot;
+            $totalskor += $total;
+        }
+
+        $value = $value * 2;
+        $nilai = round((($totalskor / $value) * 100), 2);
+        DB::table('jenis_o_s_c_e_s')
+            ->join('nilai_jenis_o_s_c_e_s', 'jenis_o_s_c_e_s.nilaijenisosce_id', '=', 'nilai_jenis_o_s_c_e_s.id')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('users.name', $request->nama)
+            ->where('nilai_o_s_c_e_s.namaosce', $request->namaosce)
+            ->where('nilai_jenis_o_s_c_e_s.aspekdinilaiosce', 'like', '%' . $get_key . '%')
+            ->update(['nilai_o_s_c_e_s.nilaiosce' => $nilai]);
+
+        AksesEditNilai::where('jenisnilai', 'OSCE')
+            ->where('user_id', auth()->user()->id)
+            ->forcedelete();
+
+        return redirect('/dashboard/nilailain/')->with('success', 'Nilai OSCE berhasil diedit!');
+    }
 }

@@ -10,10 +10,8 @@ class Nilai extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'user_id',
-        'matkul_id',
-        'kodejadwal'
+    protected $guarded = [
+        'id'
     ];
     protected $with = [
         'users',
@@ -29,6 +27,12 @@ class Nilai extends Model
     {
         return $this->belongsTo(Matkul::class);
     }
+
+    public function nilaijenis()
+    {
+        return $this->hasMany(NilaiJenis::class);
+    }
+
     public function rinciannilaitugas()
     {
         return $this->hasOne(RincianNilaiTugas::class);

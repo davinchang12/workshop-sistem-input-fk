@@ -12,6 +12,7 @@ use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NilaiPBLController;
 use App\Http\Controllers\EditNilaiController;
+use App\Http\Controllers\NilaiLainController;
 use App\Http\Controllers\NilaiOSCEController;
 use App\Http\Controllers\NilaiSOCAController;
 use App\Http\Controllers\DosenNilaiController;
@@ -23,7 +24,7 @@ use App\Http\Controllers\KritikSaranController;
 use App\Http\Controllers\NilaiFieldlabController;
 use App\Http\Controllers\SettingJadwalController;
 use App\Http\Controllers\AdminEditNilaiController;
-use App\Http\Controllers\NilaiLainController;
+use App\Http\Controllers\AksesEditNilaiController;
 use App\Http\Controllers\NilaiPraktikumController;
 use App\Http\Controllers\NilaiTugasExportController;
 use App\Http\Controllers\SettingMahasiswaMataKuliah;
@@ -60,11 +61,19 @@ Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)-
 
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
+Route::post('/dashboard/matkul/nilai/edit/tugas', [NilaiTugasController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/tugas/simpan', [NilaiTugasController::class, 'simpan']);
 
 Route::get('/dashboard/matkul/nilai/export/feedbackutb', [NilaiUjianController::class, 'export_utb']);
 Route::post('/dashboard/matkul/nilai/import/feedbackutb', [NilaiUjianController::class, 'import_utb']);
+Route::post('/dashboard/matkul/nilai/edit/feedbackutb', [NilaiUjianController::class, 'check_utb']);
+Route::post('/dashboard/matkul/nilai/edit/feedbackutb/simpan', [NilaiUjianController::class, 'simpan_utb']);
+
 Route::get('/dashboard/matkul/nilai/export/feedbackuab', [NilaiUjianController::class, 'export_uab']);
 Route::post('/dashboard/matkul/nilai/import/feedbackuab', [NilaiUjianController::class, 'import_uab']);
+Route::post('/dashboard/matkul/nilai/edit/feedbackuab', [NilaiUjianController::class, 'check_uab']);
+Route::post('/dashboard/matkul/nilai/edit/feedbackuab/simpan', [NilaiUjianController::class, 'simpan_uab']);
+
 Route::get('/dashboard/matkul/nilai/export/nilaiujian', [NilaiUjianController::class, 'export_ujian']);
 
 Route::post('/dashboard/matkul/nilai/import/nilaiujian-persen', [NilaiUjianController::class, 'store']);
@@ -72,11 +81,15 @@ Route::post('/dashboard/matkul/nilai/import/nilaiujian', [NilaiUjianController::
 
 Route::post('/dashboard/matkul/nilai/input-pbl-submit', [NilaiPBLController::class, 'store']);
 Route::post('/dashboard/matkul/nilai/input-pbl', [NilaiPBLController::class, 'input']);
+Route::post('/dashboard/matkul/nilai/edit/pbl', [NilaiPBLController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/pbl/simpan', [NilaiPBLController::class, 'simpan']);
 
 Route::post('/dashboard/matkul/nilai/import/praktikum-submit', [NilaiPraktikumController::class, 'store']);
 Route::get('/dashboard/matkul/nilai/import/praktikum-view', [NilaiPraktikumController::class, 'importView']);
 Route::post('/dashboard/matkul/nilai/import/praktikum', [NilaiPraktikumController::class, 'import']);
 Route::post('/dashboard/matkul/nilai/export/praktikum', [NilaiPraktikumController::class, 'export']);
+Route::post('/dashboard/matkul/nilai/edit/praktikum', [NilaiPraktikumController::class, 'check']);
+Route::post('/dashboard/matkul/nilai/edit/praktikum/simpan', [NilaiPraktikumController::class, 'simpan']);
 
 Route::resource('/dashboard/matkul/nilai', NilaiController::class)->middleware('auth');
 
@@ -85,16 +98,26 @@ Route::resource('/dashboard/matkul', MatkulController::class)->only([
 ])->middleware('auth');
 
 
+Route::post('/dashboard/nilailain/show/fieldlab', [NilaiFieldlabController::class, 'show']);
 Route::get('/dashboard/nilailain/export/field-lab', [NilaiFieldlabController::class, 'export']);
 Route::post('/dashboard/nilailain/import/field-lab', [NilaiFieldlabController::class, 'import']);
+Route::post('/dashboard/nilailain/edit/fieldlab', [NilaiFieldlabController::class, 'check']);
+Route::post('/dashboard/nilailain/edit/fieldlab/simpan', [NilaiFieldlabController::class, 'simpan']);
 
+Route::post('/dashboard/nilailain/show/soca', [NilaiSOCAController::class, 'show']);
 Route::post('/dashboard/nilailain/input-soca-submit', [NilaiSOCAController::class, 'store']);
 Route::post('/dashboard/nilailain/input-soca', [NilaiSOCAController::class, 'input']);
+Route::post('/dashboard/nilailain/edit/soca', [NilaiSOCAController::class, 'check']);
+Route::post('/dashboard/nilailain/edit/soca/input', [NilaiSOCAController::class, 'input_edit']);
+Route::post('/dashboard/nilailain/edit/soca/simpan', [NilaiSOCAController::class, 'simpan']);
 
+Route::post('/dashboard/nilailain/show/osce', [NilaiOSCEController::class, 'show']);
 Route::post('/dashboard/nilailain/input-osce-submit', [NilaiOSCEController::class, 'store']);
 Route::post('/dashboard/nilailain/input-osce', [NilaiOSCEController::class, 'input']);
-Route::post('/dashboard/nilailain/export-osce', [NilaiOSCEController::class, 'export']);
-Route::post('/dashboard/nilailain/import-osce', [NilaiOSCEController::class, 'import']);
+Route::post('/dashboard/nilailain/edit/osce', [NilaiOSCEController::class, 'check']);
+Route::post('/dashboard/nilailain/edit/osce/input', [NilaiOSCEController::class, 'input_edit']);
+Route::post('/dashboard/nilailain/edit/osce/simpan', [NilaiOSCEController::class, 'simpan']);
+
 Route::resource('/dashboard/nilailain', NilaiLainController::class)->middleware('auth');
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
@@ -173,6 +196,9 @@ Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class
 Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
 Route::get('/dashboard/settingfieldlab/show', [SettingFieldLab::class, 'showSemester'])->middleware('admin');
 Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middleware('admin');
+
+Route::resource('/dashboard/akseseditnilai', AksesEditNilaiController::class)->middleware('admin');
+
 // Superadmin
 // Route::get('/dashboard/role', [])->middleware('superadmin');
 

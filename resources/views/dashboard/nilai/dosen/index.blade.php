@@ -15,6 +15,12 @@
         </div>
     @endif
 
+    @if (session()->has('fail'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('fail') }}
+        </div>
+    @endif
+
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a href="#tugas" class="nav-link active" data-bs-toggle="tab">Tugas</a>
@@ -31,36 +37,56 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="tugas">
-            <form action="/dashboard/matkul/nilai/export/tugas" method="get">
-                @csrf
-                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-            </form>
-            <form method="post" action="/dashboard/matkul/nilai/import/tugas" enctype="multipart/form-data">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+            <div class="container mt-3">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <p>
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                Edit Nilai
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <form class="form-inline" action="/dashboard/matkul/nilai/edit/tugas" method="post">
+                                @csrf
+                                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $matkul->kodematkul }}">
+                                <input type="hidden" name="namamatkul" id="namamatkul" value="{{ $matkul->namamatkul }}">
+                                <label for="password" class="form-label">Password : </label>
+                                <input type="password" name="password" id="password">
+                                <button class="btn btn-primary shadow-none">Submit</button>
+                            </form>
+                        </div>
                     </div>
-                    <div class="modal-body">
+                    <form action="/dashboard/matkul/nilai/export/tugas" method="get">
+                        @csrf
+                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                    </form>
+                </div>
 
-                        {{ csrf_field() }}
+                <form method="post" action="/dashboard/matkul/nilai/import/tugas" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                        </div>
+                        <div class="modal-body">
 
+                            {{ csrf_field() }}
                         <label>Pilih file excel</label>
                         <div class="form-group">
                             <input type="file" name="file" required="required">
                             <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
                         </div>
+                        <div class="modal-footer">
 
+                            <button type="submit" class="btn btn-primary">Import</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Import</button>
-                    </div>
-                </div>
-            </form>
-            <div class="container">
-                <div class="row">
-                    {{-- <table class="talbe table-bordered">
+                </form>
+                <div class="container">
+                    <div class="row">
+                        {{-- <table class="talbe table-bordered">
                         <tr>
                             <td colspan=19 align="center"><b>Daftar Nilai Tugas </b></td>
                         </tr>
@@ -117,6 +143,7 @@
                             @endif
                         @endforeach
                     </table> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +153,7 @@
                     @if ($skenarios != null)
                         @foreach ($skenarios as $skenario)
                             @foreach ($skenario->skenariodiskusi as $diskusi)
-                                <div class="col-md-4 mb-3">
+                                <div class="col-md-6 mb-3">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -141,16 +168,27 @@
                                                     <small>Tahun Ajaran
                                                         {{ $skenario->pbl->nilai->matkul->tahun_ajaran }}</small>
                                                 </div>
-                                                <div class="col-md-auto p-auto">
-                                                    <div class="col pt-2">
-                                                        @can('dosen')
-                                                            <form action="/dashboard/matkul/nilai/input-pbl" method="post"
-                                                                enctype="multipart/form-data">
+                                                <div class="d-flex justify-content-between mt-3">
+                                                    <div>
+                                                        <p>
+                                                            <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                href="#collapseExample{{ $loop->iteration }}"
+                                                                role="button" aria-bs-expanded="false"
+                                                                aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                Edit Nilai
+                                                            </a>
+                                                        </p>
+                                                        <div class="collapse"
+                                                            id="collapseExample{{ $loop->iteration }}">
+                                                            <form class="form-inline"
+                                                                action="/dashboard/matkul/nilai/edit/pbl" method="post">
                                                                 @csrf
                                                                 <input type="hidden" name="matkul_dipilih" id=""
                                                                     value="{{ $matkul->id }}">
                                                                 <input type="hidden" name="kodematkul" id=""
                                                                     value="{{ $matkul->kodematkul }}">
+                                                                <input type="hidden" name="blok" id="blok"
+                                                                    value="{{ $matkul->blok }}">
                                                                 <input type="hidden" name="kelompok" id=""
                                                                     value="{{ $skenario->kelompok }}">
                                                                 <input type="hidden" name="skenario" id=""
@@ -161,11 +199,37 @@
                                                                     value="{{ $diskusi->id }}">
                                                                 <input type="hidden" name="tanggal_pelaksanaan"
                                                                     value="{{ $diskusi->tanggal_pelaksanaan }}">
-                                                                <button class="btn btn-primary w-100 shadow-none"><span
-                                                                        data-feather="settings"></span></button>
+                                                                <label for="password" class="form-label">Password :
+                                                                </label>
+                                                                <input type="password" name="password" id="password">
+                                                                <button class="btn btn-primary shadow-none">Submit</button>
                                                             </form>
-                                                        @endcan
+                                                        </div>
                                                     </div>
+                                                    @can('dosen')
+                                                        <form action="/dashboard/matkul/nilai/input-pbl" method="post"
+                                                            enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="matkul_dipilih" id=""
+                                                                value="{{ $matkul->id }}">
+                                                            <input type="hidden" name="kodematkul" id=""
+                                                                value="{{ $matkul->kodematkul }}">
+                                                            <input type="hidden" name="blok" id="blok"
+                                                                value="{{ $matkul->blok }}">
+                                                            <input type="hidden" name="kelompok" id=""
+                                                                value="{{ $skenario->kelompok }}">
+                                                            <input type="hidden" name="skenario" id=""
+                                                                value="{{ $skenario->skenario }}">
+                                                            <input type="hidden" name="diskusi" id=""
+                                                                value="{{ $diskusi->diskusi }}">
+                                                            <input type="hidden" name="diskusi_id" id=""
+                                                                value="{{ $diskusi->id }}">
+                                                            <input type="hidden" name="tanggal_pelaksanaan"
+                                                                value="{{ $diskusi->tanggal_pelaksanaan }}">
+                                                            <button class="btn btn-primary w-100 shadow-none"><span
+                                                                    data-feather="settings"></span></button>
+                                                        </form>
+                                                    @endcan
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +246,7 @@
                 <div class="row">
                     @if ($praktikums != null)
                         @foreach ($praktikums as $praktikum)
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -194,16 +258,48 @@
                                             <div class="">
                                                 <div class="col pt-2">
                                                     @can('dosen')
-                                                        <form action="/dashboard/matkul/nilai/export/praktikum" method="post"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            <input type="hidden" name="kodematkul" id=""
-                                                                value="{{ $matkul->kodematkul }}">
-                                                            <input type="hidden" name="jenis_praktikum" id=""
-                                                                value="{{ $praktikum->namapraktikum }}">
-                                                            <button class="btn btn-primary w-100 shadow-none"><span
-                                                                    data-feather="download"></span> Download</button>
-                                                        </form>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <p>
+                                                                    <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                                        href="#collapseExample{{ $loop->iteration }}"
+                                                                        role="button" aria-bs-expanded="false"
+                                                                        aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                                        Edit Nilai
+                                                                    </a>
+                                                                </p>
+                                                                <div class="collapse"
+                                                                    id="collapseExample{{ $loop->iteration }}">
+                                                                    <form class="form-inline"
+                                                                        action="/dashboard/matkul/nilai/edit/praktikum"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        <input type="hidden" name="matkul_dipilih" id=""
+                                                                            value="{{ $matkul->id }}">
+                                                                        <input type="hidden" name="kodematkul" id=""
+                                                                            value="{{ $matkul->kodematkul }}">
+                                                                        <input type="hidden" name="jenis_praktikum" id=""
+                                                                            value="{{ $praktikum->namapraktikum }}">
+                                                                        <label for="password" class="form-label">Password :
+                                                                        </label>
+                                                                        <input type="password" name="password" id="password">
+                                                                        <button
+                                                                            class="btn btn-primary shadow-none">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            <form action="/dashboard/matkul/nilai/export/praktikum"
+                                                                method="post" enctype="multipart/form-data">
+                                                                @csrf
+                                                                <input type="hidden" name="kodematkul" id=""
+                                                                    value="{{ $matkul->kodematkul }}">
+                                                                <input type="hidden" name="jenis_praktikum" id=""
+                                                                    value="{{ $praktikum->namapraktikum }}">
+                                                                <button
+                                                                    class="btn btn-primary w-100 shadow-none">Download</button>
+                                                            </form>
+                                                        </div>
+
                                                         <form method="post" action="/dashboard/matkul/nilai/import/praktikum"
                                                             enctype="multipart/form-data">
                                                             <div class="modal-content">
@@ -224,6 +320,8 @@
                                                                 <div class="modal-footer">
                                                                     <input type="hidden" name="kodematkul" id=""
                                                                         value="{{ $matkul->kodematkul }}">
+                                                                    <input type="hidden" name="jenis_praktikum" id=""
+                                                                        value="{{ $praktikum->namapraktikum }}">
                                                                     <button type="submit" class="btn btn-primary w-100"><span
                                                                             data-feather="upload"></span> Import</button>
                                                                 </div>
@@ -242,153 +340,201 @@
             </div>
         </div>
         <div class="tab-pane fade" id="Ujian">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a href="#feedbackutb" class="nav-link active" data-bs-toggle="tab">Feedback UTB</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#feedbackuab" class="nav-link" data-bs-toggle="tab">Feedback UAB</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#nilaiujian" class="nav-link" data-bs-toggle="tab">Daftar Nilai Ujian</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="feedbackutb">
-                    <form action="/dashboard/matkul/nilai/export/feedbackutb" method="get">
-                        @csrf
-                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-                    </form>
-                    <form method="post" action="/dashboard/matkul/nilai/import/feedbackutb" enctype="multipart/form-data">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                            </div>
-                            <div class="modal-body">
-
-                                {{ csrf_field() }}
-
-                                <label>Pilih file excel</label>
-                                <div class="form-group">
-                                    <input type="file" name="file" required="required">
+            <div class="container mt-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#feedbackutb" class="nav-link active" data-bs-toggle="tab">Feedback UTB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#feedbackuab" class="nav-link" data-bs-toggle="tab">Feedback UAB</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#nilaiujian" class="nav-link" data-bs-toggle="tab">Daftar Nilai Ujian</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="feedbackutb">
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/feedbackutb"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                                        <label for="password" class="form-label">Password :
+                                        </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
                                 </div>
-
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Import</button>
-                            </div>
+                            <form action="/dashboard/matkul/nilai/export/feedbackutb" method="get">
+                                @csrf
+                                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                            </form>
                         </div>
-                    </form>
-
-                </div>
-                <div class="tab-pane fade" id="feedbackuab">
-                    <form action="/dashboard/matkul/nilai/export/feedbackuab" method="get">
-                        @csrf
-                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                        <button class="btn btn-primary w-100 shadow-none">Download Template</button>
-                    </form>
-                    <form method="post" action="/dashboard/matkul/nilai/import/feedbackuab" enctype="multipart/form-data">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                            </div>
-                            <div class="modal-body">
-
-                                {{ csrf_field() }}
-
-                                <label>Pilih file excel</label>
-                                <div class="form-group">
-                                    <input type="file" name="file" required="required">
+                        <form method="post" action="/dashboard/matkul/nilai/import/feedbackutb"
+                            enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
                                 </div>
+                                <div class="modal-body">
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Import</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                                    {{ csrf_field() }}
 
-                <div class="tab-pane fade" id="nilaiujian">
-
-
-                    <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian-persen"
-                        enctype="multipart/form-data">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Persentase Nilai
-                                    {{ $matkul->namamatkul }}</h5>
-                            </div>
-                            <div class="modal-body">
-
-                                {{ csrf_field() }}
-                                <div class="form-group">
-                                    <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                                    <label for="utb">UTB</label>
-                                    <input type="float" class="form-control" id="persenutb" name="persenutb"
-                                        placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
-                                </div>
-                                <div class="form-group">
-                                    <label for="uab">UAB</label>
-                                    <input type="float" class="form-control" id="persenuab" name="persenuab"
-                                        placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
-                                </div>
-                                @if ($checkpraktikumujians->isnotEmpty())
+                                    <label>Pilih file excel</label>
                                     <div class="form-group">
-                                        <label for="praktikum">Nilai Praktikum</label>
-                                        <input type="float" class="form-control" id="persenpraktikum"
-                                            name="persenpraktikum" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
+                                        <input type="file" name="file" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="tab-pane fade" id="feedbackuab">
+                        <div class="d-flex justify-content-between mt-3">
+                            <div>
+                                <p>
+                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                        Edit Nilai
+                                    </a>
+                                </p>
+                                <div class="collapse" id="collapseExample">
+                                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/feedbackuab"
+                                        method="post">
+                                        @csrf
+                                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                        <input type="hidden" name="kodematkul" id="" value="{{ $matkul->kodematkul }}">
+                                        <label for="password" class="form-label">Password :
+                                        </label>
+                                        <input type="password" name="password" id="password">
+                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <form action="/dashboard/matkul/nilai/export/feedbackuab" method="get">
+                                @csrf
+                                <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                <button class="btn btn-primary w-100 shadow-none">Download Template</button>
+                            </form>
+                        </div>
+                        <form method="post" action="/dashboard/matkul/nilai/import/feedbackuab"
+                            enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
+                                </div>
+                                <div class="modal-body">
+
+                                    {{ csrf_field() }}
+
+                                    <label>Pilih file excel</label>
+                                    <div class="form-group">
+                                        <input type="file" name="file" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="nilaiujian">
+                        <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian-persen"
+                            enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Persentase Nilai
+                                        {{ $matkul->namamatkul }}</h5>
+                                </div>
+                                <div class="modal-body">
+
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                                        <label for="utb">UTB</label>
+                                        <input type="float" class="form-control" id="persenutb" name="persenutb"
+                                            placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="uab">UAB</label>
+                                        <input type="float" class="form-control" id="persenuab" name="persenuab"
+                                            placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
+                                    </div>
+                                    @if ($checkpraktikumujians->isnotEmpty())
+                                        <div class="form-group">
+                                            <label for="praktikum">Nilai Praktikum</label>
+                                            <input type="float" class="form-control" id="persenpraktikum"
+                                                name="persenpraktikum" placeholder="Cukup isi angkanya saja (tanpa %)"
+                                                max="100" min="0">
+                                        </div>
+                                    @endif
+                                    <div class="form-group">
+                                        <label for="praktikum">Nilai Final CBT</label>
+                                        <input type="float" class="form-control" id="persenfinalcbt"
+                                            name="persenfinalcbt" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
                                             min="0">
                                     </div>
-                                @endif
-                                <div class="form-group">
-                                    <label for="praktikum">Nilai Final CBT</label>
-                                    <input type="float" class="form-control" id="persenfinalcbt" name="persenfinalcbt"
-                                        placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
+                                    <div class="form-group">
+                                        <label for="praktikum">Rata-Rata Minimal</label>
+                                        <input type="float" class="form-control" id="ratamin" name="ratamin"
+                                            placeholder="Contoh : 75" max="100" min="0">
+                                    </div>
+
+
                                 </div>
-                                <div class="form-group">
-                                    <label for="praktikum">Rata-Rata Minimal</label>
-                                    <input type="float" class="form-control" id="ratamin" name="ratamin"
-                                        placeholder="Contoh : 75" max="100" min="0">
+                                <div class="modal-footer">
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
-
-
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">submit</button>
-                            </div>
-                        </div>
-                    </form>
-                    <form action="/dashboard/matkul/nilai/export/nilaiujian" method="get">
-                        @csrf
-                        <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
-                        <button class="btn btn-primary w-100 shadow-none">Download Template Remidi</button>
-                    </form>
-                    <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian" enctype="multipart/form-data">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
-                            </div>
-                            <div class="modal-body">
-
-                                {{ csrf_field() }}
-
-                                <label>Pilih file excel</label>
-                                <div class="form-group">
-                                    <input type="file" name="file" required="required">
+                        </form>
+                        <form action="/dashboard/matkul/nilai/export/nilaiujian" method="get">
+                            @csrf
+                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
+                            <button class="btn btn-primary w-100 shadow-none">Download Template Remidi</button>
+                        </form>
+                        <form method="post" action="/dashboard/matkul/nilai/import/nilaiujian"
+                            enctype="multipart/form-data">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Import Template</h5>
                                 </div>
+                                <div class="modal-body">
 
+                                    {{ csrf_field() }}
+
+                                    <label>Pilih file excel</label>
+                                    <div class="form-group">
+                                        <input type="file" name="file" required="required">
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="submit" class="btn btn-primary">Import</button>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Import</button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

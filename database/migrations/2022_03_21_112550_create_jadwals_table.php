@@ -18,6 +18,7 @@ class CreateJadwalsTable extends Migration
             $table->foreignId('user_id');
             $table->foreignId('matkul_id');
             $table->string('materi')->nullable();
+            $table->string('jenis')->nullable();
             $table->date('tanggal')->nullable();
             $table->time('jammasuk')->nullable();
             $table->time('jamselesai')->nullable();

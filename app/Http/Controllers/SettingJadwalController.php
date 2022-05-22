@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
+use App\Models\NilaiJenis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -33,7 +34,7 @@ class SettingJadwalController extends Controller
         ]);
     }
 
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -61,6 +62,7 @@ class SettingJadwalController extends Controller
         $rules = [
             'matkul_id' => 'required',
             'user_id' => 'required',
+            'jenis' => 'required',
             'materi' => 'required',
             'tanggal' => 'required',
             'jammasuk' => 'required',
@@ -77,6 +79,7 @@ class SettingJadwalController extends Controller
             ->join('users', 'jadwals.user_id', '=', 'users.id')
             ->where('users.id', $validatedData['user_id'])
             ->where('jadwals.tanggal', $validatedData['tanggal'])
+            ->whereNull('jadwals.deleted_at')
             ->get();
 
         if (count($jadwals) > 0) {
@@ -92,10 +95,22 @@ class SettingJadwalController extends Controller
             }
         }
 
-        $jadwalCreated = Jadwal::create($validatedData);
+        Jadwal::create($validatedData);
 
-        $nilaiData = ['user_id' => $validatedData['user_id'], 'matkul_id' => $validatedData['matkul_id'], 'kodejadwal' => $jadwalCreated->id];
-        Nilai::create($nilaiData);
+        $nilai = Nilai::firstOrCreate([
+            'user_id' => $validatedData['user_id'],
+            'matkul_id' => $validatedData['matkul_id'],
+        ]);
+
+        NilaiJenis::updateOrCreate(
+            [
+                'nilai_id' => $nilai->id
+            ],
+            [
+                $validatedData['jenis'] => 1
+            ]
+        );
+
         return redirect('/dashboard/settingjadwal')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }
 
@@ -116,71 +131,82 @@ class SettingJadwalController extends Controller
      * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Jadwal $settingjadwal)
-    {
-        // dd($settingjadwal);
-        $matkuls = Matkul::select('id', 'namamatkul')->get();
-        $users = User::where('role', 'dosen')->select('id', 'name')->get();
+    // public function edit(Jadwal $settingjadwal)
+    // {
+    //     // dd($settingjadwal);
+    //     $matkuls = Matkul::select('id', 'namamatkul')->get();
+    //     $users = User::where('role', 'dosen')->select('id', 'name')->get();
 
-        return view('dashboard.jadwal.admin.edit', [
-            'matkuls' => $matkuls,
-            'users' => $users,
-            'settingjadwal' => $settingjadwal
-        ]);
-    }
+    //     return view('dashboard.jadwal.admin.edit', [
+    //         'matkuls' => $matkuls,
+    //         'users' => $users,
+    //         'settingjadwal' => $settingjadwal
+    //     ]);
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Jadwal $settingjadwal)
-    {
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Models\Jadwal  $jadwal
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, Jadwal $settingjadwal)
+    // {
 
-        $rules = [
-            'matkul_id' => 'required',
-            'user_id' => 'required',
-            'materi' => 'required',
-            'tanggal' => 'required',
-            'jammasuk' => 'required',
-            'jamselesai' => 'required|after:jammasuk',
-            'ruangan' => 'nullable'
-        ];
+    //     $rules = [
+    //         'matkul_id' => 'required',
+    //         'user_id' => 'required',
+    //         'materi' => 'required',
+    //         'jenis' => 'required',
+    //         'tanggal' => 'required',
+    //         'jammasuk' => 'required',
+    //         'jamselesai' => 'required|after:jammasuk',
+    //         'ruangan' => 'nullable'
+    //     ];
 
-        $validatedData = $request->validate($rules);
-        $validatedData['materi'] = strtoupper($validatedData['materi']);
+    //     $validatedData = $request->validate($rules);
+    //     $validatedData['materi'] = strtoupper($validatedData['materi']);
 
-        $jadwals = DB::table('jadwals')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->where('users.id', $validatedData['user_id'])
-            ->where('jadwals.id', '!=', $settingjadwal->id)
-            ->where('jadwals.tanggal', $validatedData['tanggal'])
-            ->get();
+    //     $jadwals = DB::table('jadwals')
+    //         ->join('users', 'jadwals.user_id', '=', 'users.id')
+    //         ->where('users.id', $validatedData['user_id'])
+    //         ->where('jadwals.id', '!=', $settingjadwal->id)
+    //         ->where('jadwals.tanggal', $validatedData['tanggal'])
+    //         ->get();
 
-        if (count($jadwals) > 0) {
-            foreach ($jadwals as $jadwal) {
-                $ruleJam1 = $jadwal->jammasuk <= $validatedData['jammasuk'] && $validatedData['jammasuk'] <= $jadwal->jamselesai;
-                $ruleJam2 = strtotime($jadwal->jammasuk) <= strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) <= strtotime($jadwal->jamselesai);
+    //     if (count($jadwals) > 0) {
+    //         foreach ($jadwals as $jadwal) {
+    //             $ruleJam1 = $jadwal->jammasuk <= $validatedData['jammasuk'] && $validatedData['jammasuk'] <= $jadwal->jamselesai;
+    //             $ruleJam2 = strtotime($jadwal->jammasuk) <= strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) <= strtotime($jadwal->jamselesai);
 
-                if ($ruleJam1) {
-                    throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam masuk pada tanggal yang sama di jadwal lain!']);
-                } else if ($ruleJam2) {
-                    throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam selesai pada tanggal yang sama di jadwal lain!']);
-                }
-            }
-        }
+    //             if ($ruleJam1) {
+    //                 throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam masuk pada tanggal yang sama di jadwal lain!']);
+    //             } else if ($ruleJam2) {
+    //                 throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam selesai pada tanggal yang sama di jadwal lain!']);
+    //             }
+    //         }
+    //     }
 
-        Jadwal::where('id', $settingjadwal->id)
-            ->update($validatedData);
+    //     Jadwal::where('id', $settingjadwal->id)
+    //         ->update($validatedData);
 
-        $nilaiData = ['user_id' => $validatedData['user_id'], 'matkul_id' => $validatedData['matkul_id'], 'kodejadwal' => $settingjadwal->id];
-        Nilai::where('kodejadwal', $nilaiData['kodejadwal'])
-            ->update($nilaiData);
+    //     $nilai = Nilai::updateOrCreate([
+    //             'user_id' => $validatedData['user_id'],
+    //             'matkul_id' => $validatedData['matkul_id'],
+    //     ]);
 
-        return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil diupdate!');
-    }
+    //     NilaiJenis::updateOrCreate(
+    //         [
+    //             'nilai_id' => $nilai->id,
+    //         ],
+    //         [
+    //             $validatedData['jenis'] => 1
+    //         ]
+    //     );
+
+    //     return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil diupdate!');
+    // }
     public function trashbin()
     {
 
@@ -198,16 +224,19 @@ class SettingJadwalController extends Controller
         ]);
     }
 
-    public function restore(Request $request){
+    public function restore(Request $request)
+    {
         Jadwal::where('id', '=', $request->kodejadwal)->restore();
         return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Jadwal berhasil direstore!');
     }
 
-    public function forceDelete(Request $request){
+    public function forceDelete(Request $request)
+    {
         Jadwal::where('id', '=', $request->kodejadwal)->forceDelete();
         return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Jadwal berhasil dihapus!');
     }
-    public function emptyTrash(){
+    public function emptyTrash()
+    {
         Jadwal::where('deleted_at', '!=', null)->forceDelete();
         return redirect('/dashboard/settingjadwal/trashbin')->with('success', 'Semua jadwal di trashbin berhasil dihapus!');
     }
@@ -220,7 +249,7 @@ class SettingJadwalController extends Controller
     public function destroy(Jadwal $settingjadwal)
     {
         Jadwal::destroy($settingjadwal->id);
-        Nilai::where('kodejadwal', $settingjadwal->id)->delete();
+        // Nilai::where('kodejadwal', $settingjadwal->id)->delete();
 
         return redirect('/dashboard/settingjadwal')->with('success', 'Jadwal berhasil dihapus sementara!');
     }

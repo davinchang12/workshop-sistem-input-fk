@@ -42,15 +42,15 @@
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     rowspan=2 height="110" align="center" valign=middle bgcolor="#F4B183">
-                    <font color="#000000">RATA-RATA QUIZ (20%)</font>
+                    <font color="#000000">RATA-RATA QUIZ</font>
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     rowspan=2 align="center" valign=middle bgcolor="#8FAADC">
-                    <font color="#000000">RATA-RATA NILAI LAPORAN (10%)</font>
+                    <font color="#000000">RATA-RATA NILAI LAPORAN</font>
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     rowspan=2 align="center" valign=middle bgcolor="#FFD966">
-                    <font color="#000000">NILAI RESPONSI (70%)</font>
+                    <font color="#000000">NILAI RESPONSI</font>
                 </td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     rowspan=2 align="center" valign=middle bgcolor="#A9D18E">

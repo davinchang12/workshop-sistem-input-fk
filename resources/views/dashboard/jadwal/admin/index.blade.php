@@ -42,7 +42,7 @@
                         <td>{{ $jadwal->jamselesai }}</td>
                         <td>{{ $jadwal->ruangan }}</td>
                         <td>
-                            <a href="/dashboard/settingjadwal/{{ $jadwal->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+                            {{-- <a href="/dashboard/settingjadwal/{{ $jadwal->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a> --}}
                             <form action="/dashboard/settingjadwal/{{ $jadwal->id }}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf

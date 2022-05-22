@@ -3,7 +3,6 @@
 namespace App\Exports;
 use App\Models\User;
 use App\Models\Nilai;
-use App\Models\Jadwal;
 use App\Models\Matkul;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
@@ -24,10 +23,9 @@ class FeedbackUTBExport implements FromView, ShouldAutoSize, WithEvents
         $request = request();
         
         $dosen = User::where('id', '=', auth()->user()->id)->value('name');
-        $students = Jadwal::select('nilais.id')
-         ->join('users', 'jadwals.user_id', '=', 'users.id')
-         ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-         ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $students = Nilai::select('nilais.id')
+         ->join('users', 'nilais.user_id', '=', 'users.id')
+         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
          ->orderBy('nilais.id')
          ->where('users.role', 'mahasiswa')
          ->where('matkuls.id', $request->matkul_dipilih)
@@ -54,10 +52,9 @@ class FeedbackUTBExport implements FromView, ShouldAutoSize, WithEvents
             }
         }
 
-        $ujians= Jadwal::select('nilai_ujians.*')
-        ->join('users', 'jadwals.user_id', '=', 'users.id')
-        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-        ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $ujians= Nilai::select('nilai_ujians.*')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
         ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
         ->orderBy('nilais.id')
         ->where('users.role', 'mahasiswa')

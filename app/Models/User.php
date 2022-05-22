@@ -47,6 +47,10 @@ class User extends Authenticatable
         return $this->role == $roleName;
     }
 
+    public function aksesnilai() {
+        return $this->hasMany(AksesEditNilai::class);
+    }
+
     public function nilaiMhs() {
         return $this->hasMany(Nilai::class);
     }

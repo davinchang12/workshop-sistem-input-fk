@@ -12,7 +12,7 @@
     @endif
 
     <div class="table-responsive">
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-primary mb-3"><span
+        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl" class="btn btn-primary mb-3"><span
                 data-feather="arrow-left"></span> Kembali</a>
         <form action="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/emptytrash"
                     method="post" class="d-inline">

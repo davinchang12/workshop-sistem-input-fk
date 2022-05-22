@@ -15,9 +15,6 @@
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}" class="btn btn-success"><span
                 data-feather="arrow-left"></span> Kembali</a>
         <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/trashbinkelompokpbl" class="btn btn-success">Trashbin</a>
-            
-        <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen" class="btn btn-success">Edit
-            Dosen</a>
         @if ($kelompoks->first() != null)
             <a href="/dashboard/settingmatakuliah/{{ $matkul->kodematkul }}/settingkelompokpbl/editdosen"
                 class="btn btn-success">Edit

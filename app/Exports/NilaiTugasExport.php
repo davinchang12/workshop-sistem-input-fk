@@ -32,6 +32,9 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         //         ->where('users.role', 'mahasiswa')
         //         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
         //         ->get();
+//         $students = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul')
+//         ->join('users', 'nilais.user_id', '=', 'users.id')
+//         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
         $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
         ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
         ->join('nilais', 'nilais.user_id', '=', 'users.id')
@@ -200,6 +203,14 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         // }
         // dd($nilaitugasa);
 
+//         $nilaitugas= Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+//         ->join('users', 'nilais.user_id', '=', 'users.id')
+//         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+//         ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+//         ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+//         ->orderBy('users.id')
+//         ->groupBy('users.name')
+//         ->where('users.role', 'mahasiswa')
         $nilaitugas = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*')
         // ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
         ->join('nilais', 'rincian_nilai_tugas.nilai_id','=', 'nilais.id')

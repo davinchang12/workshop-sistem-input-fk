@@ -19,6 +19,7 @@ class CreateNilaiSOCASTable extends Migration
             $table->string('namasoca');
             $table->string('nama_penguji');
             $table->string('keterangan');
+            $table->float('nilaisocas', 8, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

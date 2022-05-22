@@ -84,6 +84,13 @@
                         Setting Field Lab
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/akseseditnilai*') ? 'active' : '' }}"
+                        href="/dashboard/akseseditnilai">
+                        <span data-feather="file-plus"></span>
+                        Akses edit Nilai
+                    </a>
+                </li>
             @endcan
 
             @can('superadmin')

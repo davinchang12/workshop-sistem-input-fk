@@ -25,6 +25,7 @@ class SettingOSCE extends Controller
     {
         $osces = DB::table('nilai_o_s_c_e_s')
             ->select('nama_penguji', 'namaosce')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->get()
             ->unique('nama_penguji');
 
@@ -57,6 +58,7 @@ class SettingOSCE extends Controller
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->select('users.id as user_id')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->get();
 
         return view('dashboard.osce.admin.create', [

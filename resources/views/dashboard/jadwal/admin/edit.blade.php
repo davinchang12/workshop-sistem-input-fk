@@ -39,7 +39,17 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Msateri</label>
+                <label for="jenis" class="form-label">Jenis</label>
+                <select class="form-select" id="jenis" name="jenis" disabled>
+                    <option value="" {{ $settingjadwal->jenis == "" ? "selected" : "" }}></option>
+                    <option value="tugas" {{ $settingjadwal->jenis == "tugas" ? "selected" : "" }}>Tugas</option>
+                    <option value="pbl" {{ $settingjadwal->jenis == "pbl" ? "selected" : "" }}>PBL</option>
+                    <option value="praktikum" {{ $settingjadwal->jenis == "praktikum" ? "selected" : "" }}>Praktikum</option>
+                    <option value="ujian" {{ $settingjadwal->jenis == "ujian" ? "selected" : "" }}>Ujian</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Materi</label>
                 <input type="text" class="form-control" id="materi" name="materi"
                     value="{{ old('materi', $settingjadwal->materi) }}">
                 @error('materi')

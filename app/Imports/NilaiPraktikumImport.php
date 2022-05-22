@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Nilai;
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\NilaiPraktikum;
@@ -15,10 +16,9 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
     private $nilai;
     public function __construct()
     {
-        $this->nilai = Jadwal::select('nilais.id', 'users.name', 'users.role', 'matkuls.namamatkul', 'users.nim')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $this->nilai = Nilai::select('nilais.id', 'users.name', 'users.role', 'matkuls.namamatkul', 'users.nim')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('users.role', 'mahasiswa')
             ->get();
     }
@@ -37,8 +37,12 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
             $nilai = $this->nilai->where('namamatkul', $row[0])->where('nim', $row[3])->first();
             
             $praktikum = NilaiPraktikum::firstOrCreate(
-                ['nilai_id' => $nilai->id],
-                ['namapraktikum' => $row[1]]
+                [
+                    'nilai_id' => $nilai->id,
+                    'deleted_at' => null,
+                    'namapraktikum' => $row[1]
+                ],
+                []
             );
             $calculateNilaiAkhir = ($row[4]*0.2)+($row[5]*0.1)+($row[6]*0.7);
             $keteranganNilaiAkhir = $calculateNilaiAkhir >= 70 ? "LULUS" : "TIDAK LULUS";

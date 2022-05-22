@@ -152,88 +152,88 @@ class DatabaseSeeder extends Seeder
         // RincianNilaiTugas::create([
         //     'nilai_id' => 7,
         // ]);
-        Nilai::create([
-            'user_id' => 8,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 2,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 3,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 4,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 5,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 6,
-            'matkul_id' => 1,
-        ]);
-        Nilai::create([
-            'user_id' => 7,
-            'matkul_id' => 2,
-        ]);
+        // Nilai::create([
+        //     'user_id' => 8,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 2,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 3,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 4,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 5,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 6,
+        //     'matkul_id' => 1,
+        // ]);
+        // Nilai::create([
+        //     'user_id' => 7,
+        //     'matkul_id' => 2,
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 2,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 2,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 3,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 3,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 4,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 4,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 5,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 5,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 6,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 6,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 7,
-            'matkul_id' => 2,
-            'kodekelompok' => 'KKFK2'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 7,
+        //     'matkul_id' => 2,
+        //     'kodekelompok' => 'KKFK2'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 8,
-            'matkul_id' => 2,
-            'kodekelompok' => 'KKFK2'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 8,
+        //     'matkul_id' => 2,
+        //     'kodekelompok' => 'KKFK2'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 9,
-            'matkul_id' => 1,
-            'kodekelompok' => 'KKFK1'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 9,
+        //     'matkul_id' => 1,
+        //     'kodekelompok' => 'KKFK1'
+        // ]);
 
-        Kelompok::create([
-            'user_id' => 10,
-            'matkul_id' => 2,
-            'kodekelompok' => 'KKFK2'
-        ]);
+        // Kelompok::create([
+        //     'user_id' => 10,
+        //     'matkul_id' => 2,
+        //     'kodekelompok' => 'KKFK2'
+        // ]);
 
         // Jadwal::create([
         //     'user_id' => 2,
@@ -298,24 +298,24 @@ class DatabaseSeeder extends Seeder
         //     'ruangan' => 'R2'
         // ]);
 
-        Jadwal::create([
-            'user_id' => 9,
-            'matkul_id' => 1,
-            'materi' => 'test 1',
-            'tanggal' => '2022-03-29',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
-        Jadwal::create([
-            'user_id' => 10,
-            'matkul_id' => 1,
-            'materi' => 'test 2',
-            'tanggal' => '2022-03-29 07:48:06',
-            'jammasuk' => '08:00',
-            'jamselesai' => '12:00',
-            'ruangan' => 'R2'
-        ]);
+        // Jadwal::create([
+        //     'user_id' => 9,
+        //     'matkul_id' => 1,
+        //     'materi' => 'test 1',
+        //     'tanggal' => '2022-03-29',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
+        // Jadwal::create([
+        //     'user_id' => 10,
+        //     'matkul_id' => 1,
+        //     'materi' => 'test 2',
+        //     'tanggal' => '2022-03-29 07:48:06',
+        //     'jammasuk' => '08:00',
+        //     'jamselesai' => '12:00',
+        //     'ruangan' => 'R2'
+        // ]);
 
         // Jadwal::create([
         //     'user_id' => 2,
@@ -771,143 +771,143 @@ class DatabaseSeeder extends Seeder
             'bobot_sks' => 3
         ]);
 
-        Nilai::create([
-            'user_id' => 9,
-            'matkul_id' => 1
-        ]);
+        // Nilai::create([
+        //     'user_id' => 9,
+        //     'matkul_id' => 1
+        // ]);
 
-        NilaiPBL::create([
-            'nilai_id' => 1,
-        ]);
-        NilaiPBL::create([
-            'nilai_id' => 2,
-        ]);
-        NilaiPBL::create([
-            'nilai_id' => 3,
-        ]);
-        NilaiPBL::create([
-            'nilai_id' => 4,
-        ]);
-        NilaiPBL::create([
-            'nilai_id' => 5,
-        ]);
-        NilaiPBL::create([
-            'nilai_id' => 8,
-        ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 1,
+        // ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 2,
+        // ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 3,
+        // ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 4,
+        // ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 5,
+        // ]);
+        // NilaiPBL::create([
+        //     'nilai_id' => 8,
+        // ]);
 
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 1,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 2,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 3,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 4,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 5,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
-        NilaiPBLSkenario::create([
-            'nilaipbl_id' => 6,
-            'skenario' => 1,
-            'kelompok' => 1
-        ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 1,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 2,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 3,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 4,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 5,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
+        // NilaiPBLSkenario::create([
+        //     'nilaipbl_id' => 6,
+        //     'skenario' => 1,
+        //     'kelompok' => 1
+        // ]);
 
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 1,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 2,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 3,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 4,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 5,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 6,
-            'diskusi' => 1,
-            'tanggal_pelaksanaan' => '2022-03-29'
-        ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 1,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 2,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 3,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 4,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 5,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 6,
+        //     'diskusi' => 1,
+        //     'tanggal_pelaksanaan' => '2022-03-29'
+        // ]);
 
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 1,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 2,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 3,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 4,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 5,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
-        NilaiPBLSkenarioDiskusi::create([
-            'nilaipblskenario_id' => 6,
-            'diskusi' => 2,
-            'tanggal_pelaksanaan' => '2022-04-29'
-        ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 1,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 2,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 3,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 4,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 5,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
+        // NilaiPBLSkenarioDiskusi::create([
+        //     'nilaipblskenario_id' => 6,
+        //     'diskusi' => 2,
+        //     'tanggal_pelaksanaan' => '2022-04-29'
+        // ]);
 
-        NilaiPraktikum::create([
-            'nilai_id' => 2,
-            'namapraktikum' => 'Histiologi'
-        ]);
-        NilaiPraktikum::create([
-            'nilai_id' => 3,
-            'namapraktikum' => 'Histiologi'
-        ]);
-        NilaiPraktikum::create([
-            'nilai_id' => 4,
-            'namapraktikum' => 'Histiologi'
-        ]);
-        NilaiPraktikum::create([
-            'nilai_id' => 5,
-            'namapraktikum' => 'Histiologi'
-        ]);
-        NilaiPraktikum::create([
-            'nilai_id' => 8,
-            'namapraktikum' => 'Histiologi'
-        ]);
+        // NilaiPraktikum::create([
+        //     'nilai_id' => 2,
+        //     'namapraktikum' => 'Histiologi'
+        // ]);
+        // NilaiPraktikum::create([
+        //     'nilai_id' => 3,
+        //     'namapraktikum' => 'Histiologi'
+        // ]);
+        // NilaiPraktikum::create([
+        //     'nilai_id' => 4,
+        //     'namapraktikum' => 'Histiologi'
+        // ]);
+        // NilaiPraktikum::create([
+        //     'nilai_id' => 5,
+        //     'namapraktikum' => 'Histiologi'
+        // ]);
+        // NilaiPraktikum::create([
+        //     'nilai_id' => 8,
+        //     'namapraktikum' => 'Histiologi'
+        // ]);
 
         // NilaiSOCA::create([
         //     'nilai_lain_id' => 1,
@@ -1001,215 +1001,215 @@ class DatabaseSeeder extends Seeder
         //     "skor_soca" => 0,
         //     "kepuasan_presentasi" => ""
         // ]);
-        NilaiOSCE::create([
-            'nilai_lain_id' => 2,
-            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
-            'nama_penguji' => "dr. A"
-        ]);
-        NilaiOSCE::create([
-            'nilai_lain_id' => 3,
-            'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
-            'nama_penguji' => "dr. A"
-        ]);
+        // NilaiOSCE::create([
+        //     'nilai_lain_id' => 2,
+        //     'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+        //     'nama_penguji' => "dr. A"
+        // ]);
+        // NilaiOSCE::create([
+        //     'nilai_lain_id' => 3,
+        //     'namaosce' => "PEMERIKSAAN FISIK PADA PAYUDARA",
+        //     'nama_penguji' => "dr. A"
+        // ]);
 
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan faktor resiko",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 1,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Edukasi untuk sadari",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 1,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Edukasi untuk sadari",
             
-        ]);
+        // ]);
         
 
 
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Memperkenalkan diri, menjelaskan prosedur dan meminta ijin melakukan pemeriksaan",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan Keluhan utama dan riwayat penyakit sekarang",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan riwayat penyakit sebelumnya dan riwayat penyakit keluarga",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menanyakan faktor resiko",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menanyakan faktor resiko",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Mencuci tangan 6 langkah sebelum pemeriksaan",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan inspeksi (pasien posisi duduk)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan pemeriksaan palpasi (Pasien posisi berbaring)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi aksila (pasien posisi duduk)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 2,
-            'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 2,
+        //     'aspekdinilaiosce' => "Melakukan dan melaporkan hasil pemeriksaan palpasi limfonodi supraclavicula (pasien duduk, pemeriksa dari belakang)",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Mencuci tangan 6 langkah",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Menjelaskan hasil pemeriksaan kepada pasien",
             
-        ]);
-        NilaiJenisOSCE::create([
-            'nilaiosce_id' => 2,
-            'bobot' => 1,
-            'aspekdinilaiosce' => "Edukasi untuk sadari",
+        // ]);
+        // NilaiJenisOSCE::create([
+        //     'nilaiosce_id' => 2,
+        //     'bobot' => 1,
+        //     'aspekdinilaiosce' => "Edukasi untuk sadari",
             
-        ]);
+        // ]);
 
 
         
 
 
-        NilaiLain::create([
-            'user_id' => 1
-        ]);
-        NilaiLain::create([
-            'user_id' => 2
-        ]);
-        NilaiLain::create([
-            'user_id' => 3
-        ]);
-        NilaiLain::create([
-            'user_id' => 4
-        ]);
-        NilaiLain::create([
-            'user_id' => 5
-        ]);
+        // NilaiLain::create([
+        //     'user_id' => 1
+        // ]);
+        // NilaiLain::create([
+        //     'user_id' => 2
+        // ]);
+        // NilaiLain::create([
+        //     'user_id' => 3
+        // ]);
+        // NilaiLain::create([
+        //     'user_id' => 4
+        // ]);
+        // NilaiLain::create([
+        //     'user_id' => 5
+        // ]);
 
-        NilaiFieldlab::create([
-            'nilai_lain_id' => 1,
-            'kelompok' => 1,
-            'keterangan' => '2021/2022',
-            'semester' => "Semester 2"
-        ]);
-        NilaiFieldlab::create([
-            'nilai_lain_id' => 2,
-            'kelompok' => 1,
-            'keterangan' => '2021/2022',
-            'semester' => "Semester 2"
-        ]);
-        NilaiFieldlab::create([
-            'nilai_lain_id' => 3,
-            'kelompok' => 1,
-            'keterangan' => '2021/2022',
-            'semester' => "Semester 2"
-        ]);
-        NilaiFieldlab::create([
-            'nilai_lain_id' => 4,
-            'kelompok' => 1,
-            'keterangan' => '2021/2022',
-            'semester' => "Semester 2"
-        ]);
-        NilaiFieldlab::create([
-            'nilai_lain_id' => 5,
-            'kelompok' => 1,
-            'keterangan' => '2021/2022',
-            'semester' => "Semester 2"
-        ]);
+        // NilaiFieldlab::create([
+        //     'nilai_lain_id' => 1,
+        //     'kelompok' => 1,
+        //     'keterangan' => '2021/2022',
+        //     'semester' => "Semester 2"
+        // ]);
+        // NilaiFieldlab::create([
+        //     'nilai_lain_id' => 2,
+        //     'kelompok' => 1,
+        //     'keterangan' => '2021/2022',
+        //     'semester' => "Semester 2"
+        // ]);
+        // NilaiFieldlab::create([
+        //     'nilai_lain_id' => 3,
+        //     'kelompok' => 1,
+        //     'keterangan' => '2021/2022',
+        //     'semester' => "Semester 2"
+        // ]);
+        // NilaiFieldlab::create([
+        //     'nilai_lain_id' => 4,
+        //     'kelompok' => 1,
+        //     'keterangan' => '2021/2022',
+        //     'semester' => "Semester 2"
+        // ]);
+        // NilaiFieldlab::create([
+        //     'nilai_lain_id' => 5,
+        //     'kelompok' => 1,
+        //     'keterangan' => '2021/2022',
+        //     'semester' => "Semester 2"
+        // ]);
 
         // NilaiUjian::create([
         //     'nilai_id' => 1,
