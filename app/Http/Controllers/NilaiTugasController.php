@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nilai;
+use App\Models\Jadwal;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
 use App\Exports\NilaiTugasExport;
 use App\Imports\NilaiTugasImport;
+use App\Models\RincianNilaiTugas;
 use Illuminate\Support\Collection; 
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
@@ -96,13 +99,14 @@ class NilaiTugasController extends Controller
     //     return Excel::download(new NilaiTugasExport, 'nilaitugas.xlsx');
     // }
     public function import(Request $request) {
+        // dd($request);
         $this->authorize('dosen');
 		$this->validate($request, [
 			'file' => 'required|mimes:csv,xls,xlsx'
 		]);
  
 		$file = $request->file('file');
- 
+        // dd($request);
 		$nama_file = rand().$file->getClientOriginalName();
  
 		$file->move('nilai_tugas',$nama_file);
@@ -112,6 +116,66 @@ class NilaiTugasController extends Controller
 		Session::flash('sukses','Nilai Tugas Berhasil Diimport!');
 
         File::delete(public_path('/nilai_tugas/'.$nama_file));
+
+            $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
+            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+            ->orderBy('nilais.id')
+            // ->where('users.role', 'mahasiswa')
+            ->where('jadwals.deleted_at', null)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->value('jadwals.id');
+            // dd($jadwalid);
+            $students = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->orderBy('nilais.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('jadwals.id', $jadwalid)
+            ->get();
+            // dd($students);
+            $listtugas = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*')
+            // ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+            ->join('nilais', 'rincian_nilai_tugas.nilai_id','=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id','=', 'matkuls.id')
+            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'users.id', '=', 'nilais.user_id')
+            ->where('jadwals.id', $jadwalid)
+            ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('users.role', 'mahasiswa')
+            ->get();
+        // dd($listtugas);
+        foreach($listtugas as $tugas){
+            // dd($tugas->id);
+            $avgtugas = RincianNilaiTugas::select('nilai_tugas.nilaitugas')
+            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+            ->join('nilais', 'rincian_nilai_tugas.nilai_id','=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id','=', 'matkuls.id')
+            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'users.id', '=', 'nilais.user_id')
+            ->where('users.role', 'mahasiswa')
+            ->where('rincian_nilai_tugas.id', $tugas->id)
+            ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->avg('nilai_tugas.nilaitugas');
+            
+            $avgtugas2 = RincianNilaiTugas::select('nilai_tugas.nilaitugas')
+            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+            ->join('nilais', 'rincian_nilai_tugas.nilai_id','=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id','=', 'matkuls.id')
+            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'users.id', '=', 'nilais.user_id')
+            ->where('users.role', 'mahasiswa')
+            ->where('rincian_nilai_tugas.nilai_id', $tugas->nilai_id)
+            ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->update(['rincian_nilai_tugas.rataratatugas' => $avgtugas]);
+           
+        }
+        // dd($avgtugas2);
  
 		return redirect('/dashboard/matkul');
     }

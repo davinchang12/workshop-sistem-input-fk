@@ -7,6 +7,8 @@ use App\Models\Nilai;
 use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
+use App\Models\NilaiTugas;
+use App\Models\RincianNilaiTugas;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -23,19 +25,30 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
     public function view(): View
     {
         $request = request();
+        // dd($request);
         // $students = DB::table('nilais')
         //         ->join('users', 'users.id', '=', 'nilais.user_id')
         //         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
         //         ->where('users.role', 'mahasiswa')
         //         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
         //         ->get();
-        $students = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul')
-        ->join('users', 'jadwals.user_id', '=', 'users.id')
+        $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
         ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
         ->join('nilais', 'nilais.user_id', '=', 'users.id')
         ->orderBy('nilais.id')
+        // ->where('users.role', 'mahasiswa')
+        ->where('jadwals.deleted_at', null)
+        ->where('matkuls.id', $request->matkul_dipilih)
+        ->value('jadwals.id');
+        // dd($jadwalid);
+        $students = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul')
+        ->join('users', 'nilais.user_id', '=', 'users.id')
+        ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->orderBy('nilais.id')
         ->where('users.role', 'mahasiswa')
         ->where('matkuls.id', $request->matkul_dipilih)
+        ->where('jadwals.id', $jadwalid)
         ->get();
         // dd($students);
         $dosen = User::where('id', '=', auth()->user()->id)->value('name');
@@ -47,6 +60,7 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         ->where('users.role', 'mahasiswa')
         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
         ->select('rincian_nilai_tugas.nilai_id')->get();
+        // dd($checkrincian);
         if($checkrincian->isEmpty()){
             
             foreach( $students as $nilai ){
@@ -186,20 +200,18 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         // }
         // dd($nilaitugasa);
 
-
-        $nilaitugas= Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
-        ->join('users', 'jadwals.user_id', '=', 'users.id')
-        ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-        ->join('nilais', 'nilais.user_id', '=', 'users.id')
-        ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-        ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-        ->orderBy('users.id')
-        ->groupBy('users.name')
-        ->where('users.role', 'mahasiswa')
+        $nilaitugas = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*')
+        // ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+        ->join('nilais', 'rincian_nilai_tugas.nilai_id','=', 'nilais.id')
+        ->join('matkuls', 'nilais.matkul_id','=', 'matkuls.id')
+        ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
+        ->join('users', 'users.id', '=', 'nilais.user_id')
+        ->where('jadwals.id', $jadwalid)
         ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
         ->where('matkuls.id', $request->matkul_dipilih)
+        ->where('users.role', 'mahasiswa')
         ->get();
-        // dd($nilaitugas);
+        dd($nilaitugas);
         return view('dashboard.nilai.dosen.export.tugas', [
             'nilaitugas' => $nilaitugas,
             'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),
