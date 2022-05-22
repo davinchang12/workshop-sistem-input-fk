@@ -48,6 +48,7 @@
                         <label>Pilih file excel</label>
                         <div class="form-group">
                             <input type="file" name="file" required="required">
+                            <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
                         </div>
 
                     </div>
