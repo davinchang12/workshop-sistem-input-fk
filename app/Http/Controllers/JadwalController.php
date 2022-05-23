@@ -28,7 +28,8 @@ class JadwalController extends Controller
             ->where('jadwals.deleted_at', '=', null)
             ->whereMonth(('jadwals.tanggal'), '=', $now)
             ->orderBy('tanggal', 'ASC')
-            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi')
+            ->orderBy('jadwals.jammasuk', 'ASC')
+            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi', 'jadwals.kinerja')
             ->get();
         foreach ($jadwals as $jadwal){
 

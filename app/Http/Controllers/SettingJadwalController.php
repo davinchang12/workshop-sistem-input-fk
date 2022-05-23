@@ -26,7 +26,7 @@ class SettingJadwalController extends Controller
             ->where('users.role', '!=', 'mahasiswa')
             ->where('jadwals.deleted_at', '=', null)
             ->orderBy('tanggal', 'ASC')
-            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi')
+            ->select('jadwals.id', 'matkuls.kodematkul', 'matkuls.namamatkul', 'users.name', 'jadwals.tanggal', 'jadwals.jammasuk', 'jadwals.jamselesai', 'jadwals.ruangan', 'jadwals.materi', 'jadwals.kinerja')
             ->get();
 
         return view('dashboard.jadwal.admin.index', [
@@ -67,7 +67,8 @@ class SettingJadwalController extends Controller
             'tanggal' => 'required',
             'jammasuk' => 'required',
             'jamselesai' => 'required|after:jammasuk',
-            'ruangan' => 'nullable'
+            'ruangan' => 'nullable',
+            'kinerja' => 'nullable',
         ];
 
         $validatedData = $request->validate($rules);
@@ -84,8 +85,8 @@ class SettingJadwalController extends Controller
 
         if (count($jadwals) > 0) {
             foreach ($jadwals as $jadwal) {
-                $ruleJam1 = $jadwal->jammasuk <= $validatedData['jammasuk'] && $validatedData['jammasuk'] <= $jadwal->jamselesai;
-                $ruleJam2 = strtotime($jadwal->jammasuk) <= strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) <= strtotime($jadwal->jamselesai);
+                $ruleJam1 = $jadwal->jammasuk < $validatedData['jammasuk'] && $validatedData['jammasuk'] < $jadwal->jamselesai;
+                $ruleJam2 = strtotime($jadwal->jammasuk) < strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) < strtotime($jadwal->jamselesai);
 
                 if ($ruleJam1) {
                     throw ValidationException::withMessages(['errorJam' => 'Dosen sudah memiliki jam masuk pada tanggal yang sama di jadwal lain!']);

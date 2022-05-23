@@ -55,10 +55,6 @@ Route::resource('/dashboard/superadmin', SuperAdminController::class)->except('s
 Route::resource('/dashboard/jadwalkinerja', JadwalController::class)->except('show');
 Route::resource('/dashboard/admin/nilai/edit', AdminEditNilaiController::class)->except('show');
 
-// Route::resource('/dashboard/dosen/nilai', DosenNilaiController::class)->except('show');
-// Route::resource('/dashboard/nilai/edit', EditNilaiController::class)->except('show')->middleware('dosen');
-// Route::resource('/dashboard/nilai/input', InputNilaiController::class)->except('show')->middleware('dosen');
-
 Route::get('/dashboard/matkul/nilai/export/tugas', [NilaiTugasExportController::class, 'export']);
 Route::post('/dashboard/matkul/nilai/import/tugas', [NilaiTugasController::class, 'import']);
 Route::post('/dashboard/matkul/nilai/edit/tugas', [NilaiTugasController::class, 'check']);
@@ -127,7 +123,6 @@ Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
 
 // Dosen
 Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware('dosen');
-// Route::get('/dashboard/jadwal/kinerja', []);
 Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
 
 // Admin
@@ -196,6 +191,9 @@ Route::post('/dashboard/settingfieldlab/deletesemester', [SettingFieldLab::class
 Route::post('/dashboard/settingfieldlab/deletekelompok', [SettingFieldLab::class, 'deleteKelompok'])->middleware('admin');
 Route::get('/dashboard/settingfieldlab/show', [SettingFieldLab::class, 'showSemester'])->middleware('admin');
 Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middleware('admin');
+
+Route::get('/dashboard/laporannilai', [NilaiController::class, 'laporan_index'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get', [NilaiController::class, 'laporan_get'])->middleware('admin');
 
 Route::resource('/dashboard/akseseditnilai', AksesEditNilaiController::class)->middleware('admin');
 

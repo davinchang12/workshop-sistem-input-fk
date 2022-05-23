@@ -26,6 +26,7 @@
                     <th scope="col">Jam Masuk</th>
                     <th scope="col">Jam Selesai</th>
                     <th scope="col">Ruangan</th>
+                    <th scope="col">Kinerja</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                         <td>{{ $jadwal->jammasuk }}</td>
                         <td>{{ $jadwal->jamselesai }}</td>
                         <td>{{ $jadwal->ruangan }}</td>
+                        <td>{{ $jadwal->kinerja }}</td>
                         <td>
                             {{-- <a href="/dashboard/settingjadwal/{{ $jadwal->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a> --}}
                             <form action="/dashboard/settingjadwal/{{ $jadwal->id }}" method="post" class="d-inline">

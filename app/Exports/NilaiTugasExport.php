@@ -222,7 +222,7 @@ class NilaiTugasExport implements FromView, ShouldAutoSize, WithEvents
         ->where('matkuls.id', $request->matkul_dipilih)
         ->where('users.role', 'mahasiswa')
         ->get();
-        dd($nilaitugas);
+        // dd($nilaitugas);
         return view('dashboard.nilai.dosen.export.tugas', [
             'nilaitugas' => $nilaitugas,
             'namamatkul' => Matkul::where('id', $request->matkul_dipilih)->pluck('namamatkul'),

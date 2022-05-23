@@ -46,7 +46,8 @@
                                 <tr>
                                     <td>{{ $mhs_osce->namaosce }}</td>
                                     <td>{{ $mhs_osce->nama_penguji }}</td>
-                                    <td>
+                                    <td>{{ $mhs_osce->nilaiosce == null ? "BELUM DINILAI" : $mhs_osce->nilaiosce}}</td>
+                                    {{-- <td>
                                         <form action="/dashboard/nilailain/show/osce" method="post">
                                             @csrf
                                             <input type="hidden" name="osce_id" id="osce_id" value="{{ $mhs_osce->id }}">
@@ -55,7 +56,7 @@
 
                                             <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -106,6 +107,7 @@
                             <tr>
                                 <th scope="col">Nama SOCA</th>
                                 <th scope="col">Nama Penguji</th>
+                                <th scope="col">Keterangan</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -115,7 +117,9 @@
                                 <tr>
                                     <td>{{ $mhs_soca->namasoca }}</td>
                                     <td>{{ $mhs_soca->nama_penguji }}</td>
-                                    <td>
+                                    <td>{{ $mhs_soca->keterangan }}</td>
+                                    <td>{{ $mhs_soca->nilaisocas == null ? "BELUM DINILAI" : $mhs_soca->nilaisocas}}</td>
+                                    {{-- <td>
                                         <form action="/dashboard/nilailain/show/soca" method="post">
                                             @csrf
                                             <input type="hidden" name="soca_id" id="soca_id" value="{{ $mhs_soca->id }}">
@@ -124,7 +128,7 @@
 
                                             <button class="badge bg-info border-0"><span data-feather="eye"></span></button>
                                         </form>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

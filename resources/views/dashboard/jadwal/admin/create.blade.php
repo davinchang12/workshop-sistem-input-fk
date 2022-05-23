@@ -91,6 +91,15 @@
                     </div>
                 @enderror
             </div>
+            <div class="mb-3">
+                <label for="kinerja" class="form-label @error('kinerja') is-invalid @enderror">Kinerja</label>
+                <input type="text" class="form-control" id="kinerja" name="kinerja" value="{{ old('kinerja') }}">
+                @error('kinerja')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
             <button type="submit" class="btn btn-primary">Tambah</button>
         </form>
     </div>

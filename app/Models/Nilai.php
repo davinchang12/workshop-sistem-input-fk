@@ -43,7 +43,6 @@ class Nilai extends Model
         return $this->hasOne(NilaiUjian::class);
     }
 
-
     public function feedbacks()
     {
         return $this->hasMany(Feedback::class);
@@ -55,17 +54,5 @@ class Nilai extends Model
 
     public function praktikum() {
         return $this->hasOne(NilaiPraktikum::class);
-    }
-
-    public function osce() {
-        return $this->hasOne(NilaiOSCE::class);
-    }
-
-    public function soca() {
-        return $this->hasOne(NilaiSOCA::class);
-    }
-
-    public function fieldlab() {
-        return $this->hasOne(NilaiFieldlab::class);
     }
 }

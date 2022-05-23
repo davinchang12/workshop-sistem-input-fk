@@ -30,6 +30,7 @@
                 <td style=" vertical-align : middle;text-align:center;" > <b>Nama Matkul</b></td>
                 <td style=" vertical-align : middle;text-align:center;" > <b>Materi</b></td>
                 <td style=" vertical-align : middle;text-align:center;" > <b>Ruangan</b></td>
+                <td style=" vertical-align : middle;text-align:center;" > <b>Kinerja</b></td>
             </tr>
             <tr text-align="center">
                 @php
@@ -54,6 +55,7 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
@@ -64,6 +66,7 @@
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td> 
                     <td style="  vertical-align : middle;text-align:center;"></td> 
                     </tr>
                 @endif
@@ -89,11 +92,13 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
                 @else
                     <td style="  vertical-align : middle;text-align:center;"><b>Selasa</b></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
@@ -125,11 +130,13 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
                 @else
                     <td style="  vertical-align : middle;text-align:center;"><b>Rabu</b></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
@@ -161,11 +168,13 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
                 @else
                     <td style="  vertical-align : middle;text-align:center;"><b>Kamis</b></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
@@ -196,6 +205,7 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
@@ -206,6 +216,7 @@
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td> 
                     <td style="  vertical-align : middle;text-align:center;"></td> 
                     </tr>
                 @endif
@@ -231,6 +242,7 @@
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->namamatkul }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->materi }}</b></td>
                                 <td style="  vertical-align : middle;text-align:center;"><b>{{ $jadwal->ruangan }}</b></td> 
+                                <td style="  vertical-align : middle;text-align:center;"><a href="{{ $jadwal->kinerja }}" class="badge bg-info" target="_blank">Pergi</a></td> 
                             </tr>
                         @endif
                     @endforeach
@@ -241,6 +253,7 @@
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
                     <td style="  vertical-align : middle;text-align:center;"></td>
+                    <td style="  vertical-align : middle;text-align:center;"></td> 
                     <td style="  vertical-align : middle;text-align:center;"></td> 
                     </tr>
                 @endif
