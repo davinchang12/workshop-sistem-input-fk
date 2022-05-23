@@ -80,8 +80,15 @@ class SettingSOCA extends Controller
             'user_id' => 'required'
         ]);
 
-        $validatedData['nama_soca'] = strtoupper($validatedData['nama_soca']);
-        $validatedData['keterangan'] = ucwords($validatedData['keterangan']);
+        $validatedData['nama_soca'] = strtoupper($validatedData['nama_soca']);    
+
+        if (!str_contains(ucwords(strtolower($validatedData['keterangan'])), 'Semester')) {
+            $validatedData['keterangan'] = 'Semester '.$validatedData['keterangan'];
+        }
+
+        $validatedData['keterangan'] = ucwords(strtolower($validatedData['keterangan']));
+
+        dd($validatedData['keterangan']);
 
         foreach ($validatedData['user_id'] as $user) {
             $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??

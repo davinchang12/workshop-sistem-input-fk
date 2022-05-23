@@ -202,6 +202,8 @@ class NilaiSOCAController extends Controller
                     'socas_4' => $socas_4,
                     'penguji' => $request->nama_penguji,
                 ]);
+            } else {
+                return redirect('/dashboard/nilailain')->with('fail', 'Nilai SOCA belum diisi!');
             }
         } else {
             return redirect('/dashboard/nilailain')->with('fail', 'Nilai SOCA belum diisi!');

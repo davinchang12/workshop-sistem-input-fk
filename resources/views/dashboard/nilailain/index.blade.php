@@ -106,6 +106,7 @@
                             <tr>
                                 <th scope="col">Nama SOCA</th>
                                 <th scope="col">Nama Penguji</th>
+                                <th scope="col">Keterangan</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -115,6 +116,7 @@
                                 <tr>
                                     <td>{{ $mhs_soca->namasoca }}</td>
                                     <td>{{ $mhs_soca->nama_penguji }}</td>
+                                    <td>{{ $mhs_soca->keterangan }}</td>
                                     <td>
                                         <form action="/dashboard/nilailain/show/soca" method="post">
                                             @csrf

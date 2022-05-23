@@ -32,7 +32,7 @@ class NilaiLainController extends Controller
             ->where('users.role', 'mahasiswa')
             ->where('users.id', auth()->user()->id)
             ->where('nilai_s_o_c_a_s.deleted_at', null)
-            ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id')
+            ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id', 'nilai_s_o_c_a_s.keterangan')
             ->get();
 
         $socas = DB::table('nilai_jenis_s_o_c_a_s')
