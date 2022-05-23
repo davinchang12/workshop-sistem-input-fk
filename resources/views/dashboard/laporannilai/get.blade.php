@@ -46,7 +46,7 @@
 
                                 <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
 
-                                <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                                <button class="badge bg-info border-0"><span data-feather="download"></span></button>
                             </form>
                         </td>
                     </tr>
@@ -64,7 +64,7 @@
                                     <input type="hidden" name="matkul_dipilih" id="matkul_dipilih"
                                         value="{{ $matkul->id }}">
 
-                                    <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                                    <button class="badge bg-info border-0"><span data-feather="download"></span></button>
                                 </form>
                             </td>
                         </tr>
@@ -82,7 +82,7 @@
                                     <input type="hidden" name="matkul_dipilih" id="matkul_dipilih"
                                         value="{{ $matkul->id }}">
 
-                                    <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                                    <button class="badge bg-info border-0"><span data-feather="download"></span></button>
                                 </form>
                             </td>
                         </tr>
@@ -97,7 +97,7 @@
 
                                 <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
 
-                                <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                                <button class="badge bg-info border-0"><span data-feather="download"></span></button>
                             </form>
                         </td>
                     </tr>

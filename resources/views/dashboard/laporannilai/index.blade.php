@@ -40,7 +40,7 @@
                                 <input type="hidden" name="matkul_dipilih" id="matkul_dipilih" value="{{ $matkul->id }}">
                                 <input type="hidden" name="namamatkul" id="namamatkul" value="{{ $matkul->namamatkul }}">
 
-                                <button class="badge bg-warning border-0"><span data-feather="edit"></span></button>
+                                <button class="badge bg-primary border-0"><span data-feather="arrow-right"></span></button>
                             </form>
                         </td>
                     </tr>
