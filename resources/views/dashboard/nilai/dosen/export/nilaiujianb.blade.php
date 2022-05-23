@@ -41,9 +41,8 @@
             <td style="border : 1px solid black" align="left" valign=bottom >{{ $ujian->sintakutb }}</td>
             <td style="border : 1px solid black" align="center" valign=bottom >{{ $ujian->sintakuab }}</td>
             <td style="border : 1px solid black" align="center" valign=bottom>{{ $ujian->finalcbt }}</td>
-			@if($ujian->ratarataujian <= $ujian->ratamin){
+			@if($ujian->ratarataujian <= $ujian->ratamin)
 				<td style="border : 1px solid black" align="center" bgcolor="red" valign=bottom></td>
-			}
 			@else
             <td style="border : 1px solid black" align="center" bgcolor="green" valign=bottom></td>
 			@endif
