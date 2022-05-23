@@ -88,8 +88,6 @@ class SettingSOCA extends Controller
 
         $validatedData['keterangan'] = ucwords(strtolower($validatedData['keterangan']));
 
-        dd($validatedData['keterangan']);
-
         foreach ($validatedData['user_id'] as $user) {
             $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
                 NilaiLain::create(['user_id' => $user])->id;
