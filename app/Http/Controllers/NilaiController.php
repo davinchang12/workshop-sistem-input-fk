@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
+use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
@@ -71,11 +72,9 @@ class NilaiController extends Controller
         // dd($check_praktikum->contains('name', auth()->user()->name));
         $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
-// <<<<<<< 29-beri-akses-edit
-//             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-//             ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-//             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-// =======
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
             ->get();
         // dd($praktikums);
         $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
