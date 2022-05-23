@@ -23,7 +23,7 @@ class NilaiLainController extends Controller
             ->where('users.role', 'mahasiswa')
             ->where('users.id', auth()->user()->id)
             ->where('nilai_o_s_c_e_s.deleted_at', null)
-            ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id')
+            ->select('nilai_o_s_c_e_s.namaosce', 'nilai_o_s_c_e_s.nama_penguji', 'nilai_o_s_c_e_s.id', 'nilai_o_s_c_e_s.nilaiosce')
             ->get();
 
         $mhs_socas = DB::table('nilai_s_o_c_a_s')
@@ -32,7 +32,7 @@ class NilaiLainController extends Controller
             ->where('users.role', 'mahasiswa')
             ->where('users.id', auth()->user()->id)
             ->where('nilai_s_o_c_a_s.deleted_at', null)
-            ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id', 'nilai_s_o_c_a_s.keterangan')
+            ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id', 'nilai_s_o_c_a_s.keterangan', 'nilai_s_o_c_a_s.nilaisocas')
             ->get();
 
         $socas = DB::table('nilai_jenis_s_o_c_a_s')
