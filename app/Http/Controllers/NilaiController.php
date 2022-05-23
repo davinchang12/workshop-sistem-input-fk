@@ -114,7 +114,7 @@ class NilaiController extends Controller
             ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'users.id', '=', 'nilais.user_id')
             ->where('jadwals.id', $jadwalid)
-            // ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
+            ->where('nilais.user_id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('users.role', 'mahasiswa')
             ->get();
