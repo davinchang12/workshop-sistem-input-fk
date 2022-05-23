@@ -9,6 +9,7 @@ use App\Models\Kelompok;
 use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
 use App\Models\RincianNilaiTugas;
+use App\Exports\LaporanPBLExports;
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanTugasExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -324,6 +325,14 @@ class NilaiController extends Controller
     public function laporan_get_tugas(Request $request) {
         $this->authorize('dosen');
         return Excel::download(new LaporanTugasExport, 'laporannilaitugas.xlsx');
+    }
+
+    public function laporan_get_pbl(Request $request) {
+        $this->authorize('dosen');
+
+        $exportpbls = new LaporanPBLExports();
+
+        return Excel::download($exportpbls, 'laporannilaipbl'.$request->skenario.'.xlsx');
     }
 
     public function laporan_get_praktikum(Request $request) {
