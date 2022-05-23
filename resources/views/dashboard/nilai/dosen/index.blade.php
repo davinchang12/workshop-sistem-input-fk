@@ -478,16 +478,22 @@
                                 </div>
                                 @if ($checkpraktikumujians->isnotEmpty())
                                     <div class="form-group">
-                                        <label for="praktikum">Nilai Praktikum</label>
-                                        <input type="float" class="form-control" id="persenpraktikum"
-                                            name="persenpraktikum" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
+                                        <label for="praktikum">Nilai Final CBT untuk Sintak UAB</label>
+                                        <input type="float" class="form-control" id="persenfinalcbt"
+                                            name="persenfinalcbt" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
                                             min="0">
                                     </div>
-                                @endif
-                                <div class="form-group">
-                                    <label for="praktikum">Nilai Final CBT</label>
-                                    <input type="float" class="form-control" id="persenfinalcbt" name="persenfinalcbt"
-                                        placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
+                                    <div class="form-group">
+                                        <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
+                                        <input type="float" class="form-control" id="persenfinalcbtremidi"
+                                            name="persenfinalcbtremidi" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
+                                            min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="praktikum">Rata-Rata Minimal</label>
+                                        <input type="float" class="form-control" id="ratamin" name="ratamin"
+                                            placeholder="Contoh : 75" max="100" min="0">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="praktikum">Rata-Rata Minimal</label>
