@@ -483,6 +483,7 @@
                                             name="persenfinalcbt" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
                                             min="0">
                                     </div>
+                                @endif
                                     <div class="form-group">
                                         <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
                                         <input type="float" class="form-control" id="persenfinalcbtremidi"

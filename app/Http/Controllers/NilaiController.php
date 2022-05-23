@@ -10,6 +10,8 @@ use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
 use App\Models\RincianNilaiTugas;
 use Illuminate\Support\Facades\DB;
+use App\Exports\LaporanTugasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NilaiController extends Controller
 {
@@ -70,12 +72,12 @@ class NilaiController extends Controller
         //     ->join('users', 'nilais.user_id', '=', 'users.id')
         //     ->get();
         // dd($check_praktikum->contains('name', auth()->user()->name));
-        $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-            ->get();
+        // $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+        //     ->join('users', 'nilais.user_id', '=', 'users.id')
+        //     ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+        //     ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
+        //     ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
+        //     ->get();
         // dd($praktikums);
         $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
             ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
@@ -315,6 +317,11 @@ class NilaiController extends Controller
             'ujians' => $ujians,
             'matkul' => $matkul,
         ]);
+    }
+    
+    public function laporan_get_tugas(Request $request) {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanTugasExport, 'laporannilaitugas.xlsx');
     }
 
     /**

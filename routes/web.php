@@ -194,6 +194,10 @@ Route::resource('/dashboard/settingfieldlab', SettingFieldLab::class)->middlewar
 
 Route::get('/dashboard/laporannilai', [NilaiController::class, 'laporan_index'])->middleware('admin');
 Route::post('/dashboard/laporannilai/get', [NilaiController::class, 'laporan_get'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/tugas', [NilaiController::class, 'laporan_get_tugas'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/praktikum', [NilaiController::class, 'laporan_get_praktikum'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/pbl', [NilaiController::class, 'laporan_get_pbl'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/ujian', [NilaiController::class, 'laporan_get_ujian'])->middleware('admin');
 
 Route::resource('/dashboard/akseseditnilai', AksesEditNilaiController::class)->middleware('admin');
 
