@@ -12,6 +12,8 @@ use App\Models\RincianNilaiTugas;
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanTugasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LaporanPraktikumExport;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class NilaiController extends Controller
 {
@@ -322,6 +324,11 @@ class NilaiController extends Controller
     public function laporan_get_tugas(Request $request) {
         $this->authorize('dosen');
         return Excel::download(new LaporanTugasExport, 'laporannilaitugas.xlsx');
+    }
+
+    public function laporan_get_praktikum(Request $request) {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanPraktikumExport, 'laporannilaipraktikum'.$request->namapraktikum.'.xlsx');
     }
 
     /**
