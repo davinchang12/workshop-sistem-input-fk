@@ -426,6 +426,7 @@ class NilaiUjianController extends Controller
         $persenpraktikum = $request->persenpraktikum / 100;
         $rataminimal = $request->ratamin;
         $persenfinalcbt = $request->persenfinalcbt / 100;
+        $persenfinalcbtremed = $request->persenfinalcbtremidi / 100;
         $checkpraktikumujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -572,7 +573,7 @@ class NilaiUjianController extends Controller
                     ->where('nilais.id', $ujian->nilai_id)
                     ->where('matkuls.id', $request->matkul_dipilih)
                     ->update(['nilai_ujians.uabcombined' => $uabcombined]);
-
+                    
 
                 if ($ujian->remediujian >= $ujian->ratarataujian) {
                     $cbtfinal = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
@@ -590,22 +591,7 @@ class NilaiUjianController extends Controller
                         ->where('nilais.id', $ujian->nilai_id)
                         ->where('matkuls.id', $request->matkul_dipilih)
                         ->update(['nilai_ujians.finalcbt' => $ujian->remediujian]);
-                    $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbt) + ($ratapraktikum * $persenpraktikum);
-                    $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-                        ->join('users', 'nilais.user_id', '=', 'users.id')
-                        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-                        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
-                        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
-                        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
-                        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
-                        ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-                        ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
-                        ->where('users.role', 'mahasiswa')
-                        ->where('nilais.id', $ujian->nilai_id)
-                        ->where('matkuls.id', $request->matkul_dipilih)
-                        ->update(['nilai_ujians.uabcombinedremedial' => $uabcombinedremed]);
+                    
                 } else {
                     $cbtfinal = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -623,6 +609,24 @@ class NilaiUjianController extends Controller
                         ->where('matkuls.id', $request->matkul_dipilih)
                         ->update(['nilai_ujians.finalcbt' => $ujian->ratarataujian]);
                 }
+                
+                $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbtremed) + ($ratapraktikum * $persenpraktikum);
+                dd($uabcombinedremed);
+                $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+                    ->join('users', 'nilais.user_id', '=', 'users.id')
+                    ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                    ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+                    ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+                    ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+                    ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+                    ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+                    ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+                    ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+                    ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+                    ->where('users.role', 'mahasiswa')
+                    ->where('nilais.id', $ujian->nilai_id)
+                    ->where('matkuls.id', $request->matkul_dipilih)
+                    ->update(['nilai_ujians.uabcombinedremedial' => $uabcombinedremed]);
             }
         } else {
             $ujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
@@ -645,6 +649,8 @@ class NilaiUjianController extends Controller
                 $uabcombined = ($uab * $persenuab);
                 $sintakutb = ($utb * $persenutb);
                 $sintakuab = ($uab * $persenuab);
+                $persenfinalcbt = $request->persenfinalcbt / 100;
+                $persenfinalcbtremed = $request->persenfinalcbtremidi / 100;
                 $ratarata = ($utb + $uab) / 2;
                 $rataratas = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                     ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -725,20 +731,7 @@ class NilaiUjianController extends Controller
                         ->where('nilais.id', $ujian->nilai_id)
                         ->where('matkuls.id', $request->matkul_dipilih)
                         ->update(['nilai_ujians.finalcbt' => $ujian->remediujian]);
-                    $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbt);
-                    $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-                        ->join('users', 'nilais.user_id', '=', 'users.id')
-                        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-                        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
-                        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
-                        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
-                        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
-                        ->where('users.role', 'mahasiswa')
-                        ->where('nilais.id', $ujian->nilai_id)
-                        ->where('matkuls.id', $request->matkul_dipilih)
-                        ->update(['nilai_ujians.uabcombinedremedial' => $uabcombinedremed]);
+                    
                 } else {
                     $cbtfinal = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -754,6 +747,21 @@ class NilaiUjianController extends Controller
                         ->where('matkuls.id', $request->matkul_dipilih)
                         ->update(['nilai_ujians.finalcbt' => $ujian->ratarataujian]);
                 }
+                $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbtremed);
+                    $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+                        ->join('users', 'nilais.user_id', '=', 'users.id')
+                        ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                        ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+                        ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+                        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+                        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+                        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+                        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+                        ->where('users.role', 'mahasiswa')
+                        ->where('nilais.id', $ujian->nilai_id)
+                        ->where('matkuls.id', $request->matkul_dipilih)
+                        ->update(['nilai_ujians.uabcombinedremedial' => $uabcombinedremed]);
+                // dd($request->persenfinalcbtremidi);
             }
         }
 

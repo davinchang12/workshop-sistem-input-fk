@@ -488,9 +488,15 @@
                                         </div>
                                     @endif
                                     <div class="form-group">
-                                        <label for="praktikum">Nilai Final CBT</label>
+                                        <label for="praktikum">Nilai Final CBT untuk Sintak UAB</label>
                                         <input type="float" class="form-control" id="persenfinalcbt"
                                             name="persenfinalcbt" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
+                                            min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
+                                        <input type="float" class="form-control" id="persenfinalcbtremidi"
+                                            name="persenfinalcbtremidi" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
                                             min="0">
                                     </div>
                                     <div class="form-group">
