@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiLain;
+use App\Exports\LaporanOSCEExport;
 use App\Exports\LaporanSOCAExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -119,6 +120,12 @@ class NilaiLainController extends Controller
         return view('dashboard.laporannilailain.fieldlab', [
             'fieldlabs' => $fieldlabs
         ]);
+    }
+
+    public function laporan_osce_get()
+    {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanOSCEExport, 'laporanosce.xlsx');
     }
 
     public function laporan_soca_get()
