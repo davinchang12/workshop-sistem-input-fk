@@ -199,6 +199,14 @@ Route::post('/dashboard/laporannilai/get/praktikum', [NilaiController::class, 'l
 Route::post('/dashboard/laporannilai/get/pbl', [NilaiController::class, 'laporan_get_pbl'])->middleware('admin');
 Route::post('/dashboard/laporannilai/get/ujian', [NilaiController::class, 'laporan_get_ujian'])->middleware('admin');
 
+Route::get('/dashboard/laporanlain', [NilaiLainController::class, 'laporan_index'])->middleware('admin');
+Route::get('/dashboard/laporanlain/osce', [NilaiLainController::class, 'laporan_osce'])->middleware('admin');
+Route::get('/dashboard/laporanlain/soca', [NilaiLainController::class, 'laporan_soca'])->middleware('admin');
+Route::get('/dashboard/laporanlain/fieldlab', [NilaiLainController::class, 'laporan_fieldlab'])->middleware('admin');
+Route::post('/dashboard/laporanlain/osce/get', [NilaiLainController::class, 'laporan_osce_get'])->middleware('admin');
+Route::post('/dashboard/laporanlain/soca/get', [NilaiLainController::class, 'laporan_soca_get'])->middleware('admin');
+Route::post('/dashboard/laporanlain/fieldlab/get', [NilaiLainController::class, 'laporan_fieldlab_get'])->middleware('admin');
+
 Route::resource('/dashboard/akseseditnilai', AksesEditNilaiController::class)->middleware('admin');
 
 // Superadmin

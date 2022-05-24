@@ -92,6 +92,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/laporanlain*') ? 'active' : '' }}"
+                        href="/dashboard/laporanlain">
+                        <span data-feather="file-plus"></span>
+                        Laporan Nilai Lain
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ Request::is('dashboard/akseseditnilai*') ? 'active' : '' }}"
                         href="/dashboard/akseseditnilai">
                         <span data-feather="file-plus"></span>

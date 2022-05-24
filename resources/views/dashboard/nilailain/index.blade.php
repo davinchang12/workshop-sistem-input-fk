@@ -37,7 +37,7 @@
                             <tr>
                                 <th scope="col">Nama OSCE</th>
                                 <th scope="col">Nama Penguji</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -108,7 +108,7 @@
                                 <th scope="col">Nama SOCA</th>
                                 <th scope="col">Nama Penguji</th>
                                 <th scope="col">Keterangan</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Nilai</th>
                             </tr>
                         </thead>
                         <tbody>

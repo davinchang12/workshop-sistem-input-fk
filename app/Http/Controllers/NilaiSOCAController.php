@@ -46,6 +46,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['nilaisocas' => (int)$request->totalsoca]);
 
@@ -57,6 +58,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Overview Masalah')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['skor_soca' => (int)$request->overview_masalah]);
 
@@ -68,6 +70,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Analisis Masalah')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['skor_soca' => (int)$request->analisis_masalah]);
 
@@ -79,6 +82,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sikap')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->sikap_keterangan,
@@ -93,6 +97,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Kemampuan berkomunikasi')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->kemampuan_berkomunikasi_keterangan,
@@ -107,6 +112,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sistematika penyajian')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->sistematika_penyajian_keterangan,
@@ -121,6 +127,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Hasil Penilaian Keterampilan presentasi & sikap')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'komentar' => $request->hasil_penilaian_keterampilan_presentasi_dan_sikap
@@ -137,6 +144,7 @@ class NilaiSOCAController extends Controller
                 ->where('users.name', $request->nama)
                 ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
                 ->where('jenis_s_o_c_a_s.keterangan_soca', 'like', '%' . $get_key . '%')
+                ->where('nilai_s_o_c_a_s.deleted_at', null)
                 ->limit(1)
                 ->update(['skor_soca' => (int)$request->$get_key]);
         }
@@ -254,6 +262,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
             ->get();
 
@@ -264,6 +273,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
             ->get();
 
@@ -328,6 +338,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan analisa masalah')
             ->get();
 
@@ -338,6 +349,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Kemampuan mengaplikasikan pengetahuan ilmu dasar untuk menjelaskan terjadinya penyakit  sesuai dengan skenario)')
             ->get();
 
@@ -348,6 +360,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Keterampilan saat presentasi')
             ->get();
 
@@ -358,6 +371,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->where('nilai_jenis_s_o_c_a_s.namaanalisis', 'Hasil Penilaian Keterampilan presentasi & sikap')
             ->get();
 
@@ -383,6 +397,7 @@ class NilaiSOCAController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['nilaisocas' => (int)$request->totalsoca]);
 
@@ -394,6 +409,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Overview Masalah')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['skor_soca' => (int)$request->overview_masalah]);
 
@@ -405,6 +421,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Analisis Masalah')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update(['skor_soca' => (int)$request->analisis_masalah]);
 
@@ -416,6 +433,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sikap')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->sikap_keterangan,
@@ -430,6 +448,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Kemampuan berkomunikasi')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->kemampuan_berkomunikasi_keterangan,
@@ -444,6 +463,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Sistematika penyajian')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'kepuasan_presentasi' => $request->sistematika_penyajian_keterangan,
@@ -458,6 +478,7 @@ class NilaiSOCAController extends Controller
             ->where('users.name', $request->nama)
             ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
             ->where('jenis_s_o_c_a_s.keterangan_soca', 'Hasil Penilaian Keterampilan presentasi & sikap')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->limit(1)
             ->update([
                 'komentar' => $request->hasil_penilaian_keterampilan_presentasi_dan_sikap
@@ -474,6 +495,7 @@ class NilaiSOCAController extends Controller
                 ->where('users.name', $request->nama)
                 ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
                 ->where('jenis_s_o_c_a_s.keterangan_soca', 'like', '%' . $get_key . '%')
+                ->where('nilai_s_o_c_a_s.deleted_at', null)
                 ->limit(1)
                 ->update(['skor_soca' => (int)$request->$get_key]);
         }

@@ -219,6 +219,7 @@ class SettingSOCA extends Controller
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.namasoca', $validatedData['nama_soca'])
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->select('nilai_s_o_c_a_s.id as id')
             ->get();
 
