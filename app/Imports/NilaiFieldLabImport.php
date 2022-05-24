@@ -33,13 +33,17 @@ class NilaiFieldLabImport implements ToCollection, WithStartRow
        foreach($rows as $row) {
             $fieldlab = $this->fieldlab->where('nim', $row[4])->first();
 
-            if ($row[7] == 0) {
+            if ($row[7] == 0 || $row[7] == null) {
                 $nilai_akhir = ((float)$row[5] * 0.5) + ((float)$row[6] * 0.5);
             } else {
                 $nilai_akhir = ((float)$row[5] * 0.5) + ((float)$row[6] * 0.25) + ((float)$row[7] * 0.25);
             }
-
-            $keterangan = $row[6] >= 80 ? "LULUS" : "TIDAK LULUS";
+            
+            if ($row[8] == null) {
+                $keterangan = $nilai_akhir >= 80 ? "LULUS" : "TIDAK LULUS";
+            } else {
+                $keterangan = $row[8] >= 80 ? "LULUS" : "TIDAK LULUS";
+            }
             
             NilaiSemesterFieldLab::firstOrCreate([
                 'nilai_field_lab_id' => $fieldlab->id,

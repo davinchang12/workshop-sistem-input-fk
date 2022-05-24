@@ -186,6 +186,7 @@ class SettingOSCE extends Controller
     public function createSoal()
     {
         $nama_osce = DB::table('nilai_o_s_c_e_s')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->select('namaosce')
             ->get()
             ->unique();

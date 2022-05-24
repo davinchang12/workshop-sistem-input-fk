@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiLain;
+use Illuminate\Http\Request;
+use App\Exports\LaporanOSCEExport;
+use App\Exports\LaporanSOCAExport;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LaporanFieldLabExport;
 use App\Http\Requests\StoreNilaiLainRequest;
 use App\Http\Requests\UpdateNilaiLainRequest;
 
@@ -73,6 +78,68 @@ class NilaiLainController extends Controller
             'mhs_socas' => $mhs_socas,
             'mhs_osces' => $mhs_osces
         ]);
+    }
+
+    public function laporan_index()
+    {
+        return view('dashboard.laporannilailain.index');
+    }
+
+    public function laporan_osce()
+    {
+        $osces = DB::table('nilai_o_s_c_e_s')
+            ->select('nama_penguji', 'namaosce')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
+            ->get()
+            ->unique('nama_penguji');
+
+        return view('dashboard.laporannilailain.osce', [
+            'osces' => $osces
+        ]);
+    }
+
+    public function laporan_soca()
+    {
+        $socas = DB::table('nilai_s_o_c_a_s')
+            ->select('nama_penguji', 'namasoca', 'keterangan')
+            ->groupBy('namasoca')
+            ->where('deleted_at', '=', null)
+            ->get();
+
+        return view('dashboard.laporannilailain.soca', [
+            'socas' => $socas
+        ]);
+    }
+
+    public function laporan_fieldlab()
+    {
+        $fieldlabs = DB::table('nilai_fieldlabs')
+            ->orderBy('keterangan', 'ASC')
+            ->groupBy('semester')
+            ->where('deleted_at', '=', null)
+            ->get();
+
+        return view('dashboard.laporannilailain.fieldlab', [
+            'fieldlabs' => $fieldlabs
+        ]);
+    }
+
+    public function laporan_osce_get(Request $request)
+    {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanOSCEExport, 'laporanosce_'.$request->namaosce.'.xlsx');
+    }
+
+    public function laporan_soca_get(Request $request)
+    {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanSOCAExport, 'laporansoca_'.$request->namasoca.'.xlsx');
+    }
+
+    public function laporan_fieldlab_get(Request $request)
+    {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanFieldLabExport, 'laporanfieldlab_'.$request->semester.'.xlsx');
     }
 
     /**

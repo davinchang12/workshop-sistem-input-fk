@@ -198,6 +198,7 @@ class NilaiOSCEController extends Controller
             ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->where('users.name', $request->mahasiswa_dipilih)
             ->get();
 
@@ -208,6 +209,7 @@ class NilaiOSCEController extends Controller
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.name', $request->mahasiswa_dipilih)
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->get('nilaijenisosce_id');
         // dd($checkExist->isEmpty());
         if ($checkExist->isEmpty()) {
@@ -219,6 +221,7 @@ class NilaiOSCEController extends Controller
                     ->join('users', 'nilai_lains.user_id', '=', 'users.id')
                     ->where('nama_penguji', auth()->user()->name)
                     ->where('users.name', $request->mahasiswa_dipilih)
+                    ->where('nilai_o_s_c_e_s.deleted_at', null)
                     ->pluck("nilai_jenis_o_s_c_e_s.id");
                 // dd($aspekid);
                 DB::table('jenis_o_s_c_e_s')
@@ -228,6 +231,7 @@ class NilaiOSCEController extends Controller
                     ->join('users', 'nilai_lains.user_id', '=', 'users.id')
                     ->where('nama_penguji', auth()->user()->name)
                     ->where('users.name', $request->mahasiswa_dipilih)
+                    ->where('nilai_o_s_c_e_s.deleted_at', null)
                     ->insert(['nilaijenisosce_id' => $aspekid[$i]]);
                 $i++;
             }
