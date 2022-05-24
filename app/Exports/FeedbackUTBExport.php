@@ -196,6 +196,7 @@ class FeedbackUTBExport implements FromView, ShouldAutoSize, WithEvents
         ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
         ->join('users', 'users.id', '=', 'nilais.user_id')
         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
+        ->groupBy('users.nim')
         ->where('users.role', 'mahasiswa')
         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
         ->get();

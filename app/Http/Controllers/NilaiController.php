@@ -12,6 +12,7 @@ use App\Models\RincianNilaiTugas;
 use App\Exports\LaporanPBLExports;
 use Illuminate\Support\Facades\DB;
 use App\Exports\LaporanTugasExport;
+use App\Exports\LaporanUjianExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanPraktikumExport;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
@@ -153,10 +154,9 @@ class NilaiController extends Controller
         // dd($topik_tugas);
         
 
-        $ujiandosens = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $ujiandosens = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
             ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
             ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
@@ -269,6 +269,11 @@ class NilaiController extends Controller
     public function laporan_get_praktikum(Request $request) {
         $this->authorize('dosen');
         return Excel::download(new LaporanPraktikumExport, 'laporannilaipraktikum'.$request->namapraktikum.'.xlsx');
+    }
+
+    public function laporan_get_ujian() {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanUjianExport, 'laporannilaiujian.xlsx');
     }
 
     /**

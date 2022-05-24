@@ -611,7 +611,7 @@ class NilaiUjianController extends Controller
                 }
                 
                 $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbtremed) + ($ratapraktikum * $persenpraktikum);
-                dd($uabcombinedremed);
+                // dd($uabcombinedremed);
                 $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'nilai_praktikums.*', 'nilai_jenis_praktikums.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                     ->join('users', 'nilais.user_id', '=', 'users.id')
                     ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
