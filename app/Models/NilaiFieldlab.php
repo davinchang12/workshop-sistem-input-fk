@@ -23,6 +23,6 @@ class NilaiFieldlab extends Model
     }
     public function nilaisemester()
     {
-        return $this->hasMany(NilaiSemesterFieldLab::class);
+        return $this->hasMany(NilaiSemesterFieldLab::class, 'nilai_field_lab_id');
     }
 }

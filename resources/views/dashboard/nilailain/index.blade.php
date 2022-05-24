@@ -222,6 +222,7 @@
                                                     <h5 class="card-title">
                                                         {{ $fieldlab->semester }}
                                                     </h5>
+                                                    <small>Kelompok {{ $fieldlab->kelompok }}</small>
                                                 </div>
                                                 <div class="">
                                                     <div class="col pt-2">

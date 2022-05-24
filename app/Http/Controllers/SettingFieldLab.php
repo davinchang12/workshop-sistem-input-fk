@@ -74,11 +74,16 @@ class SettingFieldLab extends Controller
     {
         $dosen_id = $request->input('dosen_id');
         $user_ids = $request->input('user_id');
-        $semester = 'Semester '.$request->input('semester');
+        $semester = $request->input('semester');
         $keterangan = $request->input('keterangan');
+
+        if (!str_contains(ucwords(strtolower($semester)), 'Semester')) {
+            $semester = 'Semester '.$semester;
+        }
 
         $kelompoks = DB::table('nilai_fieldlabs')
             ->where('semester', $semester)
+            ->where('nilai_fieldlabs.deleted_at', null)
             ->groupBy('kelompok')
             ->select('kelompok')
             ->get();
@@ -124,6 +129,7 @@ class SettingFieldLab extends Controller
         $kelompoks = DB::table('nilai_fieldlabs')
             ->where('semester', $semester)
             ->groupBy('kelompok')
+            ->where('nilai_fieldlabs.deleted_at', null)
             ->select('kelompok', 'semester')
             ->get();
 
@@ -131,6 +137,7 @@ class SettingFieldLab extends Controller
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('semester', $semester)
+            ->where('nilai_fieldlabs.deleted_at', null)
             ->get();
 
         return view('dashboard.fieldlab.admin.showsemester', [

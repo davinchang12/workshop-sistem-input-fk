@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\NilaiLain;
+use Illuminate\Http\Request;
 use App\Exports\LaporanOSCEExport;
 use App\Exports\LaporanSOCAExport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\LaporanFieldLabExport;
 use App\Http\Requests\StoreNilaiLainRequest;
 use App\Http\Requests\UpdateNilaiLainRequest;
 
@@ -122,16 +124,22 @@ class NilaiLainController extends Controller
         ]);
     }
 
-    public function laporan_osce_get()
+    public function laporan_osce_get(Request $request)
     {
         $this->authorize('dosen');
-        return Excel::download(new LaporanOSCEExport, 'laporanosce.xlsx');
+        return Excel::download(new LaporanOSCEExport, 'laporanosce_'.$request->namaosce.'.xlsx');
     }
 
-    public function laporan_soca_get()
+    public function laporan_soca_get(Request $request)
     {
         $this->authorize('dosen');
-        return Excel::download(new LaporanSOCAExport, 'laporansoca.xlsx');
+        return Excel::download(new LaporanSOCAExport, 'laporansoca_'.$request->namasoca.'.xlsx');
+    }
+
+    public function laporan_fieldlab_get(Request $request)
+    {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanFieldLabExport, 'laporanfieldlab_'.$request->semester.'.xlsx');
     }
 
     /**

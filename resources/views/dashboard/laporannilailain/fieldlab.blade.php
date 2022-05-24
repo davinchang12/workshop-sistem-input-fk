@@ -12,50 +12,30 @@
     @endif
 
     <div class="table-responsive">
-        {{-- <table class="table table-striped table-sm">
+        <table class="table table-striped table-sm">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Jenis Nilai Lain</th>
+                    <th scope="col">Semester</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>OSCE</td>
-                    <td>
-                        <form action="/dashboard/laporannilailain/osce" method="post" class="d-inline">
-                            @csrf
+                @foreach ($fieldlabs as $fieldlab)
+                    <tr>
+                        <td>{{ $fieldlab->semester }}</td>
+                        <td>
+                            <form action="/dashboard/laporanlain/fieldlab/get" method="post" class="d-inline">
+                                @csrf
 
-                            <button class="badge bg-primary border-0"><span data-feather="arrow-right"></span></button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>SOCA</td>
-                    <td>
-                        <form action="/dashboard/laporannilailain/soca" method="post" class="d-inline">
-                            @csrf
+                                <input type="hidden" name="semester" id="semester" value="{{ $fieldlab->semester }}">
 
-                            <button class="badge bg-primary border-0"><span data-feather="arrow-right"></span></button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Field Lab</td>
-                    <td>
-                        <form action="/dashboard/laporannilailain/fiedlab" method="post" class="d-inline">
-                            @csrf
-
-                            <button class="badge bg-primary border-0"><span data-feather="arrow-right"></span></button>
-                        </form>
-                    </td>
-                </tr>
+                                <button class="badge bg-info border-0"><span data-feather="download"></span></button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
-        </table> --}}
+        </table>
     </div>
 
     <script>
