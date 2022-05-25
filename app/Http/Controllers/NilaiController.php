@@ -15,6 +15,7 @@ use App\Exports\LaporanTugasExport;
 use App\Exports\LaporanUjianExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanPraktikumExport;
+use App\Exports\LaporanNilaiAkhirExport;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class NilaiController extends Controller
@@ -274,6 +275,21 @@ class NilaiController extends Controller
     public function laporan_get_ujian() {
         $this->authorize('dosen');
         return Excel::download(new LaporanUjianExport, 'laporannilaiujian.xlsx');
+    }
+
+    public function laporan_get_nilaiakhir(Request $request) {
+
+        return view('dashboard.laporannilai.nilaiakhir', [
+            'matkul_dipilih' => $request->matkul_dipilih,
+            'namamatkul' => $request->namamatkul,
+        ]);
+
+        
+    }
+
+    public function laporan_get_nilaiakhir_export(Request $request) {
+        $this->authorize('dosen');
+        return Excel::download(new LaporanNilaiAkhirExport, 'laporannilaiakhir.xlsx');
     }
 
     /**

@@ -198,6 +198,8 @@ Route::post('/dashboard/laporannilai/get/tugas', [NilaiController::class, 'lapor
 Route::post('/dashboard/laporannilai/get/praktikum', [NilaiController::class, 'laporan_get_praktikum'])->middleware('admin');
 Route::post('/dashboard/laporannilai/get/pbl', [NilaiController::class, 'laporan_get_pbl'])->middleware('admin');
 Route::post('/dashboard/laporannilai/get/ujian', [NilaiController::class, 'laporan_get_ujian'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/nilaiakhir', [NilaiController::class, 'laporan_get_nilaiakhir'])->middleware('admin');
+Route::post('/dashboard/laporannilai/get/nilaiakhir/export', [NilaiController::class, 'laporan_get_nilaiakhir_export'])->middleware('admin');
 
 Route::get('/dashboard/laporanlain', [NilaiLainController::class, 'laporan_index'])->middleware('admin');
 Route::get('/dashboard/laporanlain/osce', [NilaiLainController::class, 'laporan_osce'])->middleware('admin');
