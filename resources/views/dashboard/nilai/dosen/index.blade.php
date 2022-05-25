@@ -64,7 +64,7 @@
                         <button class="btn btn-primary w-100 shadow-none" onClick="refreshPage()">Download Template</button>
                     </form>
                 </div>
-                
+
                 <form method="post" action="/dashboard/matkul/nilai/import/tugas" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -79,15 +79,16 @@
                                 <input type="hidden" name="matkul_dipilih" id="" value="{{ $matkul->id }}">
                             </div>
                             <div class="modal-footer">
-                                @if($nilaitugas->isnotEmpty())
+                                @if ($nilaitugas->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
-                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian refresh atau tekan tombol F5.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian
+                                        refresh atau tekan tombol F5.</h5>
                                 @endif
                             </div>
                         </div>
                 </form>
-                
+
             </div>
         </div>
     </div>
@@ -96,6 +97,87 @@
             <div class="row">
                 @if ($skenarios != null)
                     @foreach ($skenarios as $skenario)
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="card-title">
+                                                Kelompok {{ $skenario->kelompok }}
+                                            </h5>
+                                            <small><b>Skenario {{ $skenario->skenario }}</b></small><br>
+                                            <small><b>Diskusi {{ $skenario->diskusi }}</b></small><br><br>
+                                            <small><b>Tanggal {{ $skenario->tanggal_pelaksanaan }}</b></small><br>
+                                            <small>{{ $skenario->keterangan }}</small><br>
+                                            <small>Tahun Ajaran
+                                                {{ $skenario->tahun_ajaran }}</small>
+                                        </div>
+                                        <div class="d-flex justify-content-between mt-3">
+                                            <div>
+                                                <p>
+                                                    <a class="btn btn-primary" data-bs-toggle="collapse"
+                                                        href="#collapseExample{{ $loop->iteration }}" role="button"
+                                                        aria-bs-expanded="false"
+                                                        aria-bs-controls="collapseExample{{ $loop->iteration }}">
+                                                        Edit Nilai
+                                                    </a>
+                                                </p>
+                                                <div class="collapse" id="collapseExample{{ $loop->iteration }}">
+                                                    <form class="form-inline" action="/dashboard/matkul/nilai/edit/pbl"
+                                                        method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="matkul_dipilih" id=""
+                                                            value="{{ $matkul->id }}">
+                                                        <input type="hidden" name="kodematkul" id=""
+                                                            value="{{ $matkul->kodematkul }}">
+                                                        <input type="hidden" name="blok" id="blok"
+                                                            value="{{ $matkul->blok }}">
+                                                        <input type="hidden" name="kelompok" id=""
+                                                            value="{{ $skenario->kelompok }}">
+                                                        <input type="hidden" name="skenario" id=""
+                                                            value="{{ $skenario->skenario }}">
+                                                        <input type="hidden" name="diskusi" id=""
+                                                            value="{{ $skenario->diskusi }}">
+                                                        <input type="hidden" name="diskusi_id" id=""
+                                                            value="{{ $skenario->diskusi_id }}">
+                                                        <input type="hidden" name="tanggal_pelaksanaan"
+                                                            value="{{ $skenario->tanggal_pelaksanaan }}">
+                                                        <label for="password" class="form-label">Password :
+                                                        </label>
+                                                        <input type="password" name="password" id="password">
+                                                        <button class="btn btn-primary shadow-none">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            @can('dosen')
+                                                <form action="/dashboard/matkul/nilai/input-pbl" method="post"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="hidden" name="matkul_dipilih" id=""
+                                                        value="{{ $matkul->id }}">
+                                                    <input type="hidden" name="kodematkul" id=""
+                                                        value="{{ $matkul->kodematkul }}">
+                                                    <input type="hidden" name="blok" id="blok" value="{{ $matkul->blok }}">
+                                                    <input type="hidden" name="kelompok" id=""
+                                                        value="{{ $skenario->kelompok }}">
+                                                    <input type="hidden" name="skenario" id=""
+                                                        value="{{ $skenario->skenario }}">
+                                                    <input type="hidden" name="diskusi" id=""
+                                                        value="{{ $skenario->diskusi }}">
+                                                    <input type="hidden" name="diskusi_id" id="" value="{{ $skenario->diskusi_id }}">
+                                                    <input type="hidden" name="tanggal_pelaksanaan"
+                                                        value="{{ $skenario->tanggal_pelaksanaan }}">
+                                                    <button class="btn btn-primary w-100 shadow-none"><span
+                                                            data-feather="settings"></span></button>
+                                                </form>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    {{-- @foreach ($skenarios as $skenario)
                         @foreach ($skenario->skenariodiskusi as $diskusi)
                             <div class="col-md-6 mb-3">
                                 <div class="card">
@@ -180,7 +262,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    @endforeach
+                    @endforeach --}}
                 @endif
             </div>
         </div>
@@ -338,12 +420,13 @@
                                 </div>
 
                             </div>
-                            
+
                             <div class="modal-footer">
-                                @if($ujians->isnotEmpty())
+                                @if ($ujians->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
-                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian refresh atau tekan tombol F5.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian
+                                        refresh atau tekan tombol F5.</h5>
                                 @endif
                             </div>
                         </div>
@@ -394,10 +477,11 @@
 
                             </div>
                             <div class="modal-footer">
-                                @if($ujians->isnotEmpty())
+                                @if ($ujians->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
-                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian refresh atau tekan tombol F5.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian
+                                        refresh atau tekan tombol F5.</h5>
                                 @endif
                             </div>
                         </div>
@@ -427,37 +511,37 @@
                                         placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
                                 </div>
                                 @if ($checkpraktikumujians->isnotEmpty())
-                                <div class="form-group">
-                                    <label for="praktikum">Praktikum</label>
-                                    <input type="float" class="form-control" id="persenpraktikum"
-                                        name="persenpraktikum" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
-                                        min="0">
-                                </div>
+                                    <div class="form-group">
+                                        <label for="praktikum">Praktikum</label>
+                                        <input type="float" class="form-control" id="persenpraktikum"
+                                            name="persenpraktikum" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
+                                            min="0">
+                                    </div>
                                 @endif
-                                    <div class="form-group">
-                                        <label for="praktikum">Nilai Final CBT untuk Sintak UAB</label>
-                                        <input type="float" class="form-control" id="persenfinalcbt"
-                                            name="persenfinalcbt" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
-                                            min="0">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
-                                        <input type="float" class="form-control" id="persenfinalcbtremidi"
-                                            name="persenfinalcbtremidi" placeholder="Cukup isi angkanya saja (tanpa %)" max="100"
-                                            min="0">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="praktikum">Rata-Rata Minimal</label>
-                                        <input type="float" class="form-control" id="ratamin" name="ratamin"
-                                            placeholder="Contoh : 75" max="100" min="0">
-                                    </div>                               
+                                <div class="form-group">
+                                    <label for="praktikum">Nilai Final CBT untuk Sintak UAB</label>
+                                    <input type="float" class="form-control" id="persenfinalcbt" name="persenfinalcbt"
+                                        placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
+                                    <input type="float" class="form-control" id="persenfinalcbtremidi"
+                                        name="persenfinalcbtremidi" placeholder="Cukup isi angkanya saja (tanpa %)"
+                                        max="100" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="praktikum">Rata-Rata Minimal</label>
+                                    <input type="float" class="form-control" id="ratamin" name="ratamin"
+                                        placeholder="Contoh : 75" max="100" min="0">
+                                </div>
 
                             </div>
                             <div class="modal-footer">
-                                @if($ujians->isnotEmpty())
+                                @if ($ujians->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 @else
-                                    <h5 class="modal-title" id="exampleModalLabel">Feedback UTB dan UAB masih kosong, silahkan diisi terlebih dahulu.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Feedback UTB dan UAB masih kosong,
+                                        silahkan diisi terlebih dahulu.</h5>
                                 @endif
                             </div>
                         </div>
@@ -483,10 +567,11 @@
 
                             </div>
                             <div class="modal-footer">
-                                @if($ujians->isnotEmpty())
+                                @if ($ujians->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
-                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian refresh atau tekan tombol F5.</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian
+                                        refresh atau tekan tombol F5.</h5>
                                 @endif
                             </div>
                         </div>
@@ -500,8 +585,8 @@
         feather.replace();
     </script>
     <script>
-        function refreshPage(){
+        function refreshPage() {
             window.parent.location = window.parent.location.href;
-        } 
-        </script>
+        }
+    </script>
 @endsection
