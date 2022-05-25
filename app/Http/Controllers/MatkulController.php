@@ -136,8 +136,16 @@ class MatkulController extends Controller
                 ->where('matkuls.id', $matkul->id)
                 ->get();
         }
-        $nilai = Nilai::where($checkUserAndMatkul)->first();
-        $skenarios = $nilai->pbl->pblskenario ?? null;
+
+        $skenarios = DB::table('nilai_p_b_l_skenario_diskusis')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where($checkUserAndMatkul)
+            ->select('nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenarios.kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'nilai_p_b_l_skenario_diskusis.id as diskusi_id')
+            ->get();
 
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),

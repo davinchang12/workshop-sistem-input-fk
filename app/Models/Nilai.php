@@ -55,4 +55,8 @@ class Nilai extends Model
     public function praktikum() {
         return $this->hasOne(NilaiPraktikum::class);
     }
+
+    public function nilai_akhir() {
+        return $this->hasOne(RincianNilaiAkhir::class);
+    }
 }
