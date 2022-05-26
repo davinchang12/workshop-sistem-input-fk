@@ -8,7 +8,7 @@
         <h3 class="h5">Pilih Mata Kuliah</h3>
 
         @can('mahasiswa')
-            <h3 class="h5">Perkiraan IP Semester : </h3>
+            <h3 class="h5">Perkiraan IP Semester : {{ $ip }}</h3>
         @endcan
     </div>
 

@@ -22,8 +22,52 @@ class MatkulController extends Controller
     {
         $nilais = Nilai::where('user_id', auth()->user()->id)->groupBy('matkul_id')->get();
 
+        $mhs_rincian_nilai_akhir = DB::table('rincian_nilai_akhirs')
+            ->join('nilais', 'rincian_nilai_akhirs.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('nilais.deleted_at', null)
+            ->where('users.id', auth()->user()->id)
+            ->select('rincian_nilai_akhirs.keterangan', 'matkuls.bobot_sks')
+            ->get();
+
+        $poin = 0;
+        $total_bobot_sks = 0;
+        $ip = "";
+        if (count($mhs_rincian_nilai_akhir) > 0) {
+            foreach ($mhs_rincian_nilai_akhir as $rincian) {
+                if ($rincian->keterangan == "A") {
+                    $poin += ($rincian->bobot_sks * 4);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "AB") {
+                    $poin += ($rincian->bobot_sks * 3.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "B") {
+                    $poin += ($rincian->bobot_sks * 3);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "BC") {
+                    $poin += ($rincian->bobot_sks * 2.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "C") {
+                    $poin += ($rincian->bobot_sks * 2);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "CD") {
+                    $poin += ($rincian->bobot_sks * 1.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "D") {
+                    $poin += ($rincian->bobot_sks * 1);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "E") {
+                    $poin += 0;
+                    $total_bobot_sks += $rincian->bobot_sks;
+                }
+            }
+            $ip = $poin / $total_bobot_sks;
+        }
+
         return view('dashboard.matkul.index', [
             'nilais' => $nilais,
+            'ip' => $ip,
         ]);
     }
 
@@ -141,7 +185,7 @@ class MatkulController extends Controller
             ->where($checkUserAndMatkul)
             ->select('nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenarios.kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'nilai_p_b_l_skenario_diskusis.id as diskusi_id')
             ->get();
-            
+
         return view('dashboard.nilai.dosen.index', [
             'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
