@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Models\Jadwal;
-use App\Models\Matkul;
-use App\Models\Kelompok;
-use App\Models\NilaiTugas;
 use Illuminate\Http\Request;
 use App\Models\RincianNilaiTugas;
 use App\Exports\LaporanPBLExports;
@@ -16,7 +12,6 @@ use App\Exports\LaporanUjianExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\LaporanPraktikumExport;
 use App\Exports\LaporanNilaiAkhirExport;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class NilaiController extends Controller
 {
@@ -38,6 +33,7 @@ class NilaiController extends Controller
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilai_p_b_l_s.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
         $pbls = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
@@ -50,6 +46,7 @@ class NilaiController extends Controller
             ->where('users.id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilai_p_b_l_s.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
         $check_pbl = DB::table('nilai_p_b_l_s')
@@ -57,6 +54,7 @@ class NilaiController extends Controller
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('nilai_p_b_l_s.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
         $praktikum_dosens = DB::table('nilai_jenis_praktikums')
@@ -66,6 +64,7 @@ class NilaiController extends Controller
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilai_praktikums.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
         $praktikums = DB::table('nilai_jenis_praktikums')
@@ -76,90 +75,45 @@ class NilaiController extends Controller
             ->where('users.id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilai_praktikums.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
-        // $check_praktikum = DB::table('nilai_praktikums')
-        //     ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-        //     ->join('users', 'nilais.user_id', '=', 'users.id')
-        //     ->get();
-        // dd($check_praktikum->contains('name', auth()->user()->name));
-        // $nilaitugas_dosen = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
-        //     ->join('users', 'nilais.user_id', '=', 'users.id')
-        //     ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-        //     ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-        //     ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-        //     ->get();
-        // dd($praktikums);
-        $jadwalid = Jadwal::join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
-            ->orderBy('nilais.id')
-            // ->where('users.role', 'mahasiswa')
-            ->where('jadwals.deleted_at', null)
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->value('jadwals.id');
-        // dd($jadwalid);
-        $students = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->orderBy('nilais.id')
-            ->where('users.role', 'mahasiswa')
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->where('jadwals.id', $jadwalid)
-            ->get();
-        // dd($students);
-        $listtugas = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*')
-            ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
-            ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('users', 'users.id', '=', 'nilais.user_id')
-            ->where('jadwals.id', $jadwalid)
-            ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->where('users.role', 'mahasiswa')
-            ->get();
         $nilaitugas = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
             ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'users.id', '=', 'nilais.user_id')
-            ->where('jadwals.id', $jadwalid)
             ->where('nilais.user_id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('users.role', 'mahasiswa')
+            ->where('nilais.deleted_at', null)
             ->get();
-        // dd($nilaitugas);
+
         $nilaitugas_dosen = RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
             ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'users.id', '=', 'nilais.user_id')
             ->orderBy('nilais.id')
             ->orderBy('nilai_tugas.keterangantugas')
             ->where('users.role', 'mahasiswa')
-            ->where('jadwals.id', $jadwalid)
             ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->get();
-        
 
         $topik_tugas =  RincianNilaiTugas::select('nilais.id', 'users.name', 'users.nim', 'matkuls.*', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
             ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->join('jadwals', 'jadwals.matkul_id', '=', 'matkuls.id')
             ->join('users', 'users.id', '=', 'nilais.user_id')
             ->groupBy('nilai_tugas.keterangantugas')
             ->where('users.role', 'mahasiswa')
             ->where('rincian_nilai_tugas.dosenpenguji', auth()->user()->name)
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->get();
-        // dd($topik_tugas);
-        
+
 
         $ujiandosens = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
@@ -173,17 +127,19 @@ class NilaiController extends Controller
             ->groupBy('nilais.user_id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->get();
-        $ujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*' )
+
+        $ujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
             ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
             ->where('nilais.matkul_id', $request->matkul_dipilih)
             ->where('nilais.user_id', auth()->user()->id)
+            ->where('nilais.deleted_at', null)
             ->get();
-        // dd($ujians);
-        
+
         return view('dashboard.nilai.index', [
             'pbl_dosens' => $pbl_dosens,
             'nilaitugas_dosen' => $nilaitugas_dosen,
@@ -195,7 +151,6 @@ class NilaiController extends Controller
             'check_pbl_dosen' => $check_pbl->contains('name', auth()->user()->name),
             'praktikum_dosens' => $praktikum_dosens,
             'praktikums' => $praktikums,
-            // 'check_praktikum_dosen' => $check_praktikum->contains('name', auth()->user()->name)
         ]);
     }
 
@@ -217,12 +172,14 @@ class NilaiController extends Controller
             ->join('nilais', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->first();
 
         $praktikums = DB::table('nilai_praktikums')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->groupBy('nilai_praktikums.namapraktikum')
             ->get();
 
@@ -231,6 +188,7 @@ class NilaiController extends Controller
             ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->groupBy('nilai_p_b_l_skenarios.skenario')
             ->get();
 
@@ -245,8 +203,9 @@ class NilaiController extends Controller
             ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilais.deleted_at', null)
             ->first();
-        
+
         $matkul = DB::table('matkuls')
             ->where('id', $request->matkul_dipilih)
             ->first();
@@ -259,41 +218,45 @@ class NilaiController extends Controller
             'matkul' => $matkul,
         ]);
     }
-    
-    public function laporan_get_tugas(Request $request) {
+
+    public function laporan_get_tugas(Request $request)
+    {
         $this->authorize('dosen');
         return Excel::download(new LaporanTugasExport, 'laporannilaitugas.xlsx');
     }
 
-    public function laporan_get_pbl(Request $request) {
+    public function laporan_get_pbl(Request $request)
+    {
         $this->authorize('dosen');
 
         $exportpbls = new LaporanPBLExports();
 
-        return Excel::download($exportpbls, 'laporannilaipbl'.$request->skenario.'.xlsx');
+        return Excel::download($exportpbls, 'laporannilaipbl' . $request->skenario . '.xlsx');
     }
 
-    public function laporan_get_praktikum(Request $request) {
+    public function laporan_get_praktikum(Request $request)
+    {
         $this->authorize('dosen');
-        return Excel::download(new LaporanPraktikumExport, 'laporannilaipraktikum'.$request->namapraktikum.'.xlsx');
+        return Excel::download(new LaporanPraktikumExport, 'laporannilaipraktikum' . $request->namapraktikum . '.xlsx');
     }
 
-    public function laporan_get_ujian() {
+    public function laporan_get_ujian()
+    {
         $this->authorize('dosen');
         return Excel::download(new LaporanUjianExport, 'laporannilaiujian.xlsx');
     }
 
-    public function laporan_get_nilaiakhir(Request $request) {
+    public function laporan_get_nilaiakhir(Request $request)
+    {
 
         return view('dashboard.laporannilai.nilaiakhir', [
             'matkul_dipilih' => $request->matkul_dipilih,
             'namamatkul' => $request->namamatkul,
         ]);
-
-        
     }
 
-    public function laporan_get_nilaiakhir_export(Request $request) {
+    public function laporan_get_nilaiakhir_export(Request $request)
+    {
         $this->authorize('dosen');
         return Excel::download(new LaporanNilaiAkhirExport, 'laporannilaiakhir.xlsx');
     }
