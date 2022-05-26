@@ -24,6 +24,7 @@ class NilaiPraktikumExport implements FromView, ShouldAutoSize, WithEvents
             ->where('nilai_praktikums.namapraktikum', $request['jenis_praktikum'])
             ->where('users.role', 'mahasiswa')
             ->where('nilai_praktikums.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->get();
 
         return view('dashboard.nilai.dosen.export.praktikum', [
