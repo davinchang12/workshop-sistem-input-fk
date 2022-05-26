@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Models\Jadwal;
 use App\Models\Matkul;
 use App\Models\Kelompok;
 use App\Models\NilaiTugas;
@@ -23,8 +22,52 @@ class MatkulController extends Controller
     {
         $nilais = Nilai::where('user_id', auth()->user()->id)->groupBy('matkul_id')->get();
 
+        $mhs_rincian_nilai_akhir = DB::table('rincian_nilai_akhirs')
+            ->join('nilais', 'rincian_nilai_akhirs.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('nilais.deleted_at', null)
+            ->where('users.id', auth()->user()->id)
+            ->select('rincian_nilai_akhirs.keterangan', 'matkuls.bobot_sks')
+            ->get();
+
+        $poin = 0;
+        $total_bobot_sks = 0;
+        $ip = "";
+        if (count($mhs_rincian_nilai_akhir) > 0) {
+            foreach ($mhs_rincian_nilai_akhir as $rincian) {
+                if ($rincian->keterangan == "A") {
+                    $poin += ($rincian->bobot_sks * 4);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "AB") {
+                    $poin += ($rincian->bobot_sks * 3.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "B") {
+                    $poin += ($rincian->bobot_sks * 3);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "BC") {
+                    $poin += ($rincian->bobot_sks * 2.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "C") {
+                    $poin += ($rincian->bobot_sks * 2);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "CD") {
+                    $poin += ($rincian->bobot_sks * 1.5);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "D") {
+                    $poin += ($rincian->bobot_sks * 1);
+                    $total_bobot_sks += $rincian->bobot_sks;
+                } elseif ($rincian->keterangan == "E") {
+                    $poin += 0;
+                    $total_bobot_sks += $rincian->bobot_sks;
+                }
+            }
+            $ip = $poin / $total_bobot_sks;
+        }
+
         return view('dashboard.matkul.index', [
             'nilais' => $nilais,
+            'ip' => $ip,
         ]);
     }
 
@@ -62,19 +105,10 @@ class MatkulController extends Controller
             'user_id' => auth()->user()->id,
             'matkul_id' => $matkul->id
         ];
-        // dd($matkul->namamatkul);
-        // $nilaitugas=  DB::table('nilai_tugas')
-        // ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.id', '=', 'rincian_nilai_tugas_id')
-        // ->join('nilais', 'nilais.id', '=', 'rincian_nilai_tugas.nilai_id')
-        // ->join('users', 'users.id', '=', 'nilais.user_id')
-        // ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
-        // ->where('matkul_id', '=', $matkul->id )
-        // ->get();
 
-        $nilaitugas = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $nilaitugas = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'rincian_nilai_tugas.*', 'nilai_tugas.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('rincian_nilai_tugas', 'rincian_nilai_tugas.nilai_id', '=', 'nilais.id')
             ->join('nilai_tugas', 'nilai_tugas.rincian_nilai_tugas_id', '=', 'rincian_nilai_tugas.id')
             ->where('users.role', 'mahasiswa')
@@ -86,13 +120,13 @@ class MatkulController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->where('matkul_id', $matkul->id)
             ->where('nilai_praktikums.deleted_at', null)
+            ->where('nilais.deleted_at', null)
             ->groupBy('nilai_praktikums.namapraktikum')
             ->get();
 
-        $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+        $ujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
             ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
             ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
@@ -103,12 +137,12 @@ class MatkulController extends Controller
             ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $matkul->id)
+            ->where('nilais.deleted_at', null)
             ->get();
-        // dd($ujians);
-        $checkpraktikumujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-            ->join('users', 'jadwals.user_id', '=', 'users.id')
-            ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-            ->join('nilais', 'nilais.user_id', '=', 'users.id')
+
+        $checkpraktikumujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
             ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
             ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
@@ -119,13 +153,13 @@ class MatkulController extends Controller
             ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->where('users.role', 'mahasiswa')
             ->where('matkuls.id', $matkul->id)
+            ->where('nilais.deleted_at', null)
             ->get();
-        // dd($checkpraktikumujians->isEmpty());$checkpraktikumujians->isEmpty()
+
         if ($checkpraktikumujians->isEmpty()) {
-            $ujians = Jadwal::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
-                ->join('users', 'jadwals.user_id', '=', 'users.id')
-                ->join('matkuls', 'jadwals.matkul_id', '=', 'matkuls.id')
-                ->join('nilais', 'nilais.user_id', '=', 'users.id')
+            $ujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
                 ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
                 ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
                 ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
@@ -134,13 +168,23 @@ class MatkulController extends Controller
                 ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
                 ->where('users.role', 'mahasiswa')
                 ->where('matkuls.id', $matkul->id)
+                ->where('nilais.deleted_at', null)
                 ->get();
         }
-        $nilai = Nilai::where($checkUserAndMatkul)->first();
-        $skenarios = $nilai->pbl->pblskenario ?? null;
+
+        $skenarios = DB::table('nilai_p_b_l_skenario_diskusis')
+            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+            ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+            ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where($checkUserAndMatkul)
+            ->where('nilais.deleted_at', null)
+            ->where('nilai_p_b_l_s.deleted_at', null)
+            ->select('nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenarios.kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'nilai_p_b_l_skenario_diskusis.id as diskusi_id')
+            ->get();
 
         return view('dashboard.nilai.dosen.index', [
-            'kelompoks' => Kelompok::where($checkUserAndMatkul)->get(),
             'praktikums' => $praktikums,
             'nilaitugas' => $nilaitugas,
             'dosen' => auth()->user()->id,
