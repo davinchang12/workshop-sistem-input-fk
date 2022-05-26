@@ -66,7 +66,7 @@ class LaporanNilaiAkhirExport implements FromView, ShouldAutoSize, WithEvents
                 $sintak_uab_view = (float)$ujian->sintakuab / ((float)$validatedData['uab'] / 100);
 
                 if ($pbls->where('nim', $ujian->nim)->first()) {
-                    $total_komponen_tugas = ((float)$tugas->where('nim', $ujian->nim)->first()->rata_rata * (float)$validatedData['tugas']) + ((float)$pbls->where('nim', $ujian->nim)->first()->rata_rata * (float)$validatedData['pbl']);
+                    $total_komponen_tugas = ((float)$tugas->where('nim', $ujian->nim)->first()->rata_rata * ((float)$validatedData['tugas']) / 100) + ((float)$pbls->where('nim', $ujian->nim)->first()->rata_rata * ((float)$validatedData['pbl'] / 100));
 
                     $total_komponen_tugas_view = $total_komponen_tugas / (((float)$validatedData['tugas'] + (float)$validatedData['pbl']) / 100);
 
@@ -134,7 +134,7 @@ class LaporanNilaiAkhirExport implements FromView, ShouldAutoSize, WithEvents
             
             array_push($nilais[$key], $keterangan);
         }
-
+        
         return view('dashboard.laporannilai.export.nilaiakhir', [
             'nilais' => $nilais,
         ]);
