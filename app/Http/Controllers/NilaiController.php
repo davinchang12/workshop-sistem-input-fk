@@ -37,6 +37,7 @@ class NilaiController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilai_p_b_l_s.deleted_at', null)
             ->get();
 
         $pbls = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
@@ -48,11 +49,14 @@ class NilaiController extends Controller
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('users.id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilai_p_b_l_s.deleted_at', null)
             ->get();
 
         $check_pbl = DB::table('nilai_p_b_l_s')
             ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
-            ->join('users', 'nilais.user_id', '=', 'nilais.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->where('nilai_p_b_l_s.deleted_at', null)
             ->get();
 
         $praktikum_dosens = DB::table('nilai_jenis_praktikums')
@@ -61,6 +65,7 @@ class NilaiController extends Controller
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilai_praktikums.deleted_at', null)
             ->get();
 
         $praktikums = DB::table('nilai_jenis_praktikums')
@@ -70,6 +75,7 @@ class NilaiController extends Controller
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('users.id', auth()->user()->id)
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('nilai_praktikums.deleted_at', null)
             ->get();
 
         // $check_praktikum = DB::table('nilai_praktikums')

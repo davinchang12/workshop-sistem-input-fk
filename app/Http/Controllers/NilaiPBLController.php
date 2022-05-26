@@ -47,8 +47,10 @@ class NilaiPBLController extends Controller
                 ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
                 ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
                 ->join('users', 'nilais.user_id', '=', 'users.id')
-                ->where('users.name', $request['nama' . $i])
                 ->where('nilai_p_b_l_skenario_diskusis.diskusi', $request['diskusi'])
+                ->where('nilai_p_b_l_skenarios.skenario', $request['skenario'])
+                ->where('nilai_p_b_l_s.deleted_at', null)
+                ->where('users.name', $request['nama' . $i])
                 ->first();
 
             $total = ((((int)$request['kehadiran' . $i] + (int)$request['aktivitas_saat_diskusi' . $i]) + (int)$request['relevansi_pembicaraan' . $i] + (int)$request['keterampilan_berkomunikasi' . $i]) / 16) * 100;
