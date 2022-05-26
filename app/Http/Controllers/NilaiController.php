@@ -186,9 +186,13 @@ class NilaiController extends Controller
         $pbls = DB::table('nilai_p_b_l_skenarios')
             ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
             ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilais.deleted_at', null)
+            ->where('nilai_p_b_l_skenarios.deleted_at', '=', null)
+            ->where('nilai_p_b_l_s.deleted_at', null)
+            ->where('users.role', 'mahasiswa')
             ->groupBy('nilai_p_b_l_skenarios.skenario')
             ->get();
 
