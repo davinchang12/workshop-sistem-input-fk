@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\RincianNilaiAkhir;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -90,6 +91,48 @@ class LaporanNilaiAkhirExport implements FromView, ShouldAutoSize, WithEvents
                     array_push($nilais, array($ujian->name, $ujian->nim, "BELUM DIISI", "BELUM DIISI", $ujian->sintakutb, $sintak_utb_view, $ujian->sintakuab, $sintak_uab_view, $sum));
                 }
             }
+        }
+
+        
+        foreach($nilais as $key => $nilai) {
+
+            if($nilai[8] >= 80) {
+                $keterangan = "A";
+            } elseif ($nilai[8] >= 75 && $nilai[8] < 80) {
+                $keterangan = "AB";
+            } elseif ($nilai[8] >= 70 && $nilai[8] < 75) {
+                $keterangan = "B";
+            } elseif ($nilai[8] >= 65 && $nilai[8] < 70) {
+                $keterangan = "BC";
+            } elseif ($nilai[8] >= 55 && $nilai[8] < 65) {
+                $keterangan = "C";
+            } elseif ($nilai[8] >= 50 && $nilai[8] < 55) {
+                $keterangan = "CD";
+            } elseif ($nilai[8] >= 40 && $nilai[8] < 50) {
+                $keterangan = "D";
+            } elseif ($nilai[8] < 40) {
+                $keterangan = "E";
+            };
+
+            $getNilaiId = DB::table('nilais')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('matkuls.id', $request->matkul_dipilih)
+                ->where('users.nim', $nilai[1])
+                ->select('nilais.id')
+                ->first()->id;
+            
+            RincianNilaiAkhir::updateOrCreate([
+                'nilai_id' => $getNilaiId,
+            ], [
+                'tugas' => $nilai[3],
+                'utb' => $nilai[5],
+                'uab' => $nilai[7],
+                'nilai_akhir' => $nilai[8],
+                'keterangan' => $keterangan,
+            ]);
+            
+            array_push($nilais[$key], $keterangan);
         }
 
         return view('dashboard.laporannilai.export.nilaiakhir', [

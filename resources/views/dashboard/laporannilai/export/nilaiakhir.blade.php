@@ -11,6 +11,7 @@
                 <td>Sintak UAB</td>
                 <td></td>
                 <td>Validasi</td>
+                <td>Keterangan</td>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                     <td>{{ $nilai[6] }}</td>
                     <td>{{ $nilai[7] }}</td>
                     <td>{{ $nilai[8] }}</td>
+                    <td>{{ $nilai[9] }}</td>
                 </tr>
             @endforeach
         </tbody>
