@@ -420,9 +420,9 @@
                                 </div>
 
                             </div>
-
+                            
                             <div class="modal-footer">
-                                @if ($ujians->isnotEmpty())
+                                @if ($feedbackutbs->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
                                     <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian
@@ -477,7 +477,7 @@
 
                             </div>
                             <div class="modal-footer">
-                                @if ($ujians->isnotEmpty())
+                                @if ($feedbackuabs->isnotEmpty())
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 @else
                                     <h5 class="modal-title" id="exampleModalLabel">Download Template dahulu kemudian

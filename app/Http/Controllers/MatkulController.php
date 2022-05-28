@@ -140,6 +140,29 @@ class MatkulController extends Controller
             ->where('nilais.deleted_at', null)
             ->get();
 
+        $feedbackuabs = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*',  'feedback_u_a_b_s.*', 'jenis_feedback_u_a_b_s.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+            ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+            ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+            ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul->id)
+            ->where('nilais.deleted_at', null)
+            ->get();
+        
+        $feedbackutbs = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'jenis_feedback_u_t_b_s.*')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
+            ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
+            ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
+            ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
+            ->where('users.role', 'mahasiswa')
+            ->where('matkuls.id', $matkul->id)
+            ->where('nilais.deleted_at', null)
+            ->get();
         $checkpraktikumujians = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -183,7 +206,6 @@ class MatkulController extends Controller
             ->where('nilai_p_b_l_s.deleted_at', null)
             ->select('nilai_p_b_l_skenario_diskusis.diskusi', 'nilai_p_b_l_skenarios.kelompok', 'nilai_p_b_l_skenarios.skenario', 'nilai_p_b_l_skenario_diskusis.tanggal_pelaksanaan', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'nilai_p_b_l_skenario_diskusis.id as diskusi_id')
             ->get();
-
         return view('dashboard.nilai.dosen.index', [
             'praktikums' => $praktikums,
             'nilaitugas' => $nilaitugas,
@@ -192,6 +214,8 @@ class MatkulController extends Controller
             'matkul' => $matkul,
             'skenarios' => $skenarios,
             'ujians' => $ujians,
+            'feedbackutbs' => $feedbackutbs,
+            'feedbackuabs' =>$feedbackuabs,
             'checkpraktikumujians' => $checkpraktikumujians
         ]);
     }
