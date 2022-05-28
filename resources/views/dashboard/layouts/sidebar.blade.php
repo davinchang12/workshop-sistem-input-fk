@@ -44,6 +44,15 @@
                     </a>
                 </li>
             @endcan
+            @can('dosen')
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('dashboard/kritikdansaran*') ? 'active' : '' }}"
+                        href="/dashboard/kritikdansaran">
+                        <span data-feather="thumbs-up"></span><span data-feather="thumbs-down"></span>
+                        Lihat Kritik/Saran
+                    </a>
+                </li>
+            @endcan
 
             @can('admin')
                 <h6 class="sideba-heading d-flex justify-content-between align-items-center p-3 mt-4 mb-1 text-muted">

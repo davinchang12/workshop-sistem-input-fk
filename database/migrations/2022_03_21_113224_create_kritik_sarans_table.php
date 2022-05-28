@@ -14,8 +14,10 @@ class CreateKritikSaransTable extends Migration
     public function up()
     {
         Schema::create('kritik_sarans', function (Blueprint $table) {
+            $table->foreignId('jadwal_id');
             $table->foreignId('user_id');
-            $table->foreignId('matkul_id');
+            $table->string('namamahasiswa');
+            $table->string('nimmahasiswa');
             $table->text('kritik')->nullable();
             $table->text('saran')->nullable();
             $table->softDeletes();

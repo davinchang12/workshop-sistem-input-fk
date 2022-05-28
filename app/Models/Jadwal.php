@@ -25,4 +25,7 @@ class Jadwal extends Model
     public function matkul() {
         return $this->belongsTo(Matkul::class, 'matkul_id');
     }
+    public function kritiksaran() {
+        return $this->hasMany(KritikSaran::class);
+    }
 }
