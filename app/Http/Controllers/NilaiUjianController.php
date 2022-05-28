@@ -733,21 +733,18 @@ class NilaiUjianController extends Controller
                         ->update(['nilai_ujians.finalcbt' => $ujian->remediujian]);
                     
                 } else {
-                    $cbtfinal = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
+                    $cbtfinal = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
                         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
                         ->join('nilai_ujians', 'nilai_ujians.nilai_id', '=', 'nilais.id')
                         ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
-                        ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
-                        ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                        ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
                         ->where('users.role', 'mahasiswa')
                         ->where('nilais.id', $ujian->nilai_id)
                         ->where('matkuls.id', $request->matkul_dipilih)
                         ->update(['nilai_ujians.finalcbt' => $ujian->ratarataujian]);
-                }
-                $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbtremed);
+                    }
+                    $uabcombinedremed = ($ujian->finalcbt * $persenfinalcbtremed);
+                    // dd($uabcombinedremed);
                     $uabd = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'feedback_u_a_b_s.*', 'jenis_feedback_u_t_b_s.*', 'jenis_feedback_u_a_b_s.*')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
                         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')

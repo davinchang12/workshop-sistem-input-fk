@@ -402,11 +402,10 @@
                                             <td>{{ $ujian->sintakuab }}</td>
                                             @if ($ujian->remediujian == 0 || $ujian->remediujian == null)
                                                 <td>-</td>
-                                                <td>-</td>
                                             @else
                                                 <td>{{ $ujian->remediujian }}</td>
-                                                <td>{{ $ujian->uabcombinedremedial }}</td>
                                             @endif
+                                            <td>{{ $ujian->uabcombinedremedial }}</td>
 
                                             <td>{{ $ujian->finalcbt }}</td>
                                             @if ($ujian->finalcbt >= 90)
@@ -471,12 +470,11 @@
                                         <td>{{ $ujian->sintakuab }}</td>
                                         @if ($ujian->remediujian == 0 || $ujian->remediujian == null)
                                             <td>-</td>
-                                            <td>-</td>
                                         @else
                                             <td>{{ $ujian->remediujian }}</td>
-                                            <td>{{ $ujian->uabcombinedremedial }}</td>
                                         @endif
-
+                                        
+                                        <td>{{ $ujian->uabcombinedremedial }}</td>
                                         <td>{{ $ujian->finalcbt }}</td>
                                         @if ($ujian->finalcbt >= 90)
                                             <td>A</td>
