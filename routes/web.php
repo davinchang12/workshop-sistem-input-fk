@@ -118,12 +118,14 @@ Route::resource('/dashboard/nilailain', NilaiLainController::class)->middleware(
 
 Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->except('show');
 
+
 // Mahasiswa
 Route::get('/dashboard/feedback', [FeedbackController::class, 'index']);
 
 // Dosen
 Route::get('/dashboard/jadwal', [JadwalController::class, 'index'])->middleware('dosen');
-Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
+// Route::get('/dashboard/kritiksarandosen', [KritikSaranController::class, 'dosen'])->middleware('dosen');
+Route::resource('/dashboard/kritikdansaran', KritikSaranController::class)->middleware('auth');
 
 // Admin
 Route::get('/dashboard/settingmatakuliah/trashbin', [SettingmataKuliahController::class, 'trashbin'])->middleware('admin');

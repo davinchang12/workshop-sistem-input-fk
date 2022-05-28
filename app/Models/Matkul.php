@@ -36,10 +36,6 @@ class Matkul extends Model
      public function jadwal() {
          return $this->hasMany(Jadwal::class);
      }
-    
-     public function kritikSaran() {
-         return $this->hasMany(KritikSaran::class);
-     }
 
      public function getRouteKeyName()
      {

@@ -17,14 +17,14 @@ class KritikSaran extends Model
 
     protected $with = [
         'users', 
-        'matkul'
+        'jadwals'
     ];
 
     public function users() {
         return $this->belongsTo(User::class);
     }
-
-    public function matkul() {
-        return $this->belongsTo(Matkul::class);
+    public function jadwals() {
+        return $this->belongsTo(Jadwal::class);
     }
+
 }
