@@ -24,17 +24,34 @@ class NilaiController extends Controller
     {
         $request = request();
 
-        $pbl_dosens = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
-            ->join('nilai_p_b_l_skenario_diskusis', 'nilai_p_b_l_skenario_diskusi_nilais.nilaipblskenariodiskusi_id', '=', 'nilai_p_b_l_skenario_diskusis.id')
-            ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+        $check_pbl_dosens = DB::table('nilai_p_b_l_skenarios')
             ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
             ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('users.id', auth()->user()->id)
             ->where('nilai_p_b_l_s.deleted_at', null)
             ->where('nilais.deleted_at', null)
-            ->get();
+            ->first();
+
+        if ($check_pbl_dosens == null) {
+            $pbl_dosens = array();
+        } else {
+            $pbl_dosens = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
+                ->join('nilai_p_b_l_skenario_diskusis', 'nilai_p_b_l_skenario_diskusi_nilais.nilaipblskenariodiskusi_id', '=', 'nilai_p_b_l_skenario_diskusis.id')
+                ->join('nilai_p_b_l_skenarios', 'nilai_p_b_l_skenario_diskusis.nilaipblskenario_id', '=', 'nilai_p_b_l_skenarios.id')
+                ->join('nilai_p_b_l_s', 'nilai_p_b_l_skenarios.nilaipbl_id', '=', 'nilai_p_b_l_s.id')
+                ->join('nilais', 'nilai_p_b_l_s.nilai_id', '=', 'nilais.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->where('matkuls.id', $request->matkul_dipilih)
+                ->where('nilai_p_b_l_skenarios.skenario', $check_pbl_dosens->skenario)
+                ->where('nilai_p_b_l_s.deleted_at', null)
+                ->where('nilais.deleted_at', null)
+                ->get();
+        }
+
 
         $pbls = DB::table('nilai_p_b_l_skenario_diskusi_nilais')
             ->join('nilai_p_b_l_skenario_diskusis', 'nilai_p_b_l_skenario_diskusi_nilais.nilaipblskenariodiskusi_id', '=', 'nilai_p_b_l_skenario_diskusis.id')
@@ -69,21 +86,21 @@ class NilaiController extends Controller
             ->select('namapraktikum')
             ->first();
 
-        if($get_praktikum_dosens == null) {
+        if ($get_praktikum_dosens == null) {
             $praktikum_dosens = array();
         } else {
             $praktikum_dosens = DB::table('nilai_jenis_praktikums')
-            ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
-            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
-            ->join('users', 'nilais.user_id', '=', 'users.id')
-            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
-            ->where('matkuls.id', $request->matkul_dipilih)
-            ->where('nilai_praktikums.deleted_at', null)
-            ->where('namapraktikum', $get_praktikum_dosens->namapraktikum)
-            ->where('nilais.deleted_at', null)
-            ->get();
+                ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
+                ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->where('matkuls.id', $request->matkul_dipilih)
+                ->where('nilai_praktikums.deleted_at', null)
+                ->where('namapraktikum', $get_praktikum_dosens->namapraktikum)
+                ->where('nilais.deleted_at', null)
+                ->get();
         }
-        
+
         $praktikums = DB::table('nilai_jenis_praktikums')
             ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
