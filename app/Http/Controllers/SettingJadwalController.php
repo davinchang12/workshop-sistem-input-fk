@@ -62,7 +62,7 @@ class SettingJadwalController extends Controller
         $rules = [
             'matkul_id' => 'required',
             'user_id' => 'required',
-            'jenis' => 'required',
+            // 'jenis' => 'required',
             'materi' => 'required',
             'tanggal' => 'required',
             'jammasuk' => 'required',
@@ -103,14 +103,14 @@ class SettingJadwalController extends Controller
             'matkul_id' => $validatedData['matkul_id'],
         ]);
 
-        NilaiJenis::updateOrCreate(
-            [
-                'nilai_id' => $nilai->id
-            ],
-            [
-                $validatedData['jenis'] => 1
-            ]
-        );
+        // NilaiJenis::updateOrCreate(
+        //     [
+        //         'nilai_id' => $nilai->id
+        //     ],
+        //     [
+        //         $validatedData['jenis'] => 1
+        //     ]
+        // );
 
         return redirect('/dashboard/settingjadwal')->with('success', 'Mata kuliah berhasil ditambahkan!');
     }

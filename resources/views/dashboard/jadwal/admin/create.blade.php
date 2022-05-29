@@ -33,7 +33,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="jenis" class="form-label">Jenis</label>
                 <select class="form-select" id="jenis" name="jenis">
                     <option value=""></option>
@@ -42,7 +42,7 @@
                     <option value="praktikum">Praktikum</option>
                     <option value="ujian">Ujian</option>
                 </select>
-            </div>
+            </div> --}}
             <div class="mb-3">
                 <label for="materi" class="form-label @error('materi') is-invalid @enderror">Topik / Materi</label>
                 <input type="text" class="form-control" id="materi" name="materi" value="{{ old('materi') }}">
