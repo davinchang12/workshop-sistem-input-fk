@@ -7,15 +7,26 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use App\Models\NilaiPraktikum;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use App\Models\NilaiJenisPraktikum;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
 class NilaiPraktikumImport implements ToCollection, WithStartRow
 {
-    private $nilai;
+    private $nilai, $dosen_id;
     public function __construct()
     {
+        $request = request();
+
+        $this->dosen_id = DB::table('nilais')
+            ->join('users', 'nilais.user_id', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', 'matkuls.id')
+            ->where('user_id', $request->dosen_id)
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->select('nilais.id')
+            ->first();
+
         $this->nilai = Nilai::select('nilais.id', 'users.name', 'users.role', 'matkuls.namamatkul', 'users.nim')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -33,6 +44,15 @@ class NilaiPraktikumImport implements ToCollection, WithStartRow
 
     public function collection(Collection $rows)
     {
+        NilaiPraktikum::firstOrCreate(
+            [
+                'nilai_id' => $this->dosen_id->id,
+                'deleted_at' => null,
+                'namapraktikum' => $rows[0][1],
+            ],
+            []
+        );
+
         foreach ($rows as $row) {
             $nilai = $this->nilai->where('namamatkul', $row[0])->where('nim', $row[3])->first();
             

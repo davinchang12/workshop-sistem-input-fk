@@ -58,10 +58,9 @@ class NilaiPraktikumController extends Controller
                 ->where('users.role', 'mahasiswa')
                 ->first();
 
-            $praktikum = NilaiPraktikum::firstOrCreate(
-                ['nilai_id' => $nilai->id],
-                ['namapraktikum' => $request['namapraktikum']]
-            );
+            $praktikum = NilaiPraktikum::where('namapraktikum', $request['namapraktikum'])
+                ->where('nilai_id', $nilai->id)
+                ->first();
 
             NilaiJenisPraktikum::updateOrCreate(
                 ['nilai_praktikum_id' => $praktikum->id],
@@ -151,7 +150,7 @@ class NilaiPraktikumController extends Controller
 
     public function importView(Request $request)
     {
-        $praktikums = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
+        $praktikums = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*', 'nilai_praktikums.namapraktikum')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -207,7 +206,7 @@ class NilaiPraktikumController extends Controller
     {
         for ($i = 1; $i <= (int)$request['loop']; $i++) {
 
-            
+
             $nilai = Nilai::select('users.name', 'users.nim', 'nilais.id', 'matkuls.kodematkul')
                 ->join('users', 'nilais.user_id', '=', 'users.id')
                 ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')

@@ -311,6 +311,11 @@ class SettingMataKuliahController extends Controller
     }
     public function storeKelompokPBL(Request $request)
     {
+
+        $validatedData = $request->validate([
+            'user_id' => 'required',
+        ]);
+
         $user_ids = $request->input('user_id');
         $matkul_kodematkul = $request->input('matkul_kodematkul');
         $matkul_id = $request->input('matkul_id');

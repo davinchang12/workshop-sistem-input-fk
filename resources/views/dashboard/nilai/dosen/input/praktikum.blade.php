@@ -187,7 +187,7 @@
                 <input type="hidden" name="kodematkul" id="kodematkul" value="{{ $praktikum->kodematkul }}">
             @endforeach
         </table>
-        <input type="hidden" name="namapraktikum" id="namapraktikum" value="Histiologi">
+        <input type="hidden" name="namapraktikum" id="namapraktikum" value={{ $praktikums[0]->namapraktikum }}>
         <button type="submit" class="btn btn-primary mt-3">Submit Nilai</button>
     </form>
 </div>

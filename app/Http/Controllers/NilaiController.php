@@ -57,16 +57,33 @@ class NilaiController extends Controller
             ->where('nilais.deleted_at', null)
             ->get();
 
-        $praktikum_dosens = DB::table('nilai_jenis_praktikums')
+        $get_praktikum_dosens = DB::table('nilai_praktikums')
+            ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+            ->join('users', 'nilais.user_id', '=', 'users.id')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('matkuls.id', $request->matkul_dipilih)
+            ->where('users.id', auth()->user()->id)
+            ->where('users.role', '!=', 'mahasiswa')
+            ->where('nilai_praktikums.deleted_at', null)
+            ->where('nilais.deleted_at', null)
+            ->select('namapraktikum')
+            ->first();
+
+        if($get_praktikum_dosens == null) {
+            $praktikum_dosens = array();
+        } else {
+            $praktikum_dosens = DB::table('nilai_jenis_praktikums')
             ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
             ->where('matkuls.id', $request->matkul_dipilih)
             ->where('nilai_praktikums.deleted_at', null)
+            ->where('namapraktikum', $get_praktikum_dosens->namapraktikum)
             ->where('nilais.deleted_at', null)
             ->get();
-
+        }
+        
         $praktikums = DB::table('nilai_jenis_praktikums')
             ->join('nilai_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
             ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')

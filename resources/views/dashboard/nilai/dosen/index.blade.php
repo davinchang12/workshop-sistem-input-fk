@@ -326,6 +326,11 @@
 
                                                     <form method="post" action="/dashboard/matkul/nilai/import/praktikum"
                                                         enctype="multipart/form-data">
+
+                                                        <input type="hidden" name="dosen_id" id="dosen_id" value="{{ auth()->user()->id }}">
+                                                        <input type="hidden" name="matkul_dipilih" id=""
+                                                            value="{{ $matkul->id }}">
+
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Import
