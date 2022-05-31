@@ -187,9 +187,24 @@ class SettingMataKuliahController extends Controller
                 ->where('nilais.deleted_at', null)
                 ->select('nilai_p_b_l_s.id')
                 ->get();
-            
-            foreach($pbls as $pbl) {
+
+            foreach ($pbls as $pbl) {
                 NilaiPBL::where('id', $pbl->id)
+                    ->delete();
+            }
+
+            $praktikums = DB::table('nilai_praktikums')
+                ->join('nilais', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
+                ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+                ->join('users', 'nilais.user_id', '=', 'users.id')
+                ->where('matkul_id', $matkul_id)
+                ->where('users.role', 'dosen')
+                ->where('nilais.deleted_at', null)
+                ->select('nilai_praktikums.id')
+                ->get();
+
+            foreach ($praktikums as $praktikum) {
+                NilaiPraktikum::where('id', $praktikum->id)
                     ->delete();
             }
         }

@@ -30,32 +30,34 @@
                 <td>{{ $ujian->sintakuab }}</td>
                 @if ($ujian->remediujian == 0 || $ujian->remediujian == null)
                     <td>-</td>
-                    <td>-</td>
                 @else
                     <td>{{ $ujian->remediujian }}</td>
-                    <td>{{ $ujian->uabcombinedremedial }}</td>
                 @endif
 
+                <td>{{ $ujian->uabcombinedremedial }}</td>
                 <td>{{ $ujian->finalcbt }}</td>
-                @if ($ujian->finalcbt >= 90)
+                @if ($ujian->finalcbt >= 80)
                     <td>A</td>
                 @endif
-                @if ($ujian->finalcbt < 90 && $ujian->finalcbt >= 85)
+                @if ($ujian->finalcbt < 80 && $ujian->finalcbt >= 75)
                     <td>AB</td>
                 @endif
-                @if ($ujian->finalcbt < 85 && $ujian->finalcbt >= 80)
+                @if ($ujian->finalcbt < 75 && $ujian->finalcbt >= 70)
+                    <td>B</td>
+                @endif
+                @if ($ujian->finalcbt < 70 && $ujian->finalcbt >= 65)
                     <td>BC</td>
                 @endif
-                @if ($ujian->finalcbt < 80 && $ujian->finalcbt >= 75)
+                @if ($ujian->finalcbt < 65 && $ujian->finalcbt >= 55)
                     <td>C</td>
                 @endif
-                @if ($ujian->finalcbt < 75 && $ujian->finalcbt >= 70)
+                @if ($ujian->finalcbt < 55 && $ujian->finalcbt >= 50)
                     <td>CD</td>
                 @endif
-                @if ($ujian->finalcbt < 70 && $ujian->finalcbt >= 60)
+                @if ($ujian->finalcbt < 50 && $ujian->finalcbt >= 40)
                     <td>D</td>
                 @endif
-                @if ($ujian->finalcbt < 60)
+                @if ($ujian->finalcbt < 40)
                     <td>E</td>
                 @endif
             </tr>

@@ -20,7 +20,13 @@ class MatkulController extends Controller
      */
     public function index()
     {
-        $nilais = Nilai::where('user_id', auth()->user()->id)->groupBy('matkul_id')->get();
+        $nilais = DB::table('nilais')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('user_id', auth()->user()->id)
+            ->where('matkuls.deleted_at', null)
+            ->groupBy('matkul_id')
+            ->select('matkuls.namamatkul', 'matkuls.kodematkul', 'matkuls.id', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'matkuls.keterangan')
+            ->get();
 
         $mhs_rincian_nilai_akhir = DB::table('rincian_nilai_akhirs')
             ->join('nilais', 'rincian_nilai_akhirs.nilai_id', '=', 'nilais.id')
@@ -151,7 +157,7 @@ class MatkulController extends Controller
             ->where('matkuls.id', $matkul->id)
             ->where('nilais.deleted_at', null)
             ->get();
-        
+
         $feedbackutbs = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_ujians.*', 'hasil_nilai_ujians.*', 'feedback_u_t_b_s.*', 'jenis_feedback_u_t_b_s.*')
             ->join('users', 'nilais.user_id', '=', 'users.id')
             ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
@@ -215,7 +221,7 @@ class MatkulController extends Controller
             'skenarios' => $skenarios,
             'ujians' => $ujians,
             'feedbackutbs' => $feedbackutbs,
-            'feedbackuabs' =>$feedbackuabs,
+            'feedbackuabs' => $feedbackuabs,
             'checkpraktikumujians' => $checkpraktikumujians
         ]);
     }

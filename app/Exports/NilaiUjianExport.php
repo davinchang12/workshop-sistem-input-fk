@@ -383,10 +383,6 @@ class NilaiUjianExport implements FromView, ShouldAutoSize, WithEvents
         $dosen = User::where('id', '=', auth()->user()->id)->value('name');
         $ujians = DB::table('nilai_ujians')
             ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
-            ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-            ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
-            ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-            ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
             ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
             ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
             ->join('nilai_jenis_praktikums', 'nilai_jenis_praktikums.nilai_praktikum_id', '=', 'nilai_praktikums.id')
@@ -400,10 +396,6 @@ class NilaiUjianExport implements FromView, ShouldAutoSize, WithEvents
         if ($ujians->isEmpty()) {
             $ujians = DB::table('nilai_ujians')
                 ->join('hasil_nilai_ujians', 'hasil_nilai_ujians.nilai_ujian_id', '=', 'nilai_ujians.id')
-                ->join('feedback_u_t_b_s', 'feedback_u_t_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                ->join('jenis_feedback_u_t_b_s', 'jenis_feedback_u_t_b_s.feedback_utb_id', '=', 'feedback_u_t_b_s.id')
-                ->join('feedback_u_a_b_s', 'feedback_u_a_b_s.hasil_ujians_id', '=', 'hasil_nilai_ujians.id')
-                ->join('jenis_feedback_u_a_b_s', 'jenis_feedback_u_a_b_s.feedback_uab_id', '=', 'feedback_u_a_b_s.id')
                 ->join('nilais', 'nilai_ujians.nilai_id', '=', 'nilais.id')
                 ->join('users', 'users.id', '=', 'nilais.user_id')
                 ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')

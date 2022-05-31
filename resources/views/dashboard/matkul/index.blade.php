@@ -26,10 +26,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title">{{ $nilai->matkul->namamatkul }}</h5>
-                                    <small>{{ $nilai->matkul->kodematkul }}</small><br>
-                                    <small>{{ $nilai->matkul->keterangan }}</small><br>
-                                    <small>Tahun Ajaran {{ $nilai->matkul->tahun_ajaran }}</small>
+                                    <h5 class="card-title">{{ $nilai->namamatkul }}</h5>
+                                    <small>{{ $nilai->kodematkul }}</small><br>
+                                    <small>{{ $nilai->keterangan }}</small><br>
+                                    <small>Tahun Ajaran {{ $nilai->tahun_ajaran }}</small>
                                 </div>
                                 <div class="col-md-auto p-auto">
                                     <div class="col pt-2">
@@ -38,14 +38,14 @@
                                         <form action="/dashboard/matkul/nilai" method="get">
                                             @csrf
                                             <input type="hidden" name="matkul_dipilih" id=""
-                                                value="{{ $nilai->matkul->id }}">
+                                                value="{{ $nilai->id }}">
                                             <button class="btn btn-primary w-100 shadow-none"><span
                                                     data-feather="eye"></span></button>
                                         </form>
                                     </div>
                                     @can('dosen')
                                         <div class="col pt-2">
-                                            <a href="/dashboard/matkul/{{ $nilai->matkul->kodematkul }}"
+                                            <a href="/dashboard/matkul/{{ $nilai->kodematkul }}"
                                                 class="btn btn-primary w-100"><span data-feather="settings"></span></a>
                                         </div>
                                     @endcan
