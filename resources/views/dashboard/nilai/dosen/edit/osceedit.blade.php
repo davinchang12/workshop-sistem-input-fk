@@ -23,19 +23,23 @@
     @endif
 
     @if (count($osces) > 0)
-        <div class="container mt-3 mb-3">
-            <form action="/dashboard/nilailain/edit/osce/input" method="post">
-                @csrf
-                <p>Pilih Mahasiswa : </p>
-                <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                    <option selected>{{ $osces[0]->name }}</option>
-                    @foreach ($osces->skip(1) as $osce)
-                        <option>{{ $osce->name }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            </form>
-        </div>
+        @foreach ($namaosces as $namaosce)
+            <div class="container mt-3 mb-3">
+                <form action="/dashboard/nilailain/edit/osce/input" method="post">
+                    @csrf
+                    <p>OSCE : {{ $namaosce->namaosce }}</p>
+                    <p>Pilih Mahasiswa : </p>
+                    <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                        @foreach ($osces as $osce)
+                            @if ($osce->namaosce == $namaosce->namaosce)
+                                <option>{{ $osce->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-3">Pilih</button>
+                </form>
+            </div>
+        @endforeach
     @endif
 
     <script>

@@ -254,18 +254,31 @@ class NilaiOSCEController extends Controller
                 if (Hash::check($request->password, $akses->passwordakses)) {
                     session("osce", true);
 
+                    $namaosces = DB::table('nilai_jenis_o_s_c_e_s')
+                        ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+                        ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+                        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                        ->where('nama_penguji', auth()->user()->name)
+                        ->where('users.role', 'mahasiswa')
+                        ->where('nilai_o_s_c_e_s.deleted_at', null)
+                        ->groupBy('users.name', 'nilai_o_s_c_e_s.namaosce')
+                        ->select('nilai_o_s_c_e_s.namaosce')
+                        ->get();
+
                     $osces = DB::table('nilai_jenis_o_s_c_e_s')
                         ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
                         ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
                         ->join('users', 'nilai_lains.user_id', '=', 'users.id')
                         ->where('nama_penguji', auth()->user()->name)
                         ->where('users.role', 'mahasiswa')
+                        ->where('nilai_o_s_c_e_s.deleted_at', null)
                         ->groupBy('users.name')
-                        ->select('name', 'nim')
+                        ->select('name', 'nim', 'nilai_o_s_c_e_s.namaosce')
                         ->get();
 
                     return view('dashboard.nilai.dosen.edit.osceedit', [
                         'osces' => $osces,
+                        'namaosces' => $namaosces,
                         'penguji' => auth()->user()->name,
                     ]);
                 }

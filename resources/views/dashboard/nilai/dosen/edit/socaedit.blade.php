@@ -23,19 +23,23 @@
     @endif
 
     @if (count($socas) > 0)
-        <div class="container mt-3 mb-3">
-            <form action="/dashboard/nilailain/edit/soca/input" method="post">
-                @csrf
-                <p>Pilih Mahasiswa : </p>
-                <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                    <option selected>{{ $socas[0]->name }}</option>
-                    @foreach ($socas->skip(1) as $soca)
-                        <option>{{ $soca->name }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            </form>
-        </div>
+        @foreach ($namasocas as $namasoca)
+            <div class="container mt-3 mb-3">
+                <form action="/dashboard/nilailain/edit/soca/input" method="post">
+                    @csrf
+                    <p>SOCA : {{ $namasoca->namasoca }}</p>
+                    <p>Pilih Mahasiswa : </p>
+                    <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                        @foreach ($socas as $soca)
+                            @if ($soca->namasoca == $namasoca->namasoca)
+                                <option>{{ $soca->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-3">Pilih</button>
+                </form>
+            </div>
+        @endforeach
     @endif
 
     <script>

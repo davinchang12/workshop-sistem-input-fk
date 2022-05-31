@@ -309,18 +309,31 @@ class NilaiSOCAController extends Controller
                 if (Hash::check($request->password, $akses->passwordakses)) {
                     session("soca", true);
 
-                    $socas = DB::table('nilai_jenis_s_o_c_a_s')
+                    $namasocas = DB::table('nilai_jenis_s_o_c_a_s')
                         ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
                         ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
                         ->join('users', 'nilai_lains.user_id', '=', 'users.id')
                         ->where('nama_penguji', auth()->user()->name)
                         ->where('users.role', 'mahasiswa')
+                        ->where('nilai_s_o_c_a_s.deleted_at', null)
+                        ->groupBy('users.name', 'nilai_s_o_c_a_s.namasoca')
+                        ->select('nilai_s_o_c_a_s.namasoca')
+                        ->get();
+
+                    $socas = DB::table('nilai_jenis_s_o_c_a_s')
+                        ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+                        ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+                        ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+                        ->where('nama_penguji', auth()->user()->name)
+                        ->where('nilai_s_o_c_a_s.deleted_at', null)
+                        ->where('users.role', 'mahasiswa')
                         ->groupBy('users.name')
-                        ->select('name', 'nim')
+                        ->select('name', 'nim', 'nilai_s_o_c_a_s.namasoca')
                         ->get();
 
                     return view('dashboard.nilai.dosen.edit.socaedit', [
                         'socas' => $socas,
+                        'namasocas' => $namasocas,
                     ]);
                 }
             }
