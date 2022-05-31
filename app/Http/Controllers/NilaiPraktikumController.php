@@ -177,7 +177,7 @@ class NilaiPraktikumController extends Controller
                 if (Hash::check($request->password, $akses->passwordakses)) {
                     session("praktikum", true);
 
-                    $praktikums = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*')
+                    $praktikums = Nilai::select('nilais.id', 'users.name', 'users.nim', 'matkuls.kodematkul', 'nilai_jenis_praktikums.*', 'nilai_praktikums.namapraktikum')
                         ->join('users', 'nilais.user_id', '=', 'users.id')
                         ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
                         ->join('nilai_praktikums', 'nilai_praktikums.nilai_id', '=', 'nilais.id')
@@ -195,6 +195,8 @@ class NilaiPraktikumController extends Controller
                     } else {
                         return back()->with('fail', 'Nilai Praktikum belum diisi!');
                     }
+                } else {
+                    return back()->with('fail', 'Password edit salah!');
                 }
             }
         } else {
@@ -218,7 +220,7 @@ class NilaiPraktikumController extends Controller
             $praktikum = NilaiPraktikum::where('nilai_id', $nilai->id)
                 ->where('namapraktikum', $request['namapraktikum'])
                 ->first();
-
+                
             NilaiJenisPraktikum::updateOrCreate(
                 ['nilai_praktikum_id' => $praktikum->id],
                 [

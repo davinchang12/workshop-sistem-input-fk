@@ -1007,6 +1007,7 @@ class NilaiUjianController extends Controller
                         ->orderBy('nilais.id')
                         ->where('users.role', 'mahasiswa')
                         ->where('matkuls.id', $request->matkul_dipilih)
+                        ->where('nilais.deleted_at', null)
                         ->get();
 
                     $jenisutbs = DB::table('jenis_feedback_u_t_b_s')
@@ -1018,6 +1019,7 @@ class NilaiUjianController extends Controller
                         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
                         ->where('users.role', 'mahasiswa')
                         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                        ->where('nilais.deleted_at', null)
                         ->select('jenis_feedback_u_t_b_s.id as jenisfeedback_id', 'feedback_u_t_b_s.id as feedback_id', 'users.name', 'users.nim', 'jenis_feedback_u_t_b_s.skor', 'jenis_feedback_u_t_b_s.topik',)
                         ->get();
 
@@ -1078,6 +1080,7 @@ class NilaiUjianController extends Controller
                         ->orderBy('nilais.id')
                         ->where('users.role', 'mahasiswa')
                         ->where('matkuls.id', $request->matkul_dipilih)
+                        ->where('nilais.deleted_at', null)
                         ->get();
 
                     $jenisuabs = DB::table('jenis_feedback_u_a_b_s')
@@ -1089,6 +1092,7 @@ class NilaiUjianController extends Controller
                         ->join('matkuls', 'matkuls.id', '=', 'nilais.matkul_id')
                         ->where('users.role', 'mahasiswa')
                         ->where('nilais.matkul_id', '=', $request->matkul_dipilih)
+                        ->where('nilais.deleted_at', null)
                         ->select('jenis_feedback_u_a_b_s.id as jenisfeedback_id', 'feedback_u_a_b_s.id as feedback_id', 'users.name', 'users.nim', 'jenis_feedback_u_a_b_s.skor', 'jenis_feedback_u_a_b_s.topik',)
                         ->get();
 

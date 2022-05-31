@@ -24,6 +24,8 @@ class LaporanSOCAExport implements FromView, ShouldAutoSize, WithEvents
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('users.role', 'mahasiswa')
             ->where('nilai_s_o_c_a_s.deleted_at', null)
+            ->where('nilai_s_o_c_a_s.namasoca', $request->namasoca)
+            ->where('nilai_s_o_c_a_s.keterangan', $request->keterangan)
             ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id', 'nilai_s_o_c_a_s.keterangan', 'nilai_s_o_c_a_s.nilaisocas', 'users.name', 'users.nim')
             ->get();
 

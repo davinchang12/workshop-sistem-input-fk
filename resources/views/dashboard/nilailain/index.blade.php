@@ -46,7 +46,7 @@
                                 <tr>
                                     <td>{{ $mhs_osce->namaosce }}</td>
                                     <td>{{ $mhs_osce->nama_penguji }}</td>
-                                    <td>{{ $mhs_osce->nilaiosce == null ? "BELUM DINILAI" : $mhs_osce->nilaiosce}}</td>
+                                    <td>{{ $mhs_osce->nilaiosce == null ? 'BELUM DINILAI' : $mhs_osce->nilaiosce }}</td>
                                     {{-- <td>
                                         <form action="/dashboard/nilailain/show/osce" method="post">
                                             @csrf
@@ -65,37 +65,41 @@
             @endcan
             @can('dosen')
                 @if (count($osces) > 0)
-                    <div class="container mt-3 mb-3">
-                        <form action="/dashboard/nilailain/input-osce" method="post">
-                            @csrf
-                            <p>Pilih Mahasiswa : </p>
-                            <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                                <option selected>{{ $osces[0]->name }}</option>
-                                @foreach ($osces->skip(1) as $osce)
-                                    <option>{{ $osce->name }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                        </form>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p>
-                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                        aria-bs-expanded="false" aria-bs-controls="collapseExample">
-                                        Edit Nilai
-                                    </a>
-                                </p>
-                                <div class="collapse" id="collapseExample">
-                                    <form class="form-inline" action="/dashboard/nilailain/edit/osce" method="post">
-                                        @csrf
-                                        <label for="password" class="form-label">Password : </label>
-                                        <input type="password" name="password" id="password">
-                                        <button class="btn btn-primary shadow-none">Submit</button>
-                                    </form>
+                    @foreach ($namaosces as $namaosce)
+                        <div class="container mt-3 mb-3">
+                            <form action="/dashboard/nilailain/input-osce" method="post">
+                                @csrf
+                                <p>OSCE : {{ $namaosce->namaosce }}</p>
+                                <p>Pilih Mahasiswa : </p>
+                                <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                                    @foreach ($osces as $osce)
+                                        @if ($osce->namaosce == $namaosce->namaosce)
+                                            <option>{{ $osce->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-3">Pilih</button>
+                            </form>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p>
+                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                            role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                            Edit Nilai
+                                        </a>
+                                    </p>
+                                    <div class="collapse" id="collapseExample">
+                                        <form class="form-inline" action="/dashboard/nilailain/edit/osce" method="post">
+                                            @csrf
+                                            <label for="password" class="form-label">Password : </label>
+                                            <input type="password" name="password" id="password">
+                                            <button class="btn btn-primary shadow-none">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 @endif
             @endcan
         </div>
@@ -118,7 +122,7 @@
                                     <td>{{ $mhs_soca->namasoca }}</td>
                                     <td>{{ $mhs_soca->nama_penguji }}</td>
                                     <td>{{ $mhs_soca->keterangan }}</td>
-                                    <td>{{ $mhs_soca->nilaisocas == null ? "BELUM DINILAI" : $mhs_soca->nilaisocas}}</td>
+                                    <td>{{ $mhs_soca->nilaisocas == null ? 'BELUM DINILAI' : $mhs_soca->nilaisocas }}</td>
                                     {{-- <td>
                                         <form action="/dashboard/nilailain/show/soca" method="post">
                                             @csrf
@@ -137,37 +141,41 @@
             @endcan
             @can('dosen')
                 @if (count($socas) > 0)
-                    <div class="container mt-3 mb-3">
-                        <form action="/dashboard/nilailain/input-soca" method="post">
-                            @csrf
-                            <p>Pilih Mahasiswa : </p>
-                            <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
-                                <option selected>{{ $socas[0]->name }}</option>
-                                @foreach ($socas->skip(1) as $soca)
-                                    <option>{{ $soca->name }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn btn-primary mt-3">Pilih</button>
-                        </form>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <p>
-                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                                        aria-bs-expanded="false" aria-bs-controls="collapseExample">
-                                        Edit Nilai
-                                    </a>
-                                </p>
-                                <div class="collapse" id="collapseExample">
-                                    <form class="form-inline" action="/dashboard/nilailain/edit/soca" method="post">
-                                        @csrf
-                                        <label for="password" class="form-label">Password : </label>
-                                        <input type="password" name="password" id="password">
-                                        <button class="btn btn-primary shadow-none">Submit</button>
-                                    </form>
+                    @foreach ($namasocas as $namasoca)
+                        <div class="container mt-3 mb-3">
+                            <form action="/dashboard/nilailain/input-soca" method="post">
+                                @csrf
+                                <p>SOCA : {{ $namasoca->namasoca }}</p>
+                                <p>Pilih Mahasiswa : </p>
+                                <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
+                                    @foreach ($socas as $soca)
+                                        @if ($soca->namasoca == $namasoca->namasoca)
+                                            <option>{{ $soca->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-3">Pilih</button>
+                            </form>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p>
+                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample"
+                                            role="button" aria-bs-expanded="false" aria-bs-controls="collapseExample">
+                                            Edit Nilai
+                                        </a>
+                                    </p>
+                                    <div class="collapse" id="collapseExample">
+                                        <form class="form-inline" action="/dashboard/nilailain/edit/soca" method="post">
+                                            @csrf
+                                            <label for="password" class="form-label">Password : </label>
+                                            <input type="password" name="password" id="password">
+                                            <button class="btn btn-primary shadow-none">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 @endif
             @endcan
         </div>

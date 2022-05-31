@@ -40,6 +40,17 @@ class NilaiLainController extends Controller
             ->select('nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.id', 'nilai_s_o_c_a_s.keterangan', 'nilai_s_o_c_a_s.nilaisocas')
             ->get();
 
+        $namasocas = DB::table('nilai_jenis_s_o_c_a_s')
+            ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
+            ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
+            ->where('users.role', 'mahasiswa')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
+            ->groupBy('users.name', 'nilai_s_o_c_a_s.namasoca')
+            ->select('nilai_s_o_c_a_s.namasoca')
+            ->get();
+
         $socas = DB::table('nilai_jenis_s_o_c_a_s')
             ->join('nilai_s_o_c_a_s', 'nilai_jenis_s_o_c_a_s.nilaisoca_id', '=', 'nilai_s_o_c_a_s.id')
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
@@ -48,7 +59,18 @@ class NilaiLainController extends Controller
             ->where('users.role', 'mahasiswa')
             ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->groupBy('users.name')
-            ->select('name', 'nim')
+            ->select('name', 'nim', 'nilai_s_o_c_a_s.namasoca')
+            ->get();
+
+        $namaosces = DB::table('nilai_jenis_o_s_c_e_s')
+            ->join('nilai_o_s_c_e_s', 'nilai_jenis_o_s_c_e_s.nilaiosce_id', '=', 'nilai_o_s_c_e_s.id')
+            ->join('nilai_lains', 'nilai_o_s_c_e_s.nilai_lain_id', '=', 'nilai_lains.id')
+            ->join('users', 'nilai_lains.user_id', '=', 'users.id')
+            ->where('nama_penguji', auth()->user()->name)
+            ->where('users.role', 'mahasiswa')
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
+            ->groupBy('users.name', 'nilai_o_s_c_e_s.namaosce')
+            ->select('nilai_o_s_c_e_s.namaosce')
             ->get();
 
         $osces = DB::table('nilai_jenis_o_s_c_e_s')
@@ -59,11 +81,9 @@ class NilaiLainController extends Controller
             ->where('users.role', 'mahasiswa')
             ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->groupBy('users.name')
-            ->select('name', 'nim')
+            ->select('name', 'nim', 'nilai_o_s_c_e_s.namaosce')
             ->get();
 
-        // $fieldlabs = DB::table('nilai_semester_field_labs')
-        //     ->join('nilai_fieldlabs', 'nilai_semester_field_labs.nilai_field_lab_id', '=', 'nilai_fieldlabs.id')
         $fieldlabs = DB::table('nilai_fieldlabs')
             ->join('nilai_lains', 'nilai_fieldlabs.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
@@ -74,6 +94,8 @@ class NilaiLainController extends Controller
         return view('dashboard.nilailain.index', [
             'socas' => $socas,
             'osces' => $osces,
+            'namaosces' => $namaosces,
+            'namasocas' => $namasocas,
             'fieldlabs' => $fieldlabs,
             'mhs_socas' => $mhs_socas,
             'mhs_osces' => $mhs_osces
@@ -127,19 +149,19 @@ class NilaiLainController extends Controller
     public function laporan_osce_get(Request $request)
     {
         $this->authorize('dosen');
-        return Excel::download(new LaporanOSCEExport, 'laporanosce_'.$request->namaosce.'.xlsx');
+        return Excel::download(new LaporanOSCEExport, 'laporanosce_' . $request->namaosce . '.xlsx');
     }
 
     public function laporan_soca_get(Request $request)
     {
         $this->authorize('dosen');
-        return Excel::download(new LaporanSOCAExport, 'laporansoca_'.$request->namasoca.'.xlsx');
+        return Excel::download(new LaporanSOCAExport, 'laporansoca_' . $request->namasoca . '.xlsx');
     }
 
     public function laporan_fieldlab_get(Request $request)
     {
         $this->authorize('dosen');
-        return Excel::download(new LaporanFieldLabExport, 'laporanfieldlab_'.$request->semester.'.xlsx');
+        return Excel::download(new LaporanFieldLabExport, 'laporanfieldlab_' . $request->semester . '.xlsx');
     }
 
     /**

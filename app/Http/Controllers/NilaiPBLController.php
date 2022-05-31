@@ -233,6 +233,8 @@ class NilaiPBLController extends Controller
                     } else {
                         return back()->with('fail', 'Nilai PBL belum diisi!');
                     }
+                } else {
+                    return back()->with('fail', 'Password edit salah!');
                 }
             }
         } else {
