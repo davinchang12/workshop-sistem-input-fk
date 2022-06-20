@@ -317,7 +317,7 @@
                                                             </div>
                                                         </div>
                                                         <form action="/dashboard/matkul/nilai/export/praktikum" method="post"
-                                                            id="praktikumForm" enctype="multipart/form-data">
+                                                            id="praktikumForm{{ $loop->iteration }}" enctype="multipart/form-data">
                                                             @csrf
                                                             <input type="hidden" name="kodematkul" id=""
                                                                 value="{{ $matkul->kodematkul }}">
@@ -335,7 +335,7 @@
                                                         </div>
                                                         <div class="col-auto">
                                                             <select name="inputKeteranganSebelum" id="inputKeteranganSebelum"
-                                                                class="form-control" form="praktikumForm" required>
+                                                                class="form-control" form="praktikumForm{{ $loop->iteration }}" required>
                                                                 <option disabled selected value></option>
                                                                 <option value="quiz">QUIZ</option>
                                                                 <option value="laporan">Laporan</option>
@@ -348,7 +348,7 @@
                                                         </div>
                                                         <div class="col-auto">
                                                             <select name="inputKeteranganSesudah" id="inputKeteranganSesudah"
-                                                                class="form-control" form="praktikumForm" required>
+                                                                class="form-control" form="praktikumForm{{ $loop->iteration }}" required>
                                                                 <option disabled selected value></option>
                                                                 <option value="quiz">QUIZ</option>
                                                                 <option value="laporan">Laporan</option>

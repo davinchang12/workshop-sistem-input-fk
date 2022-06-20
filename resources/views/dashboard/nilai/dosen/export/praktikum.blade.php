@@ -37,7 +37,6 @@
         comment {
             display: none;
         }
-
     </style>
 </head>
 
@@ -53,6 +52,8 @@
         <colgroup width="137"></colgroup>
         <colgroup width="133"></colgroup>
         <colgroup width="178"></colgroup>
+        <colgroup width="133"></colgroup>
+        <colgroup width="133"></colgroup>
         <colgroup width="133"></colgroup>
         <tr>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -72,17 +73,13 @@
                     <font color="#000000">NIM</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                colspan=8 align="center" valign=middle bgcolor="#92D050"><b>
+                colspan=11 align="center" valign=middle bgcolor="#92D050"><b>
                     <font color="#000000">NILAI</font>
-                </b></td>
-            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                align="center" valign=middle bgcolor="#92D050"><b>
-                    <font color="#000000"><br></font>
                 </b></td>
         </tr>
         <tr>
-            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="80"
-                align="center" valign=middle bgcolor="#F4B183"><b>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                height="80" align="center" valign=middle bgcolor="#F4B183"><b>
                     <font color="#000000">RATA-RATA QUIZ</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -102,6 +99,10 @@
                     <font color="#000000">KETERANGAN</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#96D0E2"><b>
+                    <font color="#000000">KETERANGAN BERDASARKAN</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#BF9000"><b>
                     <font color="#000000">Remedi</font>
                 </b></td>
@@ -117,6 +118,10 @@
                 align="center" valign=middle bgcolor="#ADB9CA"><b>
                     <font color="#000000">Keterangan</font>
                 </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#96D0E2"><b>
+                    <font color="#000000">KETERANGAN BERDASARKAN</font>
+                </b></td>
         </tr>
         <tr>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -157,6 +162,10 @@
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1"><b>
+                    <font color="#000000">Wajib</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#EEECE1"><b>
                     <font color="#000000">Opsional</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -170,6 +179,10 @@
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1"><b>
                     <font color="#000000">Opsional [LULUS / LULUS BILA DENGAN TUGAS / TIDAK LULUS]</font>
+                </b></td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#EEECE1"><b>
+                    <font color="#000000">Wajib</font>
                 </b></td>
         </tr>
         <tr>
@@ -203,12 +216,16 @@
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1"><b>
-                    <font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file (dengan persentase Quiz 20%, Laporan 10%, Responsi 70%)</font>
+                    <font color="#000000">Jika tidak diisi, akan dihitung secara otomatis (berdasarkan persentase yang
+                        akan diinput di web) oleh sistem ketika upload file</font>
                 </b></td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
-                <b><font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem ketika upload file
-                </font></b>
+                <b>
+                    <font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem ketika upload
+                        file
+                    </font>
+                </b>
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
@@ -220,13 +237,27 @@
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
-                <b><font color="#000000">Jika tidak diisi, akan dihitung secara otomatis oleh sistem ketika upload file (dengan persentase Quiz 20%, Laporan 10%, Remedi 70%)
-                </font></b>
+                <font color="#000000"><br></font>
             </td>
             <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                 align="center" valign=middle bgcolor="#EEECE1">
-                <b><font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem ketika upload file
-                </font></b>
+                <b>
+                    <font color="#000000">Jika tidak diisi, akan dihitung secara otomatis (berdasarkan persentase yang
+                        akan diinput di web) oleh sistem ketika upload file
+                    </font>
+                </b>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#EEECE1">
+                <b>
+                    <font color="#000000">Jika tidak diisi, akan ditentukan secara otomatis oleh sistem ketika upload
+                        file
+                    </font>
+                </b>
+            </td>
+            <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                align="center" valign=middle bgcolor="#EEECE1">
+                <font color="#000000"><br></font>
             </td>
         </tr>
         @foreach ($praktikums as $praktikum)
@@ -259,7 +290,7 @@
                     <font color="#000000"><br></font>
                 </td>
                 <td align="center" valign=bottom>
-                    <font color="#000000"><br></font>
+                    <font color="#000000">{{ ucwords($keteranganSebelum) }}</font>
                 </td>
                 <td align="center" valign=bottom>
                     <font color="#000000"><br></font>
@@ -269,6 +300,12 @@
                 </td>
                 <td align="center" valign=bottom>
                     <font color="#000000"><br></font>
+                </td>
+                <td align="center" valign=bottom>
+                    <font color="#000000"><br></font>
+                </td>
+                <td align="center" valign=bottom>
+                    <font color="#000000">{{ ucwords($keteranganSesudah) }}</font>
                 </td>
             </tr>
         @endforeach

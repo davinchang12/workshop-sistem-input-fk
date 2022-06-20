@@ -28,7 +28,9 @@ class NilaiPraktikumExport implements FromView, ShouldAutoSize, WithEvents
             ->get();
 
         return view('dashboard.nilai.dosen.export.praktikum', [
-            'praktikums' => $praktikums
+            'praktikums' => $praktikums,
+            'keteranganSebelum' => $request['inputKeteranganSebelum'],
+            'keteranganSesudah' => $request['inputKeteranganSesudah'],
         ]);
     }
 
@@ -36,10 +38,10 @@ class NilaiPraktikumExport implements FromView, ShouldAutoSize, WithEvents
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $event->sheet->getStyle('A1:M1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $event->sheet->getStyle('A2:M2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $event->sheet->getStyle('A3:M3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-                $event->sheet->getStyle('A4:M4')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A1:T1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A2:T2')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A3:T3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $event->sheet->getStyle('A4:T4')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             }
         ];
     }
