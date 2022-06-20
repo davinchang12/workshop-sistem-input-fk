@@ -85,7 +85,7 @@ class SettingJadwalController extends Controller
 
         if (count($jadwals) > 0) {
             foreach ($jadwals as $jadwal) {
-                $ruleJam1 = $jadwal->jammasuk < $validatedData['jammasuk'] && $validatedData['jammasuk'] < $jadwal->jamselesai;
+                $ruleJam1 = $jadwal->jammasuk <= $validatedData['jammasuk'] && $validatedData['jammasuk'] <= $jadwal->jamselesai;
                 $ruleJam2 = strtotime($jadwal->jammasuk) < strtotime($validatedData['jamselesai']) && strtotime($validatedData['jamselesai']) < strtotime($jadwal->jamselesai);
 
                 if ($ruleJam1) {
