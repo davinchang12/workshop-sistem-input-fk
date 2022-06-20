@@ -337,9 +337,10 @@
                                                             <select name="inputKeteranganSebelum" id="inputKeteranganSebelum"
                                                                 class="form-control" form="praktikumForm{{ $loop->iteration }}" required>
                                                                 <option disabled selected value></option>
-                                                                <option value="quiz">QUIZ</option>
+                                                                <option value="quiz">Quiz</option>
                                                                 <option value="laporan">Laporan</option>
                                                                 <option value="responsi">Responsi</option>
+                                                                <option value="nilaiakhir">Nilai Akhir</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-auto">
@@ -350,9 +351,10 @@
                                                             <select name="inputKeteranganSesudah" id="inputKeteranganSesudah"
                                                                 class="form-control" form="praktikumForm{{ $loop->iteration }}" required>
                                                                 <option disabled selected value></option>
-                                                                <option value="quiz">QUIZ</option>
+                                                                <option value="quiz">Quiz</option>
                                                                 <option value="laporan">Laporan</option>
                                                                 <option value="responsi">Responsi</option>
+                                                                <option value="nilaiakhir">Nilai AKhir</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -374,7 +376,7 @@
 
                                                                 {{ csrf_field() }}
 
-                                                                <div class="form-text">Persentase Nilai</div>
+                                                                <div class="form-text">Persentase Nilai Akhir</div>
                                                                 <div class="form-group">
                                                                     <label for="quiz"
                                                                         class="form-label @error('quiz') is-invalid @enderror">Quiz</label>
