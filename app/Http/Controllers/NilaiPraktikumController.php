@@ -129,8 +129,15 @@ class NilaiPraktikumController extends Controller
     public function import(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:csv,xls,xlsx',
+            'quiz' => 'required|integer',
+            'laporan' => 'required|integer',
+            'responsi' => 'required|integer',
         ]);
+        
+        if ( ((int)$request['quiz'] + (int)$request['laporan'] + (int)$request['responsi'] != 100)) {
+            return back()->with('fail', 'Persentase praktikum totalnya belum 100!');
+        }
 
         $file = $request->file('file');
 
@@ -145,7 +152,7 @@ class NilaiPraktikumController extends Controller
         File::delete(public_path('/nilai_praktikum/' . $nama_file));
 
         return redirect()
-            ->action([NilaiPraktikumController::class, 'importView'], ["kodematkul" => $request['kodematkul'], "namapraktikum" => $request['jenis_praktikum']]);
+            ->action([NilaiPraktikumController::class, 'importView'], ["kodematkul" => $request['kodematkul'], "namapraktikum" => $request['jenis_praktikum'], "quiz" => $request['quiz'], "laporan" => $request['laporan'], "responsi" => $request['responsi']]);
     }
 
     public function importView(Request $request)
