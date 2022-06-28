@@ -9,10 +9,11 @@ use Illuminate\Http\Request;
 use App\Exports\SoalOSCEExport;
 use App\Imports\SoalOSCEImport;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
-
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\File;
+
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class SettingOSCE extends Controller
 {
@@ -25,9 +26,9 @@ class SettingOSCE extends Controller
     {
         $osces = DB::table('nilai_o_s_c_e_s')
             ->select('nama_penguji', 'namaosce')
+            ->groupBy('nama_penguji', 'namaosce')
             ->where('nilai_o_s_c_e_s.deleted_at', null)
-            ->get()
-            ->unique('nama_penguji');
+            ->get();
 
         return view('dashboard.osce.admin.index', [
             'osces' => $osces
@@ -85,15 +86,24 @@ class SettingOSCE extends Controller
 
         $validatedData['nama_osce'] = strtoupper($validatedData['nama_osce']);
 
-        foreach ($validatedData['user_id'] as $user) {
-            $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
-                NilaiLain::create(['user_id' => $user])->id;
+        $getOsce = DB::table('nilai_o_s_c_e_s')
+            ->where('namaosce', $validatedData['nama_osce'])
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
+            ->first();
 
-            NilaiOSCE::create([
-                'nilai_lain_id' => $nilai_lain,
-                'namaosce' => $validatedData['nama_osce'],
-                'nama_penguji' => $validatedData['nama_dosen']
-            ]);
+        if ($getOsce == null) {
+            foreach ($validatedData['user_id'] as $user) {
+                $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
+                    NilaiLain::create(['user_id' => $user])->id;
+
+                NilaiOSCE::create([
+                    'nilai_lain_id' => $nilai_lain,
+                    'namaosce' => $validatedData['nama_osce'],
+                    'nama_penguji' => $validatedData['nama_dosen']
+                ]);
+            }
+        } else {
+            throw ValidationException::withMessages(['errorJam' => 'Sudah tersedia nama OSCE yang sama!']);
         }
 
         return redirect('/dashboard/settingosce')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');

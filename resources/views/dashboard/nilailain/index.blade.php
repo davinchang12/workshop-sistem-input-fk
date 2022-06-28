@@ -145,11 +145,11 @@
                         <div class="container mt-3 mb-3 border p-3">
                             <form action="/dashboard/nilailain/input-soca" method="post">
                                 @csrf
-                                <p>SOCA : {{ $namasoca->namasoca }}</p>
+                                <p>SOCA : {{ $namasoca->namasoca }} - {{ $namasoca->keterangan }}</p>
                                 <p>Pilih Mahasiswa : </p>
                                 <select class="form-select" id="mahasiswa_dipilih" name="mahasiswa_dipilih">
                                     @foreach ($socas as $soca)
-                                        @if ($soca->namasoca == $namasoca->namasoca)
+                                        @if ($soca->namasoca == $namasoca->namasoca && $soca->keterangan == $namasoca->keterangan)
                                             <option>{{ $soca->name }}</option>
                                         @endif
                                     @endforeach

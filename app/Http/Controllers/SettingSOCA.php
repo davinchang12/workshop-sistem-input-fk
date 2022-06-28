@@ -9,6 +9,7 @@ use App\Models\NilaiSOCA;
 use Illuminate\Http\Request;
 use App\Models\NilaiJenisSOCA;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class SettingSOCA extends Controller
 {
@@ -21,7 +22,7 @@ class SettingSOCA extends Controller
     {
         $socas = DB::table('nilai_s_o_c_a_s')
             ->select('nama_penguji', 'namasoca', 'keterangan')
-            ->groupBy('nama_penguji', 'namasoca')
+            ->groupBy('nama_penguji', 'keterangan', 'namasoca')
             ->where('deleted_at', '=', null)
             ->get();
 
@@ -80,24 +81,39 @@ class SettingSOCA extends Controller
             'user_id' => 'required'
         ]);
 
-        $validatedData['nama_soca'] = strtoupper($validatedData['nama_soca']);    
+        $validatedData['nama_soca'] = strtoupper($validatedData['nama_soca']);
 
         if (!str_contains(ucwords(strtolower($validatedData['keterangan'])), 'Semester')) {
-            $validatedData['keterangan'] = 'Semester '.$validatedData['keterangan'];
+            $validatedData['keterangan'] = 'Semester ' . $validatedData['keterangan'];
         }
 
         $validatedData['keterangan'] = ucwords(strtolower($validatedData['keterangan']));
 
-        foreach ($validatedData['user_id'] as $user) {
-            $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
-                NilaiLain::create(['user_id' => $user])->id;
+        $getSoca = DB::table('nilai_s_o_c_a_s')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
+            ->where('nilai_s_o_c_a_s.namasoca', $validatedData['nama_soca'])
+            ->where('nilai_s_o_c_a_s.keterangan', $validatedData['keterangan'])
+            ->select('nilai_s_o_c_a_s.namasoca')
+            ->first();
 
-            NilaiSOCA::create([
-                'nilai_lain_id' => $nilai_lain,
-                'namasoca' => $validatedData['nama_soca'],
-                'nama_penguji' => $validatedData['nama_dosen'],
-                'keterangan' => $validatedData['keterangan']
-            ]);
+        if ($getSoca == null) {
+            foreach ($validatedData['user_id'] as $user) {
+                $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
+                    NilaiLain::create(['user_id' => $user])->id;
+
+                NilaiSOCA::firstOrCreate(
+                    [
+                        'namasoca' => $validatedData['nama_soca'],
+                        'keterangan' => $validatedData['keterangan'],
+                        'nilai_lain_id' => $nilai_lain,
+                    ],
+                    [
+                        'nama_penguji' => $validatedData['nama_dosen'],
+                    ]
+                );
+            }
+        } else {
+            throw ValidationException::withMessages(['errorJam' => 'Sudah tersedia nama SOCA yang sama di semester yang sama!']);
         }
 
         return redirect('/dashboard/settingsoca')->with('success', 'Dosen dan mahasiswa berhasil ditambahkan!');
@@ -123,6 +139,7 @@ class SettingSOCA extends Controller
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.namasoca', $request['namasoca'])
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->select('users.id as user_id', 'nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.keterangan')
             ->get();
 
@@ -184,7 +201,7 @@ class SettingSOCA extends Controller
         $namasoca = $request->input('namasoca');
         $nama_penguji = $request->input('nama_penguji');
         $keterangan = $request->input('keterangan');
-    
+
         NilaiSOCA::where('namasoca', $namasoca)
             ->where('nama_penguji', $nama_penguji)
             ->where('keterangan', $keterangan)
@@ -196,7 +213,8 @@ class SettingSOCA extends Controller
     public function createSoal()
     {
         $nama_soca = DB::table('nilai_s_o_c_a_s')
-            ->select('namasoca')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
+            ->select('namasoca', 'keterangan')
             ->get()
             ->unique();
 
