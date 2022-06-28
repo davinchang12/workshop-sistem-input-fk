@@ -608,7 +608,7 @@
                                         placeholder="Cukup isi angkanya saja (tanpa %)" max="100" min="0">
                                 </div>
                                 <div class="form-group">
-                                    <label for="praktikum">Nilai Final CBT untuk UAB setelah combined</label>
+                                    <label for="praktikum">Nilai Final CBT untuk UAB Combined setelah Remedi</label>
                                     <input type="float" class="form-control" id="persenfinalcbtremidi"
                                         name="persenfinalcbtremidi" placeholder="Cukup isi angkanya saja (tanpa %)"
                                         max="100" min="0">
