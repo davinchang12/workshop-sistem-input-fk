@@ -69,7 +69,7 @@ class NilaiLainController extends Controller
             ->where('nama_penguji', auth()->user()->name)
             ->where('users.role', 'mahasiswa')
             ->where('nilai_o_s_c_e_s.deleted_at', null)
-            ->groupBy('users.name', 'nilai_o_s_c_e_s.namaosce')
+            ->groupBy('nilai_o_s_c_e_s.namaosce')
             ->select('nilai_o_s_c_e_s.namaosce')
             ->get();
 

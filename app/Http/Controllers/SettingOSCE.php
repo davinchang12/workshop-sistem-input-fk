@@ -26,6 +26,7 @@ class SettingOSCE extends Controller
     {
         $osces = DB::table('nilai_o_s_c_e_s')
             ->select('nama_penguji', 'namaosce')
+            ->groupBy('nama_penguji', 'namaosce')
             ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->get();
 
@@ -87,6 +88,7 @@ class SettingOSCE extends Controller
 
         $getOsce = DB::table('nilai_o_s_c_e_s')
             ->where('namaosce', $validatedData['nama_osce'])
+            ->where('nilai_o_s_c_e_s.deleted_at', null)
             ->first();
 
         if ($getOsce == null) {
