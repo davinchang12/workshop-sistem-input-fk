@@ -25,7 +25,7 @@
                 <label for="nama_soca" class="form-label">Nama SOCA</label>
                 <select class="form-select" id="nama_soca" name="nama_soca">
                     @foreach ($namasocas as $namasoca)
-                        <option value="{{ $namasoca->namasoca }}">{{ $namasoca->namasoca }}</option>
+                        <option value="{{ $namasoca->namasoca }}">{{ $namasoca->namasoca }} - {{$namasoca->keterangan}}</option>
                     @endforeach
                 </select>
             </div>

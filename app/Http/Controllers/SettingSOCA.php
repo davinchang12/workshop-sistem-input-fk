@@ -101,13 +101,13 @@ class SettingSOCA extends Controller
                 $nilai_lain = NilaiLain::where('user_id', $user)->first()->id ??
                     NilaiLain::create(['user_id' => $user])->id;
 
-                NilaiSOCA::firstOrcreate(
+                NilaiSOCA::firstOrCreate(
                     [
                         'namasoca' => $validatedData['nama_soca'],
                         'keterangan' => $validatedData['keterangan'],
+                        'nilai_lain_id' => $nilai_lain,
                     ],
                     [
-                        'nilai_lain_id' => $nilai_lain,
                         'nama_penguji' => $validatedData['nama_dosen'],
                     ]
                 );
@@ -139,6 +139,7 @@ class SettingSOCA extends Controller
             ->join('nilai_lains', 'nilai_s_o_c_a_s.nilai_lain_id', '=', 'nilai_lains.id')
             ->join('users', 'nilai_lains.user_id', '=', 'users.id')
             ->where('nilai_s_o_c_a_s.namasoca', $request['namasoca'])
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
             ->select('users.id as user_id', 'nilai_s_o_c_a_s.namasoca', 'nilai_s_o_c_a_s.nama_penguji', 'nilai_s_o_c_a_s.keterangan')
             ->get();
 
@@ -212,7 +213,8 @@ class SettingSOCA extends Controller
     public function createSoal()
     {
         $nama_soca = DB::table('nilai_s_o_c_a_s')
-            ->select('namasoca')
+            ->where('nilai_s_o_c_a_s.deleted_at', null)
+            ->select('namasoca', 'keterangan')
             ->get()
             ->unique();
 
