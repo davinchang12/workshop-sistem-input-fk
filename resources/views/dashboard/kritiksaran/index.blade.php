@@ -22,19 +22,19 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title">{{ $nilai->matkul->namamatkul }}</h5>
-                                    <small>{{ $nilai->matkul->kodematkul }}</small><br>
-                                    <small>{{ $nilai->matkul->keterangan }}</small><br>
-                                    <small>Tahun Ajaran {{ $nilai->matkul->tahun_ajaran }}</small>
+                                    <h5 class="card-title">{{ $nilai->namamatkul }}</h5>
+                                    <small>{{ $nilai->kodematkul }}</small><br>
+                                    <small>{{ $nilai->keterangan }}</small><br>
+                                    <small>Tahun Ajaran {{ $nilai->tahun_ajaran }}</small>
                                 </div>
                                 <div class="col-md-auto p-auto">
                                     @can('dosen')
                                     <div class="col pt-2">
-                                       
+
                                         <form action="/dashboard/kritikdansaran/show" method="get">
                                             @csrf
                                             <input type="hidden" name="matkul_dipilih" id=""
-                                                value="{{ $nilai->matkul->id }}">
+                                                value="{{ $nilai->id }}">
                                             <button class="btn btn-primary w-100 shadow-none"><span
                                                     data-feather="eye"></span></button>
                                         </form>
@@ -45,13 +45,13 @@
                                             <form action="/dashboard/kritikdansaran/create" method="get">
                                                 @csrf
                                                 <input type="hidden" name="matkul_dipilih" id=""
-                                                    value="{{ $nilai->matkul->id }}">
+                                                    value="{{ $nilai->id }}">
                                                 <button class="btn btn-primary w-100 shadow-none"><span
                                                         data-feather="edit"></span></button>
                                             </form>
                                         </div>
                                     @endcan
-                                    
+
                                 </div>
                             </div>
                         </div>

@@ -18,7 +18,13 @@ class KritikSaranController extends Controller
      */
     public function index()
     {
-        $nilais = Nilai::where('user_id', auth()->user()->id)->groupBy('matkul_id')->get();
+        $nilais = DB::table('nilais')
+            ->join('matkuls', 'nilais.matkul_id', '=', 'matkuls.id')
+            ->where('user_id', auth()->user()->id)
+            ->where('matkuls.deleted_at', null)
+            ->groupBy('matkul_id')
+            ->select('matkuls.namamatkul', 'matkuls.kodematkul', 'matkuls.id', 'matkuls.keterangan', 'matkuls.tahun_ajaran', 'matkuls.keterangan')
+            ->get();
         return view('dashboard.kritiksaran.index', [
             'nilais' => $nilais
         ]);
@@ -76,7 +82,7 @@ class KritikSaranController extends Controller
             ->whereNull('jadwals.deleted_at')
             ->get();
         $count = 0;
-        
+
         foreach($jadwals as $jadwal){
             $jadwalid = $jadwal->id;
             $ceksiswa = DB::table('kritik_sarans')
@@ -91,7 +97,7 @@ class KritikSaranController extends Controller
             ->where('jadwals.id', $jadwalid)
             ->whereNull('jadwals.deleted_at')
             ->value('kritik_sarans.user_id');
-            
+
             if($ceksiswa == $nimsiswa){
                 if($cekdosen == $validatedData['user_id']){
                     $count++;
